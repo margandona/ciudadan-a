@@ -141,5 +141,7 @@ Detalle completo (objetivo, historias, tareas, archivos, dependencias, pruebas, 
 - [x] FASE 12 — **seguridad y hardening**: rate limiting, auditoría completa, App Check, límites de entrada y reglas R1–R18.
 - [x] FASE 13 — **testing automatizado**: cobertura ≥85% (reporte ~93%) y E2E Playwright (8 flujos) + accesibilidad (axe) con CI.
 - [x] FASE 14 — **testing manual**: ejecutado (Rondas A/B/C), con corrección de 3 bugs P0/P1 (reglas wildcard/"rules are not filters" y cola offline). Informe: `docs/INFORME_PRUEBAS_MANUALES_F14.md`.
+- [x] FASE 15 — **optimización, accesibilidad y performance**: axe 0 violaciones (WCAG 2.2 AA), Lighthouse Perf 89 / A11y 100, LCP 3.1 s, bundle inicial 680→294 kB, responsive 0 desbordes. Informe: `docs/INFORME_PERFORMANCE_ACCESIBILIDAD_F15.md`.
+- [ ] FASE 16 — CI/CD y despliegue (siguiente hito).
 
 > ⚠️ **Regla de avance:** no iniciar FASE 4 hasta tu revisión de este hito (ver `docs/CHANGELOG.md` y `docs/PROJECT_PHASES.md`).

@@ -4,7 +4,7 @@ defineProps<{ title?: string }>();
 
 <template>
   <section class="card" :aria-label="title">
-    <h3 v-if="title" class="card-title">{{ title }}</h3>
+    <h2 v-if="title" class="card-title">{{ title }}</h2>
     <slot />
   </section>
 </template>

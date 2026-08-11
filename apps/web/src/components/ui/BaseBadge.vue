@@ -20,11 +20,11 @@ defineProps<{ tone?: "neutral" | "success" | "warning" | "danger" }>();
 }
 .badge[data-tone="success"] {
   background: #e2f4ee;
-  color: var(--color-accent);
+  color: #0a5c4c;
 }
 .badge[data-tone="warning"] {
   background: #fdf3e0;
-  color: var(--color-warning);
+  color: #8a5a13;
 }
 .badge[data-tone="danger"] {
   background: #fdecea;

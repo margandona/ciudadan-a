@@ -2,6 +2,23 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.15.0] — FASE 15 (Optimización, accesibilidad y performance)
+
+### Changed
+- **Accesibilidad WCAG 2.2 AA**: axe 0 violaciones en 11 rutas. Contraste de badges (`success`/`warning` ≥ 4.5:1), `aria-label` en selects de materiales, orden de encabezados (BaseCard → `h2`, preguntas de quiz → `h2`), landmark de `DeckPlayer` (main → div), medallas bloqueadas sin `opacity` (color muted AA).
+- **Performance**: code-splitting de Firebase — `app+auth` en el bundle inicial, `firestore+functions` lazy (`lib/firebaseApp.ts`); `manualChunks` para vendor (vue/router/pinia). Bundle inicial 680→294 kB min.
+- **PWA**: iconos PNG 192×192 y 512×512 + maskable en el manifest (instalabilidad).
+- **Responsive**: header nav con wrap, tablas con scroll horizontal contenido (`position: relative` en `.table-wrap`), filtros con wrap. 0 desbordes en 18 rutas a 360/640 px.
+- Flags de build: `VITE_FORCE_EMULATORS=true` para medir/ejecutar un build contra el Emulator Suite local.
+
+### Fixed
+- Desbordes horizontales en móvil (Clases, Dashboard de curso, Submissions, Quiz Results, Flipped Overview, Import, Projects).
+- `registerOfflineHandlers` pasa a import dinámico (no arrastra las Cloud Functions al bundle inicial).
+
+### Resultados
+- Lighthouse (login, móvil throttled): Performance 83→**89**, Accessibility **100**, Best Practices 96, SEO 91; LCP 3.6→**3.1 s**, FCP 3.4→**2.9 s**, TBT 0 ms, CLS 0.
+- Informe: `docs/INFORME_PERFORMANCE_ACCESIBILIDAD_F15.md`.
+
 ## [0.14.1] — FASE 14 (Testing manual ejecutado)
 
 ### Fixed

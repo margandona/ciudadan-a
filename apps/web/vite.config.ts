@@ -18,7 +18,12 @@ export default defineConfig({
         background_color: "#123a5f",
         display: "standalone",
         start_url: "/",
-        icons: [{ src: "icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
+        icons: [
+          { src: "icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+          { src: "icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+          { src: "icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+          { src: "icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+        ],
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,ico,png,woff2}"],
@@ -41,6 +46,18 @@ export default defineConfig({
       "@pclab/domain": fileURLToPath(new URL("../../packages/domain/src/index.ts", import.meta.url)),
       "@pclab/application/*": fileURLToPath(new URL("../../packages/application/src/$1", import.meta.url)),
       "@pclab/application": fileURLToPath(new URL("../../packages/application/src/index.ts", import.meta.url)),
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // Separa Vue/router/pinia en un chunk estable (caché). Firebase se divide
+        // naturalmente: app+auth en el bundle inicial; firestore/functions solo
+        // se cargan con las vistas que los usan (lazy).
+        manualChunks: {
+          vendor: ["vue", "vue-router", "pinia"],
+        },
+      },
     },
   },
   server: {

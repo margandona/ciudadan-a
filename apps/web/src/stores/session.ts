@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, type User } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { auth } from "@/lib/firebaseApp";
 import { ROLES, type Role } from "@pclab/shared";
 
 export interface SessionClaims {

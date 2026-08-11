@@ -144,7 +144,7 @@ onMounted(load);
     <template v-else>
       <BaseCard class="create" :title="'Nuevo material'">
         <form class="form" @submit.prevent="create">
-          <select v-model="createForm.type" class="select">
+          <select v-model="createForm.type" class="select" aria-label="Tipo de material">
             <option value="guia">Guía</option>
             <option value="evaluacion">Evaluación</option>
             <option value="rubrica">Rúbrica</option>
@@ -174,7 +174,7 @@ onMounted(load);
 
         <div class="row">
           <input v-model="vf(material.id).fileName" class="input" placeholder="Nombre del archivo (ej. guia-03.pdf)" />
-          <select v-model="vf(material.id).kind" class="select">
+          <select v-model="vf(material.id).kind" class="select" :aria-label="`Tipo de versión de ${material.title}`">
             <option value="GENERAL">General</option>
             <option value="DUA">DUA</option>
           </select>

@@ -108,6 +108,7 @@ onMounted(load);
 }
 .table-wrap {
   overflow-x: auto;
+  position: relative;
 }
 table {
   width: 100%;

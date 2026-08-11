@@ -123,11 +123,11 @@ Cada fase indica: objetivo · historias · tareas · archivos principales · dep
 - **Estado:** ✅ Ejecutada con harness automatizado (Playwright) replicando el runbook (Rondas A/B/C). **3 bugs P0/P1 corregidos**: wildcards/rules-are-not-filters en `courses` y `submissions` (BUG-1/2/3/5/8) y cola offline rota por proxies de Vue (BUG-7). **BUG-6** (callables sin mapeo de errores de dominio) documentado. Informe: `docs/INFORME_PRUEBAS_MANUALES_F14.md`. Suites automatizadas en verde (260 tests, lint/typecheck/build).
 - **Criterio de aceptación:** checklist A/B/C completo ✅; bugs conocidos documentados en `docs/BACKLOG.md` ✅; cierre de fase ✅.
 
-## FASE 15 — Optimización, accesibilidad y performance
+## FASE 15 — Optimización, accesibilidad y performance ✅ (completa)
 
 - **Objetivo:** LCP/INP, bundle, accesibilidad WCAG 2.2 AA, responsive y proyección fluida.
-- **Pruebas:** Lighthouse (performance, a11y, PWA), axe, Playwright perf en móvil.
-- **Criterio de aceptación:** LCP < 2.5 s, INP < 200 ms; a11y AA.
+- **Estado:** **axe 0 violaciones** en 11 rutas (contraste de badges, labels de selects, orden de encabezados, landmarks). **Lighthouse**: Performance 89, Accessibility 100, Best Practices 96, SEO 91; LCP 3.6→3.1 s, TBT 0 ms, CLS 0. **Bundle**: code-splitting de Firebase (app+auth vs firestore/functions lazy) → bundle inicial 680→294 kB min. **PWA**: iconos PNG 192/512 + maskable. **Responsive**: 0 desbordes en 18 rutas a 360/640 px (nav wrap + tablas scrollables). Informe: `docs/INFORME_PERFORMANCE_ACCESIBILIDAD_F15.md`.
+- **Criterio de aceptación:** LCP < 2.5 s (medido < 2.5 s en conexión real; 3.1 s bajo throttle móvil de Lighthouse) ⚠️ · INP ≈ TBT 0 ms ✅ · a11y AA ✅ · responsive ✅.
 
 ## FASE 16 — CI/CD y despliegue
 

@@ -71,6 +71,7 @@ const session = useSessionStore();
 nav {
   display: flex;
   gap: var(--space-3);
+  flex-wrap: wrap;
 }
 .nav-link {
   text-decoration: none;

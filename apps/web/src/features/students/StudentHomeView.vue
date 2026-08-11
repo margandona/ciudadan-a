@@ -193,10 +193,12 @@ onMounted(load);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: var(--space-3);
-  opacity: 0.55;
+}
+.badge-card:not(.earned) .icon,
+.badge-card:not(.earned) > strong {
+  color: var(--color-text-muted);
 }
 .badge-card.earned {
-  opacity: 1;
   border-color: var(--color-accent);
 }
 .badge-card .icon {

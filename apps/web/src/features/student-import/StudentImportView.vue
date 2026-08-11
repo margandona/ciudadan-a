@@ -226,6 +226,7 @@ function toneFor(row: CandidateStudent): "success" | "warning" | "neutral" | "da
 }
 .table-wrap {
   overflow-x: auto;
+  position: relative;
   margin: var(--space-3) 0;
 }
 table {

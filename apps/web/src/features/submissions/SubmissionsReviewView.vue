@@ -92,25 +92,27 @@ onMounted(load);
     <div v-else-if="submissions.length === 0" class="muted">Aún no hay evidencias entregadas.</div>
 
     <div v-else class="layout">
-      <table class="table">
-        <caption class="sr-only">Evidencias entregadas</caption>
-        <thead>
-          <tr>
-            <th scope="col">Estudiante</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Nota</th>
-            <th scope="col"><span class="sr-only">Abrir</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="s in submissions" :key="s.id" :class="{ active: selectedId === s.id }">
-            <td>{{ names.get(s.studentId) ?? s.studentId }}</td>
-            <td><BaseBadge :tone="s.status === SUBMISSION_STATUS.ENTREGADO ? 'warning' : 'neutral'">{{ s.status }}</BaseBadge></td>
-            <td>{{ s.score ?? "—" }}</td>
-            <td><button class="btn btn-ghost btn-sm" @click="select(s)">Revisar</button></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Evidencias entregadas</caption>
+          <thead>
+            <tr>
+              <th scope="col">Estudiante</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Nota</th>
+              <th scope="col"><span class="sr-only">Abrir</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="s in submissions" :key="s.id" :class="{ active: selectedId === s.id }">
+              <td>{{ names.get(s.studentId) ?? s.studentId }}</td>
+              <td><BaseBadge :tone="s.status === SUBMISSION_STATUS.ENTREGADO ? 'warning' : 'neutral'">{{ s.status }}</BaseBadge></td>
+              <td>{{ s.score ?? "—" }}</td>
+              <td><button class="btn btn-ghost btn-sm" @click="select(s)">Revisar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <section v-if="selected" class="panel" aria-label="Revisión de evidencia">
         <h2>Revisión</h2>
@@ -155,6 +157,10 @@ onMounted(load);
   .layout {
     grid-template-columns: 1fr 1fr;
   }
+}
+.table-wrap {
+  overflow-x: auto;
+  position: relative;
 }
 .table {
   width: 100%;

@@ -148,6 +148,7 @@ onMounted(load);
 }
 .filters {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
   margin: var(--space-3) 0;
 }

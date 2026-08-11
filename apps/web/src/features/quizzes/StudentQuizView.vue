@@ -111,7 +111,7 @@ onMounted(load);
       </div>
 
       <div v-for="(q, idx) in quiz.questions" :key="q.id" class="question">
-        <h3>{{ idx + 1 }}. {{ q.prompt }}</h3>
+        <h2 class="question-title">{{ idx + 1 }}. {{ q.prompt }}</h2>
         <p v-if="q.imageUrl || q.mapId" class="muted">Recurso visual pendiente de verificación.</p>
 
         <!-- choice/truefalse/identify/image/map -->

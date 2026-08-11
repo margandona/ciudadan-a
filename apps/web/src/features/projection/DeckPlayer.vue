@@ -97,7 +97,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKey));
       </div>
     </header>
 
-    <main class="stage" :class="{ revealed }">
+    <div class="stage" :class="{ revealed }">
       <template v-if="slide">
         <h1 v-if="slide.blocks.find((b) => b.type === 'title')?.text">{{ slide.blocks.find((b) => b.type === 'title')?.text }}</h1>
 
@@ -178,7 +178,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKey));
           </template>
         </div>
       </template>
-    </main>
+    </div>
   </div>
 </template>
 

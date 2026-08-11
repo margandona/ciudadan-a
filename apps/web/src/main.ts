@@ -7,7 +7,7 @@ import { useSyncStore } from "./stores/sync";
 import { registerOfflineHandlers } from "./services/offlineSafe";
 import "./styles/main.css";
 
-registerOfflineHandlers();
+void registerOfflineHandlers();
 
 const app = createApp(App);
 app.use(createPinia());

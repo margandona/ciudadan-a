@@ -62,27 +62,29 @@ onMounted(load);
 
       <p v-if="attempts.length === 0" class="muted">Aún no hay intentos.</p>
 
-      <table v-else class="table">
-        <caption class="sr-only">Intentos del quiz</caption>
-        <thead>
-          <tr>
-            <th scope="col">Estudiante</th>
-            <th scope="col">Puntaje</th>
-            <th scope="col">Máximo</th>
-            <th scope="col">Intentos</th>
-            <th scope="col">Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="a in attempts" :key="a.studentId">
-            <td>{{ a.studentId }}</td>
-            <td>{{ a.score }}</td>
-            <td>{{ a.maxScore }}</td>
-            <td>{{ a.status === "SUBMITTED" ? 1 : 0 }}</td>
-            <td>{{ QUIZ_ATTEMPT_STATUS_LABELS[a.status] }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div v-else class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Intentos del quiz</caption>
+          <thead>
+            <tr>
+              <th scope="col">Estudiante</th>
+              <th scope="col">Puntaje</th>
+              <th scope="col">Máximo</th>
+              <th scope="col">Intentos</th>
+              <th scope="col">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="a in attempts" :key="a.studentId">
+              <td>{{ a.studentId }}</td>
+              <td>{{ a.score }}</td>
+              <td>{{ a.maxScore }}</td>
+              <td>{{ a.status === "SUBMITTED" ? 1 : 0 }}</td>
+              <td>{{ QUIZ_ATTEMPT_STATUS_LABELS[a.status] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </template>
   </div>
 </template>
@@ -102,6 +104,10 @@ onMounted(load);
   border-radius: var(--radius);
   font-size: 1rem;
   margin: var(--space-2) 0 var(--space-4);
+}
+.table-wrap {
+  overflow-x: auto;
+  position: relative;
 }
 .table {
   width: 100%;

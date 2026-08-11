@@ -1,5 +1,4 @@
 import { enqueue, registerKindHandler } from "@/services/offlineQueue";
-import { submitEvidence, submitExitTicket, submitFeedback, submitQuizAttempt } from "@/services/importApi";
 
 export type OfflineResult<T> = { data: T; queued: false } | { queued: true };
 
@@ -19,8 +18,12 @@ export async function offlineSafe<T>(
   return { data: await fn(payload), queued: false };
 }
 
-/** Registra los handlers de reproducción de las acciones de estudiantes. */
-export function registerOfflineHandlers(): void {
+/**
+ * Registra los handlers de reproducción de las acciones de estudiantes.
+ * Import dinámico: evita cargar las Cloud Functions en el bundle inicial.
+ */
+export async function registerOfflineHandlers(): Promise<void> {
+  const { submitEvidence, submitExitTicket, submitFeedback, submitQuizAttempt } = await import("@/services/importApi");
   registerKindHandler("submitQuizAttempt", (p) => {
     const { quizId, answers } = p as { quizId: string; answers: unknown[] };
     return submitQuizAttempt(quizId, answers as never);
