@@ -2,6 +2,16 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.14.0] — FASE 14 (Testing manual)
+
+### Added
+- **Runbook de pruebas manuales** (`docs/MANUAL_TEST_RUNBOOK.md`): sesión guiada de ~30 min para el/la docente con credenciales demo, pasos A (profesor), B (estudiante) y C (evaluador), y checkboxes de cierre.
+- **Registro de bugs conocidos** en `docs/BACKLOG.md` (hallazgos de E2E y FASE 14; se mantiene vivo durante la ejecución manual).
+- Hoja de seguimiento en `docs/MANUAL_TEST_PLAN.md` (estado de ejecución, total de 82 casos, bugs reportados).
+
+### Changed
+- `docs/TEST_STRATEGY.md` y `README.md`: la FASE 14 queda como hito en ejecución (depende de la sesión manual del docente).
+
 ## [0.13.0] — FASE 13 (Testing automatizado completo)
 
 ### Added

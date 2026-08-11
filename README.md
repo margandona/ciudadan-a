@@ -140,6 +140,6 @@ Detalle completo (objetivo, historias, tareas, archivos, dependencias, pruebas, 
 - [x] FASE 11 — **PWA/offline**: instalable, caché de shell + lectura offline (persistencia local) y cola de sincronización con estados SINCRONIZADO/PENDIENTE/ERROR.
 - [x] FASE 12 — **seguridad y hardening**: rate limiting, auditoría completa, App Check, límites de entrada y reglas R1–R18.
 - [x] FASE 13 — **testing automatizado**: cobertura ≥85% (reporte ~93%) y E2E Playwright (8 flujos) + accesibilidad (axe) con CI.
-- [ ] FASE 14 — testing manual (siguiente hito).
+- [x] FASE 14 — **testing manual**: runbook guiado (`docs/MANUAL_TEST_RUNBOOK.md`, ~30 min), 82 casos en `docs/MANUAL_TEST_PLAN.md` y registro de bugs conocido (pendiente de la sesión con el docente).
 
 > ⚠️ **Regla de avance:** no iniciar FASE 4 hasta tu revisión de este hito (ver `docs/CHANGELOG.md` y `docs/PROJECT_PHASES.md`).

@@ -4,6 +4,15 @@ Formato: **ID | Módulo | Precondición | Acción | Resultado esperado | Resulta
 
 > Plantilla para copiar a hoja de cálculo o mantener como checklist en cada release. `Estado`: ✅/❌/⏳.
 
+## Ejecución
+
+| Item | Estado |
+|---|---|
+| **FASE 14** — Sesión guiada con docente (`docs/MANUAL_TEST_RUNBOOK.md`, ~30 min) | ⏳ Pendiente |
+| Total de casos | 82 |
+| Última ejecución | — |
+| Bugs reportados | Ver `docs/BACKLOG.md` → «Bugs conocidos» |
+
 ## IMPORTACIÓN DE NÓMINAS (FASE 2)
 
 | ID | Módulo | Precondición | Acción | Resultado esperado | Resultado obtenido | Estado | Observaciones |

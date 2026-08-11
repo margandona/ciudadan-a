@@ -117,10 +117,11 @@ Cada fase indica: objetivo · historias · tareas · archivos principales · dep
 - **Estado:** **cobertura** con umbrales (statements/functions/lines ≥85%, branches ≥80%) ✅ — reporte actual **93.43% / 80.87% / 91.35% / 93.43%**. **Playwright E2E** con 8 flujos + accesibilidad (axe) ✅ (harness verificado localmente; login y a11y verdes; estabilización completa vía CI/`pnpm test:e2e` con stack dedicado). **CI** con jobs de calidad, reglas/integración y E2E.
 - **Criterio de aceptación:** cobertura ≥ objetivo ✅ · E2E 8 flujos + a11y wiring ✅ (full-green pendiente de entorno estable, ver nota FASE 14).
 
-## FASE 14 — Testing manual
+## FASE 14 — Testing manual (en ejecución)
 
-- **Objetivo:** ejecutar `docs/MANUAL_TEST_PLAN.md` en staging con el profesor/evaluador.
-- **Criterio de aceptación:** checklist completo; bugs conocidos documentados en backlog.
+- **Objetivo:** ejecutar `docs/MANUAL_TEST_PLAN.md` (82 casos) con el docente sobre emulador/estaging; los hallazgos van al registro de bugs.
+- **Herramientas:** `docs/MANUAL_TEST_RUNBOOK.md` (sesión guiada ~30 min), credenciales demo, checkboxes de cierre.
+- **Criterio de aceptación:** checklist A/B/C completo; bugs conocidos documentados en `docs/BACKLOG.md` → «Bugs conocidos»; cierre de fase al informar el estado.
 
 ## FASE 15 — Optimización, accesibilidad y performance
 

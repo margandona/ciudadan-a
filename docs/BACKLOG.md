@@ -47,6 +47,18 @@ Prioridades: **P0** (bloqueante para MVP), **P1** (MVP), **P2** (post-MVP / V2).
 | 34 | Como PROFESOR quiero recursos docentes compartidos entre colegas para colaborar | P2 | M |
 | 35 | Como equipo quiero analítica predictiva opt-in con revisión humana para anticipar dificultades | P2 | XL |
 
+## Bugs conocidos / deuda de testing
+
+Registro vivo de hallazgos (de FASE 14 y posteriores). Se mueven aquí los bugs confirmados; los sospechosos se documentan en su observación del plan manual.
+
+| # | Descripción | Severidad | Estado |
+|---|---|---|---|
+| B1 | Suite E2E Playwright **lenta/flaky en Windows** (workers=1, estado compartido del emulador); full-green reproducible solo vía job de CI en Linux | P1 | Documentado |
+| B2 | Quiz con límite de intentos: una vez agotados, el UI mantiene el botón hasta recargar (la respuesta queda bloqueada en backend) | P2 | Pendiente de confirmar |
+| B3 | Acciones offline no idempotentes entre corridas: re-ejecutar la misma acción puede duplicar registro si el cliente no refresca estado tras sincronizar | P2 | Pendiente de confirmar |
+| B4 | Emulador de Firestore exige `-Duser.language=en` en Windows (crash con locale `es_CL`) | P3 | Workaround documentado |
+| B5 | El `webServer` del config de Playwright se cuelga al arrancar Vite automáticamente en esta máquina; hay que levantar Vite a mano (`pnpm dev:web`) | P3 | Workaround documentado |
+
 ## Deuda técnica / tareas de soporte
 
 - Semillas completas de las 12 misiones (contenido editorial de calidad con licencias verificadas).
