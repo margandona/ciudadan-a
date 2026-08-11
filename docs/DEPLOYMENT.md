@@ -2,74 +2,88 @@
 
 ## 1. Entornos
 
-| Entorno | Firebase project (sugerido) | Dominio sugerido | Uso |
+| Entorno | Firebase project | Dominio sugerido | Uso |
 |---|---|---|---|
-| `development` | `pclab-dev` | localhost (Emulator) | desarrollo local |
+| `development` | `ciudadania-lab` (emulador local) | localhost (Emulator Suite) | desarrollo local |
 | `test` | `pclab-test` | — | CI (rules, integración, E2E) |
-| `staging` | `pclab-staging` | `staging-providenciaciudadanialab.web.app` | validación pedagógica |
-| `production` | `pclab-prod` | `providenciaciudadanialab.web.app` (o dominio institucional) | colegio |
+| `staging/preview` | `ciudadania-lab` (Hosting channels) | `ciudadania-lab--pr<N>.web.app` | validación por PR |
+| `production` | `ciudadania-lab` | `ciudadania-lab.web.app` (o dominio institucional) | colegio |
 
-- Configuración en `.firebaserc` y `firebase.json` (hosting, functions, firestore, storage, emulator).
-- Proyectos separados evitan que reglas/datos de staging afecten producción.
+> Se usa **un proyecto Firebase con Hosting channels** para preview/staging y el canal `live` para producción. Si se prefiere separar proyectos, añadir alias en `.firebaserc` y apuntar los workflows a `--project <alias>`.
 
 ## 2. Estructura del repositorio y Git
 
 ```
-main            producción estable (deploy manual o por tag)
-develop         integración continua (deploy a staging)
-feature/*       ramas por historia (PR hacia develop)
+main            producción estable (push → deploy live)
+feature/*       ramas por historia (PR → CI + preview channel)
 ```
 
-Commits semánticos: `feat:`, `fix:`, `test:`, `docs:`, `refactor:`, `chore:`. Protección: PR obligatorio + revisión; main protegido.
+- Commits semánticos: `feat:`, `fix:`, `test:`, `docs:`, `refactor:`, `chore:`.
+- Protección recomendada: PR obligatorio con revisión; `main` protegido.
 
-## 3. Pipeline GitHub Actions
+## 3. Pipeline GitHub Actions (implementado)
 
-### Workflow A — PR (pull_request)
-1. `lint` (ESLint + Prettier)
-2. `typecheck` (vue-tsc)
-3. `unit` + `component` (Vitest)
-4. `rules` tests (Emulator)
-5. `build` (Vite)
-6. `npm audit` (dependencias)
+### `ci.yml` — Control de calidad (PR y push a main/develop)
+1. `lint` (ESLint)
+2. `typecheck` (vue-tsc + tsc server)
+3. `test:unit` + **cobertura** (umbrales ≥85%)
+4. `build` (web + functions)
+5. Rules + integración contra el **emulador** (`pclab-test`)
+6. E2E Playwright + **accesibilidad (axe)** con emuladores + seeds
 
-### Workflow B — push a develop
-1. Todo lo anterior
-2. E2E Playwright contra staging emulado (o build preview)
-3. a11y (axe)
-4. Deploy a **staging**
+### `preview.yml` — PR → preview channel
+1. Todo el CI (reutiliza `ci.yml` vía `workflow_call`)
+2. Deploy de **Hosting channel** `pr<N>` (7 días) y comenta la URL en el PR
+3. Se omite el deploy si no existe `FIREBASE_TOKEN` (el CI sigue corriendo)
 
-### Workflow C — tag/release (`v*`) a main
-1. Todas las suites
-2. Validación manual del plan (`docs/MANUAL_TEST_PLAN.md`)
-3. Deploy a **production** (hosting + functions + firestore rules + storage rules + indexes)
-4. Versionado de contenido: seed de `content/` al proyecto de producción (solo contenido aprobado)
+### `deploy.yml` — push a `main` → producción
+1. Todo el CI
+2. `pnpm build:web` con variables de producción
+3. `firebase deploy --only hosting,firestore:rules,firestore:indexes,storage:rules,functions`
+
+### Variables de build (producción)
+
+| Variable | Origen |
+|---|---|
+| `VITE_FIREBASE_API_KEY`, `AUTH_DOMAIN`, `PROJECT_ID`, `STORAGE_BUCKET`, `MESSAGING_SENDER_ID`, `APP_ID` | GitHub Secrets (`VITE_*`) |
+| `VITE_RECAPTCHA_SITE_KEY` | GitHub Secret (clave web de **App Check**) |
+| `VITE_USE_EMULATORS=false` | fijo en el workflow |
+
+### Secretos de GitHub requeridos
+- `FIREBASE_TOKEN` — token del CLI (`firebase login:ci`) o `GCP_SA_KEY` de una service account con rol Editor en el proyecto.
+- `VITE_FIREBASE_*` — configuración web de Firebase.
+- `VITE_RECAPTCHA_SITE_KEY` — activa **App Check** en producción (requisito de FASE 16).
 
 ## 4. Despliegue local / manual
 
 ```bash
 # desarrollo con emuladores
-pnpm dev            # frontend
-pnpm emulator       # Emulator Suite (auth, firestore, storage, functions)
+pnpm dev            # frontend (5199)
+pnpm emulator       # Emulator Suite (auth 9098, firestore 8088, functions 5002, storage 9200)
 
-# build y preview
-pnpm build && pnpm preview
+# build de producción (sin emuladores) + preview local
+$env:VITE_USE_EMULATORS="false"; pnpm build:web
+pnpm -w @pclab/web preview
 
-# deploy por entorno
-pnpm deploy:staging
-pnpm deploy:prod
+# build de medición contra emuladores locales (FASE 15)
+$env:VITE_FORCE_EMULATORS="true"; pnpm build:web
+
+# deploy por entorno (requiere FIREBASE_TOKEN o login)
+firebase deploy --only hosting,firestore:rules,firestore:indexes,storage:rules,functions --project ciudadania-lab
+firebase hosting:channel:deploy mi-preview --expires 7d --project ciudadania-lab
 ```
 
 ## 5. Reglas de despliegue
 
-1. Nunca deploy de rules/Storage sin tests de reglas verdes.
-2. Los seeds de contenido requieren revisión (nunca en PR automático a producción sin aprobación).
-3. Variables por entorno en `.env.*`; secretos en GitHub Secrets.
-4. App Check habilitado en staging y producción (clave web añadida).
+1. Nunca deploy de reglas/Storage sin tests de reglas verdes (el CI las ejecuta).
+2. Los **seeds de contenido** (`content/`) se aplican contra emuladores para pruebas; a producción solo con revisión explícita (script `pnpm seed:content` con `--prod` autorizado).
+3. Variables por entorno en `.env.*`; secretos en GitHub Secrets (nunca en el repo).
+4. **App Check** activado en el build de producción vía `VITE_RECAPTCHA_SITE_KEY` (ver `apps/web/src/lib/firebaseApp.ts`).
 5. Auditoría de deploys: changelog + tag; rollback documentado (deploy de versión anterior).
-6. `firebase deploy --only hosting:prod,functions:prod` con confirmación explícita.
+6. `firebase deploy` en CI usa `--only` explícito (hosting, rules, indexes, storage rules, functions).
 
 ## 6. Observabilidad
 
 - Logger central (info/warn/error) sin secretos ni datos privados.
 - Métricas de error opcionales (Sentry) solo con datos agregados y sin PII.
-- Revisión de logs de Functions para rate limiting y errores 5xx en staging.
+- Revisión de logs de Functions para rate limiting y errores 5xx en staging/producción.

@@ -1,0 +1,61 @@
+name: Preview
+
+on:
+  pull_request:
+
+concurrency:
+  group: preview-${{ github.event.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+
+  preview:
+    name: Preview channel de hosting
+    needs: checks
+    runs-on: ubuntu-latest
+    if: secrets.FIREBASE_TOKEN != ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Build web
+        run: pnpm build:web
+        env:
+          VITE_USE_EMULATORS: "false"
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID || 'ciudadania-lab' }}
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
+      - name: Deploy preview channel (7 días)
+        id: preview
+        run: |
+          URL=$(pnpm exec firebase hosting:channel:deploy "pr${{ github.event.number }}" --expires 7d --project "${{ secrets.FIREBASE_PROJECT_ID || 'ciudadania-lab' }}" --token "${{ secrets.FIREBASE_TOKEN }}" 2>&1 | grep -oE 'https://[^ ]+' | head -1)
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+      - name: Comentar la URL de preview
+        if: steps.preview.outputs.url != ''
+        uses: actions/github-script@v7
+        env:
+          URL: ${{ steps.preview.outputs.url }}
+        with:
+          script: |
+            const { issue: { number }, repo } = context;
+            await github.rest.issues.createComment({
+              issue_number: number,
+              owner: repo.owner,
+              repo: repo.repo,
+              body: `Preview disponible: ${process.env.URL}`,
+            });

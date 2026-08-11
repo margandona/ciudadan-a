@@ -2,6 +2,16 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.16.0] — FASE 16 (CI/CD y despliegue)
+
+### Added
+- **Hosting de Firebase** en `firebase.json` (SPA rewrite, cache headers inmutable para assets, `sw.js` no-cache).
+- **Workflows**: `ci.yml` reutilizable (`workflow_call`), `preview.yml` (PR → Hosting channel `pr<N>` 7 días + comentario de URL) y `deploy.yml` (push a `main` → build de producción + deploy de hosting/rules/indexes/storage/functions).
+- Runbook completo en `docs/DEPLOYMENT.md` (entornos, secretos, App Check, despliegue manual).
+
+### Changed
+- README y `docs/PROJECT_PHASES.md`: FASE 16 como fase final completada (deploy end-to-end pendiente de secrets del propietario).
+
 ## [0.15.0] — FASE 15 (Optimización, accesibilidad y performance)
 
 ### Changed
