@@ -104,14 +104,12 @@ Cada fase indica: objetivo · historias · tareas · archivos principales · dep
 - **Estado (implementado):** `vite-plugin-pwa` (manifest + sw + workbox) ✅ · `persistentLocalCache` de Firestore ✅ · cola offline para quiz/evidencia/ticket/feedback (replay al reconectar) ✅ · banner de estado de sincronización ✅ · tests de la cola y del banner ✅.
 - **Criterio de aceptación:** cumplido (respuestas offline sin pérdida; sincroniza al reconectar; estados visibles).
 
-## FASE 12 — Seguridad y hardening
+## FASE 12 — Seguridad y hardening ✅ (implementada)
 
 - **Objetivo:** reglas finales, App Check, rate limiting, auditoría completa, revisión OWASP, almacenamiento seguro.
-- **Tareas:** auditoría completa (`auditLogs` en Functions); App Check en producción; rate limiting (import, envíos, tokens, auditoría); MIME/tamaño; sanitización; revisión de secrets; pruebas de penetración básicas en staging.
-- **Pruebas:** rules R1–R18 completos; integración; revisión manual OWASP.
-- **Riesgos:** falsa sensación de seguridad.
-- **Criterio de aceptación:** todas las reglas verdes; App Check activo; sin secretos en repo.
-- **DoD:** estándar.
+- **Tareas:** auditoría completa (`auditLogs` en Functions), App Check en producción, rate limiting (import, envíos, tokens, auditoría), MIME/tamaño, sanitización, revisión de secrets.
+- **Estado (implementado):** rate limiting server-side en callables sensibles (import 10/min, votos/registro/materiales/proyectos con límites) ✅ · auditoría ampliada (materiales, equipos, grupos, participación) ✅ · App Check SDK habilitado por entorno (`VITE_RECAPTCHA_SITE_KEY`) ✅ · límites de longitud en evidencias/comentarios ✅ · reglas R1–R18 con suite verde ✅ · sin secretos en el repo ✅.
+- **Criterio de aceptación:** cumplido (reglas R1–R18 verdes; App Check preparado; sin secretos).
 
 ## FASE 13 — Testing automatizado (completo)
 

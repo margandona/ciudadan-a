@@ -195,4 +195,19 @@ describe("Firestore rules — aislamiento y permisos", () => {
       teacherDb.doc(`submissions/${subId}`).update({ status: "RETROALIMENTADO", score: 6, teacherFeedback: "Bien" }),
     );
   });
+
+  it("R17: nadie desde cliente escribe auditLogs (solo servidor)", async () => {
+    const db = teacherCtx("teach1").firestore();
+    await assertFails(db.doc("auditLogs/hack").set({ action: "X" }));
+  });
+
+  it("R18: la estudiante no escribe proyectos ni equipos (solo server/docente)", async () => {
+    const studentDb = studentCtx("studA").firestore();
+    await assertFails(
+      studentDb.doc("projects/p1").set({ classId: "class-11", courseId: "course-3med-d-2026", teamId: "t1" }),
+    );
+    await assertFails(
+      studentDb.doc("projectTeams/t1").set({ courseId: "course-3med-d-2026", name: "X", members: ["studA"] }),
+    );
+  });
 });

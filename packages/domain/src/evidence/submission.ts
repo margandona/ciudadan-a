@@ -23,10 +23,15 @@ export function canStudentSubmit(current: SubmissionStatus): boolean {
   return STUDENT_EDITABLE.includes(current);
 }
 
-/** Valida que la evidencia tenga contenido o adjuntos. */
+/** Valida que la evidencia tenga contenido o adjuntos y límites de tamaño. */
 export function validateSubmissionContent(submission: Submission): void {
   const { content, attachments } = submission;
-  const hasText = Boolean(content?.text?.trim() || content?.shortAnswer?.trim());
+  const text = content?.text?.trim() ?? "";
+  const short = content?.shortAnswer?.trim() ?? "";
+  if (text.length > 4000 || short.length > 4000) {
+    throw new ValidationError("El texto de la evidencia es demasiado largo.");
+  }
+  const hasText = text.length > 0 || short.length > 0;
   const hasChoice = typeof content?.choice === "number";
   const hasAttachments = Array.isArray(attachments) && attachments.length > 0;
   if (!hasText && !hasChoice && !hasAttachments) {
@@ -35,6 +40,11 @@ export function validateSubmissionContent(submission: Submission): void {
   const MAX_ATTACHMENTS = 5;
   if (attachments.length > MAX_ATTACHMENTS) {
     throw new ValidationError("Máximo 5 adjuntos por evidencia.");
+  }
+  for (const attachment of attachments) {
+    if (attachment.name && attachment.name.length > 200) {
+      throw new ValidationError("El nombre de un adjunto es demasiado largo.");
+    }
   }
 }
 

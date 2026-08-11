@@ -27,6 +27,16 @@ Formato: **ID | Módulo | Precondición | Acción | Resultado esperado | Resulta
 | F3-06 | Overview profesor | Estudiante completó | Abrir `/teacher/classes/class-01/flipped` | Resumen total/completadas y listado por estudiante | | | |
 | F3-07 | Clase DRAFT | Clase sin programar | Intentar abrir su flipped como estudiante | Acceso denegado / no disponible | | | |
 
+## SEGURIDAD (FASE 12)
+
+| ID | Módulo | Precondición | Acción | Resultado esperado | Resultado obtenido | Estado | Observaciones |
+|---|---|---|---|---|---|---|---|
+| F12-01 | Rate limit import | Sesión docente | Llamar `importStudents` > 10 veces en un minuto | Se rechaza con "Demasiadas solicitudes" | | | |
+| F12-02 | Auditoría | Acciones sensibles | Revisar `auditLogs` (emulador) | Registros de materiales/equipos/participación/medallas | | | |
+| F12-03 | Límite de entrada | Evidencia | Enviar texto > 4000 caracteres | Rechazado | | | |
+| F12-04 | App Check | Producción | Activar `VITE_RECAPTCHA_SITE_KEY` | App Check emite tokens | | | |
+| F12-05 | Reglas | Cliente | Intentar escribir `auditLogs`/`projects` desde el cliente | Denegado (R17/R18) | | | |
+
 ## PWA / OFFLINE (FASE 11)
 
 | ID | Módulo | Precondición | Acción | Resultado esperado | Resultado obtenido | Estado | Observaciones |

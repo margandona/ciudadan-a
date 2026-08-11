@@ -227,6 +227,7 @@ export class ReviewMaterialUseCase {
       throw new Error(`Transición inválida: ${material.status} → ${input.status}`);
     }
     if (!input.comment.trim()) throw new Error("La revisión requiere un comentario.");
+    if (input.comment.length > 4000) throw new Error("El comentario es demasiado largo.");
 
     const now = new Date().toISOString();
     const updated: Material = { ...material, status: input.status, reviewAt: now, updatedAt: now };

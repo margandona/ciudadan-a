@@ -138,6 +138,7 @@ Detalle completo (objetivo, historias, tareas, archivos, dependencias, pruebas, 
 - [x] FASE 9 — **feedback cada 3 clases + analítica**: feedback privado/anónimo (clases 1/4/7/10), tendencias docentes y analítica descriptiva con alertas simples.
 - [x] FASE 10 — **proyecto Ovalle 2035 + ABP/ApS**: equipos, proyecto de 11 campos, evaluación con rúbrica (docente/autoevaluación/coevaluación) y feria.
 - [x] FASE 11 — **PWA/offline**: instalable, caché de shell + lectura offline (persistencia local) y cola de sincronización con estados SINCRONIZADO/PENDIENTE/ERROR.
-- [ ] FASE 12 — seguridad y hardening (siguiente hito).
+- [x] FASE 12 — **seguridad y hardening**: rate limiting, auditoría completa, App Check, límites de entrada y reglas R1–R18.
+- [ ] FASE 13 — testing automatizado completo (Playwright E2E) (siguiente hito).
 
 > ⚠️ **Regla de avance:** no iniciar FASE 4 hasta tu revisión de este hito (ver `docs/CHANGELOG.md` y `docs/PROJECT_PHASES.md`).

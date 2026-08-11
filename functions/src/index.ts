@@ -1,4 +1,5 @@
 import { onCall, HttpsError } from "firebase-functions/v2/https";
+import { rateLimit } from "./rate-limit";
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
@@ -238,6 +239,7 @@ function requireAuth(actor: AuthContext | null): void {
 export const previewStudents = onCall(async (request): Promise<ImportPreview> => {
   const actor = actorFrom(request);
   requireAuth(actor);
+  rateLimit(actor?.uid ?? "anon", "previewStudents", 30);
 
   const data = request.data as { fileName?: string; data?: string } | undefined;
   if (!data?.data) throw new HttpsError("invalid-argument", "Falta el contenido del archivo.");
@@ -252,6 +254,7 @@ export const previewStudents = onCall(async (request): Promise<ImportPreview> =>
 export const importStudents = onCall(async (request): Promise<ImportResult> => {
   const actor = actorFrom(request);
   requireAuth(actor);
+  rateLimit(actor?.uid ?? "anon", "importStudents", 10);
 
   const data = request.data as { rows?: CandidateStudent[]; fileName?: string; year?: number } | undefined;
   if (!data?.rows?.length) throw new HttpsError("invalid-argument", "No hay filas para importar.");
@@ -364,6 +367,7 @@ export const reviewSubmission = onCall(
   async (request): Promise<Submission> => {
     const actor = actorFrom(request);
     requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "reviewSubmission", 60);
     const data = request.data as
       | { submissionId?: string; courseId?: string; status?: SubmissionStatus; score?: number | null; teacherFeedback?: string }
       | undefined;
@@ -420,6 +424,7 @@ export const registerParticipation = onCall(
   async (request): Promise<{ saved: number }> => {
     const actor = actorFrom(request);
     requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "registerParticipation", 120);
     const data = request.data as
       | { courseId?: string; classId?: string; entries?: { studentId: string; skill: string; level: number; note?: string }[] }
       | undefined;
@@ -430,6 +435,14 @@ export const registerParticipation = onCall(
       { courseId: data.courseId, classId: data.classId, entries: data.entries },
       actor,
     );
+    await audit.log({
+      userId: actor?.uid ?? "server",
+      action: "PARTICIPATION_REGISTERED",
+      entity: "participation",
+      courseId: data.courseId,
+      timestamp: new Date().toISOString(),
+      metadata: { classId: data.classId, saved },
+    });
     return { saved };
   },
 );
@@ -502,6 +515,7 @@ export const createProjectionToken = onCall(
   async (request): Promise<unknown> => {
     const actor = actorFrom(request);
     requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "createProjectionToken", 30);
     const data = request.data as { classId?: string; courseId?: string } | undefined;
     if (!data?.classId || !data?.courseId) throw new HttpsError("invalid-argument", "Faltan datos.");
     return createProjectionTokenUseCase.run({ classId: data.classId, courseId: data.courseId }, actor);
@@ -548,10 +562,20 @@ export const createMaterial = onCall(
     requireAuth(actor);
     const data = request.data as Partial<Parameters<CreateMaterialUseCase["run"]>[0]> | undefined;
     if (!data?.courseId || !data?.type || !data?.title) throw new HttpsError("invalid-argument", "Datos incompletos.");
-    return createMaterialUseCase.run(
+    const material = await createMaterialUseCase.run(
       { courseId: data.courseId, type: data.type, title: data.title, classId: data.classId, hasDUA: data.hasDUA ?? false, oaIds: data.oaIds, printDeadline: data.printDeadline, reviewDeadline: data.reviewDeadline },
       actor,
     );
+    await audit.log({
+      userId: actor?.uid ?? "server",
+      action: "MATERIAL_CREATED",
+      entity: "materials",
+      entityId: material.id,
+      courseId: material.courseId,
+      timestamp: new Date().toISOString(),
+      metadata: { type: material.type },
+    });
+    return material;
   },
 );
 
@@ -574,6 +598,7 @@ export const sendMaterialForReview = onCall(
   async (request): Promise<Material> => {
     const actor = actorFrom(request);
     requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "sendMaterialForReview", 30);
     const data = request.data as { materialId?: string; courseId?: string; evaluatorEmail?: string } | undefined;
     if (!data?.materialId || !data?.courseId || !data?.evaluatorEmail) throw new HttpsError("invalid-argument", "Datos incompletos.");
     return sendMaterialForReviewUseCase.run({ materialId: data.materialId, courseId: data.courseId, evaluatorEmail: data.evaluatorEmail }, actor);
@@ -612,6 +637,7 @@ export const reviewMaterial = onCall(
   async (request): Promise<unknown> => {
     const actor = actorFrom(request);
     requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "reviewMaterial", 30);
     const data = request.data as { materialId?: string; courseId?: string; status?: string; comment?: string } | undefined;
     if (!data?.materialId || !data?.courseId || !data?.status || !data?.comment) {
       throw new HttpsError("invalid-argument", "Datos incompletos.");
@@ -644,6 +670,7 @@ export const awardBadge = onCall(
   async (request): Promise<unknown> => {
     const actor = actorFrom(request);
     requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "awardBadge", 30);
     const data = request.data as { courseId?: string; studentId?: string; badgeId?: string } | undefined;
     if (!data?.courseId || !data?.studentId || !data?.badgeId) throw new HttpsError("invalid-argument", "Faltan datos.");
     return awardBadgeUseCase.run({ courseId: data.courseId, studentId: data.studentId, badgeId: data.badgeId }, actor);
@@ -708,7 +735,17 @@ export const createTeam = onCall(
     requireAuth(actor);
     const data = request.data as { courseId?: string; name?: string; memberIds?: string[] } | undefined;
     if (!data?.courseId || !data?.name || !Array.isArray(data.memberIds)) throw new HttpsError("invalid-argument", "Datos incompletos.");
-    return createTeamUseCase.run({ courseId: data.courseId, name: data.name, memberIds: data.memberIds }, actor);
+    const team = await createTeamUseCase.run({ courseId: data.courseId, name: data.name, memberIds: data.memberIds }, actor);
+    await audit.log({
+      userId: actor?.uid ?? "server",
+      action: "TEAM_CREATED",
+      entity: "projectTeams",
+      entityId: team.id,
+      courseId: team.courseId,
+      timestamp: new Date().toISOString(),
+      metadata: { members: team.members.length },
+    });
+    return team;
   },
 );
 
@@ -728,7 +765,16 @@ export const randomGroups = onCall(
     requireAuth(actor);
     const data = request.data as { courseId?: string; groupCount?: number } | undefined;
     if (!data?.courseId || !data?.groupCount) throw new HttpsError("invalid-argument", "Faltan datos.");
-    return randomGroupsUseCase.run({ courseId: data.courseId, groupCount: data.groupCount }, actor);
+    const groups = await randomGroupsUseCase.run({ courseId: data.courseId, groupCount: data.groupCount }, actor);
+    await audit.log({
+      userId: actor?.uid ?? "server",
+      action: "TEAM_GROUPS_CREATED",
+      entity: "projectTeams",
+      courseId: data.courseId,
+      timestamp: new Date().toISOString(),
+      metadata: { groups: groups.length },
+    });
+    return groups;
   },
 );
 
@@ -786,6 +832,7 @@ export const assessProject = onCall(
   async (request): Promise<unknown> => {
     const actor = actorFrom(request);
     requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "assessProject", 30);
     const data = request.data as { projectId?: string; courseId?: string; rubricId?: string; scores?: Record<string, number>; feedback?: string } | undefined;
     if (!data?.projectId || !data?.courseId || !data?.rubricId || !data?.scores) throw new HttpsError("invalid-argument", "Datos incompletos.");
     return assessProjectUseCase.run(data as never, actor);

@@ -70,6 +70,14 @@ Ver `docs/USER_ROLES.md`. Resumen de capas:
 - Variables típicas: `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`, `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_ENABLE_EMULATORS`, `VITE_USE_EMULATORS`.
 - El `API key` de Firebase es pública por diseño (solo identifica proyecto); los secretos reales viven en Cloud Functions + Secret Manager.
 
+## 7. Hardening (FASE 12, implementado)
+
+- **Rate limiting server-side** (por usuario + acción, ventana deslizante) en callables sensibles: importación (10/min), preview (30), materiales/envíos (30), tokens de proyección (30), medallas y evaluación de proyectos (30), revisión de evidencias (60), participación (120). Para múltiples instancias de producción, mover el contador a Firestore/Redis.
+- **App Check**: el SDK se inicializa con `ReCaptchaV3Provider` cuando existe `VITE_RECAPTCHA_SITE_KEY`; activar la clave en la consola de Firebase para `ciudadania-lab` (producción/staging). En emulador/desarrollo no se exige.
+- **Auditoría completa** en `auditLogs` (solo server): importación, activación de clases, revisión de evidencias, envío/revisión de materiales, creación de materiales/equipos/grupos, participación, medallas, evaluación de proyectos, presentaciones.
+- **Límites de entrada**: texto de evidencia y comentarios (4000), nombres de adjuntos (200), 5 adjuntos; formatos PDF/DOCX ≤ 50 MB en materiales.
+- **Reglas Firestore R1–R18** con suite de pruebas verde en el emulador.
+
 ## 8. Notas de la fase de nóminas (implementado)
 
 - **Datos reales = privados**: `3ro/*.xlsx`, `3ro/*.json` (incluido el **service account** `ciudadania-lab-firebase-adminsdk-*.json`) y `private-data/` están en `.gitignore`. Nunca versionar ni exponer.

@@ -2,6 +2,16 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.12.0] — FASE 12 (Seguridad y hardening)
+
+### Security
+- **Rate limiting server-side** (ventana deslizante por usuario+acción) en callables sensibles: importación (10/min), preview (30), envío/revisión de materiales (30), tokens de proyección (30), medallas (30), evaluación de proyectos (30), revisión de evidencias (60), registro de participación (120).
+- **Auditoría ampliada**: `MATERIAL_CREATED`, `TEAM_CREATED`, `TEAM_GROUPS_CREATED`, `PARTICIPATION_REGISTERED` (además de las existentes).
+- **App Check**: SDK inicializado cuando existe `VITE_RECAPTCHA_SITE_KEY` (producción/staging); documentado para activarlo en la consola.
+- **Límites de entrada**: texto de evidencia (4000) y nombres de adjuntos (200); comentarios de revisión (4000).
+- **Reglas Firestore** R1–R18 (incluye R17/R18: `auditLogs` solo servidor; estudiantes no escriben `projects`/`projectTeams`) con suite verde.
+- Sin secretos en el repositorio (solo `.env.example`); `3ro/*` ignorado.
+
 ## [0.11.0] — FASE 11 (PWA / offline)
 
 ### Added

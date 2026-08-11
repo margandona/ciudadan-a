@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { initializeFirestore, persistentLocalCache, connectFirestoreEmulator } from "firebase/firestore";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 /**
  * Config Firebase del proyecto ciudadania-lab.
@@ -26,6 +27,16 @@ export const db = initializeFirestore(app, {
   localCache: persistentLocalCache(),
 });
 export const functions = getFunctions(app);
+
+// App Check: se activa cuando existe VITE_RECAPTCHA_SITE_KEY (producción/staging).
+// En desarrollo/emulador se omite (se puede usar un debug token local).
+const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY as string | undefined;
+if (siteKey) {
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider(siteKey),
+    isTokenAutoRefreshEnabled: true,
+  });
+}
 
 const useEmulators = (import.meta.env.VITE_USE_EMULATORS ?? "true") !== "false";
 if (useEmulators && import.meta.env.DEV) {
