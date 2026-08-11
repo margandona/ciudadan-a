@@ -64,6 +64,12 @@ Registro vivo de hallazgos (de FASE 14 y posteriores). Se mueven aquí los bugs 
 
 ## Deuda técnica / tareas de soporte
 
-- Semillas completas de las 12 misiones (contenido editorial de calidad con licencias verificadas).
-- Atribución de imágenes y gráficos de datos (INE/BCN/CEPAL) en cada bloque.
+- **Contenido editorial incompleto**: hay 12 misiones/aulas invertidas/presentaciones, pero solo **2 quizzes** (class-01, class-07) y **3 actividades** (class-01, class-03, class-06) en `content/`. Faltan ~10 quizzes y ~9 actividades para completar las 12 misiones.
+- **Atribución de imágenes y gráficos** de datos (INE/BCN/CEPAL) en cada bloque; verificar licencias antes de habilitar bloques visuales/video.
+- **Proyecto Firebase real de producción** + App Check (clave reCAPTCHA) + Storage bucket + usuario docente con claims.
+- **Secretos de GitHub** (`FIREBASE_TOKEN`, `VITE_FIREBASE_*`, `VITE_RECAPTCHA_SITE_KEY`) y primer deploy end-to-end (`docs/GUIA_PRIMER_DEPLOY.md`).
+- **Sesión de prueba manual con el/la docente** sobre producción (`docs/MANUAL_TEST_RUNBOOK.md`) — la FASE 14 la ejecutó el harness, falta la validación humana.
+- **BUG-6** pendiente: mapear `ValidationError` de dominio a `HttpsError` con mensaje en `functions/src` (crear equipo con estudiantes ya asignadas muestra error genérico).
+- Confirmar **B2** (UI de intentos agotados) y **B3** (idempotencia offline entre corridas).
+- E2E full-green estable: el job está cableado en CI, pero en Windows es flaky (ver B1); validar en Linux/CI.
 - Actualización de `docs/CHANGELOG.md` por release.
