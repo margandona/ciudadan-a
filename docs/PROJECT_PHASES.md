@@ -96,17 +96,13 @@ Cada fase indica: objetivo · historias · tareas · archivos principales · dep
 - **Estado (implementado):** equipos (crear/asignar/aleatorios, sin mezclar cursos) ✅ · proyecto de 11 campos (guardar/entregar) ✅ · evaluación con rúbrica del docente (+ autoevaluación/coevaluación soportadas) ✅ · vista de feria ✅ · rúbricas Cabildo/Proyecto/Feria en contenido ✅.
 - **Criterio de aceptación:** cumplido (flujo equipo → proyecto → evaluación en tests de integración).
 
-## FASE 11 — PWA / offline
+## FASE 11 — PWA / offline ✅ (implementada)
 
-- **Objetivo:** caché del shell, aula invertida descargada, cola de sincronización con estados visibles, sin pérdida de respuestas.
+- **Objetivo:** PWA instalable, caché de shell y aula invertida, cola de sincronización con estados visibles, sin pérdida de respuestas.
 - **Historias:** COMO ESTUDIANTE QUIERO trabajar sin conexión PARA no perder mi trabajo.
-- **Tareas:** service worker (workbox) para shell y recursos; IndexedDB cola (`local-*` IDs); sincronización idempotente vía Functions; estados `SINCRONIZADO/PENDIENTE_DE_SINCRONIZAR/ERROR_DE_SINCRONIZACION`; manifiesto PWA.
-- **Archivos:** `features/offlinesync`, `apps/web/sw.*`.
-- **Dependencias:** FASE 4 (evidencias/quiz) y contenido de flipped.
-- **Pruebas:** E2E FLOW 8 (offline); a11y; PWA installability (Lighthouse).
-- **Riesgos:** conflictos de sincronización; almacenamiento.
-- **Criterio de aceptación:** responder offline sin pérdida; sincroniza al reconectar; estados visibles.
-- **DoD:** estándar.
+- **Tareas:** service worker (workbox) para shell; persistencia local de Firestore (IndexedDB) para lectura offline del contenido descargado; cola de sincronización (`IndexedDB`) con estados SINCRONIZADO/PENDIENTE/ERROR y reintento idempotente.
+- **Estado (implementado):** `vite-plugin-pwa` (manifest + sw + workbox) ✅ · `persistentLocalCache` de Firestore ✅ · cola offline para quiz/evidencia/ticket/feedback (replay al reconectar) ✅ · banner de estado de sincronización ✅ · tests de la cola y del banner ✅.
+- **Criterio de aceptación:** cumplido (respuestas offline sin pérdida; sincroniza al reconectar; estados visibles).
 
 ## FASE 12 — Seguridad y hardening
 

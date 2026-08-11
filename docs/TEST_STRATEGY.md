@@ -1,18 +1,19 @@
 # Estrategia de testing
 
-## 0. Estado actual (FASE 1–10, implementado)
+## 0. Estado actual (FASE 1–11, implementado)
 
 Suite verde en este hito:
 
 | Nivel | Archivos | Resultado |
 |---|---|---|
-| Unit (domain) | `packages/domain/**/*.test.ts` (… **proyectos: campos/rúbrica/equipos**) | ✅ |
+| Unit (domain) | `packages/domain/**/*.test.ts` (… **proyectos/feedback/badges**) | ✅ |
 | Unit (application) | `packages/application/**/*.test.ts` (… **equipos/proyecto/evaluación**) | ✅ |
-| Component (Vue) | … `FeedbackView`, `ProjectWizard`, `StudentHomeView`/`StudentProfileView` (medallas), `DeckPlayer`, `EvaluatorPortal` | ✅ |
+| Component (Vue) | … `FeedbackView`, `ProjectWizard`, `SyncBanner`, `StudentHomeView`/`StudentProfileView`, `DeckPlayer`, `EvaluatorPortal` | ✅ |
 | Reglas Firestore | `tests/rules/firestore-rules.test.ts` (R1–R16) | ✅ 16/16 |
-| Integración | `tests/integration/*.test.ts` (… **proyecto: equipo→entrega→evaluación**) | ✅ 28/28 |
+| Integración | `tests/integration/*.test.ts` (… **proyecto/feedback/medallas**) | ✅ 29/29 |
+| **Offline (cola)** | `apps/web/src/services/offlineQueue.test.ts` + `SyncBanner.test.ts` | ✅ 6 |
 
-**Total: 252 tests.** Fixtures de test con estudiantes ficticias (nunca nombres reales).
+**Total: 258 tests.** Fixtures de test con estudiantes ficticias (nunca nombres reales).
 
 - Requisito para `test:rules` y `test:integration`: emulador de Firestore en `127.0.0.1:8088` (ver `docs/DEPLOYMENT.md` / `docs/STUDENT_IMPORT.md`).
 

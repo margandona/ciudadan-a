@@ -5,6 +5,7 @@ import { SUBMISSION_STATUS } from "@pclab/shared";
 import { useSessionStore } from "@/stores/session";
 import { listActivities, submissionRepo } from "@/infrastructure/appDeps";
 import { submitEvidence } from "@/services/importApi";
+import { offlineSafe } from "@/services/offlineSafe";
 import BaseCard from "@/components/ui/BaseCard.vue";
 import BaseBadge from "@/components/ui/BaseBadge.vue";
 import SkeletonRows from "@/components/ui/SkeletonRows.vue";
@@ -19,6 +20,7 @@ const texts = ref<Record<string, string>>({});
 const links = ref<Record<string, string>>({});
 const loading = ref(true);
 const error = ref("");
+const notice = ref("");
 const submittingId = ref("");
 
 function actor() {
@@ -47,12 +49,18 @@ async function send(activity: Activity): Promise<void> {
     const content = activity.evidenceTypes.includes("link") && links.value[activity.id]
       ? { text: links.value[activity.id] }
       : { text: texts.value[activity.id] ?? "" };
-    const submission = await submitEvidence({
+    const payload = {
       activityId: activity.id,
       classId: props.classId,
       courseId: session.courseId,
       content,
-    });
+    };
+    const result = await offlineSafe("submitEvidence", payload, (p) => submitEvidence(p as never));
+    if (result.queued) {
+      notice.value = "Evidencia guardada en tu dispositivo (PENDIENTE_DE_SINCRONIZAR). Se sincronizará con conexión.";
+      return;
+    }
+    const submission = result.data;
     submissions.value.set(activity.id, submission);
     texts.value[activity.id] = "";
     links.value[activity.id] = "";

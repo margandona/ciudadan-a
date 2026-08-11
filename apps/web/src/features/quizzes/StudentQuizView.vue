@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from "vue";
 import type { QuizAnswerGiven, QuizAttempt, StudentQuestion, StudentQuiz } from "@pclab/shared";
 import { getQuizForStudent, submitQuizAttempt } from "@/services/importApi";
+import { offlineSafe } from "@/services/offlineSafe";
 import BaseBadge from "@/components/ui/BaseBadge.vue";
 import SkeletonRows from "@/components/ui/SkeletonRows.vue";
 import AppErrorState from "@/components/ui/AppErrorState.vue";
@@ -15,6 +16,7 @@ const answers = ref<Record<string, QuizAnswerGiven["given"]>>({});
 const orderPick = ref<Record<string, string[]>>({});
 const matchPick = ref<Record<string, string>>({});
 const attempt = ref<QuizAttempt | null>(null);
+const offlineQueued = ref(false);
 const submitting = ref(false);
 
 const answeredCount = computed(() => Object.keys(answers.value).length);
@@ -65,7 +67,16 @@ async function submit(): Promise<void> {
     const payload: QuizAnswerGiven[] = quiz.value.questions
       .filter((q) => answers.value[q.id] !== undefined)
       .map((q) => ({ qid: q.id, given: answers.value[q.id]! }));
-    attempt.value = await submitQuizAttempt(props.quizId, payload);
+    const result = await offlineSafe(
+      "submitQuizAttempt",
+      { quizId: props.quizId, answers: payload },
+      (p) => submitQuizAttempt((p as { quizId: string }).quizId, (p as { answers: QuizAnswerGiven[] }).answers),
+    );
+    if (result.queued) {
+      offlineQueued.value = true;
+      return;
+    }
+    attempt.value = result.data;
   } catch (e) {
     error.value = (e as Error).message ?? "No se pudo enviar.";
   } finally {
@@ -88,6 +99,10 @@ onMounted(load);
       <p class="muted">
         {{ quiz.questions.length }} preguntas
         <template v-if="quiz.quiz.config.attempts > 0"> · {{ quiz.quiz.config.attempts }} intento(s)</template>
+      </p>
+
+      <p v-if="offlineQueued" class="notice" role="status">
+        Respuestas guardadas en tu dispositivo. Se sincronizarán cuando tengas conexión.
       </p>
 
       <div v-if="attempt" class="result" role="status">

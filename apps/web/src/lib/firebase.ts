@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { initializeFirestore, persistentLocalCache, connectFirestoreEmulator } from "firebase/firestore";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 
 /**
@@ -19,7 +19,12 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+
+// Persistencia local (IndexedDB): permite leer offline contenido ya descargado
+// (aula invertida, clases) y mantener la cola de sincronización.
+export const db = initializeFirestore(app, {
+  localCache: persistentLocalCache(),
+});
 export const functions = getFunctions(app);
 
 const useEmulators = (import.meta.env.VITE_USE_EMULATORS ?? "true") !== "false";

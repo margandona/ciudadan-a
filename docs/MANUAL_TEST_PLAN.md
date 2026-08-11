@@ -27,6 +27,16 @@ Formato: **ID | Módulo | Precondición | Acción | Resultado esperado | Resulta
 | F3-06 | Overview profesor | Estudiante completó | Abrir `/teacher/classes/class-01/flipped` | Resumen total/completadas y listado por estudiante | | | |
 | F3-07 | Clase DRAFT | Clase sin programar | Intentar abrir su flipped como estudiante | Acceso denegado / no disponible | | | |
 
+## PWA / OFFLINE (FASE 11)
+
+| ID | Módulo | Precondición | Acción | Resultado esperado | Resultado obtenido | Estado | Observaciones |
+|---|---|---|---|---|---|---|---|
+| F11-01 | Instalación | HTTPS + manifest | Instalar la app | Se instala; abre standalone | | | |
+| F11-02 | Shell offline | App cargada una vez | Cortar red y recargar | Shell y recursos básicos cargan | | | |
+| F11-03 | Respuesta offline | Aula invertida descargada | Responder quiz/evidencia/ticket/feedback sin red | Cola guarda; banner PENDIENTE | | | |
+| F11-04 | Reconexión | Acciones en cola | Restaurar red | Sincroniza; banner SINCRONIZADO; sin pérdida | | | |
+| F11-05 | Error | Sin red al sincronizar | Intentar sincronizar | Banner ERROR + reintento | | | |
+
 ## PROYECTO Y FERIA (FASE 10)
 
 | ID | Módulo | Precondición | Acción | Resultado esperado | Resultado obtenido | Estado | Observaciones |

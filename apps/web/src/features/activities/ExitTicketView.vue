@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import type { ExitTicket } from "@pclab/shared";
 import { useSessionStore } from "@/stores/session";
 import { submitExitTicket } from "@/services/importApi";
+import { offlineSafe } from "@/services/offlineSafe";
 import BaseCard from "@/components/ui/BaseCard.vue";
 import AppErrorState from "@/components/ui/AppErrorState.vue";
 
@@ -12,6 +13,7 @@ const session = useSessionStore();
 const form = ref<ExitTicket["answers"]>({ learned: "", evidence: "", concept: "", question: "", relationOvalle: "" });
 const difficulty = ref(3);
 const sent = ref(false);
+const pending = ref(false);
 const loading = ref(false);
 const error = ref("");
 
@@ -19,13 +21,16 @@ async function send(): Promise<void> {
   loading.value = true;
   error.value = "";
   try {
-    await submitExitTicket({
+    const payload = {
       classId: props.classId,
       courseId: session.courseId,
       answers: form.value,
       difficulty: difficulty.value,
-    });
+    };
+    const result = await offlineSafe("submitExitTicket", payload, (p) => submitExitTicket(p as never));
     sent.value = true;
+    pending.value = result.queued;
+    error.value = "";
   } catch (e) {
     error.value = (e as Error).message ?? "No se pudo enviar.";
   } finally {
@@ -73,7 +78,9 @@ onMounted(() => {
       </form>
     </BaseCard>
 
-    <p v-else class="ok" role="status">¡Ticket enviado! Gracias por cerrar la clase.</p>
+    <p v-else class="ok" role="status">
+      {{ pending ? "¡Ticket guardado! Se sincronizará cuando tengas conexión." : "¡Ticket enviado! Gracias por cerrar la clase." }}
+    </p>
   </div>
 </template>
 

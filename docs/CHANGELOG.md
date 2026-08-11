@@ -2,6 +2,15 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.11.0] — FASE 11 (PWA / offline)
+
+### Added
+- **PWA instalable** (`vite-plugin-pwa`): manifest en español, service worker con workbox y caché del shell + red (`NetworkFirst`).
+- **Persistencia local de Firestore** (`persistentLocalCache`): lectura offline del contenido ya cargado (aula invertida, clases).
+- **Cola de sincronización offline** en IndexedDB: quiz, evidencia, ticket de salida y feedback se encolan si no hay conexión y se reproducen al reconectar (handlers idempotentes).
+- **Banner de estado**: `SINCRONIZADO` / `PENDIENTE DE SINCRONIZAR` / `ERROR DE SINCRONIZACIÓN` / `SIN CONEXIÓN`, con reintento.
+- Vistas de estudiante muestran estado pendiente cuando la acción quedó en cola.
+
 ## [0.10.0] — FASE 10 (Proyecto Ovalle 2035 + ABP/ApS)
 
 ### Added

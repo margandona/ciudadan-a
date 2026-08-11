@@ -137,6 +137,7 @@ Detalle completo (objetivo, historias, tareas, archivos, dependencias, pruebas, 
 - [x] FASE 8 — **gamificación**: 10 medallas con criterios, otorgamiento automático y manual (sin nota ni rankings), galería y mensajes positivos.
 - [x] FASE 9 — **feedback cada 3 clases + analítica**: feedback privado/anónimo (clases 1/4/7/10), tendencias docentes y analítica descriptiva con alertas simples.
 - [x] FASE 10 — **proyecto Ovalle 2035 + ABP/ApS**: equipos, proyecto de 11 campos, evaluación con rúbrica (docente/autoevaluación/coevaluación) y feria.
-- [ ] FASE 11 — PWA/offline (siguiente hito).
+- [x] FASE 11 — **PWA/offline**: instalable, caché de shell + lectura offline (persistencia local) y cola de sincronización con estados SINCRONIZADO/PENDIENTE/ERROR.
+- [ ] FASE 12 — seguridad y hardening (siguiente hito).
 
 > ⚠️ **Regla de avance:** no iniciar FASE 4 hasta tu revisión de este hito (ver `docs/CHANGELOG.md` y `docs/PROJECT_PHASES.md`).

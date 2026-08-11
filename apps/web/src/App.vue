@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useSessionStore } from "@/stores/session";
 import { ROLES } from "@pclab/shared";
+import SyncBanner from "@/components/SyncBanner.vue";
 
 const session = useSessionStore();
 </script>
@@ -32,6 +33,7 @@ const session = useSessionStore();
     </nav>
     <button class="btn btn-ghost" @click="session.logout()">Salir ({{ session.role || ROLES.ESTUDIANTE }})</button>
   </header>
+  <SyncBanner />
   <main class="app-main">
     <RouterView />
   </main>

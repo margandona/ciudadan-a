@@ -88,6 +88,12 @@ Estado actual de los emuladores (verificado): **Firestore 8088 ✅ · Auth 9098 
 37. Profesor: `/teacher/projects` → evaluar con rúbrica (y ver autoevaluación/coevaluación).
 38. Profesor: `/teacher/fair` → tarjetas de los proyectos presentados.
 
+### L. PWA / offline (FASE 11)
+39. Instalar la app (manifest) y probar recarga sin conexión (shell + aula invertida ya vista).
+40. Con la red cortada, responder un quiz/evidencia/ticket/feedback → banner `PENDIENTE`.
+41. Restaurar la red → sincroniza; banner `SINCRONIZADO`; sin pérdida de respuestas.
+42. Forzar un fallo de red al sincronizar → banner `ERROR` + botón `Reintentar`.
+
 ## 4. Comandos útiles
 
 ```powershell

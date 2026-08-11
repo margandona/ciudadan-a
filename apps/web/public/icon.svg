@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="36" fill="#123a5f"/>
+  <circle cx="96" cy="84" r="40" fill="none" stroke="#2f9e83" stroke-width="8"/>
+  <path d="M122 110 L150 150" stroke="#2f9e83" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="96" cy="84" r="12" fill="#7fd6bf"/>
+  <text x="96" y="172" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#f4f6f8">OVALLE 2035</text>
+</svg>

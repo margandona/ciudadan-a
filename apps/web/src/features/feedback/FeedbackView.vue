@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import type { FeedbackApp, FeedbackLearning } from "@pclab/shared";
 import { useSessionStore } from "@/stores/session";
 import { submitFeedback } from "@/services/importApi";
+import { offlineSafe } from "@/services/offlineSafe";
 import BaseCard from "@/components/ui/BaseCard.vue";
 import AppErrorState from "@/components/ui/AppErrorState.vue";
 
@@ -13,6 +14,7 @@ const anon = ref(true);
 const app = ref<FeedbackApp>({ easyToFind: 3, clear: 3, working: 3, open: "" });
 const learning = ref<FeedbackLearning>({ objective: 3, clarity: 3, helpful: 3, participated: 3, comfortable: 3, bestActivity: "", change: "", keep: "" });
 const sent = ref(false);
+const pending = ref(false);
 const busy = ref(false);
 const error = ref("");
 
@@ -34,8 +36,11 @@ async function send(): Promise<void> {
   busy.value = true;
   error.value = "";
   try {
-    await submitFeedback({ classId: props.classId, courseId: session.courseId, anon: anon.value, app: app.value, learning: learning.value });
+    const payload = { classId: props.classId, courseId: session.courseId, anon: anon.value, app: app.value, learning: learning.value };
+    const result = await offlineSafe("submitFeedback", payload, (p) => submitFeedback(p as never));
     sent.value = true;
+    pending.value = result.queued;
+    error.value = "";
   } catch (e) {
     error.value = (e as Error).message ?? "No se pudo enviar.";
   } finally {
@@ -89,7 +94,9 @@ onMounted(() => undefined);
       </form>
     </BaseCard>
 
-    <p v-else class="ok" role="status">¡Gracias por tu feedback! Se guardó de forma privada.</p>
+    <p v-else-if="sent" class="ok" role="status">
+      {{ pending ? "Feedback guardado en tu dispositivo. Se sincronizará cuando tengas conexión." : "¡Gracias por tu feedback! Se guardó de forma privada." }}
+    </p>
   </div>
 </template>
 
