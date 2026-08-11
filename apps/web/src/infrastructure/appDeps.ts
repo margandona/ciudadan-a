@@ -31,7 +31,7 @@ export function currentActor(): { uid: string; role: string; courses: string[] }
 }
 
 export const studentRepo = new WebStudentRepository(db);
-export const courseRepo = new WebCourseRepository(db);
+export const courseRepo = new WebCourseRepository(db, () => useSessionStore().courses);
 export const classRepo = new WebClassRepository(db);
 export const scheduleRepo = new WebClassScheduleRepository(db);
 export const lessonRepo = new WebFlippedLessonRepository(db);

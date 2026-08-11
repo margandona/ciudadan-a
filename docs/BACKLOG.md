@@ -58,6 +58,9 @@ Registro vivo de hallazgos (de FASE 14 y posteriores). Se mueven aquí los bugs 
 | B3 | Acciones offline no idempotentes entre corridas: re-ejecutar la misma acción puede duplicar registro si el cliente no refresca estado tras sincronizar | P2 | Pendiente de confirmar |
 | B4 | Emulador de Firestore exige `-Duser.language=en` en Windows (crash con locale `es_CL`) | P3 | Workaround documentado |
 | B5 | El `webServer` del config de Playwright se cuelga al arrancar Vite automáticamente en esta máquina; hay que levantar Vite a mano (`pnpm dev:web`) | P3 | Workaround documentado |
+| B6 | **Callables no mapean errores de dominio**: `createTeam` con estudiantes ya en equipos devuelve 500 INTERNAL sin mensaje (la UI muestra error genérico). Recomendación: convertir `ValidationError` a `HttpsError` con mensaje en `functions/src` | P1 | Documentado (hallado en FASE 14) |
+| B7 | **Cola offline rota por proxies de Vue**: `enqueue` fallaba con «could not be cloned» en IndexedDB y las respuestas offline nunca sincronizaban | P0 | **Corregido** (JSON-clone en `enqueue`) y verificado |
+| B8 | **Reglas «rules are not filters» + wildcards**: listados de `courses` con wildcard de ruta → «Null value error»; queries del cliente no filtradas por el campo que leen las reglas (courses, submissions estudiante) | P0 | **Corregido** (reglas + repos) y verificado |
 
 ## Deuda técnica / tareas de soporte
 

@@ -68,7 +68,10 @@ service cloud.firestore {
     // courses y courseMembers — pertenencia por courseId.
     // ==============================================================
     match /courses/{courseId} {
-      allow read: if signedIn() && (isInCourse(courseId) || isAdminish());
+      // Usa resource.data.courseId (no el wildcard de ruta) para que los listados
+      // se evalúen por documento en el emulador (el wildcard de ruta lanza
+      // "Null value error. for 'list'" en queries de lista).
+      allow read: if signedIn() && (isInCourseOf(resource.data) || isAdminish());
       allow create, update, delete: if onlyServer();
     }
 
@@ -228,7 +231,7 @@ service cloud.firestore {
       allow read: if signedIn() && (
         isAdminish()
         || (isRole('PROFESOR') && isInCourseOf(resource.data))
-        || (isRole('ESTUDIANTE') && request.auth.uid == resource.data.studentId)
+        || (isRole('ESTUDIANTE') && request.auth.uid == resource.data.get('studentId', ''))
       );
       // La estudiante solo escribe su propia evidencia; score/feedback
       // y cambios de status quedan restringidos a Functions/profesor.
@@ -287,7 +290,7 @@ service cloud.firestore {
       allow read: if signedIn() && (
         isAdminish()
         || (isRole('PROFESOR') && isInCourseOf(resource.data))
-        || (isRole('EVALUADOR') && resource.data.evaluatorId == request.auth.uid)
+        || (isRole('EVALUADOR') && resource.data.get('evaluatorId', '') == request.auth.uid)
       );
       allow create: if signedIn() && isRole('PROFESOR')
         && isInCourseOf(request.resource.data);

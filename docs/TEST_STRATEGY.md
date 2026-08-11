@@ -17,7 +17,7 @@ Suite verde en este hito:
 
 - Cobertura (domain+application): **93.43% stmts · 80.87% branch · 91.35% funcs · 93.43% lines** (umbrales: 85/80/85/85). Ejecutar: `pnpm test:coverage`.
 - **E2E Playwright** (`e2e/`): 8 flujos + a11y (axe). Ejecutar: `pnpm test:e2e` (requiere emuladores + seeds; el CI levanta el stack y corre los seeds automáticamente).
-- **Manual (FASE 14):** `docs/MANUAL_TEST_RUNBOOK.md` (sesión guiada ~30 min) sobre `docs/MANUAL_TEST_PLAN.md` (82 casos); hallazgos → `docs/BACKLOG.md` → «Bugs conocidos».
+- **Manual (FASE 14):** ejecutado (ver `docs/INFORME_PRUEBAS_MANUALES_F14.md`); runbook `docs/MANUAL_TEST_RUNBOOK.md` sobre `docs/MANUAL_TEST_PLAN.md` (82 casos); hallazgos → `docs/BACKLOG.md` → «Bugs conocidos».
 
 - Requisito para `test:rules` y `test:integration`: emulador de Firestore en `127.0.0.1:8088` (ver `docs/DEPLOYMENT.md` / `docs/STUDENT_IMPORT.md`).
 

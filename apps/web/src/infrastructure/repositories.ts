@@ -80,7 +80,10 @@ export class WebStudentRepository implements StudentRepository {
 
 /** Repositorio de lectura de cursos (cliente). */
 export class WebCourseRepository implements CourseRepository {
-  constructor(private readonly db: Firestore) {}
+  constructor(
+    private readonly db: Firestore,
+    private readonly getCourses?: () => string[],
+  ) {}
 
   async findById(id: string): Promise<Course | null> {
     const d = await getDoc(doc(this.db, "courses", id));
@@ -89,15 +92,18 @@ export class WebCourseRepository implements CourseRepository {
   }
 
   async findBySectionYear(section: string, year: number): Promise<Course | null> {
+    // Regla "rules are not filters": la query debe filtrar por courseId (el campo
+    // que leen las reglas), o Firestore la rechaza. Filtramos por membresía y
+    // resolvemos section/year en memoria.
+    const courses = this.getCourses?.() ?? [];
+    if (courses.length === 0) return null;
     const snap = await getDocs(
-      query(
-        collection(this.db, "courses"),
-        where("section", "==", section),
-        where("year", "==", year),
-      ),
+      query(collection(this.db, "courses"), where("courseId", "in", courses)),
     );
-    if (snap.empty) return null;
-    return courseFromDoc(snap.docs[0]!.id, snap.docs[0]!.data());
+    const match = snap.docs
+      .map((d) => courseFromDoc(d.id, d.data()))
+      .find((c) => c.section === section && c.year === year);
+    return match ?? null;
   }
 
   async upsert(_course: Course): Promise<Course> {
@@ -253,6 +259,14 @@ export class WebSubmissionRepository implements SubmissionRepository {
     if (snap.empty) return null;
     const d = snap.docs[0]!;
     return submissionFromDoc(d.id, d.data());
+  }
+
+  /** Evidencias de una estudiante en una clase (query consistente con la regla ESTUDIANTE). */
+  async findByStudentAndClass(studentId: string, classId: string): Promise<Submission[]> {
+    const snap = await getDocs(
+      query(collection(this.db, "submissions"), where("studentId", "==", studentId), where("classId", "==", classId)),
+    );
+    return snap.docs.map((d) => submissionFromDoc(d.id, d.data()));
   }
 
   async listByClass(courseId: string, classId: string): Promise<Submission[]> {

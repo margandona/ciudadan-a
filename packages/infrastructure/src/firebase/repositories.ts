@@ -93,6 +93,7 @@ export class FirestoreCourseRepository implements CourseRepository {
 
 function courseToRecord(course: Course): Record<string, unknown> {
   return {
+    courseId: course.id,
     name: course.name,
     level: course.level,
     section: course.section,

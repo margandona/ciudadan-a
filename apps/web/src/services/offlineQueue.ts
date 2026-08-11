@@ -34,10 +34,13 @@ export function registerKindHandler(kind: string, handler: KindHandler): void {
 
 /** Encola una acción para sincronizar cuando haya conexión. */
 export async function enqueue(kind: string, payload: unknown): Promise<QueueItem> {
+  // Aplana a JSON puro: los proxies reactivos de Vue no son clonables en IndexedDB
+  // ("could not be cloned"), lo que rompía la cola offline.
+  const plain = JSON.parse(JSON.stringify(payload ?? null));
   const item: QueueItem = {
     id: newId(),
     kind,
-    payload,
+    payload: plain,
     createdAt: new Date().toISOString(),
     status: SYNC_STATUS.PENDING,
     attempts: 0,

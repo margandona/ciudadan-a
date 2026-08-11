@@ -32,8 +32,7 @@ async function load(): Promise<void> {
   error.value = "";
   try {
     activities.value = await listActivities.run(props.classId, actor());
-    const all = await submissionRepo.listByClass(session.courseId, props.classId);
-    const mine = all.filter((s) => s.studentId === session.studentId);
+    const mine = await submissionRepo.findByStudentAndClass(session.studentId, props.classId);
     submissions.value = new Map(mine.map((s) => [s.activityId, s]));
   } catch (e) {
     error.value = (e as Error).message ?? "No disponible.";

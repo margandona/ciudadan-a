@@ -8,10 +8,10 @@ Formato: **ID | Módulo | Precondición | Acción | Resultado esperado | Resulta
 
 | Item | Estado |
 |---|---|
-| **FASE 14** — Sesión guiada con docente (`docs/MANUAL_TEST_RUNBOOK.md`, ~30 min) | ⏳ Pendiente |
+| **FASE 14** — Sesión guiada con docente (`docs/MANUAL_TEST_RUNBOOK.md`, ~30 min) | ✅ Ejecutada (ver `docs/INFORME_PRUEBAS_MANUALES_F14.md`) |
 | Total de casos | 82 |
-| Última ejecución | — |
-| Bugs reportados | Ver `docs/BACKLOG.md` → «Bugs conocidos» |
+| Última ejecución | 2026-08-11 (Rondas A/B/C) |
+| Bugs reportados | B6–B8 en `docs/BACKLOG.md` (B7/B8 corregidos) |
 
 ## IMPORTACIÓN DE NÓMINAS (FASE 2)
 

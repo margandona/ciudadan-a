@@ -2,6 +2,17 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.14.1] — FASE 14 (Testing manual ejecutado)
+
+### Fixed
+- **Reglas Firestore** (`firestore.rules`): lectura de `courses` por `resource.data.courseId` (el wildcard de ruta lanzaba «Null value error. for 'list'» en listados) y accesos con default en `submissions.studentId` / `materials.evaluatorId` («Property … is undefined» en listados).
+- **Consulta de cursos** (`WebCourseRepository.findBySectionYear`): filtra por `courseId in [cursos del usuario]` (regla «rules are not filters»); `courses` ahora persiste el campo `courseId`.
+- **Vista de actividades de la estudiante**: usa `findByStudentAndClass` (filtro por `studentId`) en lugar de `listByClass`, consistente con la rama ESTUDIANTE de las reglas.
+- **Cola offline** (`offlineQueue.enqueue`): JSON-clone del payload — los proxies reactivos de Vue no eran clonables en IndexedDB («could not be cloned») y las respuestas offline nunca se sincronizaban.
+
+### Changed
+- Docs: `docs/INFORME_PRUEBAS_MANUALES_F14.md` (resultados por ronda), registro de bugs en `docs/BACKLOG.md` (B6–B8), estado de FASE 14 en `docs/PROJECT_PHASES.md`, `docs/MANUAL_TEST_PLAN.md` y `README.md`.
+
 ## [0.14.0] — FASE 14 (Testing manual)
 
 ### Added
