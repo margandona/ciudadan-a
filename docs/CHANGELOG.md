@@ -2,6 +2,14 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.13.0] — FASE 13 (Testing automatizado completo)
+
+### Added
+- **Cobertura** (`@vitest/coverage-v8`) con umbrales (≥85% statements/functions/lines, ≥80% branches). Reporte actual: **93.43% / 80.87% / 91.35% / 93.43%** (domain+application).
+- **Playwright E2E**: configuración + **8 flujos** (estudiante, profesor, materiales+evaluador, proyección, gamificación, feedback, offline) + **accesibilidad con axe** (login y home de estudiante sin errores críticos). Script `test:e2e`.
+- **CI**: jobs de calidad (incluye cobertura), reglas/integración (emulador) y **E2E** (emuladores + seeds + Playwright, con artefactos de reporte).
+- Redirección por rol tras login (estudiante → `/student`, evaluador → `/evaluator`).
+
 ## [0.12.0] — FASE 12 (Seguridad y hardening)
 
 ### Security

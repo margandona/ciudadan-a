@@ -13,7 +13,10 @@ Suite verde en este hito:
 | Integración | `tests/integration/*.test.ts` | ✅ 29/29 |
 | **Offline** | `offlineQueue.test.ts` + `SyncBanner.test.ts` | ✅ 6 |
 
-**Total: 260 tests.** Fixtures de test con estudiantes ficticias (nunca nombres reales).
+**Total: 260 tests unitarios/componentes/reglas/integración.**
+
+- Cobertura (domain+application): **93.43% stmts · 80.87% branch · 91.35% funcs · 93.43% lines** (umbrales: 85/80/85/85). Ejecutar: `pnpm test:coverage`.
+- **E2E Playwright** (`e2e/`): 8 flujos + a11y (axe). Ejecutar: `pnpm test:e2e` (requiere emuladores + seeds; el CI levanta el stack y corre los seeds automáticamente).
 
 - Requisito para `test:rules` y `test:integration`: emulador de Firestore en `127.0.0.1:8088` (ver `docs/DEPLOYMENT.md` / `docs/STUDENT_IMPORT.md`).
 

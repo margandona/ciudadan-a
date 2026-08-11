@@ -23,5 +23,17 @@ export default defineConfig({
     include: ["packages/**/*.test.ts", "apps/web/src/**/*.test.ts", "tests/rules/**/*.test.ts", "tests/integration/**/*.test.ts"],
     testTimeout: 20000,
     hookTimeout: 60000,
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      include: ["packages/domain/src/**/*.ts", "packages/application/src/**/*.ts"],
+      exclude: ["**/*.test.ts", "**/test-fixtures.ts", "**/index.ts"],
+      thresholds: {
+        statements: 85,
+        branches: 80,
+        functions: 85,
+        lines: 85,
+      },
+    },
   },
 });

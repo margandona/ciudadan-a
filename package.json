@@ -22,6 +22,8 @@
     "test:unit": "vitest run --exclude 'tests/**'",
     "test:rules": "vitest run tests/rules",
     "test:integration": "vitest run tests/integration",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
     "build": "npm run build:web && npm run build:functions && npm run typecheck:server",
     "build:web": "npm run build -w @pclab/web",
     "build:functions": "npm --prefix functions run build",
@@ -38,11 +40,14 @@
     "node": ">=20"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@esbuild/win32-x64": "0.24.2",
     "@eslint/js": "^9.17.0",
     "@firebase/rules-unit-testing": "^4.0.1",
+    "@playwright/test": "^1.62.1",
     "@types/node": "^22.10.2",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vitest/coverage-v8": "^2.1.9",
     "@vue/test-utils": "^2.4.6",
     "esbuild": "0.24.2",
     "eslint": "^9.17.0",

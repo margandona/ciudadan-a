@@ -15,8 +15,8 @@ async function submit(): Promise<void> {
   busy.value = true;
   try {
     await session.login(email.value, password.value);
-    const redirect = typeof route.query.redirect === "string" ? route.query.redirect : "/teacher";
-    await router.push(redirect);
+    // El guard redirige por rol desde la home.
+    await router.push(typeof route.query.redirect === "string" ? route.query.redirect : "/");
   } catch {
     // session.error ya contiene el mensaje
   } finally {

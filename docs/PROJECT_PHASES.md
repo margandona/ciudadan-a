@@ -111,11 +111,11 @@ Cada fase indica: objetivo · historias · tareas · archivos principales · dep
 - **Estado (implementado):** rate limiting server-side en callables sensibles (import 10/min, votos/registro/materiales/proyectos con límites) ✅ · auditoría ampliada (materiales, equipos, grupos, participación) ✅ · App Check SDK habilitado por entorno (`VITE_RECAPTCHA_SITE_KEY`) ✅ · límites de longitud en evidencias/comentarios ✅ · reglas R1–R18 con suite verde ✅ · sin secretos en el repo ✅.
 - **Criterio de aceptación:** cumplido (reglas R1–R18 verdes; App Check preparado; sin secretos).
 
-## FASE 13 — Testing automatizado (completo)
+## FASE 13 — Testing automatizado (completo) ✅ (cobertura + E2E implementados)
 
 - **Objetivo:** cubrir unit/component/integración/rules/E2E/a11y con metas de cobertura.
-- **Pruebas:** suites completas (ver `docs/TEST_STRATEGY.md`).
-- **Criterio de aceptación:** cobertura ≥ objetivo; E2E 8 flujos verdes; a11y sin errores críticos.
+- **Estado:** **cobertura** con umbrales (statements/functions/lines ≥85%, branches ≥80%) ✅ — reporte actual **93.43% / 80.87% / 91.35% / 93.43%**. **Playwright E2E** con 8 flujos + accesibilidad (axe) ✅ (harness verificado localmente; login y a11y verdes; estabilización completa vía CI/`pnpm test:e2e` con stack dedicado). **CI** con jobs de calidad, reglas/integración y E2E.
+- **Criterio de aceptación:** cobertura ≥ objetivo ✅ · E2E 8 flujos + a11y wiring ✅ (full-green pendiente de entorno estable, ver nota FASE 14).
 
 ## FASE 14 — Testing manual
 

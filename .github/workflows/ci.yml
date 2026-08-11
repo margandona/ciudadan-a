@@ -30,6 +30,8 @@ jobs:
         run: pnpm typecheck
       - name: Unit + component tests
         run: pnpm test:unit
+      - name: Cobertura (domain/application, umbrales ≥85%)
+        run: pnpm exec vitest run --coverage --exclude 'tests/**'
       - name: Build (web + functions)
         run: pnpm build
 
@@ -54,3 +56,35 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Rules + integration tests (emulador)
         run: pnpm exec firebase emulators:exec --only firestore --project pclab-test "pnpm test:rules && pnpm test:integration"
+
+  e2e:
+    name: E2E Playwright + accesibilidad
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Browsers
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Build functions
+        run: pnpm build:functions
+      - name: E2E (emuladores + seeds)
+        run: pnpm exec firebase emulators:exec --only auth,firestore,functions --project pclab-test "pnpm seed:content && pnpm seed:demo-teacher && pnpm seed:demo-student && pnpm seed:demo-evaluator && pnpm exec playwright test"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

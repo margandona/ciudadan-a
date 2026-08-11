@@ -208,8 +208,18 @@ router.beforeEach(async (to) => {
     return { name: "login", query: { redirect: to.fullPath } };
   }
 
+  // Home: redirige según rol (estudiante → /student, evaluador → /evaluator)
+  if (to.name === "home") {
+    if (session.role === ROLES.ESTUDIANTE) return { path: "/student" };
+    if (session.role === ROLES.EVALUADOR) return { path: "/evaluator" };
+    return { path: "/teacher" };
+  }
+
   const roles = to.meta.roles as string[] | undefined;
   if (roles && !roles.includes(session.role)) {
+    // Redirigir a la home de cada rol en vez de 403 cuando es un intento por rol.
+    if (session.role === ROLES.ESTUDIANTE) return { path: "/student" };
+    if (session.role === ROLES.EVALUADOR) return { path: "/evaluator" };
     return { name: "forbidden" };
   }
   return true;
