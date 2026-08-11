@@ -1,0 +1,39 @@
+[
+  {
+    "id": "rubric-proyecto",
+    "title": "Rúbrica — Proyecto Ovalle 2035",
+    "oaIds": ["OA4", "OA7"],
+    "criteria": [
+      { "id": "problema", "name": "Problema y evidencia", "maxPoints": 4, "descriptor": "Define un problema local con evidencia verificable." },
+      { "id": "territorio", "name": "Territorio y población afectada", "maxPoints": 4, "descriptor": "Describe el territorio y a quiénes afecta." },
+      { "id": "participacion", "name": "Participación ciudadana", "maxPoints": 4, "descriptor": "Propone cómo participa la comunidad." },
+      { "id": "actores", "name": "Actores estatal y privado", "maxPoints": 4, "descriptor": "Identifica organismo público y actor privado viables." },
+      { "id": "sostenibilidad", "name": "Impacto social y ambiental", "maxPoints": 4, "descriptor": "Explica impactos y sostenibilidad de la propuesta." },
+      { "id": "propuesta", "name": "Propuesta", "maxPoints": 4, "descriptor": "Propuesta clara, realizable y fundamentada." }
+    ]
+  },
+  {
+    "id": "rubric-cabildo",
+    "title": "Rúbrica — Cabildo Providencia «Nuestro territorio necesita…»",
+    "oaIds": ["OA6", "OA7"],
+    "criteria": [
+      { "id": "postura", "name": "Postura clara", "maxPoints": 4, "descriptor": "Expone la frase y su postura con claridad." },
+      { "id": "argumentos", "name": "Argumentación", "maxPoints": 4, "descriptor": "Usa razones y conceptos de la unidad." },
+      { "id": "evidencia", "name": "Evidencia", "maxPoints": 4, "descriptor": "Sustenta con datos, ejemplos o testimonios." },
+      { "id": "propuesta", "name": "Propuesta realizable", "maxPoints": 4, "descriptor": "Plantea una solución concreta y viable." },
+      { "id": "participacion", "name": "Participación en el cabildo", "maxPoints": 4, "descriptor": "Escucha, responde y construye acuerdos." }
+    ]
+  },
+  {
+    "id": "rubric-feria",
+    "title": "Rúbrica — Feria Ciudadana Ovalle 2035",
+    "oaIds": ["OA4", "OA7"],
+    "criteria": [
+      { "id": "presentacion", "name": "Presentación", "maxPoints": 4, "descriptor": "Comunica el proyecto de forma clara y ordenada." },
+      { "id": "contenido", "name": "Contenido", "maxPoints": 4, "descriptor": "Incluye problema, territorio, mapa y evidencia." },
+      { "id": "propuesta", "name": "Propuesta y actores", "maxPoints": 4, "descriptor": "Presenta propuesta con actor estatal y privado." },
+      { "id": "ciudadania", "name": "Ciudadanía y sostenibilidad", "maxPoints": 4, "descriptor": "Explica participación ciudadana y sostenibilidad." },
+      { "id": "impacto", "name": "Impacto", "maxPoints": 4, "descriptor": "Comunica el impacto social y ambiental esperado." }
+    ]
+  }
+]

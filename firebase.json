@@ -1,0 +1,21 @@
+{
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs20",
+    "predeploy": ["npm --prefix functions run build"]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "emulators": {
+    "auth": { "port": 9098 },
+    "firestore": { "port": 8088 },
+    "functions": { "port": 5002 },
+    "storage": { "port": 9200 },
+    "ui": { "enabled": false }
+  }
+}

@@ -1,0 +1,12 @@
+packages:
+  - packages/*
+  - apps/*
+  - functions
+  - scripts
+
+allowBuilds:
+  esbuild: true
+  "@firebase/util": true
+  protobufjs: true
+  re2: true
+  vue-demi: true

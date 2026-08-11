@@ -1,0 +1,23 @@
+{
+  "classId": "class-09",
+  "title": "¿Por qué existe desigualdad?",
+  "objective": "Interpretar datos sobre pobreza y desigualdad usando el método Observo–Interpreto–Cuestiono–Propongo.",
+  "problemQuestion": "¿Qué nos dicen los datos sobre la desigualdad en Chile y qué podríamos proponer?",
+  "concepts": ["pobreza", "desigualdad", "equidad", "distribución", "desarrollo"],
+  "blocks": [
+    { "type": "title", "id": "b-title", "text": "Misión 09 — ¿Por qué existe desigualdad?" },
+    { "type": "objective", "id": "b-obj", "text": "Usar datos para analizar desigualdad y proponer acciones, sin juzgar a las personas." },
+    { "type": "problem", "id": "b-prob", "text": "Dos estudiantes de la misma ciudad pueden tener muy distintas oportunidades. ¿Qué datos lo muestran y qué se puede hacer?" },
+    { "type": "concepts", "id": "b-concepts", "items": ["Pobreza: insuficiencia de recursos para satisfacer necesidades básicas.", "Desigualdad: distribución desigual de ingresos, oportunidades o acceso.", "Equidad: trato justo que considera las diferencias para igualar oportunidades.", "Distribución: cómo se reparte la riqueza o los recursos.", "Desarrollo: proceso que amplía capacidades y bienestar, no solo ingresos."] },
+    { "type": "text", "id": "b-micro-1", "markdown": "La **pobreza** y la **desigualdad** son conceptos distintos: puede bajar la pobreza mientras la desigualdad se mantiene. Analizar con datos (INE, CEPAL, Banco Central) ayuda a **observar**, **interpretar**, **cuestionar** y **proponer**.\n\nEl método OICP del Laboratorio Ciudadano de Datos: OBSERVO → INTERPRETO → CUESTIONO → PROPONGO.", "readingLevel": "simple" },
+    { "type": "text", "id": "b-micro-2", "markdown": "En clase leerás gráficos y tablas sobre ingresos, educación y acceso en la región. Hoy solo necesitas saber: los datos describen situaciones, **no etiquetan personas**." },
+    { "type": "reading", "id": "b-reading", "title": "Leer un gráfico sin juzgar", "text": "Un gráfico muestra que el 10% de los hogares con más ingresos concentra una parte mayor de la riqueza que el 10% más pobre. Observar esto no significa juzgar a ninguna familia: significa describir cómo se distribuyen los recursos. Interpretar lleva a preguntarse por qué y a proponer políticas de equidad.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
+    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "¿Cuál es la diferencia entre pobreza y desigualdad?", "options": ["Son sinónimos.", "Pobreza habla de recursos insuficientes; desigualdad, de cómo se distribuyen los recursos.", "Desigualdad solo se mide en otros países.", "Pobreza no se mide con datos."], "correctIndex": 1, "explanation": "Pobreza refiere a falta de recursos; desigualdad, a la distribución entre grupos." },
+    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "Los datos sobre desigualdad describen situaciones y no deben usarse para etiquetar a las personas.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "El análisis de datos busca comprender y proponer, nunca estigmatizar." },
+    { "type": "reflection", "id": "b-refl", "prompt": "Propón una acción de equidad que una escuela o comuna podría implementar para igualar oportunidades." },
+    { "type": "resource", "id": "b-res", "title": "Datos abiertos", "note": "INE, CEPAL y Banco Central publican datos de pobreza y distribución en Chile.", "attribution": { "source": "INE / CEPAL / Banco Central", "verified": false } }
+  ],
+  "estMinutes": 14,
+  "readyLabel": "Estoy lista para la misión",
+  "version": 1
+}

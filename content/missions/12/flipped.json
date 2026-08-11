@@ -1,0 +1,23 @@
+{
+  "classId": "class-12",
+  "title": "Feria Ciudadana Ovalle 2035",
+  "objective": "Presentar la propuesta ciudadana del equipo y evaluar el proceso con rúbrica.",
+  "problemQuestion": "¿Cómo presentarías el proyecto de tu equipo para que la comunidad lo apoye en la Feria Ciudadana?",
+  "concepts": ["feria ciudadana", "producto final", "rúbrica", "sostenibilidad", "presentación"],
+  "blocks": [
+    { "type": "title", "id": "b-title", "text": "Misión 12 — Feria Ciudadana Ovalle 2035" },
+    { "type": "objective", "id": "b-obj", "text": "Preparar la presentación final y conocer la rúbrica de evaluación de la feria." },
+    { "type": "problem", "id": "b-prob", "text": "Tu equipo tiene minutos para convencer a la comunidad: ¿qué es lo esencial que debe quedar claro?" },
+    { "type": "concepts", "id": "b-concepts", "items": ["Producto final: presentación del proyecto con problema, territorio, mapa, evidencia, propuesta y actores.", "Feria ciudadana: instancia donde los equipos presentan sus propuestas a la comunidad.", "Sostenibilidad: que la propuesta sea viable en el tiempo.", "Rúbrica: criterios de evaluación conocidos de antemano."] },
+    { "type": "text", "id": "b-micro-1", "markdown": "En la **Feria Ciudadana** cada equipo presenta: problema, territorio, mapa, evidencia, propuesta, actor estatal, actor privado, ciudadanía, sostenibilidad e impacto.\n\nUna buena presentación es clara, usa evidencia y muestra una propuesta **realizable**. Revisa la rúbrica para saber qué se evalúa.", "readingLevel": "simple" },
+    { "type": "text", "id": "b-micro-2", "markdown": "Organiza la presentación del equipo: quién explica el problema, quién el mapa, quién la propuesta y quién cierra con el impacto. Ensayar reduce nervios y mejora la claridad." },
+    { "type": "reading", "id": "b-reading", "title": "Presentar en tres minutos", "text": "Un equipo presenta: “Nuestro problema es la basura en el canal (evidencia: fotos y datos). En este mapa se ve el sector. Proponemos puntos de reciclaje con jornadas comunitarias, con apoyo del municipio y una empresa local. Esto reduce el impacto ambiental y mejora la vida del barrio. Es sostenible porque la comunidad se organiza”. Claro, con evidencia y propuesta.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
+    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "¿Qué debe incluir la presentación del proyecto en la Feria?", "options": ["Solo el problema.", "Problema, territorio, mapa, evidencia, propuesta, actores y sostenibilidad.", "Solo la propuesta.", "Solo el mapa."], "correctIndex": 1, "explanation": "La feria evalúa la propuesta completa y su viabilidad." },
+    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "Conocer la rúbrica antes de presentar ayuda a enfocar la presentación en lo que se evalúa.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "La rúbrica transparenta los criterios y orienta el trabajo." },
+    { "type": "reflection", "id": "b-refl", "prompt": "¿Qué es lo más importante que la comunidad debería recordar de la propuesta de tu equipo?" },
+    { "type": "resource", "id": "b-res", "title": "Rúbrica de la Feria", "note": "Tu profesor compartirá la rúbrica final con los criterios de la Feria Ciudadana.", "attribution": { "source": "Material del curso", "verified": true } }
+  ],
+  "estMinutes": 12,
+  "readyLabel": "Estoy lista para la misión",
+  "version": 1
+}

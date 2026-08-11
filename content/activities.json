@@ -1,0 +1,43 @@
+[
+  {
+    "id": "act-class-01-dilemas",
+    "classId": "class-01",
+    "courseId": "course-3med-d-2026",
+    "title": "Dilemas ciudadanos",
+    "type": "dilemma",
+    "description": "Analiza un dilema ciudadano y decide qué harías, argumentando por el bien común.",
+    "instructions": ["Lee el dilema que asigne tu profesor", "Responde por qué tomarías esa decisión", "Argumenta usando al menos un concepto de la clase"],
+    "evidenceRequired": true,
+    "evidenceTypes": ["text"],
+    "order": 1,
+    "active": true
+  },
+  {
+    "id": "act-class-03-mapa-participacion",
+    "classId": "class-03",
+    "courseId": "course-3med-d-2026",
+    "title": "Mapa de participación ciudadana",
+    "type": "map",
+    "description": "Dibuja un mapa de Ovalle con los espacios donde se participa (institucional, social y digital).",
+    "instructions": ["Identifica al menos 5 espacios de participación", "Clasifica cada uno (institucional/social/digital)", "Marca cuáles tienen mayor incidencia"],
+    "evidenceRequired": true,
+    "evidenceTypes": ["text", "image"],
+    "order": 1,
+    "active": true
+  },
+  {
+    "id": "act-class-06-cabildo",
+    "classId": "class-06",
+    "courseId": "course-3med-d-2026",
+    "title": "Cabildo Providencia — «Nuestro territorio necesita…»",
+    "type": "cabildo",
+    "description": "Prepara tu argumentación para el cabildo y completa tu autoevaluación.",
+    "instructions": ["Completa la frase «Nuestro territorio necesita…»", "Aporta una razón y una evidencia", "Autoevalúa tu participación con la rúbrica"],
+    "evidenceRequired": true,
+    "evidenceTypes": ["text"],
+    "rubricId": "rubric-cabildo",
+    "maxScore": 20,
+    "order": 1,
+    "active": true
+  }
+]

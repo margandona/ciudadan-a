@@ -1,0 +1,23 @@
+{
+  "classId": "class-02",
+  "title": "Tres maneras de entender la ciudadanía",
+  "objective": "Distinguir las perspectivas republicana, liberal y comunitaria sobre la ciudadanía.",
+  "problemQuestion": "¿Ser ciudadana es principalmente votar y tener derechos, participar en lo público o pertenecer a una comunidad?",
+  "concepts": ["republicanismo", "liberalismo", "comunitarismo"],
+  "blocks": [
+    { "type": "title", "id": "b-title", "text": "Misión 02 — Tres maneras de entender la ciudadanía" },
+    { "type": "objective", "id": "b-obj", "text": "Podrás reconocer cada perspectiva y explicar cuál se acerca más a tus ideas." },
+    { "type": "problem", "id": "b-prob", "text": "Imagina tres vecinas discutiendo por qué participar: una dice “por mis derechos”, otra “por mi comunidad” y otra “porque es mi deber con lo público”. ¿Son lo mismo?" },
+    { "type": "concepts", "id": "b-concepts", "items": ["Liberalismo: enfatiza la libertad y los derechos individuales; la ciudadanía protege lo propio.", "Republicanismo: enfatiza el bien común y el compromiso con los asuntos públicos.", "Comunitarismo: enfatiza la pertenencia a una comunidad y sus valores compartidos."] },
+    { "type": "text", "id": "b-micro-1", "markdown": "Estas tres tradiciones no se excluyen del todo, pero acentúan cosas distintas:\n\n- Para el **liberalismo**, la ciudadanía se vincula a los **derechos** (elegir, opinar, expresarse).\n- Para el **republicanismo**, ser ciudadana implica **participar activamente** en los asuntos públicos por el bien común.\n- Para el **comunitarismo**, la identidad ciudadana se forma en la **comunidad** y sus valores.", "readingLevel": "simple" },
+    { "type": "text", "id": "b-micro-2", "markdown": "En la clase jugarás el **Consejo Ciudadano**: cada equipo defenderá una postura y deberá negociar para llegar a acuerdos. Para eso necesitas entender la diferencia entre las tres perspectivas." },
+    { "type": "reading", "id": "b-reading", "title": "Una decisión sobre la plaza", "text": "El municipio decide si la plaza se usa solo para juegos infantiles o también para ferias comunitarias. Una vecina defiende el derecho de las familias (liberal), otra propone que la plaza sirva a toda la comunidad (republicana) y otra recuerda que la plaza es parte de la identidad del barrio (comunitaria). Todas son ciudadanas; difieren en qué enfatizan.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
+    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "Si alguien dice “debo participar porque es mi deber con el bien común”, ¿a qué perspectiva se acerca?", "options": ["Liberalismo", "Republicanismo", "Comunitarismo", "Ninguna"], "correctIndex": 1, "explanation": "El republicanismo enfatiza el deber de participar en los asuntos públicos por el bien común." },
+    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "Para el liberalismo, lo central de la ciudadanía es la pertenencia a una comunidad con valores compartidos.", "options": ["Verdadero", "Falso"], "correctIndex": 1, "explanation": "Lo central para el liberalismo son los derechos individuales; la comunidad es el énfasis del comunitarismo." },
+    { "type": "reflection", "id": "b-refl", "prompt": "¿Cuál de las tres perspectivas se acerca más a cómo ves tu participación? Explica por qué." },
+    { "type": "resource", "id": "b-res", "title": "Para profundizar", "note": "Busca en la BCN el concepto de bien común y de participación ciudadana.", "attribution": { "source": "BCN", "verified": false } }
+  ],
+  "estMinutes": 13,
+  "readyLabel": "Estoy lista para la misión",
+  "version": 1
+}

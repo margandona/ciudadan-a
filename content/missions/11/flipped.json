@@ -1,0 +1,23 @@
+{
+  "classId": "class-11",
+  "title": "Diseñamos una solución",
+  "objective": "Diseñar una propuesta ciudadana con impacto social y ambiental para Ovalle 2035.",
+  "problemQuestion": "Si pudieras cambiar una situación de Ovalle para el año 2035, ¿qué propondrías y cómo lo harías realidad?",
+  "concepts": ["proyecto", "impacto social", "impacto ambiental", "organismo público", "actor privado", "Aprendizaje Servicio"],
+  "blocks": [
+    { "type": "title", "id": "b-title", "text": "Misión 11 — Diseñamos una solución" },
+    { "type": "objective", "id": "b-obj", "text": "Redactar los 11 campos del proyecto Ovalle 2035 con tu equipo." },
+    { "type": "problem", "id": "b-prob", "text": "De todo lo que observaste en las misiones anteriores, ¿qué problema merece una propuesta para 2035?" },
+    { "type": "concepts", "id": "b-concepts", "items": ["Proyecto: plan con objetivo, acciones y resultados esperados.", "Impacto social: efecto en la calidad de vida de las personas.", "Impacto ambiental: efecto en el entorno natural.", "Organismo público: institución del Estado que puede apoyar (municipio, servicios).", "Actor privado: empresa u organización que puede colaborar.", "Aprendizaje Servicio: aprender haciendo un servicio a la comunidad."] },
+    { "type": "text", "id": "b-micro-1", "markdown": "El **proyecto Ovalle 2035** responde 11 campos:\n1 problema, 2 evidencia, 3 territorio, 4 población afectada, 5 participación ciudadana, 6 organismo público, 7 posible actor privado, 8 recursos necesarios, 9 impacto social, 10 impacto ambiental, 11 propuesta.\n\nCada campo conecta con lo trabajado en las misiones anteriores.", "readingLevel": "simple" },
+    { "type": "text", "id": "b-micro-2", "markdown": "En clase construirás el proyecto con tu **equipo**. Hoy te conviene tener clara una idea de problema y una primera evidencia. También define qué rol tendrás en el equipo." },
+    { "type": "reading", "id": "b-reading", "title": "Un proyecto realizable", "text": "Un equipo propone recuperar un canal del sector con un plan que incluye: evidencia (fotos y datos), territorio (sector del canal), población afectada (vecinas), participación (jornadas comunitarias), organismo público (municipio), actor privado (empresa local de reciclaje), recursos (contenedores y plantas), impacto social (espacios limpios y empleo), impacto ambiental (menos basura en el agua) y la propuesta final.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
+    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "¿Cuál de estos NO es uno de los campos del proyecto Ovalle 2035?", "options": ["Problema y evidencia.", "Territorio y población afectada.", "Organismo público y actor privado.", "La nota del grupo."], "correctIndex": 3, "explanation": "El proyecto documenta el problema y su solución; no incluye calificaciones." },
+    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "Incluir un actor privado en el proyecto puede aportar recursos, pero no reemplaza la participación ciudadana.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "El actor privado colabora; la comunidad sigue siendo protagonista." },
+    { "type": "reflection", "id": "b-refl", "prompt": "Escribe el problema que propondría tu equipo y un organismo público que podría apoyarlo." },
+    { "type": "resource", "id": "b-res", "title": "Servicios públicos y municipio", "note": "Investiga qué servicios públicos existen en tu comuna que podrían apoyar el proyecto.", "attribution": { "source": "Municipalidad / servicios públicos", "verified": false } }
+  ],
+  "estMinutes": 14,
+  "readyLabel": "Estoy lista para la misión",
+  "version": 1
+}

@@ -1,0 +1,23 @@
+{
+  "classId": "class-08",
+  "title": "Gobernar Ovalle",
+  "objective": "Tomar decisiones de presupuesto público comprendiendo sus efectos en el bienestar y la desigualdad.",
+  "problemQuestion": "Con 100 unidades de presupuesto, ¿cómo las repartirías entre vivienda, seguridad, educación y el resto?",
+  "concepts": ["presupuesto público", "vivienda", "seguridad", "educación", "desigualdad", "bienestar"],
+  "blocks": [
+    { "type": "title", "id": "b-title", "text": "Misión 08 — Gobernar Ovalle" },
+    { "type": "objective", "id": "b-obj", "text": "Simularás un presupuesto y analizarás cómo las decisiones afectan indicadores como bienestar y desigualdad." },
+    { "type": "problem", "id": "b-prob", "text": "Tu equipo recibe 100 unidades para el presupuesto de Ovalle. ¿Cuánto inviertes en cada área sabiendo que hay que equilibrar el bienestar?" },
+    { "type": "concepts", "id": "b-concepts", "items": ["Presupuesto público: cómo se distribuyen los recursos del Estado.", "Vivienda, seguridad, educación, áreas verdes, transporte, cultura, medio ambiente, salud: áreas de inversión.", "Bienestar, desigualdad, empleo, ambiente, aprobación: indicadores que responden a las decisiones.", "Costo de oportunidad: invertir en algo implica no invertir en otra cosa."] },
+    { "type": "text", "id": "b-micro-1", "markdown": "Gobernar es **decidir con recursos limitados**. Cada área que recibe más inversión cambia los indicadores de la comuna: más educación suele mejorar empleo y reducir desigualdad; más áreas verdes mejoran ambiente y bienestar; más seguridad mejora la aprobación.\n\nNo hay respuesta perfecta: hay **costos de oportunidad** y equilibrios que negociar.", "readingLevel": "simple" },
+    { "type": "text", "id": "b-micro-2", "markdown": "En clase jugarás al **simulador presupuestario**: distribuirás 100 unidades en 8 áreas y observarás cómo cambian bienestar, desigualdad, empleo, ambiente y aprobación. Antes, piensa qué dos áreas priorizarías y por qué." },
+    { "type": "reading", "id": "b-reading", "title": "Dos presupuestos, dos Ovalle", "text": "El curso A invierte casi todo en seguridad y deja poca educación: la aprobación sube al inicio, pero el empleo y el bienestar caen. El curso B equilibra educación, salud y áreas verdes: el bienestar mejora sostenidamente y la desigualdad baja, aunque la aprobación inicial es menor. Los resultados muestran que las prioridades cambian los indicadores.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
+    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "¿Qué significa «costo de oportunidad» al repartir un presupuesto?", "options": ["Que siempre sobra dinero.", "Que invertir en un área implica no invertir en otra.", "Que todas las áreas deben recibir lo mismo.", "Que el presupuesto nunca alcanza."], "correctIndex": 1, "explanation": "Con recursos limitados, cada decisión implica renunciar a otra alternativa." },
+    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "Invertir en educación suele mejorar el empleo y reducir la desigualdad en el simulador.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "La educación amplía capacidades y oportunidades, mejorando empleo y equidad." },
+    { "type": "reflection", "id": "b-refl", "prompt": "Antes de jugar: ¿qué dos áreas priorizarías con las 100 unidades y qué indicador crees que mejorarían?" },
+    { "type": "resource", "id": "b-res", "title": "Presupuestos municipales", "note": "Busca cómo se distribuye el presupuesto del municipio de Ovalle para comparar con el simulador.", "attribution": { "source": "Municipalidad de Ovalle / BCN", "verified": false } }
+  ],
+  "estMinutes": 13,
+  "readyLabel": "Estoy lista para la misión",
+  "version": 1
+}

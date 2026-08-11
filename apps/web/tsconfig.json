@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "jsx": "preserve",
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@pclab/shared": ["../../packages/shared/src/index.ts"],
+      "@pclab/shared/*": ["../../packages/shared/src/*"],
+      "@pclab/domain": ["../../packages/domain/src/index.ts"],
+      "@pclab/application": ["../../packages/application/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"]
+}

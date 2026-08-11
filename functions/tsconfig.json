@@ -1,0 +1,31 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "outDir": "dist",
+    "rootDir": "..",
+    "noEmit": false,
+    "declaration": false,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pclab/shared": ["../packages/shared/src/index.ts"],
+      "@pclab/shared/*": ["../packages/shared/src/*"],
+      "@pclab/domain": ["../packages/domain/src/index.ts"],
+      "@pclab/domain/*": ["../packages/domain/src/*"],
+      "@pclab/application": ["../packages/application/src/index.ts"],
+      "@pclab/application/*": ["../packages/application/src/*"],
+      "@pclab/infrastructure": ["../packages/infrastructure/src/index.ts"],
+      "@pclab/infrastructure/*": ["../packages/infrastructure/src/*"]
+    }
+  },
+  "include": [
+    "src",
+    "../packages/shared/src",
+    "../packages/domain/src",
+    "../packages/application/src",
+    "../packages/infrastructure/src"
+  ],
+  "exclude": ["**/*.test.ts"]
+}

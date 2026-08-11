@@ -1,0 +1,23 @@
+{
+  "classId": "class-04",
+  "title": "¿Quién construye el territorio?",
+  "objective": "Comprender el territorio como construcción social y reconocer a sus actores en distintas escalas.",
+  "problemQuestion": "¿Ovalle es solo un lugar en el mapa o también lo construyen sus habitantes?",
+  "concepts": ["territorio", "actores territoriales", "escalas", "cartografía social"],
+  "blocks": [
+    { "type": "title", "id": "b-title", "text": "Misión 04 — ¿Quién construye el territorio?" },
+    { "type": "objective", "id": "b-obj", "text": "Explicarás cómo el territorio se construye socialmente y nombrarás actores en distintas escalas." },
+    { "type": "problem", "id": "b-prob", "text": "Una misma calle puede significar una cosa para una vecina, otra para el municipio y otra para una empresa. ¿Por qué?" },
+    { "type": "concepts", "id": "b-concepts", "items": ["Territorio: espacio geográfico transformado por las relaciones sociales, políticas y económicas.", "Actores territoriales: personas e instituciones que deciden y afectan el territorio (vecindad, municipio, empresas, Estado).", "Escalas: local, comunal, provincial, regional, nacional y global.", "Cartografía social: mapas hechos por la comunidad para representar su propio territorio."] },
+    { "type": "text", "id": "b-micro-1", "markdown": "El territorio no es solo un punto en el mapa: es el resultado de **cómo las personas, instituciones y empresas lo usan, deciden y significan**. Por eso dos personas pueden describir el mismo lugar de maneras distintas.\n\nLas decisiones sobre Ovalle se toman en varias **escalas**: el barrio, la comuna, la provincia del Limarí, la región de Coquimbo y el país.", "readingLevel": "simple" },
+    { "type": "text", "id": "b-micro-2", "markdown": "En clase harás una **cartografía social de Ovalle**: dibujarás un mapa desde la mirada de tu grupo, marcando problemas, recursos y lugares significativos. Antes, identifica al menos tres actores que deciden sobre tu barrio o comuna." },
+    { "type": "reading", "id": "b-reading", "title": "El borde del río", "text": "En Ovalle, el borde del río Limarí es vivido distinto según el actor: para las vecinas es un espacio de encuentro; para el municipio, un proyecto de áreas verdes; para una empresa, una oportunidad turística. El territorio se negocia entre estas miradas en distintas escalas.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
+    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "¿Cuál de estas opciones describe mejor la idea de territorio?", "options": ["Solo la superficie geográfica de un país.", "Un espacio construido por relaciones sociales, políticas y económicas.", "El área protegida de una región.", "Un mapa dibujado por el Estado."], "correctIndex": 1, "explanation": "El territorio integra lo geográfico y lo social: es construido por las relaciones humanas." },
+    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "La escala provincial (Provincia del Limarí) está entre la comunal y la regional.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "Las escalas van de lo local a lo global: comuna → provincia → región → país." },
+    { "type": "reflection", "id": "b-refl", "prompt": "Nombra un lugar significativo de tu barrio o de Ovalle y qué actor lo construye o decide." },
+    { "type": "resource", "id": "b-res", "title": "Cartografía social", "note": "Busca ejemplos de cartografía social en Chile para inspirar tu mapa.", "attribution": { "source": "Organizaciones comunitarias / académica", "verified": false } }
+  ],
+  "estMinutes": 12,
+  "readyLabel": "Estoy lista para la misión",
+  "version": 1
+}

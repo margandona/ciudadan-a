@@ -1,0 +1,364 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ==============================================================
+    // Funciones auxiliares
+    // ==============================================================
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isRole(role) {
+      return signedIn() && request.auth.token.role == role;
+    }
+
+    function isAdminish() {
+      return isRole('MASTER') || isRole('ADMIN');
+    }
+
+    function isInCourse(courseId) {
+      return signedIn()
+        && request.auth.token.courses != null
+        && courseId != null
+        && courseId in request.auth.token.courses;
+    }
+
+    // Versión segura para documentos: `courseId` puede faltar → usa '' como
+    // valor por defecto (evita el error "Property courseId is undefined" en listados).
+    function isInCourseOf(doc) {
+      let cid = doc.get('courseId', '');
+      return signedIn()
+        && request.auth.token.courses != null
+        && cid in request.auth.token.courses;
+    }
+
+    function isOwn(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function onlyServer() {
+      return signedIn() && request.auth.token.admin == true;
+    }
+
+    function isProtectedRole() {
+      return isRole('MASTER') || isRole('ADMIN') || isRole('PROFESOR')
+          || isRole('PIE') || isRole('UTP');
+    }
+
+    function hasOnly(keys) {
+      return request.resource.data.diff(resource.data).affectedKeys()
+        .hasOnly(keys);
+    }
+
+    function immutable(field) {
+      return request.resource.data[field] == resource.data[field];
+    }
+
+    // ==============================================================
+    // users — identidad y roles. Gestión solo desde Functions.
+    // ==============================================================
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdminish());
+      allow create, update, delete: if onlyServer();
+    }
+
+    // ==============================================================
+    // courses y courseMembers — pertenencia por courseId.
+    // ==============================================================
+    match /courses/{courseId} {
+      allow read: if signedIn() && (isInCourse(courseId) || isAdminish());
+      allow create, update, delete: if onlyServer();
+    }
+
+    match /courseMembers/{courseId}/{memberId} {
+      allow read: if signedIn() && (isInCourse(courseId) || isAdminish());
+      allow write: if onlyServer();
+    }
+
+    // ==============================================================
+    // students — perfil académico. La estudiante lee su propio perfil;
+    // el profesor/admin lee perfiles de sus cursos.
+    // ==============================================================
+    match /students/{studentId} {
+      function ownOrTeacher() {
+        // `studentId` puede faltar (estudiantes importadas sin cuenta) → get con default evita errores.
+        let sid = resource.data.get('studentId', '');
+        let isSelf = signedIn() && request.auth.uid == sid;
+        let isTeacher = isRole('PROFESOR')
+          && signedIn()
+          && isInCourseOf(resource.data);
+        let isAdmin = isAdminish();
+        return isSelf || isTeacher || isAdmin;
+      }
+
+      allow read: if ownOrTeacher();
+
+      // Los campos académicos no se editan desde el cliente:
+      // la creación/actualización real pasa por Functions (import, soft delete).
+      allow create: if onlyServer();
+      allow update: if onlyServer()
+        || (isRole('PROFESOR')
+            && isInCourseOf(resource.data)
+            && hasOnly(['active', 'archivedAt']));
+      allow delete: if onlyServer();
+    }
+
+    // Datos protegidos (PIE/integración/accesibilidad).
+    match /students/{studentId}/protected/{docId} {
+      allow read, write: if isProtectedRole()
+        && isInCourse(get(/databases/$(database)/documents/students/$(studentId)).data.courseId);
+    }
+
+    // ==============================================================
+    // auditLogs — solo escritura desde Functions (admin).
+    // ==============================================================
+    match /auditLogs/{logId} {
+      allow read: if isAdminish();
+      allow create, update, delete: if onlyServer();
+    }
+
+    // ==============================================================
+    // settings — configuración general.
+    // ==============================================================
+    match /settings/{key} {
+      allow read: if signedIn() && (isAdminish() || isRole('PROFESOR'));
+      allow write: if onlyServer() || isRole('MASTER');
+    }
+
+    // ==============================================================
+    // Colecciones de clases/contenido (FASE 3).
+    // classes = catálogo global; programación por curso en classSchedules.
+    // ==============================================================
+    match /classes/{classId} {
+      allow read: if signedIn();
+      allow write: if onlyServer();
+    }
+
+    match /classSchedules/{courseId}/schedules/{classId} {
+      allow read: if signedIn() && (isInCourse(courseId) || isAdminish());
+      allow create, update: if signedIn()
+        && ((isRole('PROFESOR') && isInCourse(courseId)) || isAdminish() || onlyServer());
+      allow delete: if onlyServer();
+    }
+
+    match /flippedLesson/{classId} {
+      allow read: if signedIn();
+      allow create, update, delete: if onlyServer()
+        || isRole('PROFESOR')
+        || isRole('ADMIN')
+        || isRole('MASTER');
+    }
+
+    // Progreso individual del aula invertida (subcolección records).
+    match /flippedProgress/{classId}/records/{studentId} {
+      allow read: if signedIn() && (
+        request.auth.uid == studentId
+        || isAdminish()
+        || onlyServer()
+      );
+      allow create, update: if signedIn() && request.auth.uid == studentId;
+      allow delete: if onlyServer();
+    }
+
+    match /units/{unitId} {
+      allow read: if signedIn();
+      allow write: if onlyServer();
+    }
+
+    match /flippedLesson/{classId} {
+      // Contenido global: cualquier usuario autenticado puede leerlo.
+      allow read: if signedIn();
+      allow write: if onlyServer()
+        || isRole('PROFESOR')
+        || isRole('ADMIN')
+        || isRole('MASTER');
+    }
+
+    match /presentations/{classId} {
+      allow read: if signedIn();
+      allow write: if onlyServer()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data));
+    }
+
+    // Tokens de proyección (corta duración) y votaciones colectivas.
+    match /projectionTokens/{classId}/tokens/{tokenId} {
+      allow read, write: if onlyServer()
+        || isRole('PROFESOR')
+        || isRole('ADMIN')
+        || isRole('MASTER');
+    }
+
+    match /projections/{classId}/votes/{questionId} {
+      allow read: if signedIn() && (isRole('PROFESOR') || isRole('ADMIN') || isRole('MASTER'));
+      allow create, update, delete: if onlyServer();
+    }
+
+    match /quizzes/{quizId} {
+      // Contenido: lectura para autenticados; el acceso a responder lo valida
+      // el callable (getQuizForStudent/submitQuizAttempt) con pertenencia al curso.
+      allow read: if signedIn();
+      allow write: if onlyServer()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data));
+    }
+
+    match /quizzes/{quizId}/questions/{qid} {
+      // Las preguntas con `answer` solo se sirven a PROFESOR/admin;
+      // las estudiantes las reciben a través de Functions sin respuestas.
+      allow read: if signedIn()
+        && (isRole('PROFESOR') || isAdminish() || onlyServer());
+      allow write: if onlyServer()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data));
+    }
+
+    match /quizAttempts/{quizId}/attempts/{studentId} {
+      allow read: if signedIn()
+        && (request.auth.uid == studentId || isRole('PROFESOR') || isAdminish());
+      allow create, update, delete: if onlyServer();
+    }
+
+    match /activities/{activityId} {
+      allow read: if signedIn();
+      allow write: if onlyServer()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data));
+    }
+
+    match /submissions/{submissionId} {
+      allow read: if signedIn() && (
+        isAdminish()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data))
+        || (isRole('ESTUDIANTE') && request.auth.uid == resource.data.studentId)
+      );
+      // La estudiante solo escribe su propia evidencia; score/feedback
+      // y cambios de status quedan restringidos a Functions/profesor.
+      allow create: if signedIn() && isRole('ESTUDIANTE')
+        && request.resource.data.studentId == request.auth.uid
+        && isInCourseOf(request.resource.data);
+      allow update: if onlyServer()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data)
+            && hasOnly(['status', 'score', 'teacherFeedback', 'feedbackAt', 'rubricData']));
+      allow delete: if onlyServer();
+    }
+
+    match /participation/{courseId}/{classId}/{studentId} {
+      allow read: if signedIn() && (
+        isAdminish()
+        || (isRole('PROFESOR') && isInCourse(courseId))
+        || request.auth.uid == studentId
+      );
+      allow create, update: if signedIn()
+        && (isRole('PROFESOR') && isInCourse(courseId)) || onlyServer();
+    }
+
+    match /badges/{badgeId} {
+      allow read: if signedIn();
+      allow write: if onlyServer();
+    }
+
+    match /studentBadges/{studentId}/{badgeId} {
+      allow read: if signedIn()
+        && (request.auth.uid == studentId || isRole('PROFESOR') || isAdminish());
+      allow create: if signedIn()
+        && ((isRole('PROFESOR') && isInCourseOf(resource.data)) || onlyServer());
+      allow update, delete: if onlyServer();
+    }
+
+    match /feedback/{classId}/records/{studentId} {
+      allow read: if signedIn() && (
+        request.auth.uid == studentId
+        || (isRole('PROFESOR') && isInCourseOf(resource.data))
+        || isAdminish()
+      );
+      allow create, update: if signedIn() && isRole('ESTUDIANTE')
+        && request.resource.data.studentId == request.auth.uid;
+    }
+
+    match /exitTickets/{classId}/tickets/{studentId} {
+      allow read: if signedIn() && (
+        request.auth.uid == studentId
+        || isRole('PROFESOR')
+        || isAdminish()
+      );
+      allow create, update, delete: if onlyServer();
+    }
+
+    match /materials/{materialId} {
+      allow read: if signedIn() && (
+        isAdminish()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data))
+        || (isRole('EVALUADOR') && resource.data.evaluatorId == request.auth.uid)
+      );
+      allow create: if signedIn() && isRole('PROFESOR')
+        && isInCourseOf(request.resource.data);
+      allow update: if signedIn()
+        && (isRole('PROFESOR') && isInCourseOf(resource.data)) || onlyServer();
+      allow delete: if onlyServer();
+    }
+
+    match /materials/{materialId}/versions/{versionId} {
+      allow read: if signedIn();
+      allow create, update, delete: if onlyServer();
+    }
+
+    match /materials/{materialId}/reviewComments/{commentId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && (isRole('EVALUADOR') || isRole('PROFESOR') || isAdminish());
+      allow update, delete: if onlyServer();
+    }
+
+    match /materials/{materialId}/reviewRequests/{requestId} {
+      allow read: if signedIn() && (isRole('PROFESOR') || isRole('EVALUADOR') || isAdminish());
+      allow create, update, delete: if onlyServer();
+    }
+
+    match /assessments/{assessmentId} {
+      allow read: if signedIn() && isInCourseOf(resource.data);
+      allow write: if onlyServer()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data));
+    }
+
+    match /rubrics/{rubricId} {
+      allow read: if signedIn();
+      allow write: if onlyServer()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data));
+    }
+
+    match /projects/{projectId} {
+      allow read: if signedIn() && isInCourseOf(resource.data);
+      allow write: if onlyServer()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data));
+    }
+
+    match /projectTeams/{teamId} {
+      allow read: if signedIn() && isInCourseOf(resource.data);
+      allow write: if onlyServer()
+        || (isRole('PROFESOR') && isInCourseOf(resource.data));
+    }
+
+    match /projects/{projectId} {
+      allow read: if signedIn() && (isRole('PROFESOR') || isAdminish() || onlyServer());
+      allow create, update, delete: if onlyServer();
+    }
+
+    match /projects/{projectId}/assessments/{assessmentId} {
+      allow read: if signedIn() && (isRole('PROFESOR') || isAdminish() || onlyServer());
+      allow write: if onlyServer();
+    }
+
+    match /projectTeams/{teamId} {
+      allow read: if signedIn() && (isRole('PROFESOR') || isAdminish() || isRole('ESTUDIANTE'));
+      allow write: if onlyServer() || isRole('PROFESOR') || isRole('ADMIN') || isRole('MASTER');
+    }
+
+    match /rubrics/{rubricId} {
+      allow read: if signedIn();
+      allow write: if onlyServer() || isRole('PROFESOR') || isRole('ADMIN') || isRole('MASTER');
+    }
+
+    match /notifications/{userId}/{notificationId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow create, update, delete: if onlyServer();
+    }
+  }
+}

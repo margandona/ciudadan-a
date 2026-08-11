@@ -1,0 +1,45 @@
+# Dependencies / builds
+node_modules/
+dist/
+dist-server/
+coverage/
+*.tsbuildinfo
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+**/firestore.indexes.json.tmp
+**/firestore.rules.tmp
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+.env.staging
+.env.production
+
+# Datos privados — NUNCA versionar
+private-data/
+imports/
+student-lists/
+*.private.xlsx
+# Nóminas reales y credenciales del colegio (carpeta 3ro)
+3ro/*.xlsx
+3ro/*.json
+3ro/*.js
+3ro/*.docx
+
+# Testing
+tests/.emulator/
+playwright-report/
+test-results/
+.emulator/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+emulator*.log

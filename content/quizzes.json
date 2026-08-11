@@ -1,0 +1,39 @@
+[
+  {
+    "quiz": {
+      "id": "quiz-class-01-ciudadania",
+      "classId": "class-01",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 01 — Ciudadanía y participación",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 3
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué es la ciudadanía?", "options": ["Un documento", "Participar en decisiones por el bien común", "Pagar impuestos", "Vivir en un país"], "correctIndex": 1, "explanation": "La ciudadanía implica derechos y responsabilidades que se ejercen participando.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "truefalse", "prompt": "Participar solo es votar cada cuatro años.", "options": ["Verdadero", "Falso"], "correctIndex": 1, "explanation": "La participación ocurre en muchas escalas y momentos.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "short", "prompt": "Menciona una forma de participación ciudadana en tu barrio.", "keywords": ["junta de vecinos", "organizar", "participar", "propuesta", "municipio"], "explanation": "Cualquier acción que incida en una decisión comunitaria vale.", "points": 1, "order": 3 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-07-estado-mercado",
+      "classId": "class-07",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 07 — Estado, mercado y ciudadanía",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 2
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué actor suele resolver un bien público como el alumbrado de una calle?", "options": ["El mercado", "El Estado", "Un particular", "Nadie"], "correctIndex": 1, "explanation": "Los bienes públicos benefician a todos y el Estado los garantiza.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "truefalse", "prompt": "Estado, mercado y ciudadanía pueden colaborar para resolver problemas.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "La colaboración entre actores suele lograr mejores resultados.", "points": 1, "order": 2 }
+    ]
+  }
+]

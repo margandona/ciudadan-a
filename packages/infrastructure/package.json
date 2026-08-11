@@ -1,0 +1,15 @@
+{
+  "name": "@pclab/infrastructure",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

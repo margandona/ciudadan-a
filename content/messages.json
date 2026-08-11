@@ -1,0 +1,10 @@
+[
+  { "id": "msg-quiz-1", "context": "quiz", "text": "Buen trabajo: respondiste y revisaste tu aprendizaje con honestidad." },
+  { "id": "msg-flipped-1", "context": "flipped", "text": "Completaste el aula invertida: llegas preparada para la misión." },
+  { "id": "msg-arg-1", "context": "participacion.argumentacion", "text": "Buen argumento: usaste razones para sostener tu postura." },
+  { "id": "msg-col-1", "context": "participacion.colaboracion", "text": "Tu colaboración ayudó a que el equipo avanzara." },
+  { "id": "msg-evid-1", "context": "participacion.aporteEvidencia", "text": "Relacionaste el tema con evidencia concreta." },
+  { "id": "msg-pens-1", "context": "participacion.pensamientoCritico", "text": "Cuestionaste el tema y propusiste una mirada propia." },
+  { "id": "msg-ent-1", "context": "evidencias", "text": "Tu evidencia muestra avance; revisa la retroalimentación." },
+  { "id": "msg-lider-1", "context": "participacion.liderazgo", "text": "Asumiste un rol que orientó el trabajo del grupo." }
+]

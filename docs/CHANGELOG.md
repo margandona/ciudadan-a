@@ -1,0 +1,115 @@
+# Changelog
+
+Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
+
+## [0.10.0] — FASE 10 (Proyecto Ovalle 2035 + ABP/ApS)
+
+### Added
+- **Equipos de trabajo** (ABP/ABJ/ApS): crear, asignar/quitar integrantes y **grupos aleatorios** (nunca mezclan cursos; sin repetir asignadas).
+- **Proyecto Ovalle 2035 (Misión 11)** con wizard de los **11 campos**; guardar y entregar (`saveProject`); una entrega por equipo.
+- **Evaluación auténtica** con rúbrica: docente (`assessProject`, con auditoría y estado REVISADO) y autoevaluación/coevaluación soportadas (`saveSelfPeerAssessment`).
+- **Feria Ciudadana (Misión 12)**: vista de proyectos presentados.
+- **Rúbricas** en contenido (`content/rubrics.json`): Cabildo «Nuestro territorio necesita…», Proyecto y Feria.
+- Vistas: `ProjectWizard` (estudiante), `TeamsView`, `ProjectsReviewView` y `FairView` (docente).
+- Reglas Firestore para `projectTeams`, `projects` y evaluaciones.
+
+## [0.9.0] — FASE 9 (Feedback + analítica pedagógica)
+
+### Added
+- **Feedback de estudiante** (clases 1, 4, 7 y 10) con dos dimensiones (experiencia de la aplicación y experiencia de aprendizaje/docencia), escalas 1–5 y comentarios abiertos; **privado** y **anónimo configurable** (`submitFeedback`).
+- **Tendencias agregadas** para el profesor (`getFeedbackTendencies`): promedios por clase y comentarios abiertos; los números nunca exponen identidad y los comentarios respetan el flag `anon`.
+- **Analítica pedagógica descriptiva** (`getCourseAnalytics`): % aula invertida, evidencias pendientes, tickets y dificultad percibida, participación y **preguntas con menor rendimiento** (por intentos de quiz).
+- **Alertas simples** (evidencias pendientes, dificultad alta, preguntas con bajo acierto) **sin etiquetas ni diagnósticos**.
+- Vistas: formulario de feedback (estudiante), tendencias (`/teacher/feedback`) y analítica (`/teacher/analytics`).
+
+## [0.8.0] — FASE 8 (Gamificación)
+
+### Added
+- **Medallas del Observatorio Ciudadano** (10) con criterios configurables (flipped completado, quizzes aprobados, evidencias, participación por habilidad, tickets). `content/badges.json`.
+- **Otorgamiento automático** (`evaluateBadges`, idempotente) y **manual** (`awardBadge` del docente, con auditoría). Sin rankings ni impacto en la nota.
+- **Galería de medallas** en el home del estudiante (colección + estado) y otorgamiento en el perfil desde el rol docente.
+- **Mensajes positivos** por contexto (quiz, flipped, participación por habilidad, evidencias) en `content/messages.json`; callable `getPositiveMessage`.
+- Estadísticas de actividad de la estudiante (`ActivityStatsRepository`) para evaluar criterios.
+- Seed: 10 medallas + 8 mensajes.
+
+## [0.7.0] — FASE 7 (Evaluador + materiales + DUA)
+
+### Added
+- **Materiales** con máquina de estados (BORRADOR → EN_REVISION → CON_OBSERVACIONES/APROBADO/RECHAZADO/CORREGIR_Y_REENVIAR) y **versiones GENERAL y DUA** (PDF/DOCX, hasta 50 MB).
+- **Envío a revisión** (`sendMaterialForReview`): resuelve al evaluador por email, fija `sentAt` y crea la solicitud (con auditoría).
+- **Portal del evaluador** (`/evaluator`, aislado de estudiantes): material asignado, versiones, historial de comentarios y decisión con comentario obligatorio (`reviewMaterial`).
+- Detalle con historial de versiones y observaciones (`getMaterialDetail`).
+- Reglas Firestore para `reviewRequests`; seed `seed:demo-evaluator` (evaluador@demo.cl).
+
+## [0.6.0] — FASE 6 (Modo proyección interactiva)
+
+### Added
+- **`/projection/:classId`**: presentación HTML interactiva (DeckPlayer) con pantalla completa, navegación por teclado (←/→/espacio/F/H), temporizador, revelar respuestas y estructura pedagógica obligatoria (portada → aprendizaje → objetivo → ruta → activación → … → ticket de salida).
+- **Interacciones colectivas**: votación digital (estudiantes desde la PWA, resultados agregados sin identidad) y **modo sin dispositivos** (el profesor registra conteos manuales). Callables `submitVote`, `recordManualVotes`, `getVotes`.
+- **Token de proyección** de 2 h (`createProjectionToken`) para abrir la proyección sin cuentas.
+- **Editor de presentaciones** del profesor: bloques por diapositiva, preguntas con opciones y respuesta correcta, sanitización server-side y validación de estructura (`savePresentation`).
+- Seeds: deck completo de `class-01` en `content/presentations.json` + decks por defecto para las 12 clases.
+- Reglas Firestore para `projectionTokens` y `projections/*/votes`.
+
+### Changed
+- `build:functions` ahora **empaqueta con esbuild (CJS)** en `functions/dist/index.js` (el emulador no puede ejecutar el TS de los paquetes con imports sin extensión). Esto arregla el arranque del emulador de Functions.
+
+## [0.5.0] — FASE 5 (Dashboard profesor + participación)
+
+### Added
+- **Registro de participación en vivo** (`/teacher/live/:classId`): tarjetas de estudiantes con multi-selección, acciones rápidas (+ Participó/Argumentó/Colaboró/Evidencia/Pregunta/Liderazgo), escala 0–3 y observación breve. Callable `registerParticipation` (lote, con validación server-side).
+- **Resumen por habilidad** (`getParticipationOverview`): intervención oral, argumentación, colaboración, escucha, etc., con conteo y media.
+- **Dashboards**: resumen de curso (aula invertida %, evidencias pendientes, participación, tickets, dificultad percibida) y por clase (`getCourseDashboard` / `getClassDashboard`). Sin rankings.
+- **Calendario administrativo** (`/teacher/calendar`): alertas verde/amarillo/rojo para guías (impresión −3 días) y evaluaciones (revisión evaluador −7 días); seeds `content/materials.json`.
+- `ExitTicketRepository.listByClass` ahora filtra por curso (una clase la comparten varios cursos).
+
+## [0.4.0] — FASE 4 (Actividades, quizzes y evidencias)
+
+### Added
+- **Motor de quizzes propio** (sin branding ajeno): 9 tipos de pregunta (choice, truefalse, order, match, fill, short, identify, image, map), config (temporizador opcional, puntos, intentos, retroalimentación inmediata, explicación posterior), modo individual/colectivo.
+- **Corrección server-side**: `getQuizForStudent` sirve el quiz **sin respuestas**; `submitQuizAttempt` corrige, aplica el límite de intentos y persiste el intento. Las preguntas con `answer` no se leen desde el cliente (regla R15).
+- **Evidencias**: `submitEvidence` (estudiante), estados `PENDIENTE→ENTREGADO→REVISADO→RETROALIMENTADO/REQUIERE_CORRECCION`, re-entrega cuando pide corrección, validación de contenido y adjuntos.
+- **Revisión del profesor**: `reviewSubmission` (estado, nota, retroalimentación) con auditoría `SUBMISSION_REVIEW`.
+- **Ticket de salida**: 5 respuestas + dificultad, vía `submitExitTicket`; listado para el profesor.
+- Vistas web: `StudentQuizView` (QuizPlayer individual), `StudentActivitiesView` (evidencias), `ExitTicketView`, `SubmissionsReviewView` (profesor), `QuizResultsView` (profesor).
+- Seeds: `content/quizzes.json` (2 quizzes) y `content/activities.json` (3 actividades).
+- Reglas Firestore R15–R16 + tests de integración del flujo quiz+evidencia+ticket.
+
+## [0.3.0] — FASE 3 (Motor de clases + aula invertida)
+
+### Added
+- Catálogo global de **12 misiones** (`classes/{id}`) con OA, feedback (1/4/7/10) y tiempo estimado.
+- Programación por curso (`classSchedules/{courseId}/schedules/{classId}`): estados `DRAFT/READY/SCHEDULED/OPEN/IN_PROGRESS/COMPLETED/ARCHIVED`, ventana `startAt/endAt` y switches flipped/actividad/entrega/feedback. Callable `setClassSchedule` con auditoría.
+- Aula invertida por bloques (`flippedLesson/{classId}`) con progreso individual (`flippedProgress/{classId}/records/{studentId}`), quiz con retroalimentación inmediata, reflexión y botón **«Estoy lista para la misión»** (tiempo no punitivo).
+- Vista estudiante: home con «Tu próxima misión» + barra de progreso + reproductor flipped.
+- Vista profesor: programación de clases + resumen de completitud del aula invertida (`getFlippedOverview`).
+- Contenido educativo sembrado (`content/classes.json` + `content/missions/01–12/flipped.json`) separado del código (`pnpm seed:content`).
+- Reglas Firestore R13–R14 (progreso flipped y catálogo) + tests de integración del flujo flipped.
+
+### Changed
+- `classes` pasa de documento con `courseId` a **catálogo global**; la programación por curso vive en `classSchedules`.
+
+## [0.2.0] — FASE 1–2 (Base técnica + Cursos/estudiantes + Importación de nóminas)
+
+### Added
+- Monorepo (pnpm workspaces): `packages/{shared,domain,application,infrastructure}` + `apps/web` + `functions` + `scripts`.
+- Clean Architecture: parser XLSX (SheetJS), mapeador de columnas, normalización de nombres (tildes/Ñ), detección de duplicados (NUEVA/CONFIRMADA/POSIBLE), casos de uso `PreviewStudentImportUseCase` e `ImportStudentsUseCase`.
+- Pantalla `/teacher/students/import` con preview editable, resumen y estados.
+- Dashboard de curso y perfil de estudiante (soft delete + auditoría).
+- Cloud Functions callables: `previewStudents`, `importStudents`, `setStudentActive`.
+- Reglas Firestore (R1–R18) y Storage; índices; App Check configurable.
+- Emulador local en puertos dedicados (Firestore 8088, Auth 9098, Functions 5002).
+- Scripts: `import:students`, `seed:courses`, `seed:demo-teacher`, `analyze:roster`.
+- Importación real al emulador: **Curso D (41 estudiantes)** y **Curso E (34)**; columna `RUN` detectada como sensible y NO importada.
+- Tests: 64 verdes (unit/component/reglas/integración). Documentación `STUDENT_IMPORT.md`.
+
+### Security
+- `3ro/*.xlsx`, `3ro/*.json` (incluido service account) y `private-data/` añadidos a `.gitignore`.
+- El importador exige emulador por defecto (producción requiere `--prod` + autorización).
+- Auditoría sin PII en los logs.
+
+## [0.1.0] — FASE 0 (Discovery y arquitectura)
+
+### Added
+- Planificación completa del proyecto (docs), MVP, V2, backlog y roadmap.
+- Detección de listas reales en `3ro/` y corrección de texto «Nuestro territorio necesita…» (Misión 06).

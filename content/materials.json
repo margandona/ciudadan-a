@@ -1,0 +1,33 @@
+[
+  {
+    "id": "mat-class-03-guia",
+    "courseId": "course-3med-d-2026",
+    "classId": "class-03",
+    "type": "guia",
+    "title": "Guía 03 — Mapa de participación ciudadana",
+    "status": "BORRADOR",
+    "hasDUA": true,
+    "printDeadline": "2026-08-13T18:00:00.000Z",
+    "reviewDeadline": "2026-08-15T18:00:00.000Z"
+  },
+  {
+    "id": "mat-class-05-guia",
+    "courseId": "course-3med-d-2026",
+    "classId": "class-05",
+    "type": "guia",
+    "title": "Guía 05 — Expediente Ciudadano",
+    "status": "BORRADOR",
+    "hasDUA": false,
+    "printDeadline": "2026-08-08T18:00:00.000Z"
+  },
+  {
+    "id": "mat-class-06-evaluacion",
+    "courseId": "course-3med-d-2026",
+    "classId": "class-06",
+    "type": "evaluacion",
+    "title": "Evaluación 06 — Cabildo Providencia",
+    "status": "BORRADOR",
+    "hasDUA": true,
+    "reviewDeadline": "2026-08-14T18:00:00.000Z"
+  }
+]

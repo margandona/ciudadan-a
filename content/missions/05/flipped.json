@@ -1,0 +1,23 @@
+{
+  "classId": "class-05",
+  "title": "Detectives del territorio",
+  "objective": "Identificar un problema local y preparar el Expediente Ciudadano.",
+  "problemQuestion": "¿Qué problema de tu entorno es investigable y qué necesitas saber para entenderlo?",
+  "concepts": ["problema local", "evidencia", "población afectada", "expediente ciudadano"],
+  "blocks": [
+    { "type": "title", "id": "b-title", "text": "Misión 05 — Detectives del territorio" },
+    { "type": "objective", "id": "b-obj", "text": "Elegirás un problema local y reunirás los elementos iniciales de tu Expediente Ciudadano." },
+    { "type": "problem", "id": "b-prob", "text": "Una vereda en mal estado, basura en un canal, ruido de una cancha… ¿qué problema elegirías y qué evidencias buscarías?" },
+    { "type": "concepts", "id": "b-concepts", "items": ["Problema local: situación que afecta el bienestar de la comunidad.", "Evidencia: datos, fotos, testimonios y documentos que sustentan el problema.", "Población afectada: quiénes viven o sufren el problema.", "Expediente ciudadano: registro organizado con problema, ubicación, causas, actores, evidencias y soluciones iniciales."] },
+    { "type": "text", "id": "b-micro-1", "markdown": "Un buen diagnóstico territorial parte de un **problema concreto y observable**. Preguntas clave: ¿dónde está?, ¿a quiénes afecta?, ¿desde cuándo existe?, ¿qué lo causa?, ¿quién podría resolverlo?\n\nEn clase abrirás tu **Expediente Ciudadano**. Hoy definirás el problema y las primeras evidencias.", "readingLevel": "simple" },
+    { "type": "text", "id": "b-micro-2", "markdown": "La **evidencia** es lo que convierte una opinión en un diagnóstico: una foto con fecha, una encuesta breve, un dato municipal, testimonios. Reúne al menos dos evidencias del problema que elijas." },
+    { "type": "reading", "id": "b-reading", "title": "Un expediente modelo", "text": "Un grupo detecta acumulación de basura cerca de un canal en Ovalle. En su expediente anotan: ubicación (sector del canal), población afectada (vecinas y el agua), causas (falta de contenedores), actores (municipio, vecindad), evidencias (fotos con fecha y testimonios) y una primera solución (puntos de reciclaje con jornada comunitaria).", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
+    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "¿Cuál de estos elementos NO pertenece al Expediente Ciudadano?", "options": ["Problema y ubicación.", "Población afectada y causas.", "Evidencias y actores.", "La calificación del curso."], "correctIndex": 3, "explanation": "El expediente documenta el problema y su contexto; no incluye calificaciones." },
+    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "Una foto con fecha y un testimonio pueden ser evidencias válidas para un diagnóstico territorial.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "Fotos fechadas, testimonios y datos municipales son evidencias útiles y verificables." },
+    { "type": "reflection", "id": "b-refl", "prompt": "Escribe el problema local que te gustaría investigar y una evidencia inicial que podrías reunir." },
+    { "type": "resource", "id": "b-res", "title": "Datos territoriales", "note": "El INE y la Biblioteca del Congreso Nacional publican datos por comuna para sustentar tu expediente.", "attribution": { "source": "INE / BCN", "verified": false } }
+  ],
+  "estMinutes": 14,
+  "readyLabel": "Estoy lista para la misión",
+  "version": 1
+}

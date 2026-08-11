@@ -1,0 +1,53 @@
+{
+  "classId": "class-01",
+  "courseId": "course-3med-d-2026",
+  "version": 1,
+  "config": { "timerDefault": 60, "theme": "default", "showAnswers": true },
+  "slides": [
+    { "id": "s-portada", "kind": "portada", "title": "Portada", "blocks": [
+      { "id": "b1", "type": "title", "text": "Misión 01 — ¿Qué significa ser ciudadana?" },
+      { "id": "b2", "type": "text", "text": "Observatorio Ciudadano · Ovalle 2035\nEducación Ciudadana · 3º Medio" }
+    ]},
+    { "id": "s-aprendizaje", "kind": "aprendizaje", "title": "Aprendizaje esperado", "blocks": [
+      { "id": "b3", "type": "text", "text": "Comprender la ciudadanía como una condición que implica derechos y responsabilidades en la vida democrática." }
+    ]},
+    { "id": "s-objetivo", "kind": "objetivo", "title": "Objetivo", "blocks": [
+      { "id": "b4", "type": "text", "text": "Explicar qué es ser ciudadana y dar un ejemplo de participación en tu entorno." }
+    ]},
+    { "id": "s-ruta", "kind": "ruta", "title": "Ruta de aprendizaje", "blocks": [
+      { "id": "b5", "type": "instruction", "text": "1. Activar ideas previas\n2. Conceptualizar ciudadanía\n3. Analizar un caso\n4. Votar una pregunta\n5. Cerrar con ticket de salida" }
+    ]},
+    { "id": "s-activacion", "kind": "activacion", "title": "Activación", "blocks": [
+      { "id": "b6", "type": "question", "title": "Pregunta", "text": "¿Participar es solo votar cada cuatro años?", "options": ["Sí, solo eso", "No, hay muchas formas", "Depende"], "correctIndex": 1, "explanation": "La participación ocurre en muchas escalas y momentos." }
+    ]},
+    { "id": "s-contenido", "kind": "contenido", "title": "Contenido", "blocks": [
+      { "id": "b7", "type": "text", "text": "Ser ciudadana no es solo tener un documento: es participar en las decisiones públicas y responsabilizarse del bien común." },
+      { "id": "b8", "type": "callout", "text": "Idea clave: ciudadanía = derechos + responsabilidades + participación." }
+    ]},
+    { "id": "s-actividad", "kind": "actividad", "title": "Actividad", "blocks": [
+      { "id": "b9", "type": "instruction", "text": "En parejas: lean el caso de las vecinas de la plaza y respondan por qué son ciudadanas." }
+    ]},
+    { "id": "s-pregunta", "kind": "pregunta", "title": "Pregunta interactiva", "blocks": [
+      { "id": "b10", "type": "question", "title": "Votación", "text": "¿Un like es participación ciudadana?", "options": ["Sí, siempre", "No, nunca", "Puede ser parte si incide", "No sé"], "correctIndex": 2, "explanation": "El like visibiliza, pero la participación plena incide en decisiones." }
+    ]},
+    { "id": "s-quiz", "kind": "quiz", "title": "Quiz de la clase", "blocks": [
+      { "id": "b11", "type": "question", "title": "Quiz", "text": "¿Qué es la ciudadanía?", "options": ["Un documento", "Participar por el bien común", "Pagar impuestos"], "correctIndex": 1, "explanation": "La ciudadanía se ejerce participando." }
+    ]},
+    { "id": "s-discusion", "kind": "discusion", "title": "Discusión", "blocks": [
+      { "id": "b12", "type": "text", "text": "¿Qué espacios de participación conoces en Ovalle? ¿Cuáles tienen mayor incidencia?" }
+    ]},
+    { "id": "s-actividad-principal", "kind": "actividadPrincipal", "title": "Actividad principal", "blocks": [
+      { "id": "b13", "type": "instruction", "text": "En equipos, construyan el Mapa de participación ciudadana de Ovalle (institucional, social y digital)." },
+      { "id": "b14", "type": "timer", "timerSeconds": 600 }
+    ]},
+    { "id": "s-evaluacion", "kind": "evaluacion", "title": "Evaluación formativa", "blocks": [
+      { "id": "b15", "type": "question", "title": "Chequeo", "text": "Nombra una forma de participación en tu barrio.", "options": ["Junta de vecinos", "Redes sociales", "Ninguna"], "correctIndex": 0, "explanation": "Cualquier acción que incida cuenta." }
+    ]},
+    { "id": "s-sintesis", "kind": "sintesis", "title": "Síntesis", "blocks": [
+      { "id": "b16", "type": "text", "text": "Hoy aprendimos que la ciudadanía se ejerce participando por el bien común, en muchas escalas y formatos." }
+    ]},
+    { "id": "s-ticket", "kind": "ticket", "title": "Ticket de salida", "blocks": [
+      { "id": "b17", "type": "text", "text": "Responde el ticket de salida en la app para cerrar la clase." }
+    ]}
+  ]
+}
