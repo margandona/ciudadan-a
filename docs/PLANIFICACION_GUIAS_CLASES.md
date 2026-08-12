@@ -6,17 +6,17 @@
 - **Documentos PDF/DOCX:** se generan automáticamente desde ese JSON al pulsar **PDF / DOCX** en `Materiales` (no se editan a mano).
 - **Vista web del material:** `/teacher/materials/:id` (Contenido, Referencias, versiones, revisiones).
 
-## Calendario semanal (inicio lunes 17-08-2026)
+## Calendario semanal (presentación ya realizada el lunes 10-08; el semestre continúa desde el 17-08)
 
 | Clase | Fecha | Guía / trabajo | Tipo |
 |---|---|---|---|
-| 1 | lunes 17-08 | Guía 01 — Presentación del curso + Diagnóstico U1–U2 + Ticket | GUIDE + WRITTEN_TEST (diagnóstico) + EXIT_TICKET |
-| 2 | lunes 24-08 | Guía 02 — Consejo Ciudadano (+ rúbrica formativa) | GUIDE |
-| 3 | lunes 31-08 | Guía 03 — Mapa de participación ciudadana | GUIDE |
-| 4 | lunes 07-09 | Guía 04 — Cartografía social | GUIDE |
-| 5 | lunes 14-09 | Guía 05 — Expediente Ciudadano | GUIDE |
-| 6 | lunes 21-09 | Cabildo Providencia — «Nuestro territorio necesita…» | PRACTICAL_WORK |
-| — | lunes 28-09 | **Prueba Unidad 3** (general + DUA + solucionario) | WRITTEN_TEST / DUA / ANSWER_KEY |
+| 1 | lunes 10-08 ✅ (realizada) | Guía 01 — Presentación del curso + Diagnóstico U1–U2 + Ticket | GUIDE + WRITTEN_TEST (diagnóstico) + EXIT_TICKET |
+| 2 | **lunes 17-08** | **Guía 02 — Consejo Ciudadano** (+ rúbrica formativa) | GUIDE |
+| 3 | lunes 24-08 | Guía 03 — Mapa de participación ciudadana | GUIDE |
+| 4 | lunes 31-08 | Guía 04 — Cartografía social | GUIDE |
+| 5 | lunes 07-09 | Guía 05 — Expediente Ciudadano | GUIDE |
+| 6 | lunes 14-09 | Cabildo Providencia — «Nuestro territorio necesita…» | PRACTICAL_WORK |
+| — | lunes 21-09 | **Prueba Unidad 3** (general + DUA + solucionario) | WRITTEN_TEST / DUA / ANSWER_KEY |
 | 7 | lunes 28-09 | Guía 07 — ¿Quién debe resolver los problemas? | GUIDE |
 | 8 | lunes 05-10 | Guía 08 — Gobernar Ovalle: presupuesto comunal (ABJ) | WORKSHEET |
 | 9 | lunes 12-10 | Guía 09 — Laboratorio Ciudadano de Datos | GUIDE |

@@ -181,7 +181,7 @@
         "MINEDUC (2020). Bases Curriculares: Formación Ciudadana (3º y 4º medio). Santiago: Ministerio de Educación."
       ]
     },
-    "classDate": "2026-08-17T14:00:00.000Z"
+    "classDate": "2026-08-10T14:00:00.000Z"
   },
   {
     "id": "mat-class-01-ticket",
@@ -235,7 +235,7 @@
         }
       ]
     },
-    "classDate": "2026-08-17T14:00:00.000Z"
+    "classDate": "2026-08-10T14:00:00.000Z"
   },
   {
     "id": "mat-class-02-consejo",
@@ -492,7 +492,7 @@
         "Velasco, J. C. (2005). «La noción republicana de ciudadanía y la diversidad cultural». Isegoría, 32."
       ]
     },
-    "classDate": "2026-08-24T14:00:00.000Z"
+    "classDate": "2026-08-17T14:00:00.000Z"
   },
   {
     "id": "mat-class-03-mapa",
@@ -636,7 +636,7 @@
         "PNUD (2019). Participación ciudadana en América Latina. Programa de las Naciones Unidas para el Desarrollo."
       ]
     },
-    "classDate": "2026-08-31T14:00:00.000Z"
+    "classDate": "2026-08-24T14:00:00.000Z"
   },
   {
     "id": "mat-class-04-cartografia",
@@ -752,7 +752,7 @@
         "Haesbaert, R. (2011). El mito de la desterritorialización. México: Siglo XXI."
       ]
     },
-    "classDate": "2026-09-07T14:00:00.000Z"
+    "classDate": "2026-08-31T14:00:00.000Z"
   },
   {
     "id": "mat-class-05-expediente",
@@ -900,7 +900,7 @@
         "Instituto Nacional de Estadísticas (INE). Estadísticas territoriales. ine.gob.cl"
       ]
     },
-    "classDate": "2026-09-14T14:00:00.000Z"
+    "classDate": "2026-09-07T14:00:00.000Z"
   },
   {
     "id": "mat-class-06-cabildo",
@@ -1156,7 +1156,7 @@
         "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago."
       ]
     },
-    "classDate": "2026-09-21T14:00:00.000Z"
+    "classDate": "2026-09-14T14:00:00.000Z"
   },
   {
     "id": "mat-class-07-quien-resuelve",
@@ -2545,7 +2545,7 @@
         "Lefebvre, H. (1974). La producción del espacio."
       ]
     },
-    "classDate": "2026-09-28T14:00:00.000Z"
+    "classDate": "2026-09-21T14:00:00.000Z"
   },
   {
     "id": "mat-u3-prueba-dua",
@@ -2797,7 +2797,7 @@
         "Arnstein, S. (1969). «A Ladder of Citizen Participation»."
       ]
     },
-    "classDate": "2026-09-28T14:00:00.000Z"
+    "classDate": "2026-09-21T14:00:00.000Z"
   },
   {
     "id": "mat-u3-solucionario",
@@ -2909,7 +2909,7 @@
       ],
       "pauta": "Corregir ítems 9–11 con criterio cualitativo, no solo por extensión. Registrar en la tabla de especificaciones para retroalimentar la unidad."
     },
-    "classDate": "2026-09-28T14:00:00.000Z"
+    "classDate": "2026-09-21T14:00:00.000Z"
   },
   {
     "id": "mat-u4-prueba-general",
@@ -3647,7 +3647,7 @@
     "duration": 20,
     "estimatedPages": 1,
     "requiresPrinting": false,
-    "classDate": "2026-08-17T14:00:00.000Z",
+    "classDate": "2026-08-10T14:00:00.000Z",
     "reviewConfig": {
       "evaluatorRequired": true,
       "pieRequired": false,
