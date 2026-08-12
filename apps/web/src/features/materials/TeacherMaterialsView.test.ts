@@ -6,13 +6,17 @@ import type { Material } from "@pclab/shared";
 
 vi.mock("@/services/importApi", () => ({
   listMaterialsForTeacher: vi.fn(),
-  createMaterial: vi.fn(),
+  generateMaterial: vi.fn(),
   addMaterialVersion: vi.fn(),
   sendMaterialForReview: vi.fn(),
+  duplicateMaterial: vi.fn(),
+  archiveMaterial: vi.fn(),
+  readyToPrintMaterial: vi.fn(),
+  downloadMaterial: vi.fn(),
 }));
 
 import TeacherMaterialsView from "./TeacherMaterialsView.vue";
-import { createMaterial, listMaterialsForTeacher } from "@/services/importApi";
+import { generateMaterial, listMaterialsForTeacher } from "@/services/importApi";
 import { useSessionStore } from "@/stores/session";
 
 const material: Material = {
@@ -21,6 +25,7 @@ const material: Material = {
   type: "guia",
   title: "Guía 03",
   status: "BORRADOR",
+  version: 1,
   hasDUA: true,
   sentAt: null,
   reviewAt: null,
@@ -38,22 +43,22 @@ function mountView() {
 describe("TeacherMaterialsView", () => {
   beforeEach(() => {
     vi.mocked(listMaterialsForTeacher).mockReset();
-    vi.mocked(createMaterial).mockReset();
+    vi.mocked(generateMaterial).mockReset();
   });
 
-  it("lista materiales y crea uno nuevo", async () => {
+  it("lista materiales y genera una guía como borrador", async () => {
     vi.mocked(listMaterialsForTeacher).mockResolvedValue([material]);
-    vi.mocked(createMaterial).mockResolvedValue(material);
+    vi.mocked(generateMaterial).mockResolvedValue(material);
     const wrapper = mountView();
     await flushPromises();
 
     expect(wrapper.text()).toContain("Guía 03");
     expect(wrapper.text()).toContain("Borrador");
 
-    await wrapper.find('input[placeholder="Título"]').setValue("Guía nueva");
-    await wrapper.find("form").trigger("submit");
+    await wrapper.find('input[placeholder="Título (p. ej. Guía 04 — Cartografía social)"]').setValue("Guía nueva");
+    await wrapper.find("button.btn-primary").trigger("click");
     await flushPromises();
 
-    expect(createMaterial).toHaveBeenCalledWith(expect.objectContaining({ title: "Guía nueva", type: "guia", hasDUA: false }));
+    expect(generateMaterial).toHaveBeenCalledWith(expect.objectContaining({ title: "Guía nueva", type: "GUIDE" }));
   });
 });

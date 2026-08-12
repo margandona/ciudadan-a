@@ -291,12 +291,25 @@ service cloud.firestore {
         isAdminish()
         || (isRole('PROFESOR') && isInCourseOf(resource.data))
         || (isRole('EVALUADOR') && resource.data.get('evaluatorId', '') == request.auth.uid)
+        || (isRole('PIE') && resource.data.get('pieReviewerId', '') == request.auth.uid)
+        || (isRole('UTP') && resource.data.get('utpReviewerId', '') == request.auth.uid)
       );
       allow create: if signedIn() && isRole('PROFESOR')
         && isInCourseOf(request.resource.data);
       allow update: if signedIn()
         && (isRole('PROFESOR') && isInCourseOf(resource.data)) || onlyServer();
       allow delete: if onlyServer();
+    }
+
+    match /materials/{materialId}/approvals/{role} {
+      allow read: if signedIn() && (
+        isAdminish()
+        || (isRole('PROFESOR') && isInCourseOf(get(/databases/$(database)/documents/materials/$(materialId)).data))
+        || (isRole('EVALUADOR') && get(/databases/$(database)/documents/materials/$(materialId)).data.get('evaluatorId', '') == request.auth.uid)
+        || (isRole('PIE') && get(/databases/$(database)/documents/materials/$(materialId)).data.get('pieReviewerId', '') == request.auth.uid)
+        || (isRole('UTP') && get(/databases/$(database)/documents/materials/$(materialId)).data.get('utpReviewerId', '') == request.auth.uid)
+      );
+      allow create, update, delete: if onlyServer();
     }
 
     match /materials/{materialId}/versions/{versionId} {
@@ -306,12 +319,12 @@ service cloud.firestore {
 
     match /materials/{materialId}/reviewComments/{commentId} {
       allow read: if signedIn();
-      allow create: if signedIn() && (isRole('EVALUADOR') || isRole('PROFESOR') || isAdminish());
+      allow create: if signedIn() && (isRole('EVALUADOR') || isRole('PIE') || isRole('UTP') || isRole('PROFESOR') || isAdminish());
       allow update, delete: if onlyServer();
     }
 
     match /materials/{materialId}/reviewRequests/{requestId} {
-      allow read: if signedIn() && (isRole('PROFESOR') || isRole('EVALUADOR') || isAdminish());
+      allow read: if signedIn() && (isRole('PROFESOR') || isRole('EVALUADOR') || isRole('PIE') || isRole('UTP') || isAdminish());
       allow create, update, delete: if onlyServer();
     }
 

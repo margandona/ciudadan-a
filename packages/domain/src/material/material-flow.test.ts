@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { MATERIAL_STATUS } from "@pclab/shared";
-import { canTransitionMaterial, validateMaterialVersion } from "./material-flow";
+import { canTransitionMaterial } from "./material-review";
+import { validateMaterialVersion } from "./material-flow";
 
 describe("canTransitionMaterial", () => {
   it("permite enviar de BORRADOR a EN_REVISION", () => {

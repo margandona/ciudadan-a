@@ -5,6 +5,7 @@ import type {
   ExitTicket,
   Feedback,
   Material,
+  MaterialApproval,
   MaterialVersion,
   ParticipationRecord,
   PositiveMessage,
@@ -13,6 +14,7 @@ import type {
   QuizQuestion,
   ReviewComment,
   ReviewRequest,
+  ReviewerRole,
   StudentActivityStats,
   StudentBadge,
   Submission,
@@ -234,6 +236,39 @@ export class FirestoreMaterialRepository implements MaterialRepository {
   async listComments(materialId: string): Promise<ReviewComment[]> {
     const snap = await this.ref(materialId).collection("reviewComments").orderBy("at", "asc").get();
     return snap.docs.map((d) => recordToComment(d.id, d.data() ?? {}));
+  }
+
+  async updateComment(commentId: string, patch: Partial<ReviewComment>): Promise<void> {
+    const snap = await this.db.collectionGroup("reviewComments").where("id", "==", commentId).limit(1).get();
+    if (snap.empty) return;
+    const data: Record<string, unknown> = {};
+    if (patch.text !== undefined) data.text = patch.text;
+    if (patch.resolved !== undefined) data.resolved = patch.resolved;
+    if (patch.resolvedBy !== undefined) data.resolvedBy = patch.resolvedBy ?? null;
+    if (patch.resolvedAt !== undefined) data.resolvedAt = isoToTimestamp(patch.resolvedAt ?? null);
+    if (patch.section !== undefined) data.section = patch.section ?? null;
+    if (patch.versionId !== undefined) data.versionId = patch.versionId ?? null;
+    if (Object.keys(data).length > 0) await snap.docs[0]!.ref.update(data);
+  }
+
+  async listApprovals(materialId: string): Promise<MaterialApproval[]> {
+    const snap = await this.ref(materialId).collection("approvals").get();
+    return snap.docs.map((d) => recordToApproval(d.id, d.data() ?? {}));
+  }
+
+  async setApproval(materialId: string, approval: MaterialApproval): Promise<void> {
+    await this.ref(materialId).collection("approvals").doc(approval.role).set(approvalToRecord(approval), { merge: true });
+  }
+
+  async listByReviewer(role: ReviewerRole, uid: string): Promise<Material[]> {
+    const field = role === "EVALUADOR" ? "evaluatorId" : role === "PIE" ? "pieReviewerId" : "utpReviewerId";
+    const snap = await this.db.collection("materials").where(field, "==", uid).get();
+    return snap.docs.map((d) => recordToMaterial(d.id, d.data() ?? {}));
+  }
+
+  async listArchived(courseId: string): Promise<Material[]> {
+    const snap = await this.db.collection("materials").where("courseId", "==", courseId).where("status", "==", "ARCHIVED").get();
+    return snap.docs.map((d) => recordToMaterial(d.id, d.data() ?? {}));
   }
 
   async addReviewRequest(request: ReviewRequest): Promise<ReviewRequest> {
@@ -608,17 +643,38 @@ function recordToMaterial(id: string, data: Record<string, unknown>): Material {
   return {
     id,
     courseId: (data.courseId as string) ?? "",
+    courseIds: (data.courseIds as string[] | undefined) ?? undefined,
     classId: (data.classId as string | undefined) ?? undefined,
+    unitId: (data.unitId as string | undefined) ?? undefined,
     type: (data.type as Material["type"]) ?? "complementario",
     title: (data.title as string) ?? "",
+    description: (data.description as string | undefined) ?? undefined,
     oaIds: (data.oaIds as string[] | undefined) ?? undefined,
+    learningObjectives: (data.learningObjectives as string[] | undefined) ?? undefined,
+    classObjective: (data.classObjective as string | undefined) ?? undefined,
+    indicators: (data.indicators as string[] | undefined) ?? undefined,
+    duration: (data.duration as number | undefined) ?? undefined,
+    estimatedPages: (data.estimatedPages as number | undefined) ?? undefined,
     status: (data.status as Material["status"]) ?? "BORRADOR",
+    version: (data.version as number) ?? 1,
+    parentMaterialId: (data.parentMaterialId as string | undefined) ?? undefined,
     hasDUA: (data.hasDUA as boolean) ?? false,
+    hasPIE: (data.hasPIE as boolean | undefined) ?? undefined,
+    requiresPrinting: (data.requiresPrinting as boolean | undefined) ?? undefined,
+    requiresReview: (data.requiresReview as boolean | undefined) ?? undefined,
+    reviewConfig: (data.reviewConfig as Material["reviewConfig"]) ?? undefined,
+    content: (data.content as Material["content"]) ?? undefined,
     evaluatorId: (data.evaluatorId as string | undefined) ?? undefined,
+    pieReviewerId: (data.pieReviewerId as string | undefined) ?? undefined,
+    utpReviewerId: (data.utpReviewerId as string | undefined) ?? undefined,
     sentAt: timestampToIso(data.sentAt as never) ?? null,
     reviewAt: timestampToIso(data.reviewAt as never) ?? null,
+    classDate: timestampToIso(data.classDate as never) ?? null,
     printDeadline: timestampToIso(data.printDeadline as never) ?? null,
     reviewDeadline: timestampToIso(data.reviewDeadline as never) ?? null,
+    archivedAt: timestampToIso(data.archivedAt as never) ?? null,
+    createdBy: (data.createdBy as string | undefined) ?? undefined,
+    createdAt: timestampToIso(data.createdAt as never) ?? null,
     updatedAt: timestampToIso(data.updatedAt) ?? new Date().toISOString(),
   };
 }
@@ -627,17 +683,38 @@ function materialToRecord(m: Material): Record<string, unknown> {
   return {
     id: m.id,
     courseId: m.courseId,
+    courseIds: m.courseIds ?? null,
     classId: m.classId ?? null,
+    unitId: m.unitId ?? null,
     type: m.type,
     title: m.title,
+    description: m.description ?? null,
     oaIds: m.oaIds ?? null,
+    learningObjectives: m.learningObjectives ?? null,
+    classObjective: m.classObjective ?? null,
+    indicators: m.indicators ?? null,
+    duration: m.duration ?? null,
+    estimatedPages: m.estimatedPages ?? null,
     status: m.status,
+    version: m.version ?? 1,
+    parentMaterialId: m.parentMaterialId ?? null,
     hasDUA: m.hasDUA,
+    hasPIE: m.hasPIE ?? null,
+    requiresPrinting: m.requiresPrinting ?? null,
+    requiresReview: m.requiresReview ?? null,
+    reviewConfig: m.reviewConfig ?? null,
+    content: m.content ?? null,
     evaluatorId: m.evaluatorId ?? null,
+    pieReviewerId: m.pieReviewerId ?? null,
+    utpReviewerId: m.utpReviewerId ?? null,
     sentAt: isoToTimestamp(m.sentAt ?? null),
     reviewAt: isoToTimestamp(m.reviewAt ?? null),
+    classDate: isoToTimestamp(m.classDate ?? null),
     printDeadline: isoToTimestamp(m.printDeadline ?? null),
     reviewDeadline: isoToTimestamp(m.reviewDeadline ?? null),
+    archivedAt: isoToTimestamp(m.archivedAt ?? null),
+    createdBy: m.createdBy ?? null,
+    createdAt: isoToTimestamp(m.createdAt ?? null),
     updatedAt: isoToTimestamp(m.updatedAt),
   };
 }
@@ -654,6 +731,7 @@ function recordToVersion(id: string, data: Record<string, unknown>): MaterialVer
     url: (data.url as string | undefined) ?? undefined,
     storagePath: (data.storagePath as string | undefined) ?? undefined,
     note: (data.note as string | undefined) ?? undefined,
+    changeSummary: (data.changeSummary as string | undefined) ?? undefined,
     uploadedAt: timestampToIso(data.uploadedAt) ?? new Date().toISOString(),
     by: (data.by as string) ?? "",
   };
@@ -671,6 +749,7 @@ function versionToRecord(v: MaterialVersion): Record<string, unknown> {
     url: v.url ?? null,
     storagePath: v.storagePath ?? null,
     note: v.note ?? null,
+    changeSummary: v.changeSummary ?? null,
     uploadedAt: isoToTimestamp(v.uploadedAt),
     by: v.by,
   };
@@ -680,15 +759,52 @@ function recordToComment(id: string, data: Record<string, unknown>): ReviewComme
   return {
     id,
     materialId: (data.materialId as string) ?? "",
+    versionId: (data.versionId as string | undefined) ?? undefined,
+    section: (data.section as string | undefined) ?? undefined,
     text: (data.text as string) ?? "",
     by: (data.by as string) ?? "",
     role: (data.role as string) ?? "",
     at: timestampToIso(data.at) ?? new Date().toISOString(),
+    resolved: (data.resolved as boolean) ?? false,
+    resolvedBy: (data.resolvedBy as string | undefined) ?? undefined,
+    resolvedAt: timestampToIso(data.resolvedAt as never) ?? null,
   };
 }
 
 function commentToRecord(c: ReviewComment): Record<string, unknown> {
-  return { id: c.id, materialId: c.materialId, text: c.text, by: c.by, role: c.role, at: isoToTimestamp(c.at) };
+  return {
+    id: c.id,
+    materialId: c.materialId,
+    versionId: c.versionId ?? null,
+    section: c.section ?? null,
+    text: c.text,
+    by: c.by,
+    role: c.role,
+    at: isoToTimestamp(c.at),
+    resolved: c.resolved ?? false,
+    resolvedBy: c.resolvedBy ?? null,
+    resolvedAt: isoToTimestamp(c.resolvedAt ?? null),
+  };
+}
+
+function recordToApproval(_id: string, data: Record<string, unknown>): MaterialApproval {
+  return {
+    role: (data.role as MaterialApproval["role"]) ?? "EVALUADOR",
+    status: (data.status as MaterialApproval["status"]) ?? "PENDIENTE",
+    by: (data.by as string) ?? "",
+    at: timestampToIso(data.at) ?? new Date().toISOString(),
+    commentId: (data.commentId as string | undefined) ?? undefined,
+  };
+}
+
+function approvalToRecord(a: MaterialApproval): Record<string, unknown> {
+  return {
+    role: a.role,
+    status: a.status,
+    by: a.by,
+    at: isoToTimestamp(a.at),
+    commentId: a.commentId ?? null,
+  };
 }
 
 function recordToRequest(id: string, data: Record<string, unknown>): ReviewRequest {

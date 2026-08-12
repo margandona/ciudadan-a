@@ -23,13 +23,19 @@ import type {
 } from "@pclab/shared";
 import {
   AddMaterialVersionUseCase,
+  ApproveMaterialUseCase,
+  ArchiveMaterialUseCase,
   AssessProjectUseCase,
   AwardBadgeUseCase,
+  CorrectMaterialUseCase,
   CreateMaterialUseCase,
   CreateProjectionTokenUseCase,
   CreateTeamUseCase,
   DeactivateStudentUseCase,
+  DuplicateMaterialUseCase,
   EvaluateAndAwardBadgesUseCase,
+  GenerateDocumentUseCase,
+  GenerateMaterialUseCase,
   GetBadgesForStudentUseCase,
   GetCalendarAlertsUseCase,
   GetClassDashboardUseCase,
@@ -49,24 +55,29 @@ import {
   ListExitTicketsUseCase,
   ListMaterialsForEvaluatorUseCase,
   ListMaterialsForTeacherUseCase,
+  ListPendingForRoleUseCase,
   ListProjectsUseCase,
   ListTeamsUseCase,
   PreviewStudentImportUseCase,
   RandomGroupsUseCase,
+  ReadyToPrintUseCase,
   RecordManualVotesUseCase,
   RegisterParticipationUseCase,
+  ResolveCommentUseCase,
+  ResubmitMaterialUseCase,
   ReviewMaterialUseCase,
   ReviewSubmissionUseCase,
   SaveProjectUseCase,
   SaveSelfPeerAssessmentUseCase,
   SavePresentationUseCase,
-  SendMaterialForReviewUseCase,
+  SendMaterialForReviewV2UseCase,
   SetClassScheduleUseCase,
   SubmitEvidenceUseCase,
   SubmitExitTicketUseCase,
   SubmitFeedbackUseCase,
   SubmitQuizAttemptUseCase,
   SubmitVoteUseCase,
+  UpdateMaterialUseCase,
   UpdateTeamUseCase,
   type AuthContext,
   type UserDirectoryRepository,
@@ -100,6 +111,7 @@ import {
   FirestoreVoteRepository,
   StudentColumnMapper,
 } from "@pclab/infrastructure";
+import { buildMaterialDocx, buildMaterialPdf } from "./material-docs";
 
 const app = initializeApp();
 const db = getFirestore(app);
@@ -169,11 +181,26 @@ const userDirectory = new AuthUserDirectory();
 
 const createMaterialUseCase = new CreateMaterialUseCase({ materials });
 const addMaterialVersionUseCase = new AddMaterialVersionUseCase({ materials });
-const sendMaterialForReviewUseCase = new SendMaterialForReviewUseCase({ materials, users: userDirectory, audit });
+const sendMaterialForReviewV2UseCase = new SendMaterialForReviewV2UseCase({ materials, users: userDirectory, audit });
 const listMaterialsForTeacherUseCase = new ListMaterialsForTeacherUseCase({ materials });
 const listMaterialsForEvaluatorUseCase = new ListMaterialsForEvaluatorUseCase({ materials });
 const getMaterialDetailUseCase = new GetMaterialDetailUseCase({ materials });
 const reviewMaterialUseCase = new ReviewMaterialUseCase({ materials, audit });
+const generateMaterialUseCase = new GenerateMaterialUseCase({ materials });
+const updateMaterialUseCase = new UpdateMaterialUseCase({ materials, audit });
+const duplicateMaterialUseCase = new DuplicateMaterialUseCase({ materials, audit });
+const archiveMaterialUseCase = new ArchiveMaterialUseCase({ materials, audit });
+const approveMaterialUseCase = new ApproveMaterialUseCase({ materials, audit });
+const correctMaterialUseCase = new CorrectMaterialUseCase({ materials, audit });
+const resubmitMaterialUseCase = new ResubmitMaterialUseCase({ materials, audit });
+const readyToPrintUseCase = new ReadyToPrintUseCase({ materials, audit });
+const resolveCommentUseCase = new ResolveCommentUseCase({ materials });
+const listPendingForRoleUseCase = new ListPendingForRoleUseCase({ materials });
+const documentGenerator = {
+  buildPdf: (m: Material) => buildMaterialPdf(m),
+  buildDocx: (m: Material) => buildMaterialDocx(m),
+};
+const generateDocumentUseCase = new GenerateDocumentUseCase({ materials, generator: documentGenerator });
 
 const badgesRepo = new FirestoreBadgeRepository(db);
 const studentBadgesRepo = new FirestoreStudentBadgeRepository(db);
@@ -599,9 +626,12 @@ export const sendMaterialForReview = onCall(
     const actor = actorFrom(request);
     requireAuth(actor);
     rateLimit(actor?.uid ?? "anon", "sendMaterialForReview", 30);
-    const data = request.data as { materialId?: string; courseId?: string; evaluatorEmail?: string } | undefined;
+    const data = request.data as { materialId?: string; courseId?: string; evaluatorEmail?: string; pieEmail?: string; utpEmail?: string } | undefined;
     if (!data?.materialId || !data?.courseId || !data?.evaluatorEmail) throw new HttpsError("invalid-argument", "Datos incompletos.");
-    return sendMaterialForReviewUseCase.run({ materialId: data.materialId, courseId: data.courseId, evaluatorEmail: data.evaluatorEmail }, actor);
+    return sendMaterialForReviewV2UseCase.run(
+      { materialId: data.materialId, courseId: data.courseId, evaluatorEmail: data.evaluatorEmail, pieEmail: data.pieEmail, utpEmail: data.utpEmail },
+      actor,
+    );
   },
 );
 
@@ -643,6 +673,138 @@ export const reviewMaterial = onCall(
       throw new HttpsError("invalid-argument", "Datos incompletos.");
     }
     return reviewMaterialUseCase.run({ materialId: data.materialId, courseId: data.courseId, status: data.status as never, comment: data.comment }, actor);
+  },
+);
+
+export const generateMaterial = onCall(
+  async (request): Promise<Material> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "generateMaterial", 60);
+    const data = request.data as Parameters<GenerateMaterialUseCase["run"]>[0] | undefined;
+    if (!data?.courseId || !data?.type || !data?.title) throw new HttpsError("invalid-argument", "Datos incompletos.");
+    return generateMaterialUseCase.run(
+      { ...data, classDate: data.classDate ?? null },
+      actor,
+    );
+  },
+);
+
+export const updateMaterial = onCall(
+  async (request): Promise<Material> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "updateMaterial", 60);
+    const data = request.data as Parameters<UpdateMaterialUseCase["run"]>[0] | undefined;
+    if (!data?.materialId || !data?.courseId) throw new HttpsError("invalid-argument", "Faltan datos.");
+    return updateMaterialUseCase.run(data, actor);
+  },
+);
+
+export const duplicateMaterial = onCall(
+  async (request): Promise<Material> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "duplicateMaterial", 30);
+    const data = request.data as Parameters<DuplicateMaterialUseCase["run"]>[0] | undefined;
+    if (!data?.materialId || !data?.courseId) throw new HttpsError("invalid-argument", "Faltan datos.");
+    return duplicateMaterialUseCase.run(data, actor);
+  },
+);
+
+export const archiveMaterial = onCall(
+  async (request): Promise<Material> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "archiveMaterial", 30);
+    const data = request.data as { materialId?: string; courseId?: string } | undefined;
+    if (!data?.materialId || !data?.courseId) throw new HttpsError("invalid-argument", "Faltan datos.");
+    return archiveMaterialUseCase.run({ materialId: data.materialId, courseId: data.courseId }, actor);
+  },
+);
+
+export const approveMaterial = onCall(
+  async (request): Promise<unknown> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "approveMaterial", 60);
+    const data = request.data as { materialId?: string; courseId?: string; decision?: string; comment?: string; section?: string } | undefined;
+    if (!data?.materialId || !data?.courseId || !data?.decision || !data?.comment) {
+      throw new HttpsError("invalid-argument", "Datos incompletos.");
+    }
+    return approveMaterialUseCase.run(
+      { materialId: data.materialId, courseId: data.courseId, decision: data.decision as never, comment: data.comment, section: data.section },
+      actor,
+    );
+  },
+);
+
+export const correctMaterial = onCall(
+  async (request): Promise<Material> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "correctMaterial", 60);
+    const data = request.data as { materialId?: string; courseId?: string; content?: unknown; changeSummary?: string } | undefined;
+    if (!data?.materialId || !data?.courseId || !data?.content) throw new HttpsError("invalid-argument", "Datos incompletos.");
+    return correctMaterialUseCase.run(
+      { materialId: data.materialId, courseId: data.courseId, content: data.content as never, changeSummary: data.changeSummary ?? "" },
+      actor,
+    );
+  },
+);
+
+export const resubmitMaterial = onCall(
+  async (request): Promise<Material> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "resubmitMaterial", 30);
+    const data = request.data as { materialId?: string; courseId?: string } | undefined;
+    if (!data?.materialId || !data?.courseId) throw new HttpsError("invalid-argument", "Faltan datos.");
+    return resubmitMaterialUseCase.run({ materialId: data.materialId, courseId: data.courseId }, actor);
+  },
+);
+
+export const readyToPrint = onCall(
+  async (request): Promise<Material> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "readyToPrint", 30);
+    const data = request.data as { materialId?: string; courseId?: string } | undefined;
+    if (!data?.materialId || !data?.courseId) throw new HttpsError("invalid-argument", "Faltan datos.");
+    return readyToPrintUseCase.run({ materialId: data.materialId, courseId: data.courseId }, actor);
+  },
+);
+
+export const resolveComment = onCall(
+  async (request): Promise<{ ok: boolean }> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    const data = request.data as { materialId?: string; commentId?: string } | undefined;
+    if (!data?.materialId || !data?.commentId) throw new HttpsError("invalid-argument", "Faltan datos.");
+    await resolveCommentUseCase.run({ materialId: data.materialId, commentId: data.commentId }, actor);
+    return { ok: true };
+  },
+);
+
+export const listPendingMaterials = onCall(
+  async (request): Promise<Material[]> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    const data = request.data as { courseId?: string } | undefined;
+    return listPendingForRoleUseCase.run(data?.courseId, actor);
+  },
+);
+
+export const downloadMaterial = onCall(
+  async (request): Promise<{ buffer: string; mime: string; fileName: string }> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "downloadMaterial", 60);
+    const data = request.data as { materialId?: string; kind?: string } | undefined;
+    if (!data?.materialId || !data?.kind) throw new HttpsError("invalid-argument", "Faltan datos.");
+    const result = await generateDocumentUseCase.run({ materialId: data.materialId, kind: data.kind as "PDF" | "DOCX" }, actor);
+    const base64 = Buffer.from(result.buffer).toString("base64");
+    return { buffer: base64, mime: result.mime, fileName: result.fileName };
   },
 );
 

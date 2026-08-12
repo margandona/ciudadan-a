@@ -5,7 +5,7 @@ test("FLOW 5 — proyección: deck con teclado y fullscreen", async ({ page }) =
   await login(page, "teacher");
   await page.goto("/projection/class-01");
   await expect(page.getByRole("heading", { name: /Misión 01/ }).first()).toBeVisible();
-  const slide1 = page.locator(".stage").innerText();
+  const slide1 = await page.locator(".stage").innerText();
   await page.keyboard.press("ArrowRight");
   await expect(page.locator(".stage")).not.toHaveText(slide1, { timeout: 5000 });
 });

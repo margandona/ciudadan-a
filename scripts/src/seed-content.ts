@@ -82,11 +82,44 @@ async function main(): Promise<void> {
     const materials = readJson<Material[]>(materialsFile);
     for (const material of materials) {
       await db.collection("materials").doc(material.id).set(
-        { ...material, updatedAt: isoToTimestamp(material.updatedAt) ?? nowTs },
+        { ...material, version: 1, updatedAt: isoToTimestamp(material.updatedAt) ?? nowTs },
         { merge: true },
       );
     }
-    console.log(`Materiales: ${materials.length} listos.`);
+    console.log(`Materiales (legado): ${materials.length} listos.`);
+  }
+
+  const materialContentFile = path.join(ROOT, "content", "material-content.json");
+  if (fs.existsSync(materialContentFile)) {
+    const items = readJson<Material[]>(materialContentFile);
+    for (const material of items) {
+      const doc = db.collection("materials").doc(material.id);
+      await doc.set(
+        {
+          ...material,
+          version: material.version ?? 1,
+          status: material.status ?? "BORRADOR",
+          createdAt: isoToTimestamp(material.createdAt) ?? nowTs,
+          updatedAt: nowTs,
+          createdBy: "seed-content",
+        },
+        { merge: true },
+      );
+      await doc.collection("versions").doc(`v1-${material.id}`).set(
+        {
+          id: `v1-${material.id}`,
+          materialId: material.id,
+          version: 1,
+          kind: "GENERAL",
+          fileName: `${material.title.toLowerCase().replace(/\s+/g, "-")}-v1.pdf`,
+          note: "Versión inicial (contenido de la plataforma)",
+          uploadedAt: nowTs,
+          by: "seed-content",
+        },
+        { merge: true },
+      );
+    }
+    console.log(`Materiales con contenido: ${items.length} listos.`);
   }
 
   // Presentaciones: deck real de class-01 + decks por defecto para el resto.

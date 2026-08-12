@@ -28,6 +28,12 @@ const session = useSessionStore();
     <nav aria-label="Evaluador" v-else-if="session.role === 'EVALUADOR'">
       <RouterLink to="/evaluator" class="nav-link">Revisar material</RouterLink>
     </nav>
+    <nav aria-label="PIE" v-else-if="session.role === 'PIE'">
+      <RouterLink to="/pie" class="nav-link">Revisión de material</RouterLink>
+    </nav>
+    <nav aria-label="UTP" v-else-if="session.role === 'UTP'">
+      <RouterLink to="/utp" class="nav-link">Revisión de material</RouterLink>
+    </nav>
     <nav aria-label="Estudiante" v-else-if="session.role === 'ESTUDIANTE'">
       <RouterLink to="/student" class="nav-link">Mis misiones</RouterLink>
     </nav>

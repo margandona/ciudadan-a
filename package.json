@@ -32,6 +32,8 @@
     "seed:demo-teacher": "tsx scripts/src/seed-demo-teacher.ts",
     "seed:demo-student": "tsx scripts/src/seed-demo-student.ts",
     "seed:demo-evaluator": "tsx scripts/src/seed-demo-evaluator.ts",
+    "seed:demo-pie": "tsx scripts/src/seed-demo-pie.ts",
+    "seed:demo-utp": "tsx scripts/src/seed-demo-utp.ts",
     "import:students": "tsx scripts/src/import-students.ts",
     "import:students:dry": "tsx scripts/src/import-students.ts --dry-run",
     "analyze:roster": "tsx scripts/src/analyze-roster.ts"

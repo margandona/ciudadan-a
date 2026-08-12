@@ -226,3 +226,24 @@ Formato: **ID | Módulo | Precondición | Acción | Resultado esperado | Resulta
 | A11Y-05 | Zoom 200–400% sin pérdida de contenido | Cumple | | |
 | A11Y-06 | reduced motion desactiva animaciones | Cumple | | |
 | A11Y-07 | Lector de pantalla (NVDA/VoiceOver) en estudiante y proyección | Flujo legible | | |
+
+## MATERIAL PEDAGÓGICO (flujo institucional)
+
+| ID | Módulo | Precondición | Acción | Resultado esperado | Estado | Observaciones |
+|---|---|---|---|---|---|---|
+| MP-01 | Generar guía | Profesor en `/teacher/materials` | Tipo GUÍA + título + clase → Generar | Borrador v1 con contenido; redirige al editor | | |
+| MP-02 | Editar guía | Borrador generado | Cambiar sección/ítem y Guardar | Se crea v2; no sobrescribe v1 | | |
+| MP-03 | Generar prueba | Profesor | Tipo WRITTEN_TEST + clase 6 + fecha | Borrador con ítems, tabla de especificaciones y solucionario; plazos −7/−3 calculados | | |
+| MP-04 | Generar versión DUA/PIE | Material con `parentMaterialId` | Tipo DUA_VERSION / PIE_VERSION | Borrador con instrucciones segmentadas y menos distractores | | |
+| MP-05 | Descargar | Material en borrador | Descargar PDF y DOCX | Archivo generado con encabezado institucional | | |
+| MP-06 | Enviar a revisión | Borrador | Evaluadora + PIE + UTP (correos) | Estado EN REVISIÓN; aprobaciones PENDIENTE por actor | | |
+| MP-07 | Comentar | Material EN_REVISION | Evaluadora comenta (sección opcional) y solicita cambios | Estado REQUIERE CAMBIOS; comentario con sección | | |
+| MP-08 | Corregir | REQUIERE CAMBIOS | Profesor edita y «Guardar corrección» | v3; estado CORREGIDO | | |
+| MP-09 | Reenviar | CORREGIDO | «Reenviar a revisión» | Estado REENVIADO/EN REVISIÓN; aprobaciones reset | | |
+| MP-10 | Aprobar | EN_REVISION | PIE aprueba (versión DUA) y UTP aprueba | Estado APROBADO FINAL | | |
+| MP-11 | Rechazar | EN_REVISION | Rechazar con comentario | Estado RECHAZADO; puede volver a BORRADOR | | |
+| MP-12 | Listo para imprimir | APROBADO FINAL | «Listo para imprimir» | Estado LISTO PARA IMPRIMIR (bloqueado si falta aprobación) | | |
+| MP-13 | Revisión UTP | Material asignado a UTP | UTP abre `/utp`, comenta, descarga | Sin edición directa; puede comentar/aprobar | | |
+| MP-14 | Versiones | Material editado varias veces | Ver detalle → Historial de versiones | v1, v2, v3… con resumen de cambio | | |
+| MP-15 | Plazos | Material con fecha de clase | Ver tarjeta y `/teacher/calendar` | Impresión −3 días; revisión −7 días; alertas V/A/R | | |
+| MP-16 | Permisos | — | UTP/PIE acceden a material no asignado | Denegado (403/redirección) | | |

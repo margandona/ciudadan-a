@@ -45,6 +45,7 @@ export class CreateMaterialUseCase {
       title: input.title.trim(),
       oaIds: input.oaIds,
       status: MATERIAL_STATUS.BORRADOR,
+      version: 1,
       hasDUA: input.hasDUA,
       sentAt: null,
       reviewAt: null,
@@ -191,12 +192,13 @@ export class GetMaterialDetailUseCase {
       assertCourse(actor, material.courseId);
     }
 
-    const [versions, comments, requests] = await Promise.all([
+    const [versions, comments, requests, approvals] = await Promise.all([
       this.deps.materials.listVersions(materialId),
       this.deps.materials.listComments(materialId),
       this.deps.materials.listReviewRequests(materialId),
+      this.deps.materials.listApprovals(materialId),
     ]);
-    return { material, versions, comments, request: requests[0] ?? null };
+    return { material, versions, comments, approvals, request: requests[0] ?? null };
   }
 }
 
@@ -240,6 +242,8 @@ export class ReviewMaterialUseCase {
       by: actor?.uid ?? "server",
       role: "EVALUADOR",
       at: now,
+      resolved: false,
+      resolvedAt: null,
     };
     await this.deps.materials.addComment(comment);
 
@@ -256,11 +260,12 @@ export class ReviewMaterialUseCase {
       metadata: { status: input.status },
     });
 
-    const [versions, comments, requestsAfter] = await Promise.all([
+    const [versions, comments, requestsAfter, approvals] = await Promise.all([
       this.deps.materials.listVersions(input.materialId),
       this.deps.materials.listComments(input.materialId),
       this.deps.materials.listReviewRequests(input.materialId),
+      this.deps.materials.listApprovals(input.materialId),
     ]);
-    return { material: updated, versions, comments, request: requestsAfter[0] ?? null };
+    return { material: updated, versions, comments, approvals, request: requestsAfter[0] ?? null };
   }
 }

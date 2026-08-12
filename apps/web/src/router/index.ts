@@ -42,6 +42,34 @@ const routes: RouteRecordRaw[] = [
         meta: { roles: [ROLES.PROFESOR, ROLES.ADMIN, ROLES.MASTER] },
       },
       {
+        path: "teacher/materials/:materialId/edit",
+        name: "material-editor",
+        component: () => import("@/features/materials/MaterialEditorView.vue"),
+        meta: { roles: [ROLES.PROFESOR, ROLES.ADMIN, ROLES.MASTER] },
+        props: true,
+      },
+      {
+        path: "teacher/materials/:materialId",
+        name: "material-detail",
+        component: () => import("@/features/materials/MaterialDetailView.vue"),
+        meta: { roles: [ROLES.PROFESOR, ROLES.ADMIN, ROLES.MASTER] },
+        props: true,
+      },
+      {
+        path: "utp",
+        name: "utp-dashboard",
+        component: () => import("@/features/materials/ReviewerDashboard.vue"),
+        meta: { roles: [ROLES.UTP, ROLES.ADMIN, ROLES.MASTER] },
+        props: { role: "UTP" },
+      },
+      {
+        path: "pie",
+        name: "pie-dashboard",
+        component: () => import("@/features/materials/ReviewerDashboard.vue"),
+        meta: { roles: [ROLES.PIE, ROLES.ADMIN, ROLES.MASTER] },
+        props: { role: "PIE" },
+      },
+      {
         path: "evaluator",
         name: "evaluator-portal",
         component: () => import("@/features/evaluation/EvaluatorPortal.vue"),
@@ -208,10 +236,12 @@ router.beforeEach(async (to) => {
     return { name: "login", query: { redirect: to.fullPath } };
   }
 
-  // Home: redirige según rol (estudiante → /student, evaluador → /evaluator)
+  // Home: redirige según rol (estudiante → /student, evaluador → /evaluator, UTP/PIE → dashboards)
   if (to.name === "home") {
     if (session.role === ROLES.ESTUDIANTE) return { path: "/student" };
     if (session.role === ROLES.EVALUADOR) return { path: "/evaluator" };
+    if (session.role === ROLES.UTP) return { path: "/utp" };
+    if (session.role === ROLES.PIE) return { path: "/pie" };
     return { path: "/teacher" };
   }
 
@@ -220,6 +250,8 @@ router.beforeEach(async (to) => {
     // Redirigir a la home de cada rol en vez de 403 cuando es un intento por rol.
     if (session.role === ROLES.ESTUDIANTE) return { path: "/student" };
     if (session.role === ROLES.EVALUADOR) return { path: "/evaluator" };
+    if (session.role === ROLES.UTP) return { path: "/utp" };
+    if (session.role === ROLES.PIE) return { path: "/pie" };
     return { name: "forbidden" };
   }
   return true;

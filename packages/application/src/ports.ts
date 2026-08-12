@@ -11,6 +11,7 @@ import type {
   FlippedLesson,
   FlippedProgress,
   Material,
+  MaterialApproval,
   MaterialVersion,
   ParsedSheet,
   ParsedWorkbook,
@@ -25,6 +26,7 @@ import type {
   QuizQuestion,
   ReviewComment,
   ReviewRequest,
+  ReviewerRole,
   Rubric,
   SlideDeck,
   Student,
@@ -143,14 +145,25 @@ export interface MaterialRepository {
   listVersions(materialId: string): Promise<MaterialVersion[]>;
   addComment(comment: ReviewComment): Promise<ReviewComment>;
   listComments(materialId: string): Promise<ReviewComment[]>;
+  updateComment(commentId: string, patch: Partial<ReviewComment>): Promise<void>;
   addReviewRequest(request: ReviewRequest): Promise<ReviewRequest>;
   listReviewRequests(materialId: string): Promise<ReviewRequest[]>;
   respondReviewRequest(requestId: string, respondedAt: string): Promise<void>;
+  listApprovals(materialId: string): Promise<MaterialApproval[]>;
+  setApproval(materialId: string, approval: MaterialApproval): Promise<void>;
+  listByReviewer(role: ReviewerRole, uid: string): Promise<Material[]>;
+  listArchived(courseId: string): Promise<Material[]>;
 }
 
 /** Directorio de usuarios (para resolver evaluador por email). */
 export interface UserDirectoryRepository {
   uidByEmail(email: string): Promise<string | null>;
+}
+
+/** Generador de documentos institucionales (PDF/DOCX) a partir de un material. */
+export interface MaterialDocumentGenerator {
+  buildPdf(material: Material): Promise<{ buffer: Uint8Array; mime: string; fileName: string }>;
+  buildDocx(material: Material): Promise<{ buffer: Uint8Array; mime: string; fileName: string }>;
 }
 
 /** Catálogo de medallas. */

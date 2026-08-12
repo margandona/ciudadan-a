@@ -6,7 +6,9 @@ import { listPendingMaterials } from "@/services/importApi";
 import BaseBadge from "@/components/ui/BaseBadge.vue";
 import SkeletonRows from "@/components/ui/SkeletonRows.vue";
 import AppErrorState from "@/components/ui/AppErrorState.vue";
-import MaterialDetailView from "../materials/MaterialDetailView.vue";
+import MaterialDetailView from "./MaterialDetailView.vue";
+
+const props = defineProps<{ role: "PIE" | "UTP" }>();
 
 const materials = ref<Material[]>([]);
 const selected = ref("");
@@ -30,14 +32,14 @@ onMounted(load);
 
 <template>
   <div>
-    <h1>Portal del evaluador</h1>
-    <p class="muted">Revisa solo el material asignado; no verás datos de estudiantes.</p>
+    <h1>Material pendiente de revisión — {{ props.role }}</h1>
+    <p class="muted">Revisa, comenta, aprueba o solicita cambios del material asignado.</p>
 
     <SkeletonRows v-if="loading" />
     <AppErrorState v-else-if="error" :message="error" @retry="load" />
 
     <template v-else>
-      <p v-if="materials.length === 0" class="muted">No tienes material por revisar.</p>
+      <p v-if="materials.length === 0" class="muted">No tienes material pendiente de revisión.</p>
       <ul v-else class="list">
         <li v-for="m in materials" :key="m.id">
           <button class="item" :class="{ active: selected === m.id }" @click="selected = m.id">

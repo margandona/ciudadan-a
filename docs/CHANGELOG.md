@@ -2,6 +2,26 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.17.0] — Módulo de materiales y evaluaciones (flujo institucional)
+
+### Added
+- **Flujo de revisión institucional multi-actor**: estados `LISTO_PARA_REVISION/ENVIADO_A_REVISION/OBSERVACIONES/REQUIERE_CAMBIOS/CORREGIDO/REENVIADO/APROBADO_FINAL/READY_TO_PRINT/RECHAZADO/ARCHIVED`; aprobaciones por actor (evaluadora/PIE/UTP) con `reviewConfig` configurable por tipo y **gate de impresión**.
+- **Roles PIE y UTP activos**: dashboards `/pie` y `/utp`, revisión/comentario/aprobación y descarga.
+- **Generador** de material (GUÍA/PRUEBA/RÚBRICA/PAUTA/DUA/PIE) + **editor** del profesor con versionado (`v1…vn`) + duplicar + archivar.
+- **PDF/DOCX institucionales** (`pdfkit`/`docx`, encabezado oficial) con descarga por rol.
+- **Contenido real de las 12 clases** en `content/material-content.json` (19 materiales: guías, pruebas U3/U4 general + DUA, solucionarios, rúbricas, pautas, tablas de especificaciones, tickets).
+- **Plazos automáticos** −7 días (evaluaciones) / −3 días (guías impresas) desde la fecha de clase.
+- Seeds `seed:demo-pie` y `seed:demo-utp`; reglas R19–R21 (UTP/PIE/aprobaciones).
+
+### Fixed
+- Firestore no admitía arrays anidados en `content` (tablas → `rows: {cells}[]`).
+- `pdfkit` external en el bundle de Functions (sus fuentes AFM no se empaquetan).
+- Specs E2E de materiales (estado en vez de aviso transitorio; ids únicos) y `flow5-8` (`innerText` sin `await`).
+
+### Tests
+- `pnpm test` **280 passed** (unit 16 nuevos de material-v2 + dominio material-review; reglas 21 con R19–R21; integración 29 con `material-approval-emulator` FLOW 1/3) · E2E **11/11** · lint/typecheck/build ✅.
+- Informe: `docs/INFORME_IMPLEMENTACION_MATERIALES.md`.
+
 ## [0.16.1] — Contenido editorial de las 12 misiones
 
 ### Added

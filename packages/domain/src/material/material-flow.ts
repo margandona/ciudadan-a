@@ -1,25 +1,5 @@
-import { MATERIAL_KIND, MATERIAL_STATUS, type MaterialStatus } from "@pclab/shared";
+import { MATERIAL_KIND } from "@pclab/shared";
 import { ValidationError } from "../errors";
-
-/** Transiciones de estado válidas del flujo de revisión de materiales. */
-export const MATERIAL_TRANSITIONS: Record<MaterialStatus, MaterialStatus[]> = {
-  [MATERIAL_STATUS.BORRADOR]: [MATERIAL_STATUS.EN_REVISION],
-  [MATERIAL_STATUS.EN_REVISION]: [
-    MATERIAL_STATUS.CON_OBSERVACIONES,
-    MATERIAL_STATUS.APROBADO,
-    MATERIAL_STATUS.RECHAZADO,
-    MATERIAL_STATUS.CORREGIR_Y_REENVIAR,
-  ],
-  [MATERIAL_STATUS.CON_OBSERVACIONES]: [MATERIAL_STATUS.EN_REVISION],
-  [MATERIAL_STATUS.CORREGIR_Y_REENVIAR]: [MATERIAL_STATUS.EN_REVISION],
-  [MATERIAL_STATUS.APROBADO]: [],
-  [MATERIAL_STATUS.RECHAZADO]: [],
-};
-
-/** ¿Se puede mover el material al nuevo estado? */
-export function canTransitionMaterial(current: MaterialStatus, next: MaterialStatus): boolean {
-  return MATERIAL_TRANSITIONS[current]?.includes(next) ?? false;
-}
 
 /** MIME permitidos para versiones de material. */
 export const ALLOWED_MATERIAL_MIMES = [

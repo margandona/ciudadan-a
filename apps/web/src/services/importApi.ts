@@ -81,7 +81,10 @@ const recordManualVotesFn = httpsCallable<{ classId: string; questionId: string;
 const getVotesFn = httpsCallable<{ classId: string; questionId: string }, VoteResult | null>(functions, "getVotes");
 const createMaterialFn = httpsCallable<{ courseId: string; type: string; title: string; classId?: string; hasDUA: boolean; oaIds?: string[]; printDeadline?: string | null; reviewDeadline?: string | null }, Material>(functions, "createMaterial");
 const addMaterialVersionFn = httpsCallable<{ materialId: string; courseId: string; kind: string; fileName: string; mime?: string; size?: number; url?: string; storagePath?: string; note?: string }, MaterialVersion>(functions, "addMaterialVersion");
-const sendMaterialForReviewFn = httpsCallable<{ materialId: string; courseId: string; evaluatorEmail: string }, Material>(functions, "sendMaterialForReview");
+const sendMaterialForReviewFn = httpsCallable<
+  { materialId: string; courseId: string; evaluatorEmail: string; pieEmail?: string; utpEmail?: string },
+  Material
+>(functions, "sendMaterialForReview");
 const listMaterialsForTeacherFn = httpsCallable<{ courseId: string }, Material[]>(functions, "listMaterialsForTeacher");
 const listMaterialsForEvaluatorFn = httpsCallable<Record<string, never>, Material[]>(functions, "listMaterialsForEvaluator");
 const getMaterialDetailFn = httpsCallable<{ materialId: string }, MaterialDetail>(functions, "getMaterialDetail");
@@ -237,7 +240,7 @@ export async function addMaterialVersion(payload: { materialId: string; courseId
   return res.data;
 }
 
-export async function sendMaterialForReview(payload: { materialId: string; courseId: string; evaluatorEmail: string }): Promise<Material> {
+export async function sendMaterialForReview(payload: { materialId: string; courseId: string; evaluatorEmail: string; pieEmail?: string; utpEmail?: string }): Promise<Material> {
   const res = await sendMaterialForReviewFn(payload);
   return res.data;
 }
@@ -259,6 +262,98 @@ export async function getMaterialDetail(materialId: string): Promise<MaterialDet
 
 export async function reviewMaterial(payload: { materialId: string; courseId: string; status: string; comment: string }): Promise<MaterialDetail> {
   const res = await reviewMaterialFn(payload);
+  return res.data;
+}
+
+// ---------------------------------------------------------------------------
+// Módulo de materiales pedagógicos v2 (flujo institucional).
+// ---------------------------------------------------------------------------
+
+export type MaterialContent = import("@pclab/shared").MaterialContent;
+export type MaterialApproval = import("@pclab/shared").MaterialApproval;
+export type ReviewerRole = import("@pclab/shared").ReviewerRole;
+
+export async function generateMaterial(payload: {
+  courseId: string;
+  classId?: string;
+  unitId?: string;
+  type: string;
+  title: string;
+  classDate?: string | null;
+  requiresPrinting?: boolean;
+  oaIds?: string[];
+  classObjective?: string;
+  indicators?: string[];
+  learningObjectives?: string[];
+}): Promise<Material> {
+  const res = await httpsCallable<typeof payload, Material>(functions, "generateMaterial")(payload);
+  return res.data;
+}
+
+export async function updateMaterial(payload: {
+  materialId: string;
+  courseId: string;
+  title?: string;
+  description?: string;
+  content?: MaterialContent;
+  curricular?: MaterialContent["curricular"];
+  classDate?: string | null;
+  requiresPrinting?: boolean;
+  duration?: number;
+  changeSummary?: string;
+}): Promise<Material> {
+  const res = await httpsCallable<typeof payload, Material>(functions, "updateMaterial")(payload);
+  return res.data;
+}
+
+export async function duplicateMaterial(payload: { materialId: string; courseId: string; targetCourseId?: string }): Promise<Material> {
+  const res = await httpsCallable<typeof payload, Material>(functions, "duplicateMaterial")(payload);
+  return res.data;
+}
+
+export async function archiveMaterial(payload: { materialId: string; courseId: string }): Promise<Material> {
+  const res = await httpsCallable<typeof payload, Material>(functions, "archiveMaterial")(payload);
+  return res.data;
+}
+
+export async function approveMaterial(payload: {
+  materialId: string;
+  courseId: string;
+  decision: "APROBADO" | "CON_OBSERVACIONES" | "SOLICITA_CAMBIOS";
+  comment: string;
+  section?: string;
+}): Promise<MaterialDetail> {
+  const res = await httpsCallable<typeof payload, MaterialDetail>(functions, "approveMaterial")(payload);
+  return res.data;
+}
+
+export async function correctMaterial(payload: { materialId: string; courseId: string; content: MaterialContent; changeSummary: string }): Promise<Material> {
+  const res = await httpsCallable<typeof payload, Material>(functions, "correctMaterial")(payload);
+  return res.data;
+}
+
+export async function resubmitMaterial(payload: { materialId: string; courseId: string }): Promise<Material> {
+  const res = await httpsCallable<typeof payload, Material>(functions, "resubmitMaterial")(payload);
+  return res.data;
+}
+
+export async function readyToPrintMaterial(payload: { materialId: string; courseId: string }): Promise<Material> {
+  const res = await httpsCallable<typeof payload, Material>(functions, "readyToPrint")(payload);
+  return res.data;
+}
+
+export async function resolveComment(payload: { materialId: string; commentId: string }): Promise<{ ok: boolean }> {
+  const res = await httpsCallable<typeof payload, { ok: boolean }>(functions, "resolveComment")(payload);
+  return res.data;
+}
+
+export async function listPendingMaterials(courseId?: string): Promise<Material[]> {
+  const res = await httpsCallable<{ courseId?: string }, Material[]>(functions, "listPendingMaterials")({ courseId });
+  return res.data;
+}
+
+export async function downloadMaterial(materialId: string, kind: "PDF" | "DOCX"): Promise<{ buffer: string; mime: string; fileName: string }> {
+  const res = await httpsCallable<{ materialId: string; kind: string }, { buffer: string; mime: string; fileName: string }>(functions, "downloadMaterial")({ materialId, kind });
   return res.data;
 }
 

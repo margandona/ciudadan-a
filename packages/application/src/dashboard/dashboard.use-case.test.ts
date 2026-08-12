@@ -139,6 +139,21 @@ class FakeMaterials implements MaterialRepository {
   async respondReviewRequest(): Promise<void> {
     return undefined;
   }
+  async updateComment(): Promise<void> {
+    return undefined;
+  }
+  async listApprovals(): Promise<never[]> {
+    return [];
+  }
+  async setApproval(): Promise<void> {
+    return undefined;
+  }
+  async listByReviewer(): Promise<never[]> {
+    return [];
+  }
+  async listArchived(): Promise<never[]> {
+    return [];
+  }
 }
 
 const TEACHER = { uid: "teach1", role: "PROFESOR", courses: ["course-d"] };
@@ -200,9 +215,9 @@ describe("GetClassDashboardUseCase", () => {
 describe("GetCalendarAlertsUseCase", () => {
   it("genera alertas verde/amarillo/rojo y ordena por plazo", async () => {
     const materials: Material[] = [
-      { id: "m1", courseId: "course-d", classId: "class-03", type: "guia", title: "Guía A", status: "BORRADOR", hasDUA: true, printDeadline: "2026-08-12T18:00:00.000Z", reviewDeadline: null, updatedAt: NOW },
-      { id: "m2", courseId: "course-d", classId: "class-05", type: "guia", title: "Guía vencida", status: "BORRADOR", hasDUA: false, printDeadline: "2026-08-07T18:00:00.000Z", reviewDeadline: null, updatedAt: NOW },
-      { id: "m3", courseId: "course-d", classId: "class-06", type: "evaluacion", title: "Eval B", status: "BORRADOR", hasDUA: true, printDeadline: null, reviewDeadline: "2026-08-20T18:00:00.000Z", updatedAt: NOW },
+      { id: "m1", courseId: "course-d", classId: "class-03", type: "guia", title: "Guía A", status: "BORRADOR", version: 1, hasDUA: true, printDeadline: "2026-08-12T18:00:00.000Z", reviewDeadline: null, updatedAt: NOW },
+      { id: "m2", courseId: "course-d", classId: "class-05", type: "guia", title: "Guía vencida", status: "BORRADOR", version: 1, hasDUA: false, printDeadline: "2026-08-07T18:00:00.000Z", reviewDeadline: null, updatedAt: NOW },
+      { id: "m3", courseId: "course-d", classId: "class-06", type: "evaluacion", title: "Eval B", status: "BORRADOR", version: 1, hasDUA: true, printDeadline: null, reviewDeadline: "2026-08-20T18:00:00.000Z", updatedAt: NOW },
     ];
     const uc = new GetCalendarAlertsUseCase({ materials: new FakeMaterials(materials) });
     const alerts = await uc.run("course-d", TEACHER, NOW);

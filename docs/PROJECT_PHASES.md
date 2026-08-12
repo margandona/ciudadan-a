@@ -70,7 +70,8 @@ Cada fase indica: objetivo · historias · tareas · archivos principales · dep
 - **Historias:** COMO EVALUADOR QUIERO revisar y aprobar material asignado PARA asegurar calidad. COMO PROFESOR QUIERO enviar material a revisión y ver observaciones PARA iterar.
 - **Tareas:** `materials`/`versions` (GENERAL|DUA), `reviewComments`, `reviewRequests`; máquina de estados (BORRADOR→…→APROBADO/CORREGIR); fechas de envío/revisión; historial de versiones; portal evaluador aislado.
 - **Estado (implementado):** creación de materiales + versiones GENERAL/DUA (PDF/DOCX, tamaño 50 MB) ✅ · envío a revisión con resolución de evaluador por email ✅ · revisión con comentario y decisión (aprobar/observaciones/rechazar/corregir) ✅ · historial de versiones y observaciones ✅ · portal evaluador sin datos de estudiantes ✅ · calendario ya usa plazos de impresión/revisión ✅.
-- **Criterio de aceptación:** cumplido (flujo E2E envío→revisión→aprobación en tests de integración).
+- **Ampliación (0.17.0):** flujo institucional **multi-actor** (evaluadora + PIE + UTP → APROBADO FINAL → LISTO PARA IMPRIMIR), roles PIE/UTP activos, generador + editor con versionado, **PDF/DOCX institucionales**, y **material real de las 12 clases** (guías, pruebas U3/U4 general+DUA, solucionarios, rúbricas, pautas, tablas de especificaciones). Ver `docs/INFORME_IMPLEMENTACION_MATERIALES.md`.
+- **Criterio de aceptación:** cumplido (flujo E2E envío→revisión→aprobación en tests de integración; 280 tests + E2E 11/11).
 
 ## FASE 8 — Gamificación ✅ (implementada)
 

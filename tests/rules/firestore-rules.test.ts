@@ -32,6 +32,9 @@ beforeAll(async () => {
     await db.doc("quizzes/q1").set({ courseId: "course-3med-d-2026", title: "Quiz" });
     await db.doc("quizzes/q1/questions/q1a").set({ prompt: "¿A o B?", answer: "A" });
     await db.doc("auditLogs/log1").set({ action: "TEST" });
+    await db.doc("materials/mat-a").set({ courseId: "course-3med-d-2026", classId: "class-06", type: "WRITTEN_TEST", title: "Prueba U3", status: "EN_REVISION", version: 1, hasDUA: true, evaluatorId: "e1", pieReviewerId: "p1", utpReviewerId: "u1", updatedAt: "2026-08-11T00:00:00.000Z" });
+    await db.doc("materials/mat-a/approvals/EVALUADOR").set({ role: "EVALUADOR", status: "PENDIENTE", by: "e1", at: "2026-08-11T00:00:00.000Z" });
+    await db.doc("materials/mat-a/approvals/PIE").set({ role: "PIE", status: "PENDIENTE", by: "p1", at: "2026-08-11T00:00:00.000Z" });
   });
 });
 
@@ -49,6 +52,14 @@ function teacherCtx(uid: string) {
 
 function evaluatorCtx(uid: string) {
   return testEnv.authenticatedContext(uid, { role: "EVALUADOR", courses: [] });
+}
+
+function pieCtx(uid: string) {
+  return testEnv.authenticatedContext(uid, { role: "PIE", courses: [] });
+}
+
+function utpCtx(uid: string) {
+  return testEnv.authenticatedContext(uid, { role: "UTP", courses: [] });
 }
 
 describe("Firestore rules — aislamiento y permisos", () => {
@@ -209,5 +220,27 @@ describe("Firestore rules — aislamiento y permisos", () => {
     await assertFails(
       studentDb.doc("projectTeams/t1").set({ courseId: "course-3med-d-2026", name: "X", members: ["studA"] }),
     );
+  });
+});
+
+describe("Firestore rules — material institucional (UTP/PIE/aprobaciones)", () => {
+  it("R19: PIE y UTP asignados leen el material; uno no asignado no", async () => {
+    await assertSucceeds(pieCtx("p1").firestore().doc("materials/mat-a").get());
+    await assertSucceeds(utpCtx("u1").firestore().doc("materials/mat-a").get());
+    await assertFails(pieCtx("otro").firestore().doc("materials/mat-a").get());
+    await assertFails(utpCtx("otro").firestore().doc("materials/mat-a").get());
+  });
+
+  it("R20: PIE/UTP leen las aprobaciones del material asignado y el profesor las del suyo", async () => {
+    await assertSucceeds(pieCtx("p1").firestore().doc("materials/mat-a/approvals/EVALUADOR").get());
+    await assertSucceeds(utpCtx("u1").firestore().doc("materials/mat-a/approvals/PIE").get());
+    await assertSucceeds(teacherCtx("teach1").firestore().doc("materials/mat-a/approvals/EVALUADOR").get());
+    await assertFails(evaluatorCtx("otro").firestore().doc("materials/mat-a/approvals/PIE").get());
+  });
+
+  it("R21: PIE puede comentar un material asignado; la estudiante no", async () => {
+    const cid = `c-${Date.now()}`;
+    await assertSucceeds(pieCtx("p1").firestore().doc(`materials/mat-a/reviewComments/${cid}`).set({ text: "DUA bien", role: "PIE", by: "p1" }));
+    await assertFails(studentCtx("studA").firestore().doc(`materials/mat-a/reviewComments/${cid}-st`).set({ text: "x" }));
   });
 });

@@ -1,16 +1,24 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { flushPromises, mount } from "@vue/test-utils";
+import { createPinia, setActivePinia } from "pinia";
 import type { Material, MaterialDetail } from "@pclab/shared";
 
 vi.mock("@/services/importApi", () => ({
-  listMaterialsForEvaluator: vi.fn(),
+  listPendingMaterials: vi.fn(),
   getMaterialDetail: vi.fn(),
-  reviewMaterial: vi.fn(),
+  approveMaterial: vi.fn(),
+  downloadMaterial: vi.fn(),
+  archiveMaterial: vi.fn(),
+  correctMaterial: vi.fn(),
+  readyToPrintMaterial: vi.fn(),
+  resubmitMaterial: vi.fn(),
+  resolveComment: vi.fn(),
 }));
 
 import EvaluatorPortal from "./EvaluatorPortal.vue";
-import { getMaterialDetail, listMaterialsForEvaluator, reviewMaterial } from "@/services/importApi";
+import { getMaterialDetail, listPendingMaterials } from "@/services/importApi";
+import { useSessionStore } from "@/stores/session";
 
 const material: Material = {
   id: "mat-1",
@@ -18,6 +26,7 @@ const material: Material = {
   type: "evaluacion",
   title: "Evaluación Cabildo",
   status: "EN_REVISION",
+  version: 1,
   hasDUA: true,
   evaluatorId: "e1",
   sentAt: new Date().toISOString(),
@@ -32,46 +41,32 @@ const detail: MaterialDetail = {
     { id: "v2", materialId: "mat-1", version: 2, kind: "DUA", fileName: "eval-dua.pdf", uploadedAt: new Date().toISOString(), by: "t" },
   ],
   comments: [],
+  approvals: [],
   request: null,
 };
 
 describe("EvaluatorPortal", () => {
   beforeEach(() => {
-    vi.mocked(listMaterialsForEvaluator).mockReset();
+    vi.mocked(listPendingMaterials).mockReset();
     vi.mocked(getMaterialDetail).mockReset();
-    vi.mocked(reviewMaterial).mockReset();
   });
 
-  it("lista material asignado y muestra versiones GENERAL y DUA sin datos de estudiantes", async () => {
-    vi.mocked(listMaterialsForEvaluator).mockResolvedValue([material]);
+  it("lista solo el material asignado y abre el detalle sin datos de estudiantes", async () => {
+    const pinia = createPinia();
+    setActivePinia(pinia);
+    const store = useSessionStore();
+    store.$patch({ role: "EVALUADOR", courses: ["course-d"] });
+    vi.mocked(listPendingMaterials).mockResolvedValue([material]);
     vi.mocked(getMaterialDetail).mockResolvedValue(detail);
 
-    const wrapper = mount(EvaluatorPortal);
+    const wrapper = mount(EvaluatorPortal, { global: { plugins: [pinia] } });
     await flushPromises();
 
     expect(wrapper.text()).toContain("Evaluación Cabildo");
     await wrapper.find("button.item").trigger("click");
     await flushPromises();
 
-    expect(wrapper.text()).toContain("eval.pdf");
-    expect(wrapper.text()).toContain("eval-dua.pdf");
+    expect(wrapper.text()).toContain("Historial de versiones");
     expect(wrapper.text()).not.toContain("Ana Demo");
-  });
-
-  it("registra la revisión con comentario", async () => {
-    vi.mocked(listMaterialsForEvaluator).mockResolvedValue([material]);
-    vi.mocked(getMaterialDetail).mockResolvedValue(detail);
-    vi.mocked(reviewMaterial).mockResolvedValue({ ...detail, material: { ...material, status: "APROBADO" } });
-
-    const wrapper = mount(EvaluatorPortal);
-    await flushPromises();
-    await wrapper.find("button.item").trigger("click");
-    await flushPromises();
-
-    await wrapper.find("textarea").setValue("Aprobada");
-    await wrapper.find("button.btn-primary").trigger("click");
-    await flushPromises();
-
-    expect(reviewMaterial).toHaveBeenCalledWith({ materialId: "mat-1", courseId: "course-d", status: "APROBADO", comment: "Aprobada" });
   });
 });

@@ -76,17 +76,54 @@ export const PARTICIPATION_SCALE = [0, 1, 2, 3] as const;
 
 export type ParticipationLevel = (typeof PARTICIPATION_SCALE)[number];
 
-/** Estados de un material en revisión (evaluador). */
+/** Estados de un material en el flujo de revisión institucional (profesor → evaluadora → PIE → UTP). */
 export const MATERIAL_STATUS = {
   BORRADOR: "BORRADOR",
+  LISTO_PARA_REVISION: "LISTO_PARA_REVISION",
+  ENVIADO_A_REVISION: "ENVIADO_A_REVISION",
   EN_REVISION: "EN_REVISION",
-  CON_OBSERVACIONES: "CON_OBSERVACIONES",
+  OBSERVACIONES: "OBSERVACIONES",
+  REQUIERE_CAMBIOS: "REQUIERE_CAMBIOS",
+  CORREGIDO: "CORREGIDO",
+  REENVIADO: "REENVIADO",
   APROBADO: "APROBADO",
+  APROBADO_FINAL: "APROBADO_FINAL",
+  READY_TO_PRINT: "READY_TO_PRINT",
   RECHAZADO: "RECHAZADO",
+  ARCHIVED: "ARCHIVED",
+  // Compatibilidad con el flujo FASE 7.
+  CON_OBSERVACIONES: "CON_OBSERVACIONES",
   CORREGIR_Y_REENVIAR: "CORREGIR_Y_REENVIAR",
 } as const;
 
 export type MaterialStatus = (typeof MATERIAL_STATUS)[keyof typeof MATERIAL_STATUS];
+
+/** Tipos de material pedagógico (institucional). Incluye los legados de FASE 7. */
+export const MATERIAL_TYPE = {
+  GUIA: "guia",
+  EVALUACION: "evaluacion",
+  RUBRICA: "rubrica",
+  PAUTA: "pauta",
+  SOLUCIONARIO: "solucionario",
+  LECTURA: "lectura",
+  COMPLEMENTARIO: "complementario",
+  GUIDE: "GUIDE",
+  ASSESSMENT: "ASSESSMENT",
+  WRITTEN_TEST: "WRITTEN_TEST",
+  PRACTICAL_WORK: "PRACTICAL_WORK",
+  PROJECT: "PROJECT",
+  RUBRIC: "RUBRIC",
+  ANSWER_KEY: "ANSWER_KEY",
+  SCORING_GUIDE: "SCORING_GUIDE",
+  DUA_VERSION: "DUA_VERSION",
+  PIE_VERSION: "PIE_VERSION",
+  READING: "READING",
+  WORKSHEET: "WORKSHEET",
+  EXIT_TICKET: "EXIT_TICKET",
+  SUPPORT_MATERIAL: "SUPPORT_MATERIAL",
+} as const;
+
+export type MaterialType = (typeof MATERIAL_TYPE)[keyof typeof MATERIAL_TYPE];
 
 /** Clasificación de una fila importada según duplicación. */
 export const DUPLICATE_KIND = {

@@ -82,7 +82,7 @@ jobs:
       - name: Build functions
         run: pnpm build:functions
       - name: E2E (emuladores + seeds)
-        run: pnpm exec firebase emulators:exec --only auth,firestore,functions --project pclab-test "pnpm seed:content && pnpm seed:demo-teacher && pnpm seed:demo-student && pnpm seed:demo-evaluator && pnpm exec playwright test"
+        run: pnpm exec firebase emulators:exec --only auth,firestore,functions --project pclab-test "pnpm seed:content && pnpm seed:demo-teacher && pnpm seed:demo-student && pnpm seed:demo-evaluator && pnpm seed:demo-pie && pnpm seed:demo-utp && pnpm exec playwright test"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

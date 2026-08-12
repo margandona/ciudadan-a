@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { MATERIAL_STATUS, type AuditLog, type Material, type MaterialDetail, type MaterialVersion, type ReviewComment, type ReviewRequest } from "@pclab/shared";
+import { MATERIAL_STATUS, type AuditLog, type Material, type MaterialApproval, type MaterialDetail, type MaterialVersion, type ReviewComment, type ReviewRequest } from "@pclab/shared";
 import type { MaterialRepository, UserDirectoryRepository } from "../ports";
 import {
   AddMaterialVersionUseCase,
@@ -68,6 +68,25 @@ class FakeMaterials implements MaterialRepository {
       }
     }
   }
+  async updateComment(commentId: string, patch: Partial<ReviewComment>): Promise<void> {
+    for (const list of this.comments.values()) {
+      for (const c of list) {
+        if (c.id === commentId) Object.assign(c, patch);
+      }
+    }
+  }
+  async listApprovals(): Promise<MaterialApproval[]> {
+    return [];
+  }
+  async setApproval(): Promise<void> {
+    return;
+  }
+  async listByReviewer(): Promise<Material[]> {
+    return [];
+  }
+  async listArchived(): Promise<Material[]> {
+    return [];
+  }
 }
 
 class FakeUsers implements UserDirectoryRepository {
@@ -91,6 +110,7 @@ function material(over: Partial<Material>): Material {
     type: "guia",
     title: "Guía 03",
     status: MATERIAL_STATUS.BORRADOR,
+    version: 1,
     hasDUA: true,
     sentAt: null,
     reviewAt: null,

@@ -12,6 +12,7 @@ export * from "./participation/participation";
 export * from "./dashboard/dashboard";
 export * from "./projection/deck";
 export * from "./material/material-flow";
+export * from "./material/material-review";
 export * from "./badges/badges";
 export * from "./feedback/feedback";
 export * from "./projects/project";

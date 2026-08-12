@@ -13,6 +13,7 @@ export * from "./participation/participation.use-case";
 export * from "./dashboard/dashboard.use-case";
 export * from "./projection/projection.use-case";
 export * from "./material/material.use-case";
+export * from "./material/material-v2.use-case";
 export * from "./badges/badges.use-case";
 export * from "./feedback/feedback.use-case";
 export * from "./projects/projects.use-case";
