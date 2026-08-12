@@ -6,6 +6,25 @@ Pipeline listo en el repo; esto configura Firebase, los secretos de GitHub y eje
 
 ---
 
+## Estado actual (desplegado)
+
+- ✅ **Firestore rules + índices + Storage rules** desplegados.
+- ✅ **Hosting**: `https://ciudadania-lab.web.app`.
+- ✅ **Datos en producción**: cursos D/E, 12 clases + flipped + quizzes + actividades + 20 materiales + presentaciones + medallas; usuarios demo (`profesor@demo.cl`, `estudiante@demo.cl`, `evaluador@demo.cl`, `pie@demo.cl`, `utp@demo.cl`, password `Demo1234`); nóminas reales D (41) y E (34) importadas.
+- ⏸️ **Cloud Functions PENDIENTES** (bloqueante para callables: quiz, evidencias, materiales, revisión). «Precondition failed» → falta habilitar **Cloud Functions y Cloud Build** (requiere plan Blaze):
+
+  ```text
+  Firebase Console → proyecto ciudadania-lab → Build → Functions → Get started
+  (si pide plan, upgrade a Blaze/uso por uso) → habilitar Cloud Build.
+  ```
+  Después vuelve a ejecutar:
+  ```powershell
+  $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\marga\OneDrive\Desktop\providencia\3ro\ciudadania-lab-firebase-adminsdk-fbsvc-74a3fa3055.json"
+  pnpm exec firebase deploy --only functions --project ciudadania-lab
+  ```
+
+---
+
 ## Paso 1 — Crear/validar el proyecto Firebase
 
 1. Ir a [console.firebase.google.com](https://console.firebase.google.com) → **Add project**.

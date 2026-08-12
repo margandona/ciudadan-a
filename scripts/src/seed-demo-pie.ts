@@ -8,7 +8,7 @@ import { parseFlags, requireEmulator } from "./lib";
  */
 async function main(): Promise<void> {
   const flags = parseFlags(process.argv.slice(2));
-  requireEmulator(false);
+  requireEmulator(flags.prod === "true");
   const email = flags.email ?? "pie@demo.cl";
   const password = flags.password ?? "Demo1234";
   if (getApps().length === 0) initializeApp();

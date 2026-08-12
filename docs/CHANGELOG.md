@@ -2,6 +2,16 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.17.6] — Deploy parcial del proyecto real (hosting + rules + datos)
+
+### Added / Changed
+- **Credenciales del proyecto real `ciudadania-lab`**: service account (`3ro/ciudadania-lab-firebase-adminsdk-…json`, ignorada por git) usada para deploy; `apps/web/.env.production` con la config web real (apiKey/appId/etc.).
+- **Desplegado**: Firestore rules + índices + Storage rules ✅ · **Hosting en `https://ciudadania-lab.web.app`** ✅ · **Datos sembrados en producción** (cursos D/E, 12 clases, flipped, quizzes, actividades, 20 materiales, presentaciones, medallas) · **usuarios demo** (profesor/estudiante/evaluador/pie/utp) · **nóminas reales D (41) y E (34)** importadas.
+- Los seeds demo aceptan `--prod`; `scripts/tsconfig.json` con paths de `@pclab/*` para tsx.
+
+### Known / pendiente
+- **Cloud Functions NO desplegadas**: «Precondition failed» al crear funciones → falta habilitar **Cloud Functions + Cloud Build** (plan Blaze) en la consola (pasos en `docs/GUIA_PRIMER_DEPLOY.md`). Sin funciones, los callables (quiz, evidencias, materiales, revisión) no responden; Auth + lecturas directas de Firestore sí funcionan.
+
 ## [0.17.5] — Guías de las 12 clases: calendario completo + planificación por clase
 
 ### Changed

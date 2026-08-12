@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": "..",
+    "paths": {
+      "@pclab/shared": ["./packages/shared/src/index.ts"],
+      "@pclab/shared/*": ["./packages/shared/src/*"],
+      "@pclab/domain": ["./packages/domain/src/index.ts"],
+      "@pclab/domain/*": ["./packages/domain/src/*"],
+      "@pclab/application": ["./packages/application/src/index.ts"],
+      "@pclab/application/*": ["./packages/application/src/*"],
+      "@pclab/infrastructure": ["./packages/infrastructure/src/index.ts"],
+      "@pclab/infrastructure/*": ["./packages/infrastructure/src/*"]
+    }
+  },
+  "include": ["src"]
+}
