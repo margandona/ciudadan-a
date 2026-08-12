@@ -64,7 +64,7 @@ Registro vivo de hallazgos (de FASE 14 y posteriores). Se mueven aquí los bugs 
 
 ## Deuda técnica / tareas de soporte
 
-- **Contenido editorial incompleto**: hay 12 misiones/aulas invertidas/presentaciones, pero solo **2 quizzes** (class-01, class-07) y **3 actividades** (class-01, class-03, class-06) en `content/`. Faltan ~10 quizzes y ~9 actividades para completar las 12 misiones.
+- **Contenido editorial completo**: 12 misiones con aula invertida, quiz y actividad ✅ (10 quizzes + 9 actividades añadidos en 0.16.1). Pendiente solo **atribución de imágenes/gráficos** (INE/BCN/CEPAL) y licencias antes de habilitar bloques visuales/video.
 - **Atribución de imágenes y gráficos** de datos (INE/BCN/CEPAL) en cada bloque; verificar licencias antes de habilitar bloques visuales/video.
 - **Proyecto Firebase real de producción** + App Check (clave reCAPTCHA) + Storage bucket + usuario docente con claims.
 - **Secretos de GitHub** (`FIREBASE_TOKEN`, `VITE_FIREBASE_*`, `VITE_RECAPTCHA_SITE_KEY`) y primer deploy end-to-end (`docs/GUIA_PRIMER_DEPLOY.md`).

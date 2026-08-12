@@ -20,6 +20,104 @@
   },
   {
     "quiz": {
+      "id": "quiz-class-02-tradiciones",
+      "classId": "class-02",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 02 — Republicanismo, liberalismo y comunitarismo",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 4
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué tradición destaca la participación cívica y el bien común como deberes de la ciudadanía?", "options": ["Liberalismo", "Republicanismo", "Comunitarismo", "Mercantilismo"], "correctIndex": 1, "explanation": "El republicanismo entiende la ciudadanía como virtud cívica al servicio del bien común.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "choice", "prompt": "¿Qué tradición pone el énfasis en la libertad individual y los derechos frente al Estado?", "options": ["Republicanismo", "Comunitarismo", "Liberalismo", "Absolutismo"], "correctIndex": 2, "explanation": "El liberalismo prioriza los derechos y la autonomía de la persona.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "truefalse", "prompt": "El comunitarismo valora los vínculos, la identidad y las comunidades concretas.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "El comunitarismo parte de las comunidades y sus lazos.", "points": 1, "order": 3 },
+      { "id": "q4", "type": "short", "prompt": "Menciona un deber cívico que la tradición republicana considera importante.", "keywords": ["votar", "participar", "servicio", "bien común", "comunidad", "informarse"], "explanation": "El republicanismo valora deberes como participar, informarse y servir al bien común.", "points": 1, "order": 4 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-03-participacion",
+      "classId": "class-03",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 03 — ¿Participamos realmente?",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 4
+    },
+    "questions": [
+      { "id": "q1", "type": "truefalse", "prompt": "Dar «like» en redes sociales es, por sí solo, una forma plena de participación ciudadana.", "options": ["Verdadero", "Falso"], "correctIndex": 1, "explanation": "El like puede expresar opinión, pero la participación plena incide en decisiones.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "choice", "prompt": "¿Cuál de las siguientes es participación institucional?", "options": ["Votar en elecciones", "Un like en redes", "Comentar un video", "Seguir a una cuenta"], "correctIndex": 0, "explanation": "La participación institucional usa canales formales como el voto.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "choice", "prompt": "¿Qué ejemplo corresponde a participación social?", "options": ["Junta de vecinos", "Elecciones municipales", "Plebiscito", "Registro civil"], "correctIndex": 0, "explanation": "Las juntas de vecinos son organizaciones sociales del territorio.", "points": 1, "order": 3 },
+      { "id": "q4", "type": "short", "prompt": "Menciona una participación digital que incida en decisiones públicas.", "keywords": ["firma", "petitorio", "consulta", "difundir", "denuncia", "plataforma"], "explanation": "Recolectar firmas, difundir petitorios o participar de consultas digitales son ejemplos válidos.", "points": 1, "order": 4 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-04-territorio",
+      "classId": "class-04",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 04 — Territorio, actores y escalas",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 4
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué significa que el territorio es una construcción social?", "options": ["Es un espacio natural sin intervención", "Es el resultado de las relaciones entre actores y su historia", "Es solo el límite administrativo de una comuna", "Es un lugar donde no hay personas"], "correctIndex": 1, "explanation": "El territorio se construye por las relaciones, decisiones e historia de quienes lo habitan.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "truefalse", "prompt": "Los actores del territorio operan solo en escala local.", "options": ["Verdadero", "Falso"], "correctIndex": 1, "explanation": "Hay actores y decisiones en escalas local, regional y nacional.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "choice", "prompt": "¿Quién es un actor del territorio de Ovalle?", "options": ["El municipio", "Las juntas de vecinos", "Las empresas agrícolas", "Todos los anteriores"], "correctIndex": 3, "explanation": "El territorio se construye con la acción de múltiples actores.", "points": 1, "order": 3 },
+      { "id": "q4", "type": "short", "prompt": "Nombra un actor del territorio de Ovalle y su escala.", "keywords": ["municipio", "vecinos", "junta", "empresa", "agua", "agricultura", "regional"], "explanation": "Se espera un actor real (p. ej. municipio, junta de vecinos, empresa agrícola) y su escala.", "points": 1, "order": 4 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-05-expediente",
+      "classId": "class-05",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 05 — Detectives del territorio",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 3
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué es un Expediente Ciudadano?", "options": ["Un trámite municipal obligatorio", "Un registro del problema local con evidencia", "Una carta al alcalde", "Un mapa del colegio"], "correctIndex": 1, "explanation": "El expediente reúne la descripción del problema y sus evidencias.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "truefalse", "prompt": "Para investigar un problema local conviene usar más de una fuente de información.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "Cruzar fuentes hace la investigación más confiable.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "short", "prompt": "Menciona una técnica para recoger evidencia de un problema local.", "keywords": ["entrevista", "encuesta", "foto", "observación", "archivo", "mapa"], "explanation": "Entrevistas, encuestas, fotografías, observación o archivos son técnicas válidas.", "points": 1, "order": 3 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-06-cabildo",
+      "classId": "class-06",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 06 — Cabildo Providencia",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 3
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué es un cabildo?", "options": ["Un espacio de deliberación donde la comunidad propone", "Una elección municipal", "Una junta de vecinos", "Una feria de emprendedores"], "correctIndex": 0, "explanation": "El cabildo es una instancia de deliberación y propuesta ciudadana.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "truefalse", "prompt": "En un cabildo todas las voces deben tener espacio para proponer.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "La deliberación se enriquece cuando participan todas las voces.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "short", "prompt": "Completa la frase del cabildo: «Nuestro territorio necesita…»", "keywords": ["plaza", "agua", "área verde", "espacio", "participación", "iluminación", "seguridad"], "explanation": "Cualquier propuesta concreta sobre el territorio es válida.", "points": 1, "order": 3 }
+    ]
+  },
+  {
+    "quiz": {
       "id": "quiz-class-07-estado-mercado",
       "classId": "class-07",
       "courseId": "course-3med-d-2026",
@@ -34,6 +132,105 @@
     "questions": [
       { "id": "q1", "type": "choice", "prompt": "¿Qué actor suele resolver un bien público como el alumbrado de una calle?", "options": ["El mercado", "El Estado", "Un particular", "Nadie"], "correctIndex": 1, "explanation": "Los bienes públicos benefician a todos y el Estado los garantiza.", "points": 1, "order": 1 },
       { "id": "q2", "type": "truefalse", "prompt": "Estado, mercado y ciudadanía pueden colaborar para resolver problemas.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "La colaboración entre actores suele lograr mejores resultados.", "points": 1, "order": 2 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-08-presupuesto",
+      "classId": "class-08",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 08 — Gobernar Ovalle",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 4
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué es el presupuesto municipal?", "options": ["El dinero que reparte el gobierno central a las personas", "El plan anual de ingresos y gastos de la comuna", "Un impuesto que pagan los vecinos", "Un fondo privado"], "correctIndex": 1, "explanation": "El presupuesto municipal planifica los ingresos y gastos de la comuna.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "truefalse", "prompt": "Las decisiones de presupuesto público pueden aumentar o reducir la desigualdad.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "Dónde se gasta el dinero público afecta el bienestar de distintos grupos.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "choice", "prompt": "Si la comuna destina más recursos a iluminación en un sector, ¿qué mejora es esperable?", "options": ["Seguridad y uso del espacio público", "Menos impuestos", "Más votos", "Ninguna"], "correctIndex": 0, "explanation": "La iluminación suele mejorar la seguridad y el uso del espacio público.", "points": 1, "order": 3 },
+      { "id": "q4", "type": "short", "prompt": "Menciona un criterio para priorizar el gasto público de Ovalle.", "keywords": ["igualdad", "bienestar", "necesidad", "participación", "seguridad", "agua", "infancia"], "explanation": "Criterios como igualdad, bienestar, necesidad o participación son válidos.", "points": 1, "order": 4 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-09-desigualdad",
+      "classId": "class-09",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 09 — Laboratorio Ciudadano de Datos",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 4
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué mide el coeficiente de Gini?", "options": ["El PIB de un país", "La desigualdad de ingresos", "La tasa de desempleo", "La inflación"], "correctIndex": 1, "explanation": "El Gini sintetiza la desigualdad de ingresos: 0 es igualdad total y 1 concentración total.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "truefalse", "prompt": "La pobreza y la desigualdad son fenómenos idénticos.", "options": ["Verdadero", "Falso"], "correctIndex": 1, "explanation": "Una sociedad puede ser pobre en promedio o desigual en la distribución de sus ingresos.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "choice", "prompt": "En el método Observo–Interpreto–Cuestiono–Propongo, ¿qué se hace primero?", "options": ["Proponer", "Cuestionar", "Observar", "Interpretar"], "correctIndex": 2, "explanation": "El método parte por observar el dato o el fenómeno.", "points": 1, "order": 3 },
+      { "id": "q4", "type": "short", "prompt": "Menciona un dato que usarías para conocer la desigualdad en Ovalle.", "keywords": ["gini", "ingreso", "pobreza", "casen", "desempleo", "escolaridad", "hacinamiento"], "explanation": "Datos de ingreso, pobreza, empleo o educación sirven para analizar la desigualdad.", "points": 1, "order": 4 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-10-agua",
+      "classId": "class-10",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 10 — Agua, territorio y desarrollo en Limarí",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 4
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué cuenca atraviesa el territorio del Limarí?", "options": ["Mapocho", "Limarí", "Maule", "Biobío"], "correctIndex": 1, "explanation": "La cuenca del río Limarí da nombre y articula el territorio.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "truefalse", "prompt": "La escasez hídrica afecta por igual a todos los actores del territorio.", "options": ["Verdadero", "Falso"], "correctIndex": 1, "explanation": "El impacto del agua varía según el actor (riego, consumo humano, industria).", "points": 1, "order": 2 },
+      { "id": "q3", "type": "choice", "prompt": "¿Qué actor suele administrar el agua en Chile?", "options": ["Las juntas de vigilancia y la DGA", "El mercado de valores", "Los colegios", "Los bancos"], "correctIndex": 0, "explanation": "Las organizaciones de usuarios del agua y la Dirección General de Aguas administran el recurso.", "points": 1, "order": 3 },
+      { "id": "q4", "type": "short", "prompt": "Menciona un uso del agua relevante para el desarrollo de Ovalle.", "keywords": ["riego", "agrícola", "consumo", "humano", "embalse", "acuífero", "agricultura"], "explanation": "El agua para riego y agricultura es central en el desarrollo del Limarí.", "points": 1, "order": 4 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-11-proyecto",
+      "classId": "class-11",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 11 — Proyecto Ovalle 2035",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 4
+    },
+    "questions": [
+      { "id": "q1", "type": "choice", "prompt": "¿Qué debe tener una propuesta ciudadana sólida?", "options": ["Un problema claro, actores y una propuesta con impacto", "Solo un eslogan", "Dinero para publicidad", "Una foto del lugar"], "correctIndex": 0, "explanation": "Una propuesta sólida define problema, actores y propuesta con impacto.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "truefalse", "prompt": "Una propuesta debe considerar tanto su impacto social como ambiental.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "El desarrollo sostenible exige mirar lo social y lo ambiental.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "choice", "prompt": "¿Qué actores deberían participar de una propuesta sobre recuperación de plazas?", "options": ["El municipio", "Las vecinas", "Los privados", "Todos los anteriores"], "correctIndex": 3, "explanation": "La colaboración entre actores fortalece la propuesta.", "points": 1, "order": 3 },
+      { "id": "q4", "type": "short", "prompt": "Menciona un campo del proyecto Ovalle 2035.", "keywords": ["problema", "territorio", "población", "participación", "propuesta", "impacto", "recursos", "organismo"], "explanation": "Los campos del proyecto incluyen problema, territorio, actores, recursos e impactos.", "points": 1, "order": 4 }
+    ]
+  },
+  {
+    "quiz": {
+      "id": "quiz-class-12-feria",
+      "classId": "class-12",
+      "courseId": "course-3med-d-2026",
+      "title": "Quiz 12 — Feria Ciudadana Ovalle 2035",
+      "mode": "INDIVIDUAL",
+      "config": { "timerSeconds": null, "points": 1, "attempts": 2, "immediateFeedback": true, "showExplanation": true },
+      "shuffle": false,
+      "active": true,
+      "order": 1,
+      "questionCount": 3
+    },
+    "questions": [
+      { "id": "q1", "type": "truefalse", "prompt": "En la feria, presentar el proceso es tan importante como el resultado.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "La feria evalúa el proceso de investigación y la propuesta.", "points": 1, "order": 1 },
+      { "id": "q2", "type": "choice", "prompt": "¿Qué herramienta usa el docente para evaluar la feria?", "options": ["La rúbrica de feria", "Un examen de opción múltiple", "Una encuesta anónima", "Un sorteo"], "correctIndex": 0, "explanation": "La rúbrica permite evaluar la presentación con criterios transparentes.", "points": 1, "order": 2 },
+      { "id": "q3", "type": "short", "prompt": "Menciona algo que evaluarías en la presentación de tu equipo en la feria.", "keywords": ["claridad", "argumentación", "evidencia", "trabajo", "equipo", "propuesta", "impacto"], "explanation": "Se espera un criterio como claridad, argumentación o evidencia.", "points": 1, "order": 3 }
     ]
   }
 ]

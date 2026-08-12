@@ -2,6 +2,13 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.16.1] — Contenido editorial de las 12 misiones
+
+### Added
+- **10 quizzes nuevos** (class-02 a class-12) en `content/quizzes.json` — 42 preguntas en total (choice/truefalse/short) alineadas a cada misión: tradiciones de ciudadanía, participación, territorio, expediente, cabildo, presupuesto, desigualdad/datos, agua Limarí, proyecto Ovalle 2035 y feria.
+- **9 actividades nuevas** (class-02, 04, 05, 07–12) en `content/activities.json` — 12 en total (reflexión, mapas de actores, expediente, debate de actores, presupuesto comunal, laboratorio de datos, agenda del agua, propuesta, bitácora de la feria).
+- Verificado end-to-end: quiz de class-02 **Resultado 4/4** como estudiante en el emulador; re-seed de `content/` en el namespace `ciudadania-lab`.
+
 ## [0.16.0] — FASE 16 (CI/CD y despliegue)
 
 ### Added
