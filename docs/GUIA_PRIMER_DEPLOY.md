@@ -10,18 +10,22 @@ Pipeline listo en el repo; esto configura Firebase, los secretos de GitHub y eje
 
 - ✅ **Firestore rules + índices + Storage rules** desplegados.
 - ✅ **Hosting**: `https://ciudadania-lab.web.app`.
+- ✅ **Cloud Functions** (58 callables) desplegadas y **ACTIVE** en `us-central1`; login y dashboard del profesor verificados en producción con datos reales (cursos D/E, materiales con PDF/DOCX).
 - ✅ **Datos en producción**: cursos D/E, 12 clases + flipped + quizzes + actividades + 20 materiales + presentaciones + medallas; usuarios demo (`profesor@demo.cl`, `estudiante@demo.cl`, `evaluador@demo.cl`, `pie@demo.cl`, `utp@demo.cl`, password `Demo1234`); nóminas reales D (41) y E (34) importadas.
-- ⏸️ **Cloud Functions PENDIENTES** (bloqueante para callables: quiz, evidencias, materiales, revisión). «Precondition failed» → falta habilitar **Cloud Functions y Cloud Build** (requiere plan Blaze):
 
-  ```text
-  Firebase Console → proyecto ciudadania-lab → Build → Functions → Get started
-  (si pide plan, upgrade a Blaze/uso por uso) → habilitar Cloud Build.
-  ```
-  Después vuelve a ejecutar:
-  ```powershell
-  $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\marga\OneDrive\Desktop\providencia\3ro\ciudadania-lab-firebase-adminsdk-fbsvc-74a3fa3055.json"
-  pnpm exec firebase deploy --only functions --project ciudadania-lab
-  ```
+> **Cómo se resolvió el deploy de functions** (fue bloqueante): Cloud Build corre `npm install` dentro de `functions/`, y rechazaba las referencias `workspace:*`. Solución:
+> 1. Quitar `@pclab/*` de `functions/package.json` (deps y devDeps).
+> 2. El bundle se arma con esbuild desde la raíz usando **aliases** a los fuentes de los paquetes (`npm run bundle:functions`), que a su vez es el `predeploy` de `firebase.json`.
+> 3. `functions/.firebaseignore` excluye `node_modules`, `.git` y `*.map`.
+> 4. Si las funciones quedaron en estado `FAILED`, borrarlas primero y redesplegar (un `deploy` no actualiza una función fallida).
+> 5. Si Cloud Run responde `401 Unauthorized` en llamadas crudas, añadir a cada servicio el binding IAM `roles/run.invoker` → `allUsers` (con la SA el deploy no lo aplica automáticamente).
+
+Redeploy con la service account:
+
+```powershell
+$env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\marga\OneDrive\Desktop\providencia\3ro\ciudadania-lab-firebase-adminsdk-fbsvc-74a3fa3055.json"
+pnpm exec firebase deploy --only functions --project ciudadania-lab
+```
 
 ---
 

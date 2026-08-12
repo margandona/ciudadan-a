@@ -129,18 +129,6 @@ importers:
 
   functions:
     dependencies:
-      '@pclab/application':
-        specifier: workspace:*
-        version: link:../packages/application
-      '@pclab/domain':
-        specifier: workspace:*
-        version: link:../packages/domain
-      '@pclab/infrastructure':
-        specifier: workspace:*
-        version: link:../packages/infrastructure
-      '@pclab/shared':
-        specifier: workspace:*
-        version: link:../packages/shared
       docx:
         specifier: ^9.5.0
         version: 9.7.1

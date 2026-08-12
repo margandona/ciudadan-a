@@ -4,17 +4,12 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --platform=node --format=cjs --outfile=dist/index.js --external:firebase-admin --external:firebase-functions --external:pdfkit --sourcemap",
     "emulate": "firebase emulators:start --only functions,firestore,auth"
   },
   "engines": {
     "node": "20"
   },
   "dependencies": {
-    "@pclab/shared": "workspace:*",
-    "@pclab/domain": "workspace:*",
-    "@pclab/application": "workspace:*",
-    "@pclab/infrastructure": "workspace:*",
     "docx": "^9.5.0",
     "firebase-admin": "^13.0.1",
     "firebase-functions": "^6.1.1",
