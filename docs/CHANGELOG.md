@@ -2,6 +2,19 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.17.2] — Guías y evaluaciones con contenido y referencias
+
+### Added
+- **Contenido de lectura** y **referencias bibliográficas/académicas** en las guías y evaluaciones (`content/material-content.json`, campo `content.contenido` + `content.referencias`): textos breves por clase (ciudadanía y sus tradiciones, participación, territorio, Estado/mercado, desigualdad/Gini, agua del Limarí, sostenibilidad) con fuentes reales (Marshall, Kymlicka, Pettit, Lefebvre, Bobbio, Stiglitz, Piketty, CASEN, DGA, CR2, INE, ONU/ODS, MINEDUC, etc.).
+- **Sección «Referencias»** y **«Recomendaciones de completitud (para el/la autor/a)»** al final de cada PDF/DOCX: guía para ampliar textos, agregar imágenes con fuente y ajustar ítems antes de imprimir.
+- Vista de «Contenido / Lectura» y «Referencias» en el detalle del material (web).
+
+### Changed
+- `MaterialContent` ampliado (`contenido`, `referencias`); `material-docs.ts` y `MaterialDetailView.vue` los renderizan.
+
+### Tests
+- `pnpm test` 280 · E2E 11/11 · lint/typecheck/build ✅. Verificado: DOCX de guía con Contenido/Referencias/Recomendaciones + membrete.
+
 ## [0.17.1] — Documentos institucionales con membrete (PDF/DOCX completos)
 
 ### Added

@@ -123,6 +123,10 @@ export interface MaterialContent {
     objective: string;
     indicators: string[];
   };
+  /** Párrafos de lectura/explicación del tema (guías y evaluaciones). */
+  contenido?: string[];
+  /** Referencias bibliográficas y académicas (fuentes reales). */
+  referencias?: string[];
   sections: MaterialContentBlock[];
   items?: AssessmentItem[];
   rubric?: RubricDoc;

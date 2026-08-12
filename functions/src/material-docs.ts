@@ -77,6 +77,12 @@ function pdfHeaderLines(material: Material): string[] {
 function pdfBlocks(material: Material): { kind: string; text?: string; items?: string[]; table?: { headers: string[]; rows: MaterialTableRow[] }; lines?: number; points?: number }[] {
   const c = material.content as MaterialContent | undefined;
   const out: { kind: string; text?: string; items?: string[]; table?: { headers: string[]; rows: MaterialTableRow[] }; lines?: number; points?: number }[] = [];
+
+  if (c?.contenido?.length) {
+    out.push({ kind: "heading", text: "Contenido / Lectura" });
+    for (const para of c.contenido) out.push({ kind: "text", text: para });
+  }
+
   if (c?.items?.length) {
     out.push({ kind: "heading", text: "Ítems de la evaluación" });
     const total = c.items.reduce((s, i) => s + (i.points ?? 0), 0);
@@ -123,6 +129,22 @@ function pdfBlocks(material: Material): { kind: string; text?: string; items?: s
   }
   if (c?.pauta) out.push({ kind: "heading", text: "Pauta docente" });
   if (c?.pauta) out.push({ kind: "text", text: c.pauta });
+
+  if (c?.referencias?.length) {
+    out.push({ kind: "heading", text: "Referencias" });
+    out.push({ kind: "list", items: c.referencias });
+  }
+
+  out.push({ kind: "heading", text: "Recomendaciones de completitud (para el/la autor/a)" });
+  out.push({
+    kind: "list",
+    items: [
+      "Revisa y amplía el texto con la bibliografía de la sección Referencias (verifica citas y años).",
+      "Agrega imágenes, mapas o gráficos citando su fuente (INE, DGA, CR2, entre otras).",
+      "Ajusta ítems, puntajes y criterios desde el editor de la plataforma (Materiales → Editar).",
+      "Elimina esta nota antes de imprimir o distribuir.",
+    ],
+  });
   return out;
 }
 
@@ -322,6 +344,11 @@ export async function buildMaterialDocx(material: Material): Promise<{ buffer: U
   const c = material.content as MaterialContent | undefined;
   const children: (Paragraph | Table)[] = [...docxHeaderParagraphs(material)];
 
+  if (c?.contenido?.length) {
+    children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Contenido / Lectura")] }));
+    for (const para of c.contenido) children.push(new Paragraph({ children: [new TextRun(para)], spacing: { after: 120 } }));
+  }
+
   if (c?.items?.length) {
     children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Ítems de la evaluación")] }));
     const total = c.items.reduce((s, i) => s + (i.points ?? 0), 0);
@@ -374,6 +401,19 @@ export async function buildMaterialDocx(material: Material): Promise<{ buffer: U
     children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Pauta docente")] }));
     children.push(new Paragraph({ children: [new TextRun(c.pauta)] }));
   }
+
+  if (c?.referencias?.length) {
+    children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Referencias")] }));
+    c.referencias.forEach((r) => children.push(new Paragraph({ children: [new TextRun(r)] })));
+  }
+
+  children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Recomendaciones de completitud (para el/la autor/a)")] }));
+  [
+    "Revisa y amplía el texto con la bibliografía de la sección Referencias (verifica citas y años).",
+    "Agrega imágenes, mapas o gráficos citando su fuente (INE, DGA, CR2, entre otras).",
+    "Ajusta ítems, puntajes y criterios desde el editor de la plataforma (Materiales → Editar).",
+    "Elimina esta nota antes de imprimir o distribuir.",
+  ].forEach((r) => children.push(new Paragraph({ children: [new TextRun(r)] })));
 
   const doc = new Document({
     sections: [

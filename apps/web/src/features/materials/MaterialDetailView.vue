@@ -224,6 +224,10 @@ onMounted(load);
       <section class="panel" aria-label="Documento">
         <h2>Documento</h2>
         <div class="doc">
+          <div v-if="content()?.contenido?.length" class="contenido">
+            <h3>Contenido / Lectura</h3>
+            <p v-for="(para, i) in content()!.contenido" :key="i">{{ para }}</p>
+          </div>
           <template v-if="content()?.sections.length">
             <div v-for="s in content()!.sections" :key="s.id">
               <h3 v-if="s.kind === 'heading'">{{ s.text }}</h3>
@@ -261,6 +265,10 @@ onMounted(load);
           <ul v-for="a in content()!.answerKey" :key="a.itemId"><li><strong>{{ a.itemId }}</strong>: {{ a.correct }} ({{ a.points }} pts) — {{ a.justification }}</li></ul>
         </div>
         <div v-if="content()?.pauta" class="doc"><h3>Pauta</h3><p>{{ content()!.pauta }}</p></div>
+        <div v-if="content()?.referencias?.length" class="doc">
+          <h3>Referencias</h3>
+          <ul><li v-for="(r, i) in content()!.referencias" :key="i">{{ r }}</li></ul>
+        </div>
       </section>
 
       <section class="panel" aria-label="Comentarios">

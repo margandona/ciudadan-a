@@ -170,7 +170,16 @@
           "justification": "Criterio: identifica un problema local concreto."
         }
       ],
-      "pauta": "Aplicar en la primera clase. No calificar; usar las respuestas para ajustar el nivel de la unidad."
+      "pauta": "Aplicar en la primera clase. No calificar; usar las respuestas para ajustar el nivel de la unidad.",
+      "contenido": [
+        "La ciudadanía es la condición de ser miembro de una comunidad política: implica derechos y responsabilidades que se ejercen participando. No se reduce a un documento ni a votar cada ciertos años; se construye en la vida cotidiana, en el barrio, la escuela y el territorio (Marshall, 1998; RAE, s.f.).",
+        "En Chile, el currículo de Educación Ciudadana promueve una ciudadanía activa: conocer derechos y deberes, participar en decisiones y responsabilizarse por el bien común (MINEDUC, 2020)."
+      ],
+      "referencias": [
+        "Marshall, T. H. y Bottomore, T. (1998). Ciudadanía y clase social. Madrid: Alianza.",
+        "Real Academia Española. Diccionario de la lengua española, «ciudadano». dle.rae.es",
+        "MINEDUC (2020). Bases Curriculares: Formación Ciudadana (3º y 4º medio). Santiago: Ministerio de Educación."
+      ]
     }
   },
   {
@@ -468,7 +477,18 @@
             ]
           }
         ]
-      }
+      },
+      "contenido": [
+        "Existen tres grandes tradiciones para entender la ciudadanía. La tradición republicana entiende al ciudadano como alguien que participa activamente y antepone el bien común a los intereses particulares (virtud cívica). La tradición liberal sitúa el énfasis en la libertad individual y los derechos frente al Estado. La tradición comunitaria valora los vínculos, la identidad y las comunidades concretas como base de la vida en común.",
+        "Estas perspectivas no son excluyentes: un mismo problema, como la recuperación de una plaza, puede mirarse desde cada una y combinar sus aportes."
+      ],
+      "referencias": [
+        "Pettit, P. (1997). Republicanism: A Theory of Freedom and Government. Oxford: Oxford University Press.",
+        "Locke, J. (1689). Segundo tratado sobre el gobierno civil.",
+        "Taylor, C. (1994). El multiculturalismo y la política del reconocimiento. México: FCE.",
+        "Kymlicka, W. (1995). Ciudadanía multicultural. Barcelona: Paidós.",
+        "Velasco, J. C. (2005). «La noción republicana de ciudadanía y la diversidad cultural». Isegoría, 32."
+      ]
     }
   },
   {
@@ -602,6 +622,15 @@
           "id": "r1",
           "kind": "response"
         }
+      ],
+      "contenido": [
+        "La participación ciudadana adopta distintas formas. La participación institucional usa canales formales del Estado (votar, plebiscitos, consultas). La participación social se organiza en la comunidad (juntas de vecinos, organizaciones). La participación digital ocurre en plataformas y redes sociales.",
+        "Un «like» o una firma digital pueden expresar opinión, pero la participación plena incide en decisiones públicas y exige acción deliberada. La escala de participación ayuda a distinguir entre informar, consultar y decidir (Arnstein, 1969)."
+      ],
+      "referencias": [
+        "Arnstein, S. (1969). «A Ladder of Citizen Participation». Journal of the American Institute of Planners, 35(4).",
+        "Putnam, R. (1993). Making Democracy Work. Princeton: Princeton University Press.",
+        "PNUD (2019). Participación ciudadana en América Latina. Programa de las Naciones Unidas para el Desarrollo."
       ]
     }
   },
@@ -707,6 +736,15 @@
           "kind": "response",
           "text": "Explica con una idea por qué el territorio es una construcción social."
         }
+      ],
+      "contenido": [
+        "El territorio no es solo un límite administrativo: es una construcción social, resultado de las relaciones, decisiones e historia de quienes lo habitan (Lefebvre, 1974). En él actúan múltiples actores en distintas escalas: la vecina y su junta (local), el municipio (comunal), el gobierno regional y el Estado (nacional).",
+        "La cartografía social permite representar lugares, problemas, oportunidades y actores para comprender cómo se construye y se transforma el territorio."
+      ],
+      "referencias": [
+        "Lefebvre, H. (1974). La producción del espacio. Madrid: Capitán Swing (2003).",
+        "Santos, M. (1996). La naturaleza del espacio. Barcelona: Ariel.",
+        "Haesbaert, R. (2011). El mito de la desterritorialización. México: Siglo XXI."
       ]
     }
   },
@@ -845,6 +883,14 @@
           "id": "s8a",
           "kind": "response"
         }
+      ],
+      "contenido": [
+        "Investigar un problema local exige reunir evidencia: noticias, entrevistas, encuestas, fotografías y observación. El Expediente Ciudadano organiza esa evidencia para fundamentar una propuesta: describe el problema, su ubicación, a quiénes afecta, sus causas y actores, e identifica la institución responsable.",
+        "Cruzar varias fuentes y registrar la fecha y el origen de cada dato hace la investigación más confiable."
+      ],
+      "referencias": [
+        "Hernández Sampieri, R. et al. (2014). Metodología de la investigación. México: McGraw-Hill.",
+        "Instituto Nacional de Estadísticas (INE). Estadísticas territoriales. ine.gob.cl"
       ]
     }
   },
@@ -1091,7 +1137,16 @@
           "level": "Análisis"
         }
       ],
-      "pauta": "Autoevaluación breve (3–5 criterios) al cierre del cabildo; coevaluación solo si se acuerda en el consejo de curso. Máximo 20 puntos (4 criterios × 5)."
+      "pauta": "Autoevaluación breve (3–5 criterios) al cierre del cabildo; coevaluación solo si se acuerda en el consejo de curso. Máximo 20 puntos (4 criterios × 5).",
+      "contenido": [
+        "El cabildo es un espacio de deliberación en el que la comunidad propone y acuerda. Deliberar significa escuchar, argumentar y construir acuerdos orientados al bien común, no solo defender posturas propias (Rousseau, 1762).",
+        "Una buena propuesta ciudadana identifica un problema del territorio, lo sostiene con evidencia y propone una acción viable con actores y recursos."
+      ],
+      "referencias": [
+        "Rousseau, J.-J. (1762). El contrato social.",
+        "Arnstein, S. (1969). «A Ladder of Citizen Participation». Journal of the American Institute of Planners, 35(4).",
+        "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago."
+      ]
     }
   },
   {
@@ -1219,6 +1274,15 @@
           "kind": "response",
           "text": "Elige un caso y explica cómo Estado, mercado y ciudadanía podrían colaborar."
         }
+      ],
+      "contenido": [
+        "Los problemas públicos pueden ser resueltos por distintos actores. El Estado garantiza bienes públicos y servicios que el mercado no provee eficientemente. El mercado organiza la producción y el intercambio. La ciudadanía participa, exige y propone. La colaboración entre los tres suele lograr mejores resultados que cada uno por separado (Bobbio, 1985; Stiglitz, 2002).",
+        "La decisión de quién resuelve depende de criterios como la igualdad, la eficiencia y la participación."
+      ],
+      "referencias": [
+        "Bobbio, N. (1985). Estado, gobierno y sociedad. México: FCE.",
+        "Stiglitz, J. (2002). El malestar en la globalización. Buenos Aires: Taurus.",
+        "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago."
       ]
     }
   },
@@ -1373,6 +1437,15 @@
           "kind": "response",
           "text": "¿A qué grupo beneficia tu prioridad? ¿Cómo afecta la igualdad en Ovalle?"
         }
+      ],
+      "contenido": [
+        "El presupuesto municipal es el plan anual de ingresos y gastos de la comuna. Decidir dónde gastar es decidir qué priorizar y a quién beneficia: iluminación, áreas verdes, educación o salud cambian el bienestar de distintos grupos.",
+        "Las decisiones de presupuesto público pueden aumentar o reducir la desigualdad según a quién favorecen (Stiglitz, 2012)."
+      ],
+      "referencias": [
+        "Stiglitz, J. (2012). El precio de la desigualdad. Madrid: Taurus.",
+        "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago.",
+        "Gobierno de Chile. Transparencia municipal y presupuestos participativos. gobiernotransparente.cl"
       ]
     }
   },
@@ -1483,6 +1556,15 @@
           "kind": "response",
           "text": "Propón una acción para el territorio que responda al dato."
         }
+      ],
+      "contenido": [
+        "Pobreza y desigualdad son fenómenos distintos: la pobreza refiere a la falta de ingresos o bienes; la desigualdad, a la distribución de esos ingresos entre la población. El coeficiente de Gini (0 = igualdad total, 1 = concentración total) sintetiza la desigualdad.",
+        "Analizar datos con el método Observo–Interpreto–Cuestiono–Propongo permite pasar del dato a la acción ciudadana fundamentada."
+      ],
+      "referencias": [
+        "Piketty, T. (2014). El capital en el siglo XXI. México: FCE.",
+        "Ministerio de Desarrollo Social y Familia. Encuesta CASEN. observatorio.ministeriodesarrollosocial.gob.cl",
+        "PNUD (2019). Informe de Desarrollo Humano. Nueva York: PNUD."
       ]
     }
   },
@@ -1617,6 +1699,15 @@
           "kind": "response",
           "text": "¿Debería priorizarse el agua para consumo humano por sobre el riego agrícola en períodos de escasez? Argumenta con un criterio y una evidencia."
         }
+      ],
+      "contenido": [
+        "La cuenca del río Limarí sostiene la agricultura de la región, el consumo humano y parte de la industria. La escasez hídrica —agravada por la sequía— afecta de manera desigual a los actores: riego agrícola, agua potable y medio ambiente compiten por el mismo recurso.",
+        "La gestión del agua en Chile combina organismos públicos (Dirección General de Aguas), organizaciones de usuarios (juntas de vigilancia) y comunidades. Un desarrollo sostenible del Limarí exige equilibrar estos usos."
+      ],
+      "referencias": [
+        "Dirección General de Aguas (DGA). Boletines y estadísticas hídricas. dga.mop.gob.cl",
+        "Centro de Ciencia del Clima y la Resiliencia (CR2). Informes de sequía y megasequía en Chile. cr2.cl",
+        "FAO. Agua y agricultura en América Latina y el Caribe. fao.org"
       ]
     }
   },
@@ -1882,7 +1973,16 @@
             ]
           }
         ]
-      }
+      },
+      "contenido": [
+        "Una propuesta ciudadana sólida define un problema con evidencia, identifica el territorio y la población afectada, propone mecanismos de participación, señala organismos públicos y actores privados, calcula recursos y evalúa impactos sociales y ambientales.",
+        "Los Objetivos de Desarrollo Sostenible (Agenda 2030) ofrecen un marco para que la propuesta contribuya al bienestar local sin comprometer el futuro (ONU, 2015)."
+      ],
+      "referencias": [
+        "ONU (2015). Agenda 2030 y Objetivos de Desarrollo Sostenible. Naciones Unidas.",
+        "PNUD (2019). Informe de Desarrollo Humano. Nueva York: PNUD.",
+        "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago."
+      ]
     }
   },
   {
@@ -2071,7 +2171,15 @@
           }
         ]
       },
-      "pauta": "Autoevaluación del proceso (3–5 criterios) y coevaluación solo si se acuerda. Máximo 20 puntos."
+      "pauta": "Autoevaluación del proceso (3–5 criterios) y coevaluación solo si se acuerda. Máximo 20 puntos.",
+      "contenido": [
+        "Presentar un proyecto implica comunicar con claridad: el problema, la propuesta, los actores y los impactos. La evaluación auténtica valora el proceso (investigación, trabajo en equipo) tanto como el resultado, mediante rúbricas con criterios observables.",
+        "La feria cierra el ciclo: la comunidad conoce las propuestas y la ciudadanía se ejerce también presentando y defendiendo ideas."
+      ],
+      "referencias": [
+        "OEI (2003). Glosario de términos de la educación para la ciudadanía democrática. Organización de Estados Iberoamericanos.",
+        "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago."
+      ]
     }
   },
   {
@@ -2404,7 +2512,16 @@
           "justification": "Criterio: explica límites del like y da un ejemplo local."
         }
       ],
-      "pauta": "Aplicación individual de 40 min. Puntaje total 30. Nota = puntaje/30 × 7 (escala 1.0–7.0). Los ítems 9–11 se corrigen con criterios (no por memoria)."
+      "pauta": "Aplicación individual de 40 min. Puntaje total 30. Nota = puntaje/30 × 7 (escala 1.0–7.0). Los ítems 9–11 se corrigen con criterios (no por memoria).",
+      "contenido": [
+        "La evaluación de la Unidad 3 integra los conceptos de ciudadanía, participación y territorio estudiados en las clases 1 a 6. Antes de responder, repasa: las tradiciones de ciudadanía (republicana, liberal, comunitaria), las formas de participación (institucional, social, digital) y la idea de territorio como construcción social."
+      ],
+      "referencias": [
+        "Marshall, T. H. y Bottomore, T. (1998). Ciudadanía y clase social. Madrid: Alianza.",
+        "Kymlicka, W. (1995). Ciudadanía multicultural. Barcelona: Paidós.",
+        "Pettit, P. (1997). Republicanism. Oxford: Oxford University Press.",
+        "Lefebvre, H. (1974). La producción del espacio."
+      ]
     }
   },
   {
@@ -2648,7 +2765,14 @@
           "justification": "Criterio: explica el límite del like con ejemplo."
         }
       ],
-      "pauta": "Misma prueba con menos distractores, instrucciones segmentadas y más espacio. Mantiene el OA central."
+      "pauta": "Misma prueba con menos distractores, instrucciones segmentadas y más espacio. Mantiene el OA central.",
+      "contenido": [
+        "Antes de responder, recuerda: la ciudadanía implica derechos y responsabilidades que se ejercen participando; existen tres tradiciones (republicana, liberal, comunitaria); participar puede ser institucional, social o digital; y el territorio es una construcción social de sus actores."
+      ],
+      "referencias": [
+        "Marshall, T. H. y Bottomore, T. (1998). Ciudadanía y clase social. Madrid: Alianza.",
+        "Arnstein, S. (1969). «A Ladder of Citizen Participation»."
+      ]
     }
   },
   {
@@ -3098,7 +3222,16 @@
           "justification": "Criterio: acción concreta + actor (0–4)."
         }
       ],
-      "pauta": "Aplicación individual de 40 min. Puntaje total 30. Nota = puntaje/30 × 7. Ítems 9–11 con criterio cualitativo."
+      "pauta": "Aplicación individual de 40 min. Puntaje total 30. Nota = puntaje/30 × 7. Ítems 9–11 con criterio cualitativo.",
+      "contenido": [
+        "La evaluación de la Unidad 4 integra Estado, mercado, desigualdad y sostenibilidad (clases 7 a 12). Repasa: bienes públicos y funciones del Estado, presupuesto municipal, comercio justo, coeficiente de Gini, pobreza vs. desigualdad y el uso sostenible del agua en el Limarí."
+      ],
+      "referencias": [
+        "Bobbio, N. (1985). Estado, gobierno y sociedad. México: FCE.",
+        "Stiglitz, J. (2012). El precio de la desigualdad. Madrid: Taurus.",
+        "Piketty, T. (2014). El capital en el siglo XXI. México: FCE.",
+        "Dirección General de Aguas (DGA). Estadísticas hídricas. dga.mop.gob.cl"
+      ]
     }
   },
   {
@@ -3347,7 +3480,14 @@
           "justification": "Criterio: acción concreta (0–4)."
         }
       ],
-      "pauta": "Misma prueba con menos distractores e instrucciones segmentadas. Conserva el OA central."
+      "pauta": "Misma prueba con menos distractores e instrucciones segmentadas. Conserva el OA central.",
+      "contenido": [
+        "Antes de responder, recuerda: el Estado garantiza bienes públicos; el mercado organiza la producción; pobreza y desigualdad son distintas; el Gini mide la desigualdad; y el agua del Limarí debe usarse de forma sostenible."
+      ],
+      "referencias": [
+        "Bobbio, N. (1985). Estado, gobierno y sociedad. México: FCE.",
+        "Dirección General de Aguas (DGA). Estadísticas hídricas."
+      ]
     }
   },
   {
