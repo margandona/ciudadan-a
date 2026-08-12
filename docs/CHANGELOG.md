@@ -2,6 +2,32 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.17.5] — Guías de las 12 clases: calendario completo + planificación por clase
+
+### Changed
+- **Calendario semanal** asignado a los materiales desde el lunes 17-08-2026 (clases 1→12 en lunes sucesivos; pruebas U3 el 28-09 y U4 el 09-11) en `content/material-content.json` (`classDate` guardado como Timestamp).
+- **Guía 01 — Presentación del curso** (clase 1, breve, sin prueba sumativa) agregada → **20 materiales**.
+- **Eliminado** por completo el seed legado `content/materials.json` (duplicaba guías por título) y su carga en `seed-content.ts`; queda **1 material coherente por clase** + pruebas de unidad.
+- **Planificación por clase**: `docs/PLANIFICACION_GUIAS_CLASES.md` (carpeta, estructura de cada guía, actividad por clase y calendario).
+
+### Fixed
+- `seed-content.ts` guarda `classDate/printDeadline/reviewDeadline` como Timestamp (el repositorio los lee así).
+
+### Tests
+- `pnpm test` **280** · lint/typecheck/build ✅ · PDF de guía 2 páginas sin blancos; DOCX con fecha, caso citado y referencias.
+
+## [0.17.4] — Limpieza de materiales + planificación semana 17–21 ago 2026
+
+### Changed
+- **Materiales limpios**: se eliminaron 43 artefactos de prueba (Guía E2E…, Eval Rev E2E…, Probe, Debug, Evaluación E2E, Guía F14) y los 3 duplicados legado (`content/materials.json` → `[]`). La lista de `Materiales` quedó con los **19 materiales reales**.
+- **Planificación** de la semana del 17–21 de agosto 2026 (inicio Unidad 3): martes 18 Clase 1 (diagnóstico + ticket), miércoles 19 Clase 2 (Consejo Ciudadano), jueves 20 Clase 3 (Mapa de participación). Ver `docs/PLANIFICACION_SEMANA_17_AGOSTO_2026.md`.
+
+### Fixed
+- `content/materials.json` con BOM rompía el seed (`JSON.parse`) → archivo reescrito sin BOM.
+
+### Tests
+- `pnpm test` 280 · lint/typecheck/build ✅.
+
 ## [0.17.3] — Guías completas: casos citados y PDF sin páginas en blanco
 
 ### Fixed

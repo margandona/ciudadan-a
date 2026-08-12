@@ -77,34 +77,23 @@ async function main(): Promise<void> {
     console.log(`Actividades: ${activities.length} listas.`);
   }
 
-  const materialsFile = path.join(ROOT, "content", "materials.json");
-  if (fs.existsSync(materialsFile)) {
-    const materials = readJson<Material[]>(materialsFile);
-    for (const material of materials) {
-      await db.collection("materials").doc(material.id).set(
-        { ...material, version: 1, updatedAt: isoToTimestamp(material.updatedAt) ?? nowTs },
-        { merge: true },
-      );
-    }
-    console.log(`Materiales (legado): ${materials.length} listos.`);
-  }
-
   const materialContentFile = path.join(ROOT, "content", "material-content.json");
   if (fs.existsSync(materialContentFile)) {
     const items = readJson<Material[]>(materialContentFile);
     for (const material of items) {
       const doc = db.collection("materials").doc(material.id);
-      await doc.set(
-        {
-          ...material,
-          version: material.version ?? 1,
-          status: material.status ?? "BORRADOR",
-          createdAt: isoToTimestamp(material.createdAt) ?? nowTs,
-          updatedAt: nowTs,
-          createdBy: "seed-content",
-        },
-        { merge: true },
-      );
+      const record: Record<string, unknown> = {
+        ...material,
+        version: material.version ?? 1,
+        status: material.status ?? "BORRADOR",
+        createdAt: isoToTimestamp(material.createdAt) ?? nowTs,
+        updatedAt: nowTs,
+        createdBy: "seed-content",
+      };
+      if (material.classDate) record.classDate = isoToTimestamp(material.classDate);
+      if (material.printDeadline) record.printDeadline = isoToTimestamp(material.printDeadline);
+      if (material.reviewDeadline) record.reviewDeadline = isoToTimestamp(material.reviewDeadline);
+      await doc.set(record, { merge: true });
       await doc.collection("versions").doc(`v1-${material.id}`).set(
         {
           id: `v1-${material.id}`,

@@ -180,7 +180,8 @@
         "Real Academia Española. Diccionario de la lengua española, «ciudadano». dle.rae.es",
         "MINEDUC (2020). Bases Curriculares: Formación Ciudadana (3º y 4º medio). Santiago: Ministerio de Educación."
       ]
-    }
+    },
+    "classDate": "2026-08-17T14:00:00.000Z"
   },
   {
     "id": "mat-class-01-ticket",
@@ -233,7 +234,8 @@
           "kind": "response"
         }
       ]
-    }
+    },
+    "classDate": "2026-08-17T14:00:00.000Z"
   },
   {
     "id": "mat-class-02-consejo",
@@ -489,7 +491,8 @@
         "Kymlicka, W. (1995). Ciudadanía multicultural. Barcelona: Paidós.",
         "Velasco, J. C. (2005). «La noción republicana de ciudadanía y la diversidad cultural». Isegoría, 32."
       ]
-    }
+    },
+    "classDate": "2026-08-24T14:00:00.000Z"
   },
   {
     "id": "mat-class-03-mapa",
@@ -632,7 +635,8 @@
         "Putnam, R. (1993). Making Democracy Work. Princeton: Princeton University Press.",
         "PNUD (2019). Participación ciudadana en América Latina. Programa de las Naciones Unidas para el Desarrollo."
       ]
-    }
+    },
+    "classDate": "2026-08-31T14:00:00.000Z"
   },
   {
     "id": "mat-class-04-cartografia",
@@ -747,7 +751,8 @@
         "Santos, M. (1996). La naturaleza del espacio. Barcelona: Ariel.",
         "Haesbaert, R. (2011). El mito de la desterritorialización. México: Siglo XXI."
       ]
-    }
+    },
+    "classDate": "2026-09-07T14:00:00.000Z"
   },
   {
     "id": "mat-class-05-expediente",
@@ -894,7 +899,8 @@
         "Hernández Sampieri, R. et al. (2014). Metodología de la investigación. México: McGraw-Hill.",
         "Instituto Nacional de Estadísticas (INE). Estadísticas territoriales. ine.gob.cl"
       ]
-    }
+    },
+    "classDate": "2026-09-14T14:00:00.000Z"
   },
   {
     "id": "mat-class-06-cabildo",
@@ -1149,7 +1155,8 @@
         "Arnstein, S. (1969). «A Ladder of Citizen Participation». Journal of the American Institute of Planners, 35(4).",
         "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago."
       ]
-    }
+    },
+    "classDate": "2026-09-21T14:00:00.000Z"
   },
   {
     "id": "mat-class-07-quien-resuelve",
@@ -1293,7 +1300,8 @@
         "Stiglitz, J. (2002). El malestar en la globalización. Buenos Aires: Taurus.",
         "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago."
       ]
-    }
+    },
+    "classDate": "2026-09-28T14:00:00.000Z"
   },
   {
     "id": "mat-class-08-presupuesto",
@@ -1456,7 +1464,8 @@
         "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago.",
         "Gobierno de Chile. Transparencia municipal y presupuestos participativos. gobiernotransparente.cl"
       ]
-    }
+    },
+    "classDate": "2026-10-05T14:00:00.000Z"
   },
   {
     "id": "mat-class-09-datos",
@@ -1575,7 +1584,8 @@
         "Ministerio de Desarrollo Social y Familia. Encuesta CASEN. observatorio.ministeriodesarrollosocial.gob.cl",
         "PNUD (2019). Informe de Desarrollo Humano. Nueva York: PNUD."
       ]
-    }
+    },
+    "classDate": "2026-10-12T14:00:00.000Z"
   },
   {
     "id": "mat-class-10-agua",
@@ -1718,7 +1728,8 @@
         "Centro de Ciencia del Clima y la Resiliencia (CR2). Informes de sequía y megasequía en Chile. cr2.cl",
         "FAO. Agua y agricultura en América Latina y el Caribe. fao.org"
       ]
-    }
+    },
+    "classDate": "2026-10-19T14:00:00.000Z"
   },
   {
     "id": "mat-class-11-proyecto",
@@ -1992,7 +2003,8 @@
         "PNUD (2019). Informe de Desarrollo Humano. Nueva York: PNUD.",
         "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago."
       ]
-    }
+    },
+    "classDate": "2026-10-26T14:00:00.000Z"
   },
   {
     "id": "mat-class-12-feria",
@@ -2189,7 +2201,8 @@
         "OEI (2003). Glosario de términos de la educación para la ciudadanía democrática. Organización de Estados Iberoamericanos.",
         "MINEDUC (2020). Bases Curriculares: Formación Ciudadana. Santiago."
       ]
-    }
+    },
+    "classDate": "2026-11-02T14:00:00.000Z"
   },
   {
     "id": "mat-u3-prueba-general",
@@ -2531,7 +2544,8 @@
         "Pettit, P. (1997). Republicanism. Oxford: Oxford University Press.",
         "Lefebvre, H. (1974). La producción del espacio."
       ]
-    }
+    },
+    "classDate": "2026-09-28T14:00:00.000Z"
   },
   {
     "id": "mat-u3-prueba-dua",
@@ -2782,7 +2796,8 @@
         "Marshall, T. H. y Bottomore, T. (1998). Ciudadanía y clase social. Madrid: Alianza.",
         "Arnstein, S. (1969). «A Ladder of Citizen Participation»."
       ]
-    }
+    },
+    "classDate": "2026-09-28T14:00:00.000Z"
   },
   {
     "id": "mat-u3-solucionario",
@@ -2893,7 +2908,8 @@
         }
       ],
       "pauta": "Corregir ítems 9–11 con criterio cualitativo, no solo por extensión. Registrar en la tabla de especificaciones para retroalimentar la unidad."
-    }
+    },
+    "classDate": "2026-09-28T14:00:00.000Z"
   },
   {
     "id": "mat-u4-prueba-general",
@@ -3241,7 +3257,8 @@
         "Piketty, T. (2014). El capital en el siglo XXI. México: FCE.",
         "Dirección General de Aguas (DGA). Estadísticas hídricas. dga.mop.gob.cl"
       ]
-    }
+    },
+    "classDate": "2026-11-09T14:00:00.000Z"
   },
   {
     "id": "mat-u4-prueba-dua",
@@ -3497,7 +3514,8 @@
         "Bobbio, N. (1985). Estado, gobierno y sociedad. México: FCE.",
         "Dirección General de Aguas (DGA). Estadísticas hídricas."
       ]
-    }
+    },
+    "classDate": "2026-11-09T14:00:00.000Z"
   },
   {
     "id": "mat-u4-solucionario",
@@ -3606,6 +3624,111 @@
         }
       ],
       "pauta": "Corregir ítems 9–11 con criterio cualitativo. Usar la tabla de especificaciones para retroalimentar."
+    },
+    "classDate": "2026-11-09T14:00:00.000Z"
+  },
+  {
+    "id": "mat-class-01-guia",
+    "courseId": "course-3med-d-2026",
+    "classId": "class-01",
+    "unitId": "U3",
+    "type": "GUIDE",
+    "title": "Guía 01 — Presentación del curso: ¿qué es ser ciudadana?",
+    "description": "Guía breve de presentación y encuadre del curso de Educación Ciudadana (Tercero Medio).",
+    "oaIds": [
+      "OA6"
+    ],
+    "classObjective": "Presentar el curso y recuperar ideas previas sobre ciudadanía y participación.",
+    "indicators": [
+      "Reconoce el propósito del curso",
+      "Expresa ideas previas sobre ciudadanía",
+      "Se relaciona con el territorio cercano"
+    ],
+    "duration": 20,
+    "estimatedPages": 1,
+    "requiresPrinting": false,
+    "classDate": "2026-08-17T14:00:00.000Z",
+    "reviewConfig": {
+      "evaluatorRequired": true,
+      "pieRequired": false,
+      "utpRequired": false
+    },
+    "content": {
+      "curricular": {
+        "oa": [
+          "OA6"
+        ],
+        "objective": "Presentar el curso y recuperar ideas previas sobre ciudadanía y participación.",
+        "indicators": [
+          "Reconoce el propósito del curso",
+          "Expresa ideas previas sobre ciudadanía",
+          "Se relaciona con el territorio cercano"
+        ]
+      },
+      "contenido": [
+        "Este curso de Educación Ciudadana (Tercero Medio) te invita a pensar qué significa ser ciudadana o ciudadano en Ovalle y en Chile: qué derechos y responsabilidades tenemos, cómo participamos y cómo construimos el territorio y el bien común (MINEDUC, 2020; Marshall, 1998).",
+        "Durante el semestre trabajaremos 12 misiones: entender la ciudadanía y sus tradiciones, participar en la comunidad, investigar un problema local, proponer soluciones (Ovalle 2035) y presentarlas en la feria ciudadana."
+      ],
+      "referencias": [
+        "MINEDUC (2020). Bases Curriculares: Formación Ciudadana (3º y 4º medio). Santiago: Ministerio de Educación.",
+        "Marshall, T. H. y Bottomore, T. (1998). Ciudadanía y clase social. Madrid: Alianza."
+      ],
+      "sections": [
+        {
+          "id": "h1",
+          "kind": "heading",
+          "text": "Presentación del curso"
+        },
+        {
+          "id": "h2",
+          "kind": "text",
+          "text": "Colegio La Providencia · Ovalle — Educación Ciudadana · Tercero Medio"
+        },
+        {
+          "id": "ins",
+          "kind": "heading",
+          "text": "Instrucciones"
+        },
+        {
+          "id": "ins1",
+          "kind": "list",
+          "items": [
+            "Escucha la presentación del curso y sus 12 misiones.",
+            "Escribe tu nombre y tu sector de Ovalle.",
+            "Responde las preguntas iniciales con tus ideas previas."
+          ]
+        },
+        {
+          "id": "act",
+          "kind": "heading",
+          "text": "Actividad inicial"
+        },
+        {
+          "id": "a1",
+          "kind": "text",
+          "text": "1. Mi nombre y mi barrio: ________________"
+        },
+        {
+          "id": "a2",
+          "kind": "text",
+          "text": "2. ¿Qué significa para mí ser ciudadana o ciudadano? ________________"
+        },
+        {
+          "id": "a3",
+          "kind": "text",
+          "text": "3. Un problema de Ovalle que me gustaría mejorar: ________________"
+        },
+        {
+          "id": "cierre",
+          "kind": "heading",
+          "text": "Cierre"
+        },
+        {
+          "id": "c1",
+          "kind": "response",
+          "text": "Comparte en una frase qué esperas aprender este semestre."
+        }
+      ]
     }
   }
 ]
