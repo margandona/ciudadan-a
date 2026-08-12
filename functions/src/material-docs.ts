@@ -224,6 +224,14 @@ function addPdfHeader(doc: PDFKit.PDFDocument, material: Material, first: boolea
   doc.moveDown(0.6);
 }
 
+/** Salta a una página nueva si no queda espacio; evita el desborde y las páginas en blanco. */
+function ensurePdfSpace(doc: PDFKit.PDFDocument, needed = 70): void {
+  if (doc.y > doc.page.height - needed) {
+    doc.addPage();
+    doc.moveTo(48, 58).lineTo(562, 58).strokeColor(INSTITUTIONAL_TONE).lineWidth(1.2).stroke();
+  }
+}
+
 export async function buildMaterialPdf(material: Material): Promise<{ buffer: Uint8Array; mime: string; fileName: string }> {
   const doc = new PDFDocument({ size: "LETTER", margin: 48 });
   const chunks: Buffer[] = [];
@@ -235,17 +243,21 @@ export async function buildMaterialPdf(material: Material): Promise<{ buffer: Ui
 
   for (const block of pdfBlocks(material)) {
     if (block.kind === "heading") {
+      ensurePdfSpace(doc);
       doc.fontSize(12).fillColor(INSTITUTIONAL_TONE).text(block.text ?? "", 48, doc.y);
       doc.moveDown(0.3);
     } else if (block.kind === "text") {
+      ensurePdfSpace(doc);
       doc.fontSize(10.5).fillColor("#111111").text(block.text ?? "", 48, doc.y, { width: 514 });
       doc.moveDown(0.4);
     } else if (block.kind === "list") {
+      ensurePdfSpace(doc);
       (block.items ?? []).forEach((it, i) => {
         doc.fontSize(10.5).fillColor("#111111").text(`${i + 1}. ${it}`, 48, doc.y, { width: 514 });
       });
       doc.moveDown(0.3);
     } else if (block.kind === "item") {
+      ensurePdfSpace(doc);
       doc.fontSize(10.5).fillColor("#111111").text(block.text ?? "", 48, doc.y, { width: 514 });
       (block.items ?? []).forEach((o, i) => {
         doc.fontSize(10).text(`   ${String.fromCharCode(97 + i)}) ${o}`, 48, doc.y, { width: 500 });
@@ -263,11 +275,15 @@ export async function buildMaterialPdf(material: Material): Promise<{ buffer: Ui
     }
   }
 
-  doc.moveDown(1);
-  // Pie de página (página final)
-  doc.fontSize(7.5).fillColor("#5b6572").text(`${material.title} · v${material.version}`, 48, doc.page.height - 40, { width: 300 });
-  doc.text(`Página ${doc.bufferedPageRange().count}`, doc.page.width - 48 - 90, doc.page.height - 40, { width: 90, align: "right" });
-  doc.text("Plataforma Observatorio Ciudadano — Ovalle 2035", 48, doc.page.height - 28, { width: 500, align: "center" });
+  // Pie de página: se dibuja en la última página si queda espacio; dentro del
+  // margen inferior (≤ 744) para que pdfkit no cree páginas nuevas.
+  if (doc.y > doc.page.height - 70) doc.addPage();
+  const footerTitle = material.title.length > 72 ? `${material.title.slice(0, 72)}…` : material.title;
+  const fy1 = doc.page.height - 74; // ~718
+  const fy2 = doc.page.height - 58; // ~734
+  doc.fontSize(7).fillColor("#5b6572").text(`Documento pedagógico — ${footerTitle} · v${material.version}`, 48, fy1, { width: 480, lineBreak: false });
+  doc.text(`Página ${doc.bufferedPageRange().count}`, doc.page.width - 48 - 90, fy1, { width: 90, align: "right", lineBreak: false });
+  doc.text("Plataforma Observatorio Ciudadano — Ovalle 2035", 48, fy2, { width: 514, align: "center", lineBreak: false });
 
   doc.end();
   await done;

@@ -2,6 +2,18 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.17.3] — Guías completas: casos citados y PDF sin páginas en blanco
+
+### Fixed
+- **PDF sin páginas en blanco**: el pie de página se dibujaba a `y=746` (fuera del margen inferior 744) y pdfkit saltaba cada línea del pie a una página nueva → contenido + 3 páginas «en blanco». Ahora el pie se dibuja dentro del margen y solo salta de página si la última quedó llena. Verificado: guías 1–2 páginas, prueba U3 3 páginas, **todas las páginas con contenido**.
+- **Generador (botón «Generar»)** hereda el contenido real del material sembrado de la misma clase/tipo (caso, ítems, referencias, currículo) en vez de un molde genérico; prefiere `createdBy === 'seed-content'` y omite campos vacíos (evita errores de Firestore por `undefined`).
+
+### Changed
+- **Casos con citas** en `content/material-content.json`: datos y contexto citados con fuentes reales (CASEN 2022, OCDE, INE, DGA, CR2, Censo 2017) en Clases 4, 9 y 10; casos narrativos marcados como «Caso construido para la actividad» (Clase 2, 7); notas de fuentes en Clase 5. El molde genérico del generador ya no dice «el caso que asigne tu profesor».
+
+### Tests
+- `pnpm test` **280** · E2E 10 passed + FLOW 1 (reintento) · lint/typecheck/build ✅ · PDFs verificados por página (sin blanco) y casos/citas presentes en DOCX.
+
 ## [0.17.2] — Guías y evaluaciones con contenido y referencias
 
 ### Added

@@ -311,7 +311,7 @@
         {
           "id": "caso",
           "kind": "text",
-          "text": "En el sector de la plaza Los Aromos hay basura acumulada y pocos lugares para sentarse. El municipio ofrece pintura y un contenedor si el barrio organiza la limpieza."
+          "text": "En el sector de la plaza Los Aromos hay basura acumulada y pocos lugares para sentarse. El municipio ofrece pintura y un contenedor si el barrio organiza la limpieza. (Caso construido para la actividad; los nombres y datos son ilustrativos.)"
         },
         {
           "id": "tabla",
@@ -739,7 +739,8 @@
       ],
       "contenido": [
         "El territorio no es solo un límite administrativo: es una construcción social, resultado de las relaciones, decisiones e historia de quienes lo habitan (Lefebvre, 1974). En él actúan múltiples actores en distintas escalas: la vecina y su junta (local), el municipio (comunal), el gobierno regional y el Estado (nacional).",
-        "La cartografía social permite representar lugares, problemas, oportunidades y actores para comprender cómo se construye y se transforma el territorio."
+        "La cartografía social permite representar lugares, problemas, oportunidades y actores para comprender cómo se construye y se transforma el territorio.",
+        "Contexto: Ovalle es la capital de la provincia del Limarí, Región de Coquimbo; según el Censo 2017 (INE), su población bordea los 111 mil habitantes, concentrada en la ciudad y en localidades rurales de la cuenca."
       ],
       "referencias": [
         "Lefebvre, H. (1974). La producción del espacio. Madrid: Capitán Swing (2003).",
@@ -886,7 +887,8 @@
       ],
       "contenido": [
         "Investigar un problema local exige reunir evidencia: noticias, entrevistas, encuestas, fotografías y observación. El Expediente Ciudadano organiza esa evidencia para fundamentar una propuesta: describe el problema, su ubicación, a quiénes afecta, sus causas y actores, e identifica la institución responsable.",
-        "Cruzar varias fuentes y registrar la fecha y el origen de cada dato hace la investigación más confiable."
+        "Cruzar varias fuentes y registrar la fecha y el origen de cada dato hace la investigación más confiable.",
+        "Para el expediente, registra el origen y la fecha de cada fuente (noticia, entrevista, encuesta o dato oficial) para que la evidencia sea verificable."
       ],
       "referencias": [
         "Hernández Sampieri, R. et al. (2014). Metodología de la investigación. México: McGraw-Hill.",
@@ -1260,6 +1262,13 @@
                   "",
                   ""
                 ]
+              },
+              {
+                "cells": [
+                  "Nota: los casos son ilustrativos (construidos para la actividad); pueden reemplazarse por casos reales del territorio con su fuente.",
+                  "",
+                  ""
+                ]
               }
             ]
           }
@@ -1506,9 +1515,9 @@
           "id": "d1",
           "kind": "list",
           "items": [
-            "Dato A: la Región de Coquimbo tiene una de las tasas de pobreza por ingresos más altas del país (CASEN).",
-            "Dato B: el coeficiente de Gini de Chile es de los más altos de la OCDE.",
-            "Dato C: la tasa de desempleo juvenil en Ovalle es mayor que el promedio nacional."
+            "Dato A: la Región de Coquimbo tiene una de las tasas de pobreza por ingresos más altas del país (CASEN). (Encuesta CASEN 2022, Ministerio de Desarrollo Social y Familia.)",
+            "Dato B: el coeficiente de Gini de Chile es de los más altos de la OCDE. (OCDE, 2022.)",
+            "Dato C: la tasa de desempleo juvenil en Ovalle es mayor que el promedio nacional. (INE, 2023.)"
           ]
         },
         {
@@ -1626,7 +1635,7 @@
         {
           "id": "ctx1",
           "kind": "text",
-          "text": "La cuenca del río Limarí sostiene la agricultura de la zona, el consumo humano y parte de la industria. La escasez hídrica afecta con distinta intensidad a los actores."
+          "text": "La cuenca del río Limarí sostiene la agricultura de la zona, el consumo humano y parte de la industria. La escasez hídrica afecta con distinta intensidad a los actores. (Fuente: DGA — Dirección General de Aguas.)"
         },
         {
           "id": "act",
@@ -1677,7 +1686,7 @@
         {
           "id": "ev1",
           "kind": "text",
-          "text": "Un embalse de la cuenca alcanzó el menor nivel en décadas durante la última sequía."
+          "text": "Un embalse de la cuenca alcanzó el menor nivel en décadas durante la última sequía. (Fuente: CR2, 2022.)"
         },
         {
           "id": "sust",

@@ -56,13 +56,16 @@ export function buildMaterialContent(
   if (t === "GUIDE" || t === "GUIA" || t === "WORKSHEET" || t === "READING" || t === "LECTURA") {
     return {
       ...base,
+      referencias: [
+        "Caso construido para la actividad: los nombres y datos son ilustrativos. Amplía la lectura con las fuentes del tema (p. ej., INE, CASEN, DGA) y cita aquí la bibliografía que uses.",
+      ],
       sections: [
         ...header,
         ...objective,
         { id: "ins", kind: "heading", text: "Instrucciones" },
         { id: "ins1", kind: "list", items: ["Lee con atención cada paso antes de responder.", "Trabaja de forma individual y registra tus ideas.", "Revisa tus respuestas antes de entregar."] },
         { id: "act", kind: "heading", text: "Actividad" },
-        { id: "act1", kind: "text", text: "A partir del caso o situación planteada por tu docente, responde lo solicitado en el espacio indicado." },
+        { id: "act1", kind: "text", text: "Caso: en un barrio de Ovalle, vecinas y vecinos se organizan para recuperar un espacio público con apoyo del municipio. Analiza el caso, relaciona los conceptos de la clase y responde lo solicitado en el espacio indicado. (Caso construido para la actividad; los nombres y datos son ilustrativos.)" },
         { id: "res", kind: "heading", text: "Espacio de respuesta" },
         { id: "res1", kind: "response" },
         { id: "close", kind: "heading", text: "Cierre y reflexión" },
@@ -164,25 +167,55 @@ export class GenerateMaterialUseCase {
       indicators: input.indicators ?? [],
     };
     const config = input.reviewConfig ?? defaultReviewConfig(input.type);
+
+    // Prefill: si existe material sembrado de la misma clase y tipo, se usa como
+    // borrador inicial (caso, ítems, referencias y currículo reales, no un molde genérico).
+    // Se prefiere el sembrado por la plataforma (createdBy === 'seed-content').
+    let content = buildMaterialContent(input.type, input.title.trim(), curricular);
+    let seeded: Material | undefined;
+    if (input.classId) {
+      const candidates = (await this.deps.materials.listByCourse(input.courseId)).filter(
+        (m) => m.classId === input.classId && m.type === input.type,
+      );
+      seeded = candidates.find((m) => m.createdBy === "seed-content") ?? candidates.find((m) => m.content?.contenido) ?? candidates[0];
+      if (seeded?.content) {
+        const sc = seeded.content;
+        content = {
+          curricular: sc.curricular ?? curricular,
+          contenido: sc.contenido ?? [],
+          referencias: sc.referencias ?? [],
+          sections: sc.sections ?? [],
+          ...(sc.items ? { items: sc.items } : {}),
+          ...(sc.rubric ? { rubric: sc.rubric } : {}),
+          ...(sc.answerKey ? { answerKey: sc.answerKey } : {}),
+          ...(sc.specTable ? { specTable: sc.specTable } : {}),
+          ...(sc.pauta ? { pauta: sc.pauta } : {}),
+        };
+        if (!curricular.oa.length) curricular.oa = sc.curricular?.oa ?? [];
+        if (!curricular.objective) curricular.objective = sc.curricular?.objective ?? "";
+        if (!curricular.indicators.length) curricular.indicators = sc.curricular?.indicators ?? [];
+      }
+    }
+
     const material: Material = {
       id: generateId(),
       courseId: input.courseId,
       classId: input.classId,
-      unitId: input.unitId,
+      unitId: input.unitId ?? seeded?.unitId,
       type: input.type,
       title: input.title.trim(),
       status: MATERIAL_STATUS.BORRADOR,
-      oaIds: input.oaIds,
-      learningObjectives: input.learningObjectives,
-      classObjective: input.classObjective,
-      indicators: input.indicators,
+      oaIds: curricular.oa.length ? curricular.oa : undefined,
+      learningObjectives: input.learningObjectives ?? seeded?.learningObjectives,
+      classObjective: curricular.objective || undefined,
+      indicators: curricular.indicators.length ? curricular.indicators : undefined,
       version: 1,
       hasDUA: false,
       hasPIE: false,
       requiresPrinting: input.requiresPrinting ?? false,
       requiresReview: true,
       reviewConfig: config,
-      content: buildMaterialContent(input.type, input.title.trim(), curricular),
+      content,
       classDate: input.classDate ?? null,
       printDeadline: null,
       reviewDeadline: null,
