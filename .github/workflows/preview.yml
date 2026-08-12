@@ -19,7 +19,7 @@ jobs:
     name: Preview channel de hosting
     needs: checks
     runs-on: ubuntu-latest
-    if: secrets.FIREBASE_TOKEN != ''
+    if: secrets.GCP_SA_KEY != ''
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -31,6 +31,11 @@ jobs:
           cache: pnpm
       - name: Install
         run: pnpm install --frozen-lockfile
+      - name: Autenticar con service account (GCP_SA_KEY)
+        if: secrets.GCP_SA_KEY != ''
+        run: |
+          echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > /tmp/sa.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa.json" >> "$GITHUB_ENV"
       - name: Build web
         run: pnpm build:web
         env:
@@ -43,7 +48,7 @@ jobs:
       - name: Deploy preview channel (7 días)
         id: preview
         run: |
-          URL=$(pnpm exec firebase hosting:channel:deploy "pr${{ github.event.number }}" --expires 7d --project "${{ secrets.FIREBASE_PROJECT_ID || 'ciudadania-lab' }}" --token "${{ secrets.FIREBASE_TOKEN }}" 2>&1 | grep -oE 'https://[^ ]+' | head -1)
+          URL=$(pnpm exec firebase hosting:channel:deploy "pr${{ github.event.number }}" --expires 7d --project "${{ secrets.FIREBASE_PROJECT_ID || 'ciudadania-lab' }}" 2>&1 | grep -oE 'https://[^ ]+' | head -1)
           echo "url=$URL" >> "$GITHUB_OUTPUT"
       - name: Comentar la URL de preview
         if: steps.preview.outputs.url != ''

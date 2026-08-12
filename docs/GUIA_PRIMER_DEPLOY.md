@@ -27,14 +27,24 @@ Pipeline listo en el repo; esto configura Firebase, los secretos de GitHub y eje
 3. Guarda la `VITE_RECAPTCHA_SITE_KEY`.
 4. (Recomendado) En la pestaña de App Check, activa la **aplicación forzosa** (Enforce) una vez verificado.
 
-## Paso 3 — Autenticación del CLI
+## Paso 3 — Autenticación del CLI (service account del proyecto)
+
+La credencial del proyecto real ya está en `3ro/ciudadania-lab-firebase-adminsdk-fbsvc-74a3fa3055.json` (carpeta `3ro/`, ignorada por git). El proyecto es `ciudadania-lab`.
+
+Para usar esa service account:
 
 ```powershell
-pnpm exec firebase login:ci   # abre navegador; devuelve un token
+# en el shell donde corras firebase deploy / seeds con --prod
+$env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\marga\OneDrive\Desktop\providencia\3ro\ciudadania-lab-firebase-adminsdk-fbsvc-74a3fa3055.json"
 ```
-Guarda ese token: es `FIREBASE_TOKEN` (secreto de GitHub).
 
-> Alternativa recomendada: crear una **Service Account** en IAM con rol Editor y usar `GCP_SA_KEY`.
+Para GitHub Actions, convierte el archivo a base64 y súbelo como secret `GCP_SA_KEY`:
+
+```powershell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\Users\marga\OneDrive\Desktop\providencia\3ro\ciudadania-lab-firebase-adminsdk-fbsvc-74a3fa3055.json"))
+```
+
+> ⚠️ Esta clave da acceso administrativo al proyecto real. **No se commitea** (`3ro/*.json` está en `.gitignore`) y solo debe usarse con autorización explícita.
 
 ## Paso 4 — Desplegar las reglas e índices (una vez)
 
@@ -53,14 +63,14 @@ Repo en GitHub → **Settings → Secrets and variables → Actions → New repo
 
 | Secreto | Valor |
 |---|---|
-| `FIREBASE_TOKEN` | token de `firebase login:ci` (Paso 3) |
+| `GCP_SA_KEY` | base64 de `3ro/ciudadania-lab-firebase-adminsdk-fbsvc-74a3fa3055.json` (Paso 3) |
 | `VITE_FIREBASE_PROJECT_ID` | `ciudadania-lab` |
-| `VITE_FIREBASE_API_KEY` | de la app web (Paso 1) |
-| `VITE_FIREBASE_AUTH_DOMAIN` | p. ej. `ciudadania-lab.firebaseapp.com` |
-| `VITE_FIREBASE_STORAGE_BUCKET` | p. ej. `ciudadania-lab.appspot.com` |
-| `VITE_FIREBASE_MESSAGING_SENDER_ID` | del proyecto |
-| `VITE_FIREBASE_APP_ID` | de la app web |
-| `VITE_RECAPTCHA_SITE_KEY` | Site Key de App Check (Paso 2) |
+| `VITE_FIREBASE_API_KEY` | de la app web (Paso 1) — **pendiente** |
+| `VITE_FIREBASE_AUTH_DOMAIN` | `ciudadania-lab.firebaseapp.com` |
+| `VITE_FIREBASE_STORAGE_BUCKET` | `ciudadania-lab.firebasestorage.app` |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | del proyecto — **pendiente** |
+| `VITE_FIREBASE_APP_ID` | de la app web (Paso 1) — **pendiente** |
+| `VITE_RECAPTCHA_SITE_KEY` | Site Key de App Check (en pausa por ahora) |
 
 ## Paso 6 — Sembrar datos de producción (contenido + cursos + usuario)
 

@@ -31,6 +31,11 @@ jobs:
           cache: pnpm
       - name: Install
         run: pnpm install --frozen-lockfile
+      - name: Autenticar con service account (GCP_SA_KEY)
+        if: secrets.GCP_SA_KEY != ''
+        run: |
+          echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > /tmp/sa.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa.json" >> "$GITHUB_ENV"
       - name: Build web (producción, sin emuladores)
         run: pnpm build:web
         env:
@@ -43,4 +48,4 @@ jobs:
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
           VITE_RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
       - name: Deploy hosting + reglas + funciones
-        run: pnpm exec firebase deploy --only hosting,firestore:rules,firestore:indexes,storage:rules,functions --project "${{ secrets.FIREBASE_PROJECT_ID || 'ciudadania-lab' }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+        run: pnpm exec firebase deploy --only hosting,firestore:rules,firestore:indexes,storage:rules,functions --project "${{ secrets.FIREBASE_PROJECT_ID || 'ciudadania-lab' }}"

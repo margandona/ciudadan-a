@@ -50,9 +50,9 @@ feature/*       ramas por historia (PR → CI + preview channel)
 | `VITE_USE_EMULATORS=false` | fijo en el workflow |
 
 ### Secretos de GitHub requeridos
-- `FIREBASE_TOKEN` — token del CLI (`firebase login:ci`) o `GCP_SA_KEY` de una service account con rol Editor en el proyecto.
-- `VITE_FIREBASE_*` — configuración web de Firebase.
-- `VITE_RECAPTCHA_SITE_KEY` — activa **App Check** en producción (requisito de FASE 16).
+- `GCP_SA_KEY` — base64 de la service account del proyecto real (`3ro/ciudadania-lab-firebase-adminsdk-fbsvc-74a3fa3055.json`, en `.gitignore`). Los workflows `deploy.yml` y `preview.yml` la decodifican y autentican vía `GOOGLE_APPLICATION_CREDENTIALS`.
+- `VITE_FIREBASE_*` — configuración web de Firebase (`VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_APP_ID`, `VITE_FIREBASE_MESSAGING_SENDER_ID` pendientes de agregar desde la consola).
+- `VITE_RECAPTCHA_SITE_KEY` — activa **App Check** en producción (en pausa).
 
 ## 4. Despliegue local / manual
 
