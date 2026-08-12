@@ -1,6 +1,6 @@
 # FASE 0 — Plan de los documentos institucionales (PDF/DOCX) de materiales
 
-**Estado:** PLAN — pendiente de aprobación para implementar.
+**Estado:** ✅ IMPLEMENTADO (0.17.1) — membrete y plantilla institucional aplicados en `functions/src/material-docs.ts`.
 **Objetivo:** definir la planificación de **cada documento pedagógico** (guías, pruebas, rúbricas, pautas, solucionarios, DUA/PIE, tablas de especificaciones) para **completarlos y dejarlos listos**, incorporando el **membrete institucional** (Imagen1.png) y un formato institucional formal.
 
 ---

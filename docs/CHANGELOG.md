@@ -2,6 +2,20 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.17.1] — Documentos institucionales con membrete (PDF/DOCX completos)
+
+### Added
+- **Membrete institucional** (`Imagen1.png` → `functions/assets/Imagen1.png`) en el encabezado de PDF y DOCX.
+- **Plantilla institucional completa** (`functions/src/material-docs.ts`): cabecera con membrete + asignatura/curso/unidad/fecha/clase/profesor, título con tipo, bloque curricular (OA/objetivo/indicadores), **portada de evaluaciones** (puntaje total, duración), **tablas con bordes** (criterios, tabla de especificaciones, solucionario), **espacios de respuesta con líneas**, pie de página con número de página y referencia.
+- Contenido planificado por documento en `docs/FASE0_PLAN_CONTENIDO_MATERIALES.md`.
+
+### Fixed
+- pdfkit dejaba de responder (recursión en `fillAndStroke` + footer en `pageAdded`) al generar pruebas con tablas → renderizado seguro (fill/stroke por celda, footer en página final).
+- ImageRun DOCX con `type: "png"`.
+
+### Tests
+- `pnpm test` **280 passed** · E2E **11/11** (FLOW 1 con reintento) · lint/typecheck/build ✅ · PDF/DOCX de guía, cabildo y prueba U3 generados sin errores y con membrete.
+
 ## [0.17.0] — Módulo de materiales y evaluaciones (flujo institucional)
 
 ### Added

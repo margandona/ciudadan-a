@@ -144,5 +144,6 @@ Detalle completo (objetivo, historias, tareas, archivos, dependencias, pruebas, 
 - [x] FASE 15 — **optimización, accesibilidad y performance**: axe 0 violaciones (WCAG 2.2 AA), Lighthouse Perf 89 / A11y 100, LCP 3.1 s, bundle inicial 680→294 kB, responsive 0 desbordes. Informe: `docs/INFORME_PERFORMANCE_ACCESIBILIDAD_F15.md`.
 - [x] FASE 16 — **CI/CD y despliegue**: workflows CI/preview/deploy, Hosting de Firebase configurado y runbook `docs/DEPLOYMENT.md` (deploy end-to-end pendiente de configurar secrets del propietario).
 - [x] **Módulo de materiales y evaluaciones (0.17.0)**: flujo de revisión institucional multi-actor (evaluadora/PIE/UTP → APROBADO FINAL → Listo para imprimir), generador y editor de guías/pruebas/rúbricas/pautas/solucionarios/DUA, PDF/DOCX, y **material real de las 12 clases**. Ver `docs/INFORME_IMPLEMENTACION_MATERIALES.md`.
+- [x] **Documentos institucionales (0.17.1)**: PDF/DOCX con **membrete** (`Imagen1.png`) y plantilla completa (cabecera, portada de pruebas, tablas con bordes, líneas de respuesta, pie de página). Contenido planificado en `docs/FASE0_PLAN_CONTENIDO_MATERIALES.md`.
 
 > ⚠️ **Regla de avance:** no iniciar FASE 4 hasta tu revisión de este hito (ver `docs/CHANGELOG.md` y `docs/PROJECT_PHASES.md`).

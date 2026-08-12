@@ -1,129 +1,405 @@
+import fs from "node:fs";
+import path from "node:path";
 import PDFDocument from "pdfkit";
-import { Document, HeadingLevel, Packer, Paragraph, Table, TableRow, TableCell, TextRun } from "docx";
-import type { Material, MaterialContent } from "@pclab/shared";
+import {
+  BorderStyle,
+  Document,
+  Footer,
+  HeadingLevel,
+  ImageRun,
+  Packer,
+  PageNumber,
+  Paragraph,
+  Table,
+  TableCell,
+  TableRow,
+  TextRun,
+  WidthType,
+} from "docx";
+import type { Material, MaterialContent, MaterialTableRow } from "@pclab/shared";
 
 const INSTITUTION = "Colegio La Providencia · Ovalle";
 const SUBJECT = "Educación Ciudadana";
 const PROFESOR = "Marcos Argandoña";
 
-function headerLines(material: Material): string[] {
+const MEMBRETE_PATH = path.join(__dirname, "..", "assets", "Imagen1.png");
+const MEMBRETE = fs.existsSync(MEMBRETE_PATH) ? fs.readFileSync(MEMBRETE_PATH) : null;
+
+const TYPE_LABELS: Record<string, string> = {
+  GUIDE: "Guía de Aprendizaje",
+  guia: "Guía de Aprendizaje",
+  WORKSHEET: "Guía de Trabajo",
+  READING: "Lectura",
+  lectura: "Lectura",
+  WRITTEN_TEST: "Evaluación Escrita",
+  ASSESSMENT: "Evaluación",
+  evaluacion: "Evaluación",
+  PRACTICAL_WORK: "Trabajo Práctico",
+  PROJECT: "Proyecto",
+  RUBRIC: "Rúbrica",
+  rubrica: "Rúbrica",
+  ANSWER_KEY: "Solucionario",
+  solucionario: "Solucionario",
+  SCORING_GUIDE: "Pauta de Corrección",
+  pauta: "Pauta de Corrección",
+  DUA_VERSION: "Versión DUA",
+  PIE_VERSION: "Versión PIE",
+  EXIT_TICKET: "Ticket de Salida",
+  SUPPORT_MATERIAL: "Material Complementario",
+  complementario: "Material Complementario",
+};
+
+const INSTITUTIONAL_TONE = "#123a5f";
+const LINE_COLOR = "#9fb3c8";
+
+// ---------------------------------------------------------------------------
+// PDF
+// ---------------------------------------------------------------------------
+
+function pdfHeaderLines(material: Material): string[] {
+  const c = material.content as MaterialContent | undefined;
   const lines = [INSTITUTION, SUBJECT, `Profesor: ${PROFESOR}`];
-  if (material.classId) lines.push(`Clase: ${material.classId}`);
-  if (material.unitId) lines.push(`Unidad: ${material.unitId}`);
+  const data = [];
+  if (material.classId) data.push(`Clase: ${material.classId}`);
+  if (material.unitId) data.push(`Unidad: ${material.unitId}`);
+  if (material.classDate) data.push(`Fecha: ${material.classDate.slice(0, 10)}`);
+  if (data.length) lines.push(data.join("   ·   "));
+  lines.push("");
+  lines.push(`${material.title}  —  ${TYPE_LABELS[material.type] ?? material.type}`);
+  if (c?.curricular) {
+    if (c.curricular.oa.length) lines.push(`OA: ${c.curricular.oa.join(", ")}`);
+    if (c.curricular.objective) lines.push(`Objetivo: ${c.curricular.objective}`);
+    if (c.curricular.indicators.length) lines.push(`Indicadores: ${c.curricular.indicators.join("; ")}`);
+  }
   return lines;
 }
 
-function contentToLines(material: Material): string[] {
-  const out: string[] = [];
+function pdfBlocks(material: Material): { kind: string; text?: string; items?: string[]; table?: { headers: string[]; rows: MaterialTableRow[] }; lines?: number; points?: number }[] {
   const c = material.content as MaterialContent | undefined;
-  if (material.title) out.push(material.title);
-  if (c?.curricular) {
-    if (c.curricular.oa.length) out.push(`OA: ${c.curricular.oa.join(", ")}`);
-    if (c.curricular.objective) out.push(`Objetivo de la clase: ${c.curricular.objective}`);
-    if (c.curricular.indicators.length) out.push(`Indicadores: ${c.curricular.indicators.join("; ")}`);
-  }
-  for (const s of c?.sections ?? []) {
-    if (s.kind === "heading") out.push(`\n${s.text ?? ""}`);
-    else if (s.kind === "list") out.push(...(s.items ?? []).map((i, idx) => `${idx + 1}. ${i}`));
-    else if (s.kind === "table") {
-      const table = s.table;
-      if (table) {
-        out.push(`\n${table.headers.join(" | ")}`);
-        for (const row of table.rows) out.push(row.cells.join(" | "));
-      }
-    } else out.push(s.text ?? "");
-  }
-  if (c?.items && c.items.length) {
-    out.push("\nÍTEMS");
-    for (const item of c.items) {
-      out.push(`\n${item.points} pts — ${item.prompt}`);
-      if (item.options) item.options.forEach((o, i) => out.push(`  ${String.fromCharCode(97 + i)}) ${o}`));
+  const out: { kind: string; text?: string; items?: string[]; table?: { headers: string[]; rows: MaterialTableRow[] }; lines?: number; points?: number }[] = [];
+  if (c?.items?.length) {
+    out.push({ kind: "heading", text: "Ítems de la evaluación" });
+    const total = c.items.reduce((s, i) => s + (i.points ?? 0), 0);
+    out.push({ kind: "text", text: `Puntaje total: ${total} puntos · Duración sugerida: ${material.duration ?? 40} minutos.` });
+    for (const it of c.items) {
+      out.push({ kind: "item", text: `(${it.points ?? 0} pts) ${it.prompt}`, items: it.options, points: it.points ?? 0 });
     }
   }
-  if (c?.rubric) {
-    out.push("\nRÚBRICA");
-    out.push(`Escala: ${c.rubric.scale.map((l) => `${l.score} = ${l.label}`).join(" · ")}`);
-    for (const cr of c.rubric.criteria) out.push(`• ${cr.name}: ${cr.descriptor}`);
+  for (const s of c?.sections ?? []) {
+    if (s.kind === "heading") out.push({ kind: "heading", text: s.text ?? "" });
+    else if (s.kind === "list") out.push({ kind: "list", items: s.items ?? [] });
+    else if (s.kind === "table") out.push({ kind: "table", table: s.table });
+    else if (s.kind === "response") out.push({ kind: "response", lines: 6 });
+    else out.push({ kind: "text", text: s.text ?? "" });
   }
+  if (c?.rubric) {
+    out.push({ kind: "heading", text: "Rúbrica" });
+    out.push({ kind: "text", text: `Escala: ${c.rubric.scale.map((l) => `${l.score} = ${l.label}`).join(" · ")}` });
+    const headers = ["Criterio", ...c.rubric.scale.map((l) => l.label)];
+    const rows = c.rubric.criteria.map((cr) => ({
+      cells: [cr.name, ...(cr.levels ?? []).map((lv) => lv.descriptor ?? "")],
+    }));
+    out.push({ kind: "table", table: { headers, rows } });
+  }
+  if (c?.specTable?.length) {
+    out.push({ kind: "heading", text: "Tabla de especificaciones" });
+    out.push({
+      kind: "table",
+      table: {
+        headers: ["OA", "Indicador", "Habilidad", "Ítem", "Pts", "Nivel"],
+        rows: c.specTable.map((r) => ({ cells: [r.oa, r.indicator, r.skill, r.itemId, String(r.points), r.level] })),
+      },
+    });
+  }
+  if (c?.answerKey?.length) {
+    out.push({ kind: "heading", text: "Solucionario / Pauta" });
+    out.push({
+      kind: "table",
+      table: {
+        headers: ["Ítem", "Respuesta", "Pts", "Justificación"],
+        rows: c.answerKey.map((a) => ({ cells: [a.itemId, a.correct, String(a.points), a.justification] })),
+      },
+    });
+  }
+  if (c?.pauta) out.push({ kind: "heading", text: "Pauta docente" });
+  if (c?.pauta) out.push({ kind: "text", text: c.pauta });
   return out;
 }
 
-/** Genera un PDF institucional a partir del material. */
+function splitLines(doc: PDFKit.PDFDocument, text: string, width: number): string[] {
+  const words = text.split(/\s+/);
+  const lines: string[] = [];
+  let current = "";
+  for (const w of words) {
+    const test = current ? `${current} ${w}` : w;
+    if (doc.widthOfString(test) <= width) current = test;
+    else {
+      if (current) lines.push(current);
+      current = w;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
+function drawTable(doc: PDFKit.PDFDocument, y: number, headers: string[], rows: MaterialTableRow[], opts: { width: number; left: number }, material: Material): number {
+  const colW = opts.width / headers.length;
+  const cellPad = 4;
+  const lineH = 11;
+  const drawRow = (cells: string[], header: boolean) => {
+    const heights = cells.map((cell) => {
+      const w = colW - cellPad * 2;
+      return splitLines(doc, cell, w).length * lineH + cellPad * 2;
+    });
+    const rowH = Math.max(...heights, lineH + cellPad * 2);
+    if (y + rowH > doc.page.height - 70) {
+      doc.addPage();
+      y = 60;
+      addPdfHeader(doc, material, false);
+    }
+    let x = opts.left;
+    for (let i = 0; i < cells.length; i++) {
+      doc.rect(x, y, colW, rowH).fill(header ? "#eef3f8" : "#ffffff");
+      doc.rect(x, y, colW, rowH).stroke(LINE_COLOR);
+      const lines = splitLines(doc, cells[i] ?? "", colW - cellPad * 2);
+      let ty = y + cellPad;
+      for (const l of lines) {
+        doc.fontSize(8.5).fillColor(header ? INSTITUTIONAL_TONE : "#111111").text(l, x + cellPad, ty, { width: colW - cellPad * 2, lineBreak: false });
+        ty += lineH;
+      }
+      x += colW;
+    }
+    y += rowH;
+  };
+  drawRow(headers, true);
+  for (const r of rows) drawRow(r.cells, false);
+  return y;
+}
+
+function addPdfHeader(doc: PDFKit.PDFDocument, material: Material, first: boolean): void {
+  if (first) {
+    if (MEMBRETE) {
+      try {
+        doc.image(MEMBRETE, 48, 40, { width: 120 });
+      } catch {
+        // sin membrete disponible
+      }
+    }
+    let y = 40;
+    const lines = pdfHeaderLines(material);
+    for (const l of lines) {
+      if (l === "") {
+        doc.moveDown(0.2);
+        y = doc.y;
+        continue;
+      }
+      const isTitle = l.startsWith(material.title);
+      doc.fontSize(isTitle ? 13 : 9.5).fillColor(isTitle ? INSTITUTIONAL_TONE : "#222222").text(l, 190, y, { width: 380 });
+      y = doc.y + 2;
+    }
+  }
+  doc.moveTo(48, doc.y + 8).lineTo(562, doc.y + 8).strokeColor(INSTITUTIONAL_TONE).lineWidth(1.2).stroke();
+  doc.moveDown(0.6);
+}
+
 export async function buildMaterialPdf(material: Material): Promise<{ buffer: Uint8Array; mime: string; fileName: string }> {
   const doc = new PDFDocument({ size: "LETTER", margin: 48 });
   const chunks: Buffer[] = [];
   doc.on("data", (c) => chunks.push(c as Buffer));
   const done = new Promise<void>((resolve) => doc.on("end", resolve));
 
-  for (const line of headerLines(material)) doc.fontSize(10).fillColor("#123a5f").text(line, { align: "left" });
-  doc.moveDown();
-  doc.moveTo(48, doc.y).lineTo(562, doc.y).strokeColor("#2f9e83").lineWidth(1.5).stroke();
-  doc.moveDown(0.5);
+  addPdfHeader(doc, material, true);
+  let y = doc.y;
 
-  for (const line of contentToLines(material)) {
-    if (line.startsWith("\n")) {
-      doc.moveDown();
-      doc.fontSize(12).fillColor("#123a5f").text(line.trim());
-    } else if (line.startsWith("  ")) {
-      doc.fontSize(10.5).fillColor("#111").text(line, { indent: 24 });
-    } else {
-      doc.fontSize(10.5).fillColor("#111").text(line);
+  for (const block of pdfBlocks(material)) {
+    if (block.kind === "heading") {
+      doc.fontSize(12).fillColor(INSTITUTIONAL_TONE).text(block.text ?? "", 48, doc.y);
+      doc.moveDown(0.3);
+    } else if (block.kind === "text") {
+      doc.fontSize(10.5).fillColor("#111111").text(block.text ?? "", 48, doc.y, { width: 514 });
+      doc.moveDown(0.4);
+    } else if (block.kind === "list") {
+      (block.items ?? []).forEach((it, i) => {
+        doc.fontSize(10.5).fillColor("#111111").text(`${i + 1}. ${it}`, 48, doc.y, { width: 514 });
+      });
+      doc.moveDown(0.3);
+    } else if (block.kind === "item") {
+      doc.fontSize(10.5).fillColor("#111111").text(block.text ?? "", 48, doc.y, { width: 514 });
+      (block.items ?? []).forEach((o, i) => {
+        doc.fontSize(10).text(`   ${String.fromCharCode(97 + i)}) ${o}`, 48, doc.y, { width: 500 });
+      });
+      doc.moveDown(0.4);
+    } else if (block.kind === "table" && block.table) {
+      y = drawTable(doc, doc.y, block.table.headers, block.table.rows, { width: 514, left: 48 }, material);
+      doc.y = y + 6;
+    } else if (block.kind === "response") {
+      for (let i = 0; i < (block.lines ?? 6); i++) {
+        if (doc.y > doc.page.height - 90) doc.addPage();
+        doc.moveTo(48, doc.y + 6).lineTo(562, doc.y + 6).strokeColor("#c9d4df").lineWidth(0.7).stroke();
+        doc.moveDown(0.9);
+      }
     }
   }
 
   doc.moveDown(1);
-  doc.moveTo(48, doc.y).lineTo(562, doc.y).strokeColor("#cfd8e3").stroke();
-  doc.moveDown(0.3);
-  doc.fontSize(8.5).fillColor("#5b6572").text("Material pedagógico de la plataforma Observatorio Ciudadano — Ovalle 2035.", { align: "center" });
+  // Pie de página (página final)
+  doc.fontSize(7.5).fillColor("#5b6572").text(`${material.title} · v${material.version}`, 48, doc.page.height - 40, { width: 300 });
+  doc.text(`Página ${doc.bufferedPageRange().count}`, doc.page.width - 48 - 90, doc.page.height - 40, { width: 90, align: "right" });
+  doc.text("Plataforma Observatorio Ciudadano — Ovalle 2035", 48, doc.page.height - 28, { width: 500, align: "center" });
+
   doc.end();
   await done;
   const buffer = Buffer.concat(chunks);
   return { buffer, mime: "application/pdf", fileName: `${material.title.toLowerCase().replace(/\s+/g, "-")}-v${material.version}.pdf` };
 }
 
-/** Genera un DOCX editable institucional a partir del material. */
+// ---------------------------------------------------------------------------
+// DOCX
+// ---------------------------------------------------------------------------
+
+function docxHeaderParagraphs(material: Material): Paragraph[] {
+  const out: Paragraph[] = [];
+  if (MEMBRETE) {
+    out.push(
+      new Paragraph({
+        children: [
+          new ImageRun({ data: MEMBRETE, type: "png", transformation: { width: 140, height: 61 } }),
+          new TextRun({ text: "  " }),
+        ],
+      }),
+    );
+  }
+  const c = material.content as MaterialContent | undefined;
+  const meta = [`${INSTITUTION}`, `${SUBJECT}`, `Profesor: ${PROFESOR}`];
+  const extras = [];
+  if (material.classId) extras.push(`Clase: ${material.classId}`);
+  if (material.unitId) extras.push(`Unidad: ${material.unitId}`);
+  if (material.classDate) extras.push(`Fecha: ${material.classDate.slice(0, 10)}`);
+  if (extras.length) meta.push(extras.join("   ·   "));
+  for (const m of meta) out.push(new Paragraph({ children: [new TextRun({ text: m, bold: true, color: "123a5f" })] }));
+  out.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun(`${material.title} — ${TYPE_LABELS[material.type] ?? material.type}`)] }));
+  if (c?.curricular) {
+    if (c.curricular.oa.length) out.push(new Paragraph({ children: [new TextRun(`OA: ${c.curricular.oa.join(", ")}`)] }));
+    if (c.curricular.objective) out.push(new Paragraph({ children: [new TextRun(`Objetivo: ${c.curricular.objective}`)] }));
+    if (c.curricular.indicators.length) out.push(new Paragraph({ children: [new TextRun(`Indicadores: ${c.curricular.indicators.join("; ")}`)] }));
+  }
+  return out;
+}
+
+function borderRule() {
+  return { style: BorderStyle.SINGLE, size: 4, color: "123a5f" };
+}
+
+function borderedTable(headers: string[], rows: MaterialTableRow[]): Table {
+  return new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    borders: { top: borderRule(), bottom: borderRule(), left: borderRule(), right: borderRule(), insideHorizontal: borderRule(), insideVertical: borderRule() },
+    rows: [
+      new TableRow({
+        tableHeader: true,
+        children: headers.map((h) => new TableCell({ shading: { fill: "eef3f8" }, children: [new Paragraph({ children: [new TextRun({ text: h, bold: true, color: "123a5f" })] })] })),
+      }),
+      ...rows.map((r) => new TableRow({ children: r.cells.map((cell) => new TableCell({ children: [new Paragraph(cell)] })) })),
+    ],
+  });
+}
+
+function responseLines(count: number): Paragraph[] {
+  const out: Paragraph[] = [];
+  for (let i = 0; i < count; i++) {
+    out.push(
+      new Paragraph({
+        spacing: { after: 220 },
+        border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: "c9d4df" } },
+        children: [],
+      }),
+    );
+  }
+  return out;
+}
+
 export async function buildMaterialDocx(material: Material): Promise<{ buffer: Uint8Array; mime: string; fileName: string }> {
   const c = material.content as MaterialContent | undefined;
-  const children: (Paragraph | Table)[] = [];
-  for (const line of headerLines(material)) {
-    children.push(new Paragraph({ children: [new TextRun({ text: line, bold: true, color: "123a5f" })], spacing: { after: 80 } }));
-  }
-  if (material.title) children.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text: material.title })] }));
-  if (c?.curricular) {
-    if (c.curricular.oa.length) children.push(new Paragraph({ children: [new TextRun(`OA: ${c.curricular.oa.join(", ")}`)] }));
-    if (c.curricular.objective) children.push(new Paragraph({ children: [new TextRun(`Objetivo: ${c.curricular.objective}`)] }));
-    if (c.curricular.indicators.length) children.push(new Paragraph({ children: [new TextRun(`Indicadores: ${c.curricular.indicators.join("; ")}`)] }));
-  }
-  for (const s of c?.sections ?? []) {
-    if (s.kind === "heading") children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: s.text ?? "" })] }));
-    else if (s.kind === "list") {
-      (s.items ?? []).forEach((it, i) => children.push(new Paragraph({ children: [new TextRun(`${i + 1}. ${it}`)], bullet: { level: 0 } })));
-    } else if (s.kind === "table" && s.table) {
-      children.push(
-        new Table({
-          rows: [
-            new TableRow({ children: s.table.headers.map((h) => new TableCell({ children: [new Paragraph(h)] })) }),
-            ...s.table.rows.map((row) => new TableRow({ children: row.cells.map((cell) => new TableCell({ children: [new Paragraph(cell)] })) })),
-          ],
-        }),
-      );
-    } else {
-      children.push(new Paragraph({ children: [new TextRun(s.text ?? "")], spacing: { after: 120 } }));
-    }
-  }
+  const children: (Paragraph | Table)[] = [...docxHeaderParagraphs(material)];
+
   if (c?.items?.length) {
-    children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Ítems")] }));
-    for (const item of c.items) {
-      children.push(new Paragraph({ children: [new TextRun({ text: `${item.points} pts — ${item.prompt}` })] }));
-      item.options?.forEach((o, i) => children.push(new Paragraph({ children: [new TextRun(`${String.fromCharCode(97 + i)}) ${o}`)] })));
+    children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Ítems de la evaluación")] }));
+    const total = c.items.reduce((s, i) => s + (i.points ?? 0), 0);
+    children.push(new Paragraph({ children: [new TextRun(`Puntaje total: ${total} puntos · Duración sugerida: ${material.duration ?? 40} minutos.`)] }));
+    for (const it of c.items) {
+      children.push(new Paragraph({ children: [new TextRun({ text: `(${it.points ?? 0} pts) ${it.prompt}`, bold: true })] }));
+      it.options?.forEach((o, i) => children.push(new Paragraph({ children: [new TextRun(`${String.fromCharCode(97 + i)}) ${o}`)] })));
     }
   }
+
+  for (const s of c?.sections ?? []) {
+    if (s.kind === "heading") children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(s.text ?? "")] }));
+    else if (s.kind === "list") (s.items ?? []).forEach((it, i) => children.push(new Paragraph({ children: [new TextRun(`${i + 1}. ${it}`)] })));
+    else if (s.kind === "table" && s.table) children.push(borderedTable(s.table.headers, s.table.rows));
+    else if (s.kind === "response") children.push(...responseLines(6));
+    else children.push(new Paragraph({ children: [new TextRun(s.text ?? "")], spacing: { after: 120 } }));
+  }
+
   if (c?.rubric) {
     children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Rúbrica")] }));
     children.push(new Paragraph({ children: [new TextRun(`Escala: ${c.rubric.scale.map((l) => `${l.score} = ${l.label}`).join(" · ")}`)] }));
-    for (const cr of c.rubric.criteria) children.push(new Paragraph({ children: [new TextRun(`• ${cr.name}: ${cr.descriptor}`)] }));
+    const headers = ["Criterio", ...c.rubric.scale.map((l) => l.label)];
+    const rows = c.rubric.criteria.map((cr) => ({
+      cells: [cr.name, ...(cr.levels ?? []).map((lv) => lv.descriptor ?? "")],
+    }));
+    children.push(borderedTable(headers, rows));
   }
-  const doc = new Document({ sections: [{ properties: {}, children }] });
+
+  if (c?.specTable?.length) {
+    children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Tabla de especificaciones")] }));
+    children.push(
+      borderedTable(
+        ["OA", "Indicador", "Habilidad", "Ítem", "Pts", "Nivel"],
+        c.specTable.map((r) => ({ cells: [r.oa, r.indicator, r.skill, r.itemId, String(r.points), r.level] })),
+      ),
+    );
+  }
+
+  if (c?.answerKey?.length) {
+    children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Solucionario / Pauta")] }));
+    children.push(
+      borderedTable(
+        ["Ítem", "Respuesta", "Pts", "Justificación"],
+        c.answerKey.map((a) => ({ cells: [a.itemId, a.correct, String(a.points), a.justification] })),
+      ),
+    );
+  }
+
+  if (c?.pauta) {
+    children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Pauta docente")] }));
+    children.push(new Paragraph({ children: [new TextRun(c.pauta)] }));
+  }
+
+  const doc = new Document({
+    sections: [
+      {
+        properties: {},
+        footers: {
+          default: new Footer({
+            children: [
+              new Paragraph({
+                alignment: "center",
+                children: [
+                  new TextRun({ text: `${material.title} · v${material.version} — `, size: 16, color: "5b6572" }),
+                  new TextRun({ text: "Página ", size: 16, color: "5b6572" }),
+                  new TextRun({ children: [PageNumber.CURRENT], size: 16, color: "5b6572" }),
+                  new TextRun({ text: " de ", size: 16, color: "5b6572" }),
+                  new TextRun({ children: [PageNumber.TOTAL_PAGES], size: 16, color: "5b6572" }),
+                ],
+              }),
+            ],
+          }),
+        },
+        children,
+      },
+    ],
+  });
+
   const buffer = await Packer.toBuffer(doc);
   return { buffer, mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName: `${material.title.toLowerCase().replace(/\s+/g, "-")}-v${material.version}.docx` };
 }
