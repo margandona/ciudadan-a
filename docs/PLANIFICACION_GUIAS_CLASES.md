@@ -35,8 +35,9 @@
 6. **Actividad**: caso concreto con su **cita** (fuente real o marcado «Caso construido para la actividad») + consigna.
 7. **Espacio de respuesta** (líneas pautadas).
 8. **Cierre / reflexión**.
-9. **Referencias** (bibliografía).
-10. **Recomendaciones de completitud** (para el autor; se eliminan al imprimir).
+9. **Referencias** (bibliografía, APA 7).
+
+> Los documentos **no incluyen** notas internas de autor: la nota de «Recomendaciones de completitud» se eliminó de la generación de PDF/DOCX para que el material se entregue limpio.
 
 ## Actividad por clase (qué debe contener)
 
@@ -57,7 +58,7 @@
 
 ## Pruebas (misma estructura en todas)
 
-Portada (asignatura, curso, unidad, OA, puntaje 30, tiempo 40 min) · 11 ítems (SM, V/F fundamentado, caso, respuesta breve) con puntaje · tabla de especificaciones · solucionario con justificación · pauta docente · versión DUA (menos distractores, instrucciones en pasos).
+Portada con **instrucciones en la parte superior** (asignatura, curso, unidad, OA, puntaje 40, tiempo 70 min) · ítems variados: selección múltiple, verdadero/falso con corrección, completar, emparejamiento, análisis de fuente, análisis de caso y desarrollo · tabla de especificaciones · **solucionario y pauta en documento aparte** · versión DUA (menos distractores, instrucciones en pasos, doble espacio).
 
 ## Nota
 

@@ -232,9 +232,9 @@ onMounted(load);
             <div v-for="s in content()!.sections" :key="s.id">
               <h3 v-if="s.kind === 'heading'">{{ s.text }}</h3>
               <ol v-else-if="s.kind === 'list'"><li v-for="(it, i) in s.items" :key="i">{{ it }}</li></ol>
-              <table v-else-if="s.kind === 'table' && s.table">
-                <thead><tr><th v-for="(h, i) in s.table.headers" :key="i">{{ h }}</th></tr></thead>
-                <tbody><tr v-for="(row, i) in s.table.rows" :key="i"><td v-for="(cell, j) in row" :key="j">{{ cell }}</td></tr></tbody>
+              <table v-else-if="s.kind === 'table' && s.table" class="table-wrap">
+                <thead><tr><th v-for="(h, i) in s.table.headers" :key="i" scope="col">{{ h }}</th></tr></thead>
+                <tbody><tr v-for="(row, i) in s.table.rows" :key="i"><td v-for="(cell, j) in row.cells" :key="j">{{ cell }}</td></tr></tbody>
               </table>
               <p v-else>{{ s.text }}</p>
             </div>
@@ -246,8 +246,7 @@ onMounted(load);
           <div v-for="item in content()!.items" :key="item.id" class="item">
             <p><strong>{{ item.points }} pts</strong> — {{ item.prompt }}</p>
             <ul v-if="item.options"><li v-for="(o, i) in item.options" :key="i">{{ String.fromCharCode(97 + i) }}) {{ o }}</li></ul>
-          </div>
-        </div>
+          </div>        </div>
         <div v-if="content()?.rubric" class="doc">
           <h3>Rúbrica</h3>
           <p class="muted small">Escala: {{ content()!.rubric!.scale.map((l) => `${l.score} = ${l.label}`).join(" · ") }}</p>
@@ -255,8 +254,8 @@ onMounted(load);
         </div>
         <div v-if="content()?.specTable?.length" class="doc">
           <h3>Tabla de especificaciones</h3>
-          <table>
-            <thead><tr><th>OA</th><th>Indicador</th><th>Habilidad</th><th>Ítem</th><th>Pts</th><th>Nivel</th></tr></thead>
+          <table class="table-wrap">
+            <thead><tr><th scope="col">OA</th><th scope="col">Indicador</th><th scope="col">Habilidad</th><th scope="col">Ítem</th><th scope="col">Pts</th><th scope="col">Nivel</th></tr></thead>
             <tbody><tr v-for="row in content()!.specTable" :key="row.itemId"><td>{{ row.oa }}</td><td>{{ row.indicator }}</td><td>{{ row.skill }}</td><td>{{ row.itemId }}</td><td>{{ row.points }}</td><td>{{ row.level }}</td></tr></tbody>
           </table>
         </div>
@@ -364,6 +363,14 @@ onMounted(load);
 .item {
   border-top: 1px dashed var(--color-border);
   padding: var(--space-2) 0;
+}
+.item p {
+  white-space: pre-line;
+}
+.table-wrap {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
 }
 table {
   width: 100%;

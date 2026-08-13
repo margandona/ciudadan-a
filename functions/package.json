@@ -10,12 +10,14 @@
     "node": "20"
   },
   "dependencies": {
+    "archiver": "^7.0.1",
     "docx": "^9.5.0",
     "firebase-admin": "^13.0.1",
     "firebase-functions": "^6.1.1",
     "pdfkit": "^0.17.0"
   },
   "devDependencies": {
+    "@types/archiver": "^6.0.4",
     "@types/node": "^22.10.2",
     "@types/pdfkit": "^0.13.9",
     "typescript": "^5.7.2"

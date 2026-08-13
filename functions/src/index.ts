@@ -1,4 +1,5 @@
 import { onCall, HttpsError } from "firebase-functions/v2/https";
+import { MATERIAL_STATUS } from "@pclab/shared";
 import { rateLimit } from "./rate-limit";
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
@@ -79,6 +80,8 @@ import {
   SubmitVoteUseCase,
   UpdateMaterialUseCase,
   UpdateTeamUseCase,
+  assertCourse,
+  isAssignedReviewer,
   type AuthContext,
   type UserDirectoryRepository,
 } from "@pclab/application";
@@ -112,6 +115,7 @@ import {
   StudentColumnMapper,
 } from "@pclab/infrastructure";
 import { buildMaterialDocx, buildMaterialPdf } from "./material-docs";
+import { buildMaterialsZip } from "./material-zip";
 
 const app = initializeApp();
 const db = getFirestore(app);
@@ -805,6 +809,33 @@ export const downloadMaterial = onCall(
     const result = await generateDocumentUseCase.run({ materialId: data.materialId, kind: data.kind as "PDF" | "DOCX" }, actor);
     const base64 = Buffer.from(result.buffer).toString("base64");
     return { buffer: base64, mime: result.mime, fileName: result.fileName };
+  },
+);
+
+export const downloadAllMaterials = onCall(
+  { timeoutSeconds: 300, memory: "1GiB" },
+  async (request): Promise<{ buffer: string; mime: string; fileName: string }> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    rateLimit(actor?.uid ?? "anon", "downloadAllMaterials", 20);
+    const data = request.data as { courseId?: string; kind?: string } | undefined;
+    if (!data?.courseId || !data?.kind) throw new HttpsError("invalid-argument", "Faltan datos.");
+    const kind = data.kind === "DOCX" ? "DOCX" : "PDF";
+    const role = actor?.role ?? "";
+    if (role === "PROFESOR" || role === "ADMIN" || role === "MASTER") {
+      assertCourse(actor, data.courseId);
+    } else if (role !== "EVALUADOR" && role !== "PIE" && role !== "UTP") {
+      throw new HttpsError("permission-denied", "Rol sin acceso a materiales.");
+    }
+    const all = await materials.listByCourse(data.courseId);
+    const visible = all.filter(
+      (m) =>
+        m.status !== MATERIAL_STATUS.ARCHIVED &&
+        (role === "PROFESOR" || role === "ADMIN" || role === "MASTER" || isAssignedReviewer(m, role as "EVALUADOR" | "PIE" | "UTP", actor?.uid ?? "")),
+    );
+    if (visible.length === 0) throw new HttpsError("not-found", "No hay materiales disponibles en este curso.");
+    const result = await buildMaterialsZip(visible, kind, data.courseId);
+    return { buffer: result.buffer.toString("base64"), mime: "application/zip", fileName: result.fileName };
   },
 );
 

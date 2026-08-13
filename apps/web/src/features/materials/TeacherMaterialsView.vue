@@ -7,6 +7,7 @@ import { useSessionStore } from "@/stores/session";
 import {
   addMaterialVersion,
   archiveMaterial,
+  downloadAllMaterials,
   downloadMaterial,
   duplicateMaterial,
   generateMaterial,
@@ -213,6 +214,29 @@ async function download(material: Material, kind: "PDF" | "DOCX"): Promise<void>
   }
 }
 
+async function downloadAll(kind: "PDF" | "DOCX"): Promise<void> {
+  busy.value = `all-${kind}`;
+  notice.value = "";
+  try {
+    const file = await downloadAllMaterials(courseId.value, kind);
+    const bytes = Uint8Array.from(atob(file.buffer), (c) => c.charCodeAt(0));
+    const blob = new Blob([bytes], { type: "application/zip" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = file.fileName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    notice.value = `ZIP descargado con todo el material (${kind}). Incluye un índice ordenado por fases.`;
+  } catch (e) {
+    notice.value = (e as Error).message;
+  } finally {
+    busy.value = "";
+  }
+}
+
 onMounted(load);
 </script>
 
@@ -225,6 +249,12 @@ onMounted(load);
     <select id="course" v-model="courseId" class="select" @change="load">
       <option v-for="c in session.courses" :key="c" :value="c">{{ c }}</option>
     </select>
+
+    <div class="row download-all">
+      <button class="btn btn-primary btn-sm" :disabled="busy === 'all-PDF'" @click="downloadAll('PDF')">Descargar todo (PDF)</button>
+      <button class="btn btn-ghost btn-sm" :disabled="busy === 'all-DOCX'" @click="downloadAll('DOCX')">Descargar todo (DOCX)</button>
+      <span class="muted small">Un ZIP por formato, ordenado por fases, con índice para evaluadora · PIE · UTP.</span>
+    </div>
 
     <p v-if="notice" class="notice" role="status">{{ notice }}</p>
 
@@ -368,5 +398,8 @@ onMounted(load);
 }
 .btn-sm {
   padding: 6px 12px;
+}
+.download-all {
+  margin: var(--space-3) 0;
 }
 </style>

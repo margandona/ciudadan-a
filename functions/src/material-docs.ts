@@ -74,6 +74,17 @@ function pdfHeaderLines(material: Material): string[] {
   return lines;
 }
 
+const ITEM_TYPE_LABELS: Record<string, string> = {
+  choice: "Selección múltiple",
+  truefalse: "Verdadero o Falso",
+  short: "Desarrollo",
+  case: "Análisis de caso",
+  source: "Análisis de fuente",
+  graph: "Interpretación de gráfico",
+  match: "Emparejamiento",
+  fill: "Completar",
+};
+
 function pdfBlocks(material: Material): { kind: string; text?: string; items?: string[]; table?: { headers: string[]; rows: MaterialTableRow[] }; lines?: number; points?: number }[] {
   const c = material.content as MaterialContent | undefined;
   const out: { kind: string; text?: string; items?: string[]; table?: { headers: string[]; rows: MaterialTableRow[] }; lines?: number; points?: number }[] = [];
@@ -83,20 +94,22 @@ function pdfBlocks(material: Material): { kind: string; text?: string; items?: s
     for (const para of c.contenido) out.push({ kind: "text", text: para });
   }
 
-  if (c?.items?.length) {
-    out.push({ kind: "heading", text: "Ítems de la evaluación" });
-    const total = c.items.reduce((s, i) => s + (i.points ?? 0), 0);
-    out.push({ kind: "text", text: `Puntaje total: ${total} puntos · Duración sugerida: ${material.duration ?? 40} minutos.` });
-    for (const it of c.items) {
-      out.push({ kind: "item", text: `(${it.points ?? 0} pts) ${it.prompt}`, items: it.options, points: it.points ?? 0 });
-    }
-  }
   for (const s of c?.sections ?? []) {
     if (s.kind === "heading") out.push({ kind: "heading", text: s.text ?? "" });
     else if (s.kind === "list") out.push({ kind: "list", items: s.items ?? [] });
     else if (s.kind === "table") out.push({ kind: "table", table: s.table });
     else if (s.kind === "response") out.push({ kind: "response", lines: 6 });
     else out.push({ kind: "text", text: s.text ?? "" });
+  }
+
+  if (c?.items?.length) {
+    out.push({ kind: "heading", text: "Ítems de la evaluación" });
+    const total = c.items.reduce((s, i) => s + (i.points ?? 0), 0);
+    out.push({ kind: "text", text: `Puntaje total: ${total} puntos · Duración sugerida: ${material.duration ?? 40} minutos.` });
+    for (const it of c.items) {
+      const label = ITEM_TYPE_LABELS[it.type] ?? it.type;
+      out.push({ kind: "item", text: `(${it.points ?? 0} pts) ${label} — ${it.prompt}`, items: it.options, points: it.points ?? 0 });
+    }
   }
   if (c?.rubric) {
     out.push({ kind: "heading", text: "Rúbrica" });
@@ -135,16 +148,6 @@ function pdfBlocks(material: Material): { kind: string; text?: string; items?: s
     out.push({ kind: "list", items: c.referencias });
   }
 
-  out.push({ kind: "heading", text: "Recomendaciones de completitud (para el/la autor/a)" });
-  out.push({
-    kind: "list",
-    items: [
-      "Revisa y amplía el texto con la bibliografía de la sección Referencias (verifica citas y años).",
-      "Agrega imágenes, mapas o gráficos citando su fuente (INE, DGA, CR2, entre otras).",
-      "Ajusta ítems, puntajes y criterios desde el editor de la plataforma (Materiales → Editar).",
-      "Elimina esta nota antes de imprimir o distribuir.",
-    ],
-  });
   return out;
 }
 
@@ -281,7 +284,7 @@ export async function buildMaterialPdf(material: Material): Promise<{ buffer: Ui
   const footerTitle = material.title.length > 72 ? `${material.title.slice(0, 72)}…` : material.title;
   const fy1 = doc.page.height - 74; // ~718
   const fy2 = doc.page.height - 58; // ~734
-  doc.fontSize(7).fillColor("#5b6572").text(`Documento pedagógico — ${footerTitle} · v${material.version}`, 48, fy1, { width: 480, lineBreak: false });
+  doc.fontSize(7).fillColor("#5b6572").text(`Documento pedagógico — ${footerTitle} · v${material.version ?? 1}`, 48, fy1, { width: 480, lineBreak: false });
   doc.text(`Página ${doc.bufferedPageRange().count}`, doc.page.width - 48 - 90, fy1, { width: 90, align: "right", lineBreak: false });
   doc.text("Plataforma Observatorio Ciudadano — Ovalle 2035", 48, fy2, { width: 514, align: "center", lineBreak: false });
 
@@ -365,22 +368,23 @@ export async function buildMaterialDocx(material: Material): Promise<{ buffer: U
     for (const para of c.contenido) children.push(new Paragraph({ children: [new TextRun(para)], spacing: { after: 120 } }));
   }
 
-  if (c?.items?.length) {
-    children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Ítems de la evaluación")] }));
-    const total = c.items.reduce((s, i) => s + (i.points ?? 0), 0);
-    children.push(new Paragraph({ children: [new TextRun(`Puntaje total: ${total} puntos · Duración sugerida: ${material.duration ?? 40} minutos.`)] }));
-    for (const it of c.items) {
-      children.push(new Paragraph({ children: [new TextRun({ text: `(${it.points ?? 0} pts) ${it.prompt}`, bold: true })] }));
-      it.options?.forEach((o, i) => children.push(new Paragraph({ children: [new TextRun(`${String.fromCharCode(97 + i)}) ${o}`)] })));
-    }
-  }
-
   for (const s of c?.sections ?? []) {
     if (s.kind === "heading") children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(s.text ?? "")] }));
     else if (s.kind === "list") (s.items ?? []).forEach((it, i) => children.push(new Paragraph({ children: [new TextRun(`${i + 1}. ${it}`)] })));
     else if (s.kind === "table" && s.table) children.push(borderedTable(s.table.headers, s.table.rows));
     else if (s.kind === "response") children.push(...responseLines(6));
     else children.push(new Paragraph({ children: [new TextRun(s.text ?? "")], spacing: { after: 120 } }));
+  }
+
+  if (c?.items?.length) {
+    children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Ítems de la evaluación")] }));
+    const total = c.items.reduce((s, i) => s + (i.points ?? 0), 0);
+    children.push(new Paragraph({ children: [new TextRun(`Puntaje total: ${total} puntos · Duración sugerida: ${material.duration ?? 40} minutos.`)] }));
+    for (const it of c.items) {
+      const label = ITEM_TYPE_LABELS[it.type] ?? it.type;
+      children.push(new Paragraph({ children: [new TextRun({ text: `(${it.points ?? 0} pts) ${label} — ${it.prompt}`, bold: true })] }));
+      it.options?.forEach((o, i) => children.push(new Paragraph({ children: [new TextRun(`${String.fromCharCode(97 + i)}) ${o}`)] })));
+    }
   }
 
   if (c?.rubric) {
@@ -423,14 +427,6 @@ export async function buildMaterialDocx(material: Material): Promise<{ buffer: U
     c.referencias.forEach((r) => children.push(new Paragraph({ children: [new TextRun(r)] })));
   }
 
-  children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Recomendaciones de completitud (para el/la autor/a)")] }));
-  [
-    "Revisa y amplía el texto con la bibliografía de la sección Referencias (verifica citas y años).",
-    "Agrega imágenes, mapas o gráficos citando su fuente (INE, DGA, CR2, entre otras).",
-    "Ajusta ítems, puntajes y criterios desde el editor de la plataforma (Materiales → Editar).",
-    "Elimina esta nota antes de imprimir o distribuir.",
-  ].forEach((r) => children.push(new Paragraph({ children: [new TextRun(r)] })));
-
   const doc = new Document({
     sections: [
       {
@@ -441,7 +437,7 @@ export async function buildMaterialDocx(material: Material): Promise<{ buffer: U
               new Paragraph({
                 alignment: "center",
                 children: [
-                  new TextRun({ text: `${material.title} · v${material.version} — `, size: 16, color: "5b6572" }),
+                  new TextRun({ text: `${material.title} · v${material.version ?? 1} — `, size: 16, color: "5b6572" }),
                   new TextRun({ text: "Página ", size: 16, color: "5b6572" }),
                   new TextRun({ children: [PageNumber.CURRENT], size: 16, color: "5b6572" }),
                   new TextRun({ text: " de ", size: 16, color: "5b6572" }),

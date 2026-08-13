@@ -13,6 +13,7 @@ vi.mock("@/services/importApi", () => ({
   archiveMaterial: vi.fn(),
   readyToPrintMaterial: vi.fn(),
   downloadMaterial: vi.fn(),
+  downloadAllMaterials: vi.fn(),
 }));
 
 import TeacherMaterialsView from "./TeacherMaterialsView.vue";
@@ -56,7 +57,9 @@ describe("TeacherMaterialsView", () => {
     expect(wrapper.text()).toContain("Borrador");
 
     await wrapper.find('input[placeholder="Título (p. ej. Guía 04 — Cartografía social)"]').setValue("Guía nueva");
-    await wrapper.find("button.btn-primary").trigger("click");
+    const genBtn = wrapper.findAll("button").find((b) => b.text().includes("Generar"));
+    expect(genBtn).toBeDefined();
+    await genBtn!.trigger("click");
     await flushPromises();
 
     expect(generateMaterial).toHaveBeenCalledWith(expect.objectContaining({ title: "Guía nueva", type: "GUIDE" }));

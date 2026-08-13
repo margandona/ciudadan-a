@@ -357,6 +357,17 @@ export async function downloadMaterial(materialId: string, kind: "PDF" | "DOCX")
   return res.data;
 }
 
+export async function downloadAllMaterials(
+  courseId: string,
+  kind: "PDF" | "DOCX",
+): Promise<{ buffer: string; mime: string; fileName: string }> {
+  const res = await httpsCallable<{ courseId: string; kind: string }, { buffer: string; mime: string; fileName: string }>(functions, "downloadAllMaterials")({
+    courseId,
+    kind,
+  });
+  return res.data;
+}
+
 export async function getBadgesForStudent(courseId: string, studentId: string): Promise<StudentBadgesOverview> {
   const res = await getBadgesForStudentFn({ courseId, studentId });
   return res.data;
