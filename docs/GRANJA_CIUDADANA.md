@@ -32,7 +32,7 @@ arquitectura limpia del monorepo. Este documento es a la vez **plan de implement
 | 12 | Verificación local con emuladores | ✅ |
 | 13 | Versionado y CHANGELOG | ✅ |
 | 14 | Deploy a producción | ✅ |
-| 15 | Post-deploy y monitoreo | 🟡 |
+| 15 | Post-deploy y monitoreo | ✅ |
 
 ---
 
@@ -277,8 +277,9 @@ Archivo: `e2e/farm.spec.ts` (requiere emuladores + seeds).
 - [x] **Costos/lecturas de Firestore reducidos** (~15–20×): `computeActivityXp` y
       `FirestoreActivityStatsRepository` ahora consultan **por estudiante** (~150 lecturas
       vs ~2 150). Ver `docs/COSTOS_FIRESTORE.md`. Desplegado y verificado (12/12 + E2E).
-- [ ] Comunicar a estudiantes el nuevo espacio "Granja" (mensaje en
-      `docs/MENSAJE_GRANJA_ESTUDIANTES.md`).
+- [x] Comunicar a estudiantes el nuevo espacio "Granja": **mensaje listo para enviar** en
+      `docs/MENSAJE_GRANJA_ESTUDIANTES.md` (versión corta, one-liner, versión para clase,
+      gancho de arranque y canales sugeridos).
 
 ---
 

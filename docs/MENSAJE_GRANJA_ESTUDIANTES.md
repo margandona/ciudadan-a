@@ -1,5 +1,12 @@
 # Mensaje para estudiantes — La Granja Ciudadana
 
+> **Estado:** mensaje listo para enviar. Recomendado: enviarlo el **lunes de la próxima
+> clase** y reforzar con el gancho de arranque 2–3 días después.
+
+## One-liner (notificación / SMS)
+
+> 🌱 Ya está la **Granja Ciudadana** en *Mis misiones → Granja*. ¡Siembra, cosecha y sube de nivel!
+
 ## Versión corta (WhatsApp / Classroom / correo)
 
 > 🌱 **¡Llegó la Granja Ciudadana!**
@@ -28,6 +35,19 @@
 > consigue un objeto legendario.
 >
 > Entra en **Mis misiones → Granja**. 🌾
+
+## Gancho para el primer día
+
+> Reto de la semana: **planta tu primer cultivo** y completa el **Desafío de conceptos** de tu
+> nivel. ¿Quién llega primero a la **Cosecha Dorada**? 🏆
+
+## Canales sugeridos
+
+- **WhatsApp del curso** → versión corta.
+- **Classroom / tablón de la asignatura** → versión corta con el enlace directo `/student/farm`.
+- **Proyector al inicio de la próxima clase** → versión larga.
+- **Agenda / correo institucional** → versión corta.
+- **Recordatorio 2–3 días después** → one-liner + gancho de arranque.
 
 ## Notas para el/la docente
 - El enlace directo es `/student/farm`.
