@@ -16,6 +16,7 @@ Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / 
 - **Helper reutilizable** `computeActivityXp` en infraestructura, compartido por `getStudentGamification` y la granja.
 
 ### Changed
+- **Costos de Firestore reducidos ~15–20×**: `computeActivityXp` y `FirestoreActivityStatsRepository.getForStudent` ahora leen **solo los registros de la estudiante** (≈150 lecturas) en vez de escanear todos los del curso (≈2 150). Sin índices nuevos. Regresión en `gamification.test.ts`; ver `docs/COSTOS_FIRESTORE.md`.
 - `getStudentGamification` suma `bonusXp` (cosechas + quiz) al XP total, agrega `breakdown.farm` y **recorta `progressToNext` a 100%**.
 - `Avatar.vue` muestra vestimenta y accesorios equipados.
 - `activityXp` se cachea en `farms/{uid}`: solo `getFarm` lo recalcula (las acciones son baratas).

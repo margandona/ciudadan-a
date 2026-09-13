@@ -84,6 +84,12 @@ async function main(): Promise<void> {
   check("getFarm", typeof farm.level === "number" && farm.progressToNext <= 100, `nivel ${farm.level}, ${farm.progressToNext}%`);
   const uid = farm.state.studentId;
 
+  const badges = await call<{ earnedCount: number; totalCount: number }>("getBadgesForStudent", student, {
+    courseId: COURSE,
+    studentId: uid,
+  });
+  check("getBadgesForStudent (por estudiante)", typeof badges.totalCount === "number", `${badges.earnedCount}/${badges.totalCount}`);
+
   // Plantar
   const empty = farm.state.plots.find((p) => !p.cropId);
   if (!empty) {

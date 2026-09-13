@@ -65,10 +65,11 @@ Con `S` ≈ 40 estudiantes por curso:
 
 ## 3. Optimizaciones recomendadas
 
-### A. Consultas por estudiante (alto impacto, sin índices nuevos)
+### A. Consultas por estudiante — ✅ IMPLEMENTADA Y DESPLEGADA
 
-Reescribir `computeActivityXp` para leer **solo los registros de la estudiante** usando
-métodos que ya existen en los repositorios:
+`computeActivityXp` (`gamification.ts`) y `FirestoreActivityStatsRepository.getForStudent`
+(`content-repositories.ts`) ahora leen **solo los registros de la estudiante** usando
+métodos que ya existían en los repositorios:
 
 | Dato | Antes (escaneo) | Después |
 |---|---|---|
@@ -80,6 +81,11 @@ métodos que ya existen en los repositorios:
 
 Resultado: de **~2 150** a **~100–150 lecturas** por cálculo (**~15–20×** menos).
 Costo mensual estimado: **~$0.40–0.60** (1 sesión/día).
+
+Verificado en local con emuladores (`pnpm verify:farm` → 12/12 + E2E 2/2) y desplegado a
+producción; el smoke test confirmó `getFarm`, `getStudentGamification` y
+`getBadgesForStudent` funcionando. Regresión cubierta por
+`packages/infrastructure/src/firebase/gamification.test.ts`.
 
 ### B. Caché de `activityXp` con TTL (rápido)
 
@@ -99,7 +105,8 @@ Hacer que `getStudentGamification` calcule una vez y persista el resultado en la
 ## 4. Conclusión
 
 - **Índices**: no hay que agregar ninguno.
-- **Costo actual estimado**: ~$8–16/mes con 75 estudiantes (dominan los escaneos amplios
-  de XP/badges, no la granja en sí).
-- **Con la optimización A**: ~$0.40–0.60/mes (~15–20× menos) y las acciones de granja
-  quedan en 1–2 lecturas cada una.
+- **Antes**: ~$8–16/mes (75 estudiantes) por los escaneos amplios de XP/badges.
+- **Ahora (optimización A aplicada)**: ~**$0.40–0.60/mes** (~15–20× menos); las acciones de
+  granja quedan en 1–2 lecturas + 1 escritura cada una.
+- B (caché TTL) y C (persistir el XP) ya no son necesarias, pero sirven si se vuelve a
+  recalcular de más.

@@ -274,8 +274,11 @@ Archivo: `e2e/farm.spec.ts` (requiere emuladores + seeds).
       `getStudentGamification` (verificación de callable OK) y `studentHeartbeat` activo
       cada ~60 s (sesión de estudiante en producción).
 - [x] Latencia de acciones: verificaciones del smoke en **< ~150 ms**.
-- [ ] Revisar costos/lecturas de Firestore.
-- [ ] Comunicar a estudiantes el nuevo espacio "Granja".
+- [x] **Costos/lecturas de Firestore reducidos** (~15–20×): `computeActivityXp` y
+      `FirestoreActivityStatsRepository` ahora consultan **por estudiante** (~150 lecturas
+      vs ~2 150). Ver `docs/COSTOS_FIRESTORE.md`. Desplegado y verificado (12/12 + E2E).
+- [ ] Comunicar a estudiantes el nuevo espacio "Granja" (mensaje en
+      `docs/MENSAJE_GRANJA_ESTUDIANTES.md`).
 
 ---
 

@@ -359,32 +359,40 @@ export class FirestoreActivityStatsRepository implements ActivityStatsRepository
     const classes = await this.deps.classes.listAll();
     const participationBySkill: Record<string, number> = {};
     let flippedCompleted = 0;
-    let evidenceCount = 0;
     let participationTotal = 0;
     let exitTickets = 0;
     let quizzesPassed = 0;
 
+    // Evidencias: una consulta por estudiante (no escanear cada clase).
+    let evidenceCount = 0;
+    const byStudent = this.deps.submissions.findByStudent;
+    if (byStudent) {
+      const subs = await byStudent.call(this.deps.submissions, studentId);
+      evidenceCount = subs.filter((s) => s.courseId === courseId).length;
+    } else {
+      const perClass = await Promise.all(classes.map((cls) => this.deps.submissions.listByClass(courseId, cls.id)));
+      evidenceCount = perClass.flat().filter((s) => s.studentId === studentId).length;
+    }
+
+    // Solo se leen los registros de este estudiante (antes: todos los del curso).
     for (const cls of classes) {
-      const [flipped, subs, participation, tickets, quizzes] = await Promise.all([
-        this.deps.flipped.listByClass(courseId, cls.id),
-        this.deps.submissions.listByClass(courseId, cls.id),
-        this.deps.participation.listByClass(courseId, cls.id),
-        this.deps.exitTickets.listByClass(courseId, cls.id),
+      const [flipped, participation, ticket, quizzes] = await Promise.all([
+        this.deps.flipped.get(cls.id, studentId),
+        this.deps.participation.get(courseId, cls.id, studentId),
+        this.deps.exitTickets.get(cls.id, studentId),
         this.deps.quizzes.listByClass(cls.id),
       ]);
 
-      if (flipped.some((f) => f.studentId === studentId && f.ready)) flippedCompleted++;
-      evidenceCount += subs.filter((s) => s.studentId === studentId).length;
+      if (flipped && flipped.courseId === courseId && flipped.ready) flippedCompleted++;
 
-      const part = participation.find((p) => p.studentId === studentId);
-      if (part) {
-        participationTotal += part.total;
-        for (const entry of part.records) {
+      if (participation) {
+        participationTotal += participation.total;
+        for (const entry of participation.records) {
           participationBySkill[entry.skill] = (participationBySkill[entry.skill] ?? 0) + 1;
         }
       }
 
-      exitTickets += tickets.filter((t) => t.studentId === studentId).length;
+      if (ticket && ticket.courseId === courseId) exitTickets++;
 
       for (const quiz of quizzes) {
         const attempt = await this.deps.quizAttempts.get(quiz.id, studentId);

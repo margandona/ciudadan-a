@@ -48,7 +48,6 @@ export async function computeActivityXp(
   ]);
 
   let quizzesPassed = 0;
-  let evidence = 0;
   let participationTotal = 0;
   let ticketCount = 0;
   let flippedReady = 0;
@@ -61,25 +60,34 @@ export async function computeActivityXp(
     activityDays.add(d.toISOString().slice(0, 10));
   }
 
+  // Evidencias: una consulta por estudiante (no escanear cada clase).
+  let evidence = 0;
+  const byStudent = deps.submissions.findByStudent;
+  if (byStudent) {
+    const subs = await byStudent.call(deps.submissions, uid);
+    evidence = subs.filter((s) => s.courseId === courseId).length;
+  } else {
+    const perClass = await Promise.all(catalog.map((cls) => deps.submissions.listByClass(courseId, cls.id)));
+    evidence = perClass.flat().filter((s) => s.studentId === uid).length;
+  }
+
+  // Solo se leen los registros de esta estudiante (antes: todos los del curso).
   for (const cls of catalog) {
-    const [flipped, subs, parts, tickets, quizList] = await Promise.all([
-      deps.flipped.listByClass(courseId, cls.id),
-      deps.submissions.listByClass(courseId, cls.id),
-      deps.participation.listByClass(courseId, cls.id),
-      deps.exitTickets.listByClass(courseId, cls.id),
+    const [flipped, part, ticket, quizList] = await Promise.all([
+      deps.flipped.get(cls.id, uid),
+      deps.participation.get(courseId, cls.id, uid),
+      deps.exitTickets.get(cls.id, uid),
       deps.quizzes.listByClass(cls.id),
     ]);
-    const myFlipped = flipped.find((f) => f.studentId === uid);
-    if (myFlipped && myFlipped.ready) {
+    if (flipped && flipped.courseId === courseId && flipped.ready) {
       flippedReady++;
-      addDay(myFlipped.completedAt);
+      addDay(flipped.completedAt);
     }
-    evidence += subs.filter((s) => s.studentId === uid).length;
-    const part = parts.find((p) => p.studentId === uid);
     if (part) participationTotal += part.total;
-    const myTickets = tickets.filter((t) => t.studentId === uid);
-    ticketCount += myTickets.length;
-    for (const t of myTickets) addDay(t.submittedAt);
+    if (ticket && ticket.courseId === courseId) {
+      ticketCount++;
+      addDay(ticket.submittedAt);
+    }
     for (const quiz of quizList) {
       const attempt = await deps.quizAttempts.get(quiz.id, uid);
       if (attempt && attempt.status === "SUBMITTED") {
