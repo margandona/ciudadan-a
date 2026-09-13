@@ -28,6 +28,11 @@ const guides: Record<string, { title: string; items: HelpItem[] }> = {
       { step: "Medallero", text: "«Ver mi medallero» abre el modal con tus medallas; toca una para ver su significado y su misión." },
       { step: "Quiz en vivo", text: "Si tu profesora inicia un quiz, escribe el código en «Quiz en vivo» y responde. El resultado se revela solo cuando ella lo permite." },
       { step: "Entrenar para la prueba", text: "En «Entrenamiento» lee el resumen, escúchalo y practica con preguntas para la evaluación." },
+      { step: "Granja", text: "En «Granja» ganas semillas y monedas con tus misiones. Toca una casilla y elige un cultivo para plantar; cuando aparezca «¡Cosechar!», tócala para ganar monedas, semillas y XP." },
+      { step: "Comprar (Tienda)", text: "Toca «Tienda» (botón arriba y abajo en la granja) para comprar cultivos, animalitos, herramientas, vestimenta y decoración. Si no te alcanzan las monedas, cosecha más." },
+      { step: "Decorar", text: "En «Decora tu granja» arrastra una ficha al campo (o tócala) para colocar animalitos y decoraciones; toca un objeto colocado para quitarlo. Cada objeto colocado te da mejora (+% monedas y XP)." },
+      { step: "Mi casa", text: "Toca tu casa («Mi casa · entrar») para entrar, elegir su estilo y ver tus pisos y tesoros. Ganas pisos al subir de nivel." },
+      { step: "Nivel y XP", text: "Ganas XP con las misiones, los quizzes y el «Desafío de conceptos» de cada nivel. La barra llega hasta 100% y luego subes de nivel." },
     ],
   },
   PROFESOR: {

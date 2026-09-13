@@ -17,8 +17,8 @@ test("GRANJA — plantar, tienda, decorar e inventario", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Cultiva tu bien común" })).toBeVisible();
 
   // Estadísticas y barra de nivel (tope 100%)
-  await expect(page.getByText("monedas")).toBeVisible();
-  await expect(page.getByText("semillas")).toBeVisible();
+  await expect(page.getByText("monedas", { exact: true })).toBeVisible();
+  await expect(page.getByText("semillas", { exact: true })).toBeVisible();
   await expect(page.getByText(/para el próximo nivel/)).toBeVisible();
 
   // Plantar un cultivo en una casilla vacía (si hay)
@@ -32,7 +32,7 @@ test("GRANJA — plantar, tienda, decorar e inventario", async ({ page }) => {
   }
 
   // Comprar una decoración en la tienda
-  await page.getByRole("button", { name: /Tienda/ }).click();
+  await page.getByRole("button", { name: "Tienda", exact: true }).first().click();
   await expect(page.getByRole("heading", { name: "Tienda de la granja" })).toBeVisible();
   await page.getByRole("button", { name: /Decoración/ }).click();
   const buyable = page.locator(".item-card:not([disabled])").first();
@@ -41,7 +41,7 @@ test("GRANJA — plantar, tienda, decorar e inventario", async ({ page }) => {
     await buyable.click();
     if (name) await expect(page.getByText(new RegExp(`Compraste ${name}`))).toBeVisible({ timeout: 10_000 });
   }
-  await page.getByRole("button", { name: "Cerrar" }).click();
+  await page.getByRole("button", { name: "Cerrar", exact: true }).click();
 
   // Colocar la decoración (arrastrar o tocar)
   const chip = page.locator(".deco-chip").first();
@@ -53,12 +53,12 @@ test("GRANJA — plantar, tienda, decorar e inventario", async ({ page }) => {
   // Entrar a la casa
   await page.getByRole("button", { name: "Entrar a mi casa" }).click();
   await expect(page.getByRole("heading", { name: /Mi casa/ })).toBeVisible();
-  await page.getByRole("button", { name: "Cerrar" }).click();
+  await page.getByRole("button", { name: "Cerrar", exact: true }).click();
 
   // Inventario (con al menos lo comprado)
   await page.getByRole("button", { name: /Inventario/ }).click();
   await expect(page.getByRole("heading", { name: "Mi inventario" })).toBeVisible();
-  await page.getByRole("button", { name: "Cerrar" }).click();
+  await page.getByRole("button", { name: "Cerrar", exact: true }).click();
 });
 
 test("GRANJA — desafío de conceptos por nivel", async ({ page }) => {

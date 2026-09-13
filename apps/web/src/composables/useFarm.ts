@@ -6,6 +6,7 @@ import {
   getFarm,
   harvestPlot as harvestPlotApi,
   plantSeed as plantSeedApi,
+  saveFarmLayout as saveFarmLayoutApi,
 } from "@/services/importApi";
 
 /**
@@ -79,6 +80,20 @@ export function useFarm() {
     }
   }
 
+  async function saveLayout(
+    courseId: string,
+    layout: Record<string, { x: number; y: number }>,
+  ): Promise<FarmSnapshot | null> {
+    try {
+      const snap = await saveFarmLayoutApi(courseId, layout);
+      snapshot.value = snap;
+      return snap;
+    } catch (e) {
+      error.value = messageOf(e, "No se pudo guardar la decoración.");
+      return null;
+    }
+  }
+
   async function equip(courseId: string, itemId: string): Promise<FarmSnapshot | null> {
     busy.value = true;
     error.value = "";
@@ -127,5 +142,6 @@ export function useFarm() {
     harvest,
     buy,
     equip,
+    saveLayout,
   };
 }

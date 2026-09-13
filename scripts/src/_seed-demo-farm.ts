@@ -17,6 +17,7 @@ async function main(): Promise<void> {
     "deco-tree", "deco-flowerbed", "deco-bench", "deco-lamp", "deco-scarecrow",
     "deco-fountain", "deco-windmill", "deco-pond",
     "npc-hen", "npc-duck", "npc-rabbit", "npc-cat", "npc-dog", "npc-cow", "npc-horse",
+    "npc-bird", "npc-fish", "npc-butterfly",
     "tool-tractor", "weapon-compass", "accessory-crown", "clothing-cape",
   ];
   const inventory = items.map((itemId) => ({ itemId, acquiredAt: now, quantity: 1 }));

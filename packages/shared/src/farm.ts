@@ -82,6 +82,8 @@ export interface FarmState {
   unlockedAvatarStyles: string[];
   /** XP de actividad cacheado (lo refresca getFarm, no lo escribe el cliente). */
   activityXp: number;
+  /** Posiciones de los objetos colocados en la escena (id de objeto -> {x,y} en %). */
+  layout?: Record<string, { x: number; y: number }>;
   /** Avisos pendientes (regalos del docente) para notificar en vivo. */
   notices: FarmNotice[];
   /** XP extra ganado en la granja (cosechas + quiz de conceptos). */
@@ -99,6 +101,10 @@ export interface FarmRewards {
   seeds: number;
   xp: number;
 }
+
+/** Mejora que otorga cada objeto colocado en la escena (monedas y XP), con tope. */
+export const PLACED_BONUS_PERCENT = 2;
+export const PLACED_BONUS_MAX_PERCENT = 20;
 
 /** Instantánea calculada que recibe la web. */
 export interface FarmSnapshot {
@@ -155,6 +161,13 @@ export const FARM_CATALOG: FarmItem[] = [
   { id: "npc-dog", name: "Perro", description: "Cuida la granja. +5% monedas.", category: "npc", icon: "🐕", rarity: "rare", cost: 95, levelRequired: 3, perk: { kind: "coin_bonus", value: 5 } },
   { id: "npc-cow", name: "Vaca", description: "Compañía del campo. +5% monedas.", category: "npc", icon: "🐄", rarity: "rare", cost: 130, levelRequired: 4, perk: { kind: "coin_bonus", value: 5 } },
   { id: "npc-horse", name: "Caballo", description: "Recorre el valle. +5% crecimiento.", category: "npc", icon: "🐎", rarity: "epic", cost: 210, levelRequired: 5, perk: { kind: "growth_speed", value: 5 } },
+  { id: "npc-butterfly", name: "Mariposa", description: "Revolotea entre las flores.", category: "npc", icon: "🦋", rarity: "common", cost: 35, levelRequired: 1 },
+  { id: "npc-bird", name: "Pájaro", description: "Canta sobre la parcela.", category: "npc", icon: "🐦", rarity: "common", cost: 45, levelRequired: 2 },
+  { id: "npc-dove", name: "Paloma", description: "Vuela sobre el valle.", category: "npc", icon: "🕊️", rarity: "common", cost: 50, levelRequired: 3 },
+  { id: "npc-owl", name: "Búho", description: "Vigila de noche. +5% XP.", category: "npc", icon: "🦉", rarity: "rare", cost: 115, levelRequired: 4, perk: { kind: "xp_bonus", value: 5 } },
+  { id: "npc-fish", name: "Pez", description: "Nada en el estanque.", category: "npc", icon: "🐟", rarity: "common", cost: 40, levelRequired: 2 },
+  { id: "npc-frog", name: "Rana", description: "Croa junto al agua.", category: "npc", icon: "🐸", rarity: "common", cost: 45, levelRequired: 3 },
+  { id: "npc-turtle", name: "Tortuga", description: "Camina lento y seguro. +5% crecimiento.", category: "npc", icon: "🐢", rarity: "rare", cost: 105, levelRequired: 4, perk: { kind: "growth_speed", value: 5 } },
 
   // ── Herramientas ───────────────────────────────────────────
   { id: "tool-hoe", name: "Azadón", description: "+10% velocidad de crecimiento.", category: "tool", icon: "⛏️", rarity: "common", cost: 50, levelRequired: 1, perk: { kind: "growth_speed", value: 10 } },

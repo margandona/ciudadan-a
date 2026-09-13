@@ -153,9 +153,14 @@ Archivos: `apps/web/src/composables/useFarm.ts`, `features/farm/FarmView.vue`,
 - [x] **Regalos en vivo**: `useFarmWatch.ts` escucha `farms/{uid}` con `onSnapshot` y
       notifica los `FarmNotice` que genera `teacherGrant`, sin recargar.
 - [x] **Escena visual**: cielo + campo de tierra con etapas de cultivo, **arrastrar y soltar
-      libre** de decoraciones y animalitos (posiciones persistidas), **animalitos**, **parcela
-      ampliable** (cerco/estanque), **5 formas de casa** y **entrar a la casa** (interior).
-      Captura en `docs/assets/granja-ciudadana.png`.
+      libre** de decoraciones y animalitos, **animalitos** (aves que vuelan y peces que nadan),
+      **parcela ampliable** (cerco/estanque), **5 formas de casa**, **pisos por nivel** y
+      **entrar a la casa**.
+- [x] **Los objetos colocados dan mejora** (+2% monedas/XP cada uno, tope +20%),
+      server-authoritative (`saveFarmLayout` + `state.layout`).
+- [x] **Instrucciones**: panel "¿Cómo juego en la granja?" en la granja, botón **Tienda** arriba,
+      y pasos de la Granja en el botón **"¿Cómo usar?"**.
+- [x] Captura actualizada en `docs/assets/granja-ciudadana.png`.
 
 ---
 

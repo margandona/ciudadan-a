@@ -6,7 +6,7 @@ import type {
   FarmState,
   InventoryEntry,
 } from "@pclab/shared";
-import { FARM_ITEM_BY_ID } from "@pclab/shared";
+import { FARM_ITEM_BY_ID, PLACED_BONUS_MAX_PERCENT, PLACED_BONUS_PERCENT } from "@pclab/shared";
 
 /** XP necesaria por nivel (coincide con `getStudentGamification`). */
 export const XP_PER_LEVEL = 150;
@@ -117,8 +117,26 @@ export function aggregatePerks(items: FarmItem[]): FarmPerkTotals {
   return totals;
 }
 
+/** Objetos colocados en la escena que la estudiante posee. */
+export function placedItemCount(state: FarmState): number {
+  const owned = new Set(state.inventory.map((entry) => entry.itemId));
+  return Object.keys(state.layout ?? {}).filter((id) => owned.has(id)).length;
+}
+
+/** Bonus por decorar: cada objeto colocado da +% monedas y +% XP (con tope). */
+export function placementBonusPercent(state: FarmState): number {
+  return Math.min(PLACED_BONUS_MAX_PERCENT, placedItemCount(state) * PLACED_BONUS_PERCENT);
+}
+
 export function perksForState(state: FarmState): FarmPerkTotals {
-  return aggregatePerks(ownedItems(state));
+  const base = aggregatePerks(ownedItems(state));
+  const bonus = placementBonusPercent(state);
+  if (bonus === 0) return base;
+  return {
+    ...base,
+    coinBonusPercent: base.coinBonusPercent + bonus,
+    xpBonusPercent: base.xpBonusPercent + bonus,
+  };
 }
 
 /** Capacidad total = base por nivel + casillas extra por perks. */

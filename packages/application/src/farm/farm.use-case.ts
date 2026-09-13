@@ -356,3 +356,37 @@ export class TeacherGrantUseCase {
     return project(saved, at).snap;
   }
 }
+
+export interface SaveFarmLayoutInput {
+  studentId: string;
+  layout: Record<string, { x: number; y: number }>;
+}
+
+/**
+ * Guarda las posiciones de los objetos colocados (server-authoritative).
+ * Solo acepta objetos que la estudiante posee y posiciones dentro de la escena.
+ */
+export class SaveFarmLayoutUseCase {
+  constructor(private readonly deps: { farm: FarmRepository }) {}
+
+  async run(input: SaveFarmLayoutInput, actor: AuthContext | null): Promise<FarmSnapshot> {
+    assertFarmAccess(actor, input.studentId, true);
+    const at = nowIso();
+    const state = await loadState(this.deps.farm, input.studentId, at);
+    const owned = new Set(state.inventory.map((entry) => entry.itemId));
+    const layout: Record<string, { x: number; y: number }> = {};
+    let count = 0;
+    for (const [id, pos] of Object.entries(input.layout ?? {})) {
+      if (!owned.has(id) || count >= 60) continue;
+      const x = Number(pos?.x);
+      const y = Number(pos?.y);
+      if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
+      layout[id] = { x: Math.min(100, Math.max(0, x)), y: Math.min(100, Math.max(0, y)) };
+      count++;
+    }
+    state.layout = layout;
+    state.updatedAt = at;
+    const saved = await this.deps.farm.save(state);
+    return project(saved, at).snap;
+  }
+}

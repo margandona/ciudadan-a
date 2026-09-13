@@ -130,6 +130,18 @@ async function main(): Promise<void> {
     check("buyFarmItem", true, `omitido (monedas ${beforeCoins})`);
   }
 
+  // Diseño: cada objeto colocado da mejora; solo acepta objetos propios.
+  const layoutRes = await call<{ state: { layout?: Record<string, unknown> }; perks: { xpBonusPercent: number } }>(
+    "saveFarmLayout",
+    student,
+    { courseId: COURSE, layout: { "tool-hoe": { x: 50, y: 60 }, "no-existe": { x: 10, y: 10 } } },
+  );
+  check(
+    "saveFarmLayout (mejora + validación)",
+    !!layoutRes.state.layout?.["tool-hoe"] && !layoutRes.state.layout?.["no-existe"] && layoutRes.perks.xpBonusPercent >= 2,
+    `layout ${Object.keys(layoutRes.state.layout ?? {}).length} · XP +${layoutRes.perks.xpBonusPercent}%`,
+  );
+
   // Quiz de conceptos
   const quiz = await call<{ questions: { id: string }[] }>("getConceptQuiz", student, { level: 1 });
   check("getConceptQuiz", quiz.questions.length >= 5, `${quiz.questions.length} preguntas`);

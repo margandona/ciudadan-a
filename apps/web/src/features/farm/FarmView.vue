@@ -8,6 +8,8 @@ import {
   FARM_CATEGORY_LABELS,
   FARM_CATEGORY_ORDER,
   FARM_ITEM_BY_ID,
+  PLACED_BONUS_MAX_PERCENT,
+  PLACED_BONUS_PERCENT,
 } from "@pclab/shared";
 import { growthDurationMs } from "@pclab/domain";
 import { useSessionStore } from "@/stores/session";
@@ -80,8 +82,8 @@ const ownedTools = computed(() =>
 );
 const houseIcon = computed(() => HOUSE_STYLES.find((h) => h.id === sceneState.value.house)?.icon ?? "🏠");
 
-function sceneKey(): string {
-  return `pclab-farm-scene-${farm.snapshot.value?.state.studentId ?? "anon"}`;
+function houseKey(): string {
+  return `pclab-farm-house-${farm.snapshot.value?.state.studentId ?? "anon"}`;
 }
 function defaultHouse(): string {
   const level = farm.level.value;
@@ -91,32 +93,34 @@ function defaultHouse(): string {
   return "mansion";
 }
 function loadScene(): void {
+  // Las posiciones viven en el servidor (state.layout); la casa es cosmética local.
+  sceneState.value = { items: { ...(farm.snapshot.value?.state.layout ?? {}) }, house: defaultHouse() };
   try {
-    const raw = localStorage.getItem(sceneKey());
-    const saved = raw
-      ? (JSON.parse(raw) as { items?: Record<string, { x: number; y: number }>; house?: string })
-      : null;
-    sceneState.value = { items: saved?.items ?? {}, house: saved?.house ?? defaultHouse() };
-  } catch {
-    sceneState.value = { items: {}, house: defaultHouse() };
-  }
-}
-function saveScene(): void {
-  try {
-    localStorage.setItem(sceneKey(), JSON.stringify(sceneState.value));
+    const savedHouse = localStorage.getItem(houseKey());
+    if (savedHouse) sceneState.value.house = savedHouse;
   } catch {
     // sin almacenamiento
   }
 }
+function persistHouse(): void {
+  try {
+    localStorage.setItem(houseKey(), sceneState.value.house);
+  } catch {
+    // sin almacenamiento
+  }
+}
+function persistLayout(): void {
+  void farm.saveLayout(courseId.value, sceneState.value.items);
+}
 function setItemPos(itemId: string, x: number, y: number): void {
   sceneState.value = { ...sceneState.value, items: { ...sceneState.value.items, [itemId]: { x, y } } };
-  saveScene();
+  persistLayout();
 }
 function removeItem(itemId: string): void {
   const items = { ...sceneState.value.items };
   delete items[itemId];
   sceneState.value = { ...sceneState.value, items };
-  saveScene();
+  persistLayout();
 }
 function defaultSpot(): { x: number; y: number } {
   const used = new Set(Object.values(sceneState.value.items).map((p) => `${Math.round(p.x)},${Math.round(p.y)}`));
@@ -172,7 +176,51 @@ function onPointerUp(e: PointerEvent): void {
 }
 function chooseHouse(id: string): void {
   sceneState.value = { ...sceneState.value, house: id };
-  saveScene();
+  persistHouse();
+}
+
+function placementClass(item: FarmItem): string {
+  if (item.category !== "npc") return "";
+  if (/bird|dove|butterfly|owl/.test(item.id)) return "flying";
+  if (/fish|frog|turtle|duck/.test(item.id)) return "swimming";
+  return "animal";
+}
+
+const HOUSE_FLOORS = [
+  { minLevel: 1, id: "ground", label: "Planta baja", icon: "🛋️", props: ["🛋️", "🪴", "🖼️"] },
+  { minLevel: 4, id: "first", label: "Primer piso", icon: "🛏️", props: ["🛏️", "🧸", "🪟"] },
+  { minLevel: 7, id: "second", label: "Segundo piso", icon: "📚", props: ["📚", "🖥️", "🪑"] },
+  { minLevel: 10, id: "terrace", label: "Terraza", icon: "🌇", props: ["🌇", "🪴", "🛋️"] },
+];
+const activeFloor = ref("ground");
+const activeFloorProps = computed(
+  () => HOUSE_FLOORS.find((f) => f.id === activeFloor.value)?.props ?? HOUSE_FLOORS[0]!.props,
+);
+function selectFloor(id: string): void {
+  activeFloor.value = id;
+}
+
+const placedBonusPercent = computed(() =>
+  Math.min(PLACED_BONUS_MAX_PERCENT, placedItems.value.length * PLACED_BONUS_PERCENT),
+);
+
+const HELP_KEY = "pclab-farm-help";
+const showHelp = ref(
+  (() => {
+    try {
+      return localStorage.getItem(HELP_KEY) !== "1";
+    } catch {
+      return true;
+    }
+  })(),
+);
+function dismissHelp(): void {
+  showHelp.value = false;
+  try {
+    localStorage.setItem(HELP_KEY, "1");
+  } catch {
+    // sin almacenamiento
+  }
 }
 
 const panel = ref<"shop" | "inventory" | null>(null);
@@ -292,8 +340,28 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
           vestimenta. Cada objeto desbloquea mejoras.
         </p>
       </div>
-      <button class="btn-ghost" @click="router.push('/student')"><AppIcon name="arrow" /> Volver a mis misiones</button>
+      <div class="farm-head-actions">
+        <button class="btn-primary" @click="panel = 'shop'"><AppIcon name="shop" /> Tienda</button>
+        <button class="btn-ghost" @click="showHelp = true"><AppIcon name="help" /> ¿Cómo juego?</button>
+        <button class="btn-ghost" @click="router.push('/student')"><AppIcon name="arrow" /> Volver a mis misiones</button>
+      </div>
     </header>
+
+    <section v-if="showHelp" class="farm-help" aria-label="Cómo jugar en la granja">
+      <div class="farm-help-head">
+        <strong><AppIcon name="graduation" /> ¿Cómo juego en la granja?</strong>
+        <button type="button" class="farm-help-close" aria-label="Cerrar ayuda" @click="dismissHelp">×</button>
+      </div>
+      <ol>
+        <li><b>Gana</b> semillas y monedas con tus misiones, quizzes y participación.</li>
+        <li><b>Planta</b>: toca una casilla y elige un cultivo.</li>
+        <li><b>Cosecha</b>: cuando aparezca <b>«¡Cosechar!»</b>, tócala para ganar monedas, semillas y XP.</li>
+        <li><b>Compra</b> en la <b>Tienda</b> (botón arriba y abajo): cultivos, animalitos, herramientas, vestimenta y decoración.</li>
+        <li><b>Decora</b>: en «Decora tu granja» <b>arrastra</b> una ficha al campo o <b>tócala</b> para colocarla; toca un objeto colocado para quitarlo. <b>Cada objeto colocado te da mejora</b> (+% monedas y XP).</li>
+        <li><b>Mi casa</b>: toca tu casa para entrar, cambiar de estilo y ver tus pisos y tesoros.</li>
+        <li><b>Sube de nivel</b> con misiones, quizzes y el Desafío de conceptos (la barra llega a 100%).</li>
+      </ol>
+    </section>
 
     <SkeletonRows v-if="farm.loading.value" />
     <AppErrorState v-else-if="farm.error.value" :message="farm.error.value" @retry="farm.load(courseId)" />
@@ -381,7 +449,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
             :key="p.item.id"
             type="button"
             class="placed-item"
-            :class="{ animal: p.item.category === 'npc' }"
+            :class="placementClass(p.item)"
             :style="{ left: `${p.x}%`, top: `${p.y}%` }"
             :title="`${p.item.name} — arrastra para mover, toca para quitar`"
             :aria-label="`${p.item.name} colocado`"
@@ -407,9 +475,10 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
                 {{ item.icon }} {{ item.name }}
               </button>
             </div>
-            <p v-else-if="!placeableItems.length" class="muted small">
-              Compra animalitos, ayudantes y decoraciones en la Tienda para adornar tu granja.
-            </p>
+            <div v-else-if="!placeableItems.length" class="lawn-empty">
+              <p class="muted small">Compra animalitos, ayudantes y decoraciones para adornar tu granja.</p>
+              <button type="button" class="btn-primary" @click="panel = 'shop'"><AppIcon name="shop" /> Ir a la Tienda</button>
+            </div>
             <p v-else class="muted small">¡Todo colocado! Arrastra para reordenar o toca un objeto para quitarlo.</p>
           </div>
 
@@ -429,6 +498,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
           <span>🪙 Monedas +{{ farm.perks.value.coinBonusPercent }}%</span>
           <span>⚡ Crecimiento +{{ farm.perks.value.growthSpeedPercent }}%</span>
           <span>🌰 Semillas +{{ farm.perks.value.seedBonus }}</span>
+          <span>🎨 Decoración +{{ placedBonusPercent }}% · {{ placedItems.length }} objeto(s) colocado(s)</span>
         </div>
       </section>
     </template>
@@ -522,7 +592,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
           </div>
           <div class="house-room">
             <div class="room-window" aria-hidden="true"><span>🌤️</span></div>
-            <div class="room-shelf" aria-hidden="true">📚 🪴 🖼️</div>
+            <div class="room-props" aria-hidden="true"><span v-for="(prop, i) in activeFloorProps" :key="i">{{ prop }}</span></div>
             <div class="room-fire" aria-hidden="true">🔥</div>
             <div class="room-rug" aria-hidden="true"></div>
             <div class="room-avatar">
@@ -537,6 +607,23 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
             </div>
           </div>
           <p class="muted small">Descansa, ordena tus tesoros y elige el estilo de tu casa.</p>
+          <p class="group-title">Pisos de la casa</p>
+          <div class="house-floors">
+            <button
+              v-for="f in HOUSE_FLOORS"
+              :key="f.id"
+              type="button"
+              class="house-floor"
+              :class="{ active: activeFloor === f.id, locked: farm.level.value < f.minLevel }"
+              :disabled="farm.level.value < f.minLevel"
+              @click="selectFloor(f.id)"
+            >
+              <span class="house-floor-ico" aria-hidden="true">{{ farm.level.value >= f.minLevel ? f.icon : "🔒" }}</span>
+              <span>{{ f.label }}</span>
+              <small v-if="farm.level.value < f.minLevel">Nivel {{ f.minLevel }}</small>
+            </button>
+          </div>
+
           <p class="group-title">Estilo de casa</p>
           <div class="house-styles">
             <button
@@ -657,4 +744,23 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .tab { border: 1px solid var(--color-border); background: var(--color-bg); border-radius: 999px; padding: 6px 12px; cursor: pointer; font: inherit; font-weight: 700; color: var(--color-primary); }
 .tab.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 @media (max-width: 720px) { .farm-main { grid-template-columns: 1fr; } }
+.farm-head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.farm-help { background: #eefaf6; border: 1px solid #2f9e83; border-left: 6px solid #2f9e83; border-radius: var(--radius); padding: 12px 14px; margin: var(--space-3) 0; }
+.farm-help-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.farm-help-head strong { display: inline-flex; align-items: center; gap: 6px; color: #0e7c66; }
+.farm-help-close { border: 0; background: transparent; font-size: 1.4rem; line-height: 1; cursor: pointer; color: var(--color-text-muted); }
+.farm-help ol { margin: 8px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.farm-help li { color: var(--color-text); font-size: .9rem; }
+.lawn-empty { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.placed-item.flying { animation: fly 4s ease-in-out infinite; }
+@keyframes fly { 0%,100% { transform: translate(-50%, -50%) translateY(0) rotate(-5deg); } 50% { transform: translate(-50%, -50%) translateY(-14px) rotate(5deg); } }
+.placed-item.swimming { animation: swim 2.6s ease-in-out infinite; }
+@keyframes swim { 0%,100% { transform: translate(-50%, -50%) translateX(-2px); } 50% { transform: translate(-50%, -50%) translateX(2px) translateY(-3px); } }
+.room-props { position: absolute; top: 18px; right: 20px; display: flex; gap: 4px; font-size: 1.3rem; }
+.house-floors { display: flex; flex-wrap: wrap; gap: 8px; }
+.house-floor { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; border: 2px solid var(--color-border); background: var(--color-bg); border-radius: 12px; padding: 6px 12px; font: inherit; cursor: pointer; color: var(--color-text); font-size: .82rem; }
+.house-floor.active { border-color: var(--color-accent); background: #eefaf6; }
+.house-floor.locked { opacity: .55; cursor: not-allowed; }
+.house-floor small { color: var(--color-text-muted); font-size: .68rem; }
+.house-floor-ico { font-size: 1.3rem; }
 </style>

@@ -7,7 +7,10 @@ Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / 
 ### Added
 - **Notificaciones de recompensas (toasts)**: sistema global (`useNotify.ts` + `AppToasts.vue`) que avisa cada ganancia con su cantidad — cosecha (+monedas/+XP/+semillas), desafío de conceptos (+XP), **quiz individual (+25 XP exacto, `submitQuizAttempt` ahora devuelve `{ attempt, xpAwarded }`)**, medallas (+15 XP c/u), medalla de misión, compras, **regalos del docente en vivo** (`useFarmWatch` escucha `farms/{uid}` con `onSnapshot` y consume los `FarmNotice` de `teacherGrant`) y **subida de nivel**.
 - **Escena visual de la granja**: cielo, campo de tierra con cultivos en etapas (brote → fruto) y **colocación libre con arrastrar y soltar** de decoraciones y animalitos (posiciones persistidas por estudiante).
-- **Animalitos** nuevos (gallina, pato, conejo, gato, perro, vaca, caballo) y **parcela ampliable** (Cerco nuevo y Estanque dan +1 casilla).
+- **Animalitos** nuevos (gallina, pato, conejo, gato, perro, vaca, caballo, **pájaro, paloma, mariposa, búho, pez, rana, tortuga**), con animaciones propias (aves que **vuelan** y peces que **nadan**), y **parcela ampliable** (Cerco nuevo y Estanque dan +1 casilla).
+- **Los objetos colocados dan mejora**: guardado server-authoritative (`saveFarmLayout`); cada objeto colocado da **+2% monedas y +2% XP** (tope +20%), visible en "Mejoras activas".
+- **Pisos de la casa** que se desbloquean por nivel (planta baja, primer piso, segundo piso y terraza) y **entrar a la casa**.
+- **Instrucciones en la granja**: panel "¿Cómo juego en la granja?" (plantar, cosechar, comprar, decorar, casa, nivel) + botón **Tienda** arriba y pasos de la Granja en el botón **"¿Cómo usar?"**.
 - **Formas de casa**: 5 estilos (🏕️🏠🏡🏘️🏰) elegibles y **entrar a la casa** (interior acogedor con tu personaje y tus tesoros).
 - **Captura** de la granja en `docs/assets/granja-ciudadana.png`; script para regenerarla (`scripts/screenshot-farm.mjs`).
 - **Anuncio en la app**: banner descartable en el inicio del estudiante que enlaza a la Granja (se oculta al cerrarlo, persistido en `pclab-farm-announce`).

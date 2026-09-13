@@ -21,6 +21,7 @@ function recordToFarm(studentId: string, data: Record<string, unknown>): FarmSta
     unlockedAvatarStyles: Array.isArray(data.unlockedAvatarStyles)
       ? (data.unlockedAvatarStyles as string[])
       : [],
+    layout: (data.layout ?? {}) as Record<string, { x: number; y: number }>,
     notices: Array.isArray(data.notices) ? (data.notices as FarmNotice[]) : [],
     activityXp: Number(data.activityXp ?? 0),
     bonusXp: Number(data.bonusXp ?? 0),

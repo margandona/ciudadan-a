@@ -76,6 +76,7 @@ import {
   ResubmitMaterialUseCase,
   ReviewMaterialUseCase,
   ReviewSubmissionUseCase,
+  SaveFarmLayoutUseCase,
   SaveProjectUseCase,
   SaveSelfPeerAssessmentUseCase,
   SavePresentationUseCase,
@@ -258,6 +259,7 @@ const equipFarmItemUseCase = new EquipFarmItemUseCase({ farm: farmRepo });
 const getConceptQuizUseCase = new GetConceptQuizUseCase({ quizzes: conceptQuizRepo });
 const submitConceptQuizUseCase = new SubmitConceptQuizUseCase({ quizzes: conceptQuizRepo, farm: farmRepo });
 const teacherGrantUseCase = new TeacherGrantUseCase({ farm: farmRepo });
+const saveFarmLayoutUseCase = new SaveFarmLayoutUseCase({ farm: farmRepo });
 
 async function farmActivityXp(courseId: string, uid: string): Promise<number> {
   const result = await computeActivityXp(activityXpDeps, courseId, uid);
@@ -1657,6 +1659,22 @@ export const teacherGrant = onCall(
       },
       actor,
     );
+  },
+);
+
+/** Guarda las posiciones de los objetos colocados en la granja (server-authoritative). */
+export const saveFarmLayout = onCall(
+  async (request): Promise<unknown> => {
+    const actor = actorFrom(request);
+    requireAuth(actor);
+    const data = request.data as
+      | { courseId?: string; layout?: Record<string, { x: number; y: number }> }
+      | undefined;
+    if (!data?.courseId || !data.layout) throw new HttpsError("invalid-argument", "Faltan datos.");
+    if (!actor || actor.isServer) throw new HttpsError("unauthenticated", "Sesión requerida.");
+    assertCourse(actor, data.courseId);
+    rateLimit(actor.uid, "saveFarmLayout", 300);
+    return saveFarmLayoutUseCase.run({ studentId: actor.uid, layout: data.layout }, actor);
   },
 );
 

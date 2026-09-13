@@ -594,6 +594,17 @@ export async function getFarm(courseId: string, studentId?: string): Promise<Far
   return res.data;
 }
 
+export async function saveFarmLayout(
+  courseId: string,
+  layout: Record<string, { x: number; y: number }>,
+): Promise<FarmSnapshot> {
+  const res = await httpsCallable<{ courseId: string; layout: Record<string, { x: number; y: number }> }, FarmSnapshot>(
+    functions,
+    "saveFarmLayout",
+  )({ courseId, layout });
+  return res.data;
+}
+
 export async function plantSeed(courseId: string, plotIndex: number, cropId: string): Promise<FarmSnapshot> {
   const res = await plantSeedFn({ courseId, plotIndex, cropId });
   return res.data;
