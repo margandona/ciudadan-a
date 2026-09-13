@@ -33,6 +33,24 @@ const avatar = useAvatar();
 const avatarOpen = ref(false);
 const previewStyle = ref(avatar.pref.value.style);
 
+const FARM_ANNOUNCE_KEY = "pclab-farm-announce";
+function farmAnnouncementDismissed(): boolean {
+  try {
+    return localStorage.getItem(FARM_ANNOUNCE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+const showFarmAnnouncement = ref(!farmAnnouncementDismissed());
+function dismissFarmAnnouncement(): void {
+  showFarmAnnouncement.value = false;
+  try {
+    localStorage.setItem(FARM_ANNOUNCE_KEY, "1");
+  } catch {
+    // sin almacenamiento
+  }
+}
+
 const firstName = computed(() => {
   const name = session.user?.displayName ?? "";
   return name.split(" ")[0] || "ciudadana";
@@ -240,6 +258,17 @@ onMounted(load);
       <AppErrorState v-else-if="error" :message="error" @retry="load" />
 
       <template v-else>
+        <!-- ===== Anuncio: La Granja Ciudadana ===== -->
+        <section v-if="showFarmAnnouncement" class="farm-announce" role="status" aria-label="Novedad: La Granja Ciudadana">
+          <span class="farm-announce-ico" aria-hidden="true">🌱</span>
+          <div class="farm-announce-body">
+            <strong>¡Nueva: La Granja Ciudadana!</strong>
+            <p class="muted small">Siembra, cosecha y sube de nivel. Completa el desafío de conceptos y gana XP.</p>
+          </div>
+          <RouterLink to="/student/farm" class="btn btn-primary farm-announce-cta"><AppIcon name="farm" /> Entrar a la granja</RouterLink>
+          <button type="button" class="farm-announce-close" aria-label="Cerrar anuncio" @click="dismissFarmAnnouncement">×</button>
+        </section>
+
         <!-- ===== Héroe ===== -->
         <section class="hero">
           <div class="hero-inner">
@@ -1123,5 +1152,44 @@ onMounted(load);
     flex-direction: column;
     align-items: flex-start;
   }
+}
+.farm-announce {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  background: linear-gradient(135deg, #eefaf6, #e8f3ff);
+  border: 1px solid #2f9e83;
+  border-left: 6px solid #2f9e83;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow);
+}
+.farm-announce-ico {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.farm-announce-body {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.farm-announce-body p {
+  margin: 0;
+}
+.farm-announce-cta {
+  white-space: nowrap;
+}
+.farm-announce-close {
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 6px;
 }
 </style>

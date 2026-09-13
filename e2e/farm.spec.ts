@@ -11,8 +11,9 @@ test.setTimeout(120_000);
 test("GRANJA — plantar, tienda e inventario", async ({ page }) => {
   await login(page, "student");
 
-  // Navegación desde el panel
-  await page.getByRole("link", { name: /Granja/ }).click();
+  // Anuncio en el inicio + navegación a la granja
+  await expect(page.getByRole("link", { name: /Entrar a la granja/ })).toBeVisible();
+  await page.getByRole("link", { name: /Entrar a la granja/ }).click();
   await expect(page.getByRole("heading", { name: "Cultiva tu bien común" })).toBeVisible();
 
   // Estadísticas y barra de nivel (tope 100%)

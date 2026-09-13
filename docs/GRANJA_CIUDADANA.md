@@ -279,7 +279,8 @@ Archivo: `e2e/farm.spec.ts` (requiere emuladores + seeds).
       vs ~2 150). Ver `docs/COSTOS_FIRESTORE.md`. Desplegado y verificado (12/12 + E2E).
 - [x] Comunicar a estudiantes el nuevo espacio "Granja": **mensaje listo para enviar** en
       `docs/MENSAJE_GRANJA_ESTUDIANTES.md` (versión corta, one-liner, versión para clase,
-      gancho de arranque y canales sugeridos).
+      gancho de arranque y canales sugeridos) **+ anuncio descartable en la app** (banner en
+      el inicio del estudiante → `/student/farm`).
 
 ---
 
