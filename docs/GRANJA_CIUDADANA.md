@@ -270,8 +270,10 @@ Archivo: `e2e/farm.spec.ts` (requiere emuladores + seeds).
 ## Fase 15 — Post-deploy y monitoreo 🟡
 
 - [x] Smoke test funcional (Fase 14).
-- [ ] Revisar logs de Functions (errores de `getFarm`/acciones).
-- [ ] Verificar latencia de las acciones de granja.
+- [x] Revisar logs de Functions: **sin errores**. Se ven `getFarm`, `getConceptQuiz`,
+      `getStudentGamification` (verificación de callable OK) y `studentHeartbeat` activo
+      cada ~60 s (sesión de estudiante en producción).
+- [x] Latencia de acciones: verificaciones del smoke en **< ~150 ms**.
 - [ ] Revisar costos/lecturas de Firestore.
 - [ ] Comunicar a estudiantes el nuevo espacio "Granja".
 
