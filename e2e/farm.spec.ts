@@ -43,12 +43,17 @@ test("GRANJA — plantar, tienda, decorar e inventario", async ({ page }) => {
   }
   await page.getByRole("button", { name: "Cerrar" }).click();
 
-  // Colocar la decoración en el jardín
+  // Colocar la decoración (arrastrar o tocar)
   const chip = page.locator(".deco-chip").first();
   if (await chip.count()) {
     await chip.click();
-    await expect(page.locator(".deco-spot.filled").first()).toBeVisible();
+    await expect(page.locator(".placed-item").first()).toBeVisible();
   }
+
+  // Entrar a la casa
+  await page.getByRole("button", { name: "Entrar a mi casa" }).click();
+  await expect(page.getByRole("heading", { name: /Mi casa/ })).toBeVisible();
+  await page.getByRole("button", { name: "Cerrar" }).click();
 
   // Inventario (con al menos lo comprado)
   await page.getByRole("button", { name: /Inventario/ }).click();

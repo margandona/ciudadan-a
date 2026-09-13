@@ -6,7 +6,10 @@ Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / 
 
 ### Added
 - **Notificaciones de recompensas (toasts)**: sistema global (`useNotify.ts` + `AppToasts.vue`) que avisa cada ganancia con su cantidad — cosecha (+monedas/+XP/+semillas), desafío de conceptos (+XP), **quiz individual (+25 XP exacto, `submitQuizAttempt` ahora devuelve `{ attempt, xpAwarded }`)**, medallas (+15 XP c/u), medalla de misión, compras, **regalos del docente en vivo** (`useFarmWatch` escucha `farms/{uid}` con `onSnapshot` y consume los `FarmNotice` de `teacherGrant`) y **subida de nivel**.
-- **Escena visual de la granja**: cielo, **casa que mejora con el nivel** (🏕️→🏠→🏡→🏰), campo de tierra con cultivos en etapas (brote → fruto listo), **jardín decorable** (8 espacios; colocación persistida en el dispositivo) y fila de **ayudantes/herramientas**.
+- **Escena visual de la granja**: cielo, campo de tierra con cultivos en etapas (brote → fruto) y **colocación libre con arrastrar y soltar** de decoraciones y animalitos (posiciones persistidas por estudiante).
+- **Animalitos** nuevos (gallina, pato, conejo, gato, perro, vaca, caballo) y **parcela ampliable** (Cerco nuevo y Estanque dan +1 casilla).
+- **Formas de casa**: 5 estilos (🏕️🏠🏡🏘️🏰) elegibles y **entrar a la casa** (interior acogedor con tu personaje y tus tesoros).
+- **Captura** de la granja en `docs/assets/granja-ciudadana.png`; script para regenerarla (`scripts/screenshot-farm.mjs`).
 - **Anuncio en la app**: banner descartable en el inicio del estudiante que enlaza a la Granja (se oculta al cerrarlo, persistido en `pclab-farm-announce`).
 - **Granja Ciudadana** (server-authoritative): parcela con casillas desbloqueables por nivel, cultivos que crecen en tiempo real, cosecha de monedas/semillas/XP, tienda e inventario con **49 objetos** y perks pasivos (`xp_bonus`, `coin_bonus`, `growth_speed`, `seed_bonus`, `unlock_plot`, `concept_hint`) en 7 categorías (cultivos, NPCs, herramientas, talismanes, vestimenta, accesorios, decoración). **Cosecha Dorada** como condición de victoria. Ver `docs/GRANJA_CIUDADANA.md`.
 - **Quiz de conceptos clave por nivel** ("Desafío de Saberes"): `content/concept-quizzes.json` con **12 niveles × 10 preguntas = 120 preguntas**, corrección server-side y bono de XP la primera aprobación por nivel.

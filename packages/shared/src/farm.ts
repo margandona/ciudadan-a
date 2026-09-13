@@ -147,6 +147,15 @@ export const FARM_CATALOG: FarmItem[] = [
   { id: "npc-scientist", name: "Científica", description: "Pista extra en el quiz de conceptos.", category: "npc", icon: "👩‍🔬", rarity: "epic", cost: 300, levelRequired: 7, perk: { kind: "concept_hint", value: 1 } },
   { id: "npc-mayor", name: "Alcaldesa", description: "+1 casilla de granja.", category: "npc", icon: "🧑‍⚖️", rarity: "legendary", cost: 520, levelRequired: 9, perk: { kind: "unlock_plot", value: 1 } },
 
+  // ── Animalitos ─────────────────────────────────────────────
+  { id: "npc-hen", name: "Gallina", description: "Pone huevos en la parcela.", category: "npc", icon: "🐔", rarity: "common", cost: 40, levelRequired: 1 },
+  { id: "npc-duck", name: "Pato", description: "Pasea por el jardín.", category: "npc", icon: "🦆", rarity: "common", cost: 45, levelRequired: 2 },
+  { id: "npc-rabbit", name: "Conejo", description: "Salta entre los cultivos.", category: "npc", icon: "🐇", rarity: "common", cost: 50, levelRequired: 2 },
+  { id: "npc-cat", name: "Gato", description: "Duerme al sol de la tarde.", category: "npc", icon: "🐈", rarity: "common", cost: 55, levelRequired: 2 },
+  { id: "npc-dog", name: "Perro", description: "Cuida la granja. +5% monedas.", category: "npc", icon: "🐕", rarity: "rare", cost: 95, levelRequired: 3, perk: { kind: "coin_bonus", value: 5 } },
+  { id: "npc-cow", name: "Vaca", description: "Compañía del campo. +5% monedas.", category: "npc", icon: "🐄", rarity: "rare", cost: 130, levelRequired: 4, perk: { kind: "coin_bonus", value: 5 } },
+  { id: "npc-horse", name: "Caballo", description: "Recorre el valle. +5% crecimiento.", category: "npc", icon: "🐎", rarity: "epic", cost: 210, levelRequired: 5, perk: { kind: "growth_speed", value: 5 } },
+
   // ── Herramientas ───────────────────────────────────────────
   { id: "tool-hoe", name: "Azadón", description: "+10% velocidad de crecimiento.", category: "tool", icon: "⛏️", rarity: "common", cost: 50, levelRequired: 1, perk: { kind: "growth_speed", value: 10 } },
   { id: "tool-watering", name: "Regadera", description: "+15% velocidad de crecimiento.", category: "tool", icon: "🚿", rarity: "rare", cost: 110, levelRequired: 2, perk: { kind: "growth_speed", value: 15 } },
@@ -191,6 +200,8 @@ export const FARM_CATALOG: FarmItem[] = [
   { id: "deco-fountain", name: "Fuente de agua", description: "El bien común que fluye.", category: "decoration", icon: "⛲", rarity: "epic", cost: 250, levelRequired: 5, perk: { kind: "growth_speed", value: 5 } },
   { id: "deco-windmill", name: "Molino de viento", description: "Energía del valle.", category: "decoration", icon: "🌬️", rarity: "epic", cost: 300, levelRequired: 6, perk: { kind: "coin_bonus", value: 10 } },
   { id: "deco-observatory", name: "Observatorio Ciudadano", description: "El hito de la cosecha dorada.", category: "decoration", icon: "🔭", rarity: "legendary", cost: 700, levelRequired: 10, perk: { kind: "unlock_plot", value: 1 } },
+  { id: "deco-fence", name: "Cerco nuevo", description: "Amplía tu parcela con una casilla más.", category: "decoration", icon: "🚧", rarity: "rare", cost: 180, levelRequired: 3, perk: { kind: "unlock_plot", value: 1 } },
+  { id: "deco-pond", name: "Estanque", description: "Amplía tu parcela con una casilla más.", category: "decoration", icon: "🪷", rarity: "epic", cost: 300, levelRequired: 5, perk: { kind: "unlock_plot", value: 1 } },
 ];
 
 export const FARM_ITEM_BY_ID: Record<string, FarmItem> = Object.fromEntries(

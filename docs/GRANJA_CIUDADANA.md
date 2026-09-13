@@ -152,8 +152,10 @@ Archivos: `apps/web/src/composables/useFarm.ts`, `features/farm/FarmView.vue`,
       regalos del docente (avatar/objeto/monedas) y **subida de nivel**.
 - [x] **Regalos en vivo**: `useFarmWatch.ts` escucha `farms/{uid}` con `onSnapshot` y
       notifica los `FarmNotice` que genera `teacherGrant`, sin recargar.
-- [x] **Escena visual**: cielo, casa por nivel, campo de tierra con etapas de cultivo,
-      **jardín decorable** (8 espacios, colocación persistida) y fila de ayudantes/herramientas.
+- [x] **Escena visual**: cielo + campo de tierra con etapas de cultivo, **arrastrar y soltar
+      libre** de decoraciones y animalitos (posiciones persistidas), **animalitos**, **parcela
+      ampliable** (cerco/estanque), **5 formas de casa** y **entrar a la casa** (interior).
+      Captura en `docs/assets/granja-ciudadana.png`.
 
 ---
 

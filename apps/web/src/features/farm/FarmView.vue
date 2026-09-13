@@ -39,62 +39,140 @@ function emojiForSlot(category: FarmItem["category"]): string | undefined {
   return id ? FARM_ITEM_BY_ID[id]?.icon : undefined;
 }
 
-// ── Escena visual: casa, jardín decorable y ayudantes ──────────
-const DECO_KEY_PREFIX = "pclab-farm-deco-";
-const DECO_SPOTS = 8;
+// ── Escena visual: casa, granja decorable (drag & drop) ────────
+const HOUSE_STYLES = [
+  { id: "camp", label: "Refugio", icon: "🏕️" },
+  { id: "cottage", label: "Casa", icon: "🏠" },
+  { id: "garden", label: "Casa con jardín", icon: "🏡" },
+  { id: "mansion", label: "Casona", icon: "🏘️" },
+  { id: "castle", label: "Castillo", icon: "🏰" },
+];
+const DEFAULT_SPOTS = [
+  { x: 12, y: 74 }, { x: 24, y: 84 }, { x: 37, y: 70 }, { x: 52, y: 82 },
+  { x: 66, y: 72 }, { x: 80, y: 84 }, { x: 90, y: 72 }, { x: 18, y: 62 },
+  { x: 45, y: 62 }, { x: 74, y: 62 },
+];
+
+const sceneEl = ref<HTMLElement | null>(null);
+const sceneState = ref<{ items: Record<string, { x: number; y: number }>; house: string }>({
+  items: {},
+  house: "cottage",
+});
+const drag = ref<{ item: FarmItem; fromPlaced: boolean; x: number; y: number; moved: boolean } | null>(null);
+const houseOpen = ref(false);
 
 const ownedItems = computed<FarmItem[]>(() =>
   farm.inventory.value.map((entry) => FARM_ITEM_BY_ID[entry.itemId]).filter((item): item is FarmItem => !!item),
 );
+const placeableItems = computed(() =>
+  ownedItems.value.filter((item) => item.category === "decoration" || item.category === "npc"),
+);
+const placedItems = computed(() =>
+  placeableItems.value
+    .filter((item) => sceneState.value.items[item.id])
+    .map((item) => ({ item, x: sceneState.value.items[item.id]!.x, y: sceneState.value.items[item.id]!.y })),
+);
+const unplacedItems = computed(() => placeableItems.value.filter((item) => !sceneState.value.items[item.id]));
+const ownedAnimals = computed(() => ownedItems.value.filter((item) => item.category === "npc"));
 const ownedDecorations = computed(() => ownedItems.value.filter((item) => item.category === "decoration"));
-const ownedHelpers = computed(() =>
-  ownedItems.value.filter((item) => item.category === "npc" || item.category === "tool" || item.category === "weapon"),
+const ownedTools = computed(() =>
+  ownedItems.value.filter((item) => item.category === "tool" || item.category === "weapon"),
 );
-const placedDecor = ref<Record<number, string>>({});
-const decorTray = computed(() =>
-  ownedDecorations.value.filter((item) => !Object.values(placedDecor.value).includes(item.id)),
-);
-const houseIcon = computed(() => {
-  if (farm.level.value < 3) return "🏕️";
-  if (farm.level.value < 5) return "🏠";
-  if (farm.level.value < 8) return "🏡";
-  return "🏰";
-});
+const houseIcon = computed(() => HOUSE_STYLES.find((h) => h.id === sceneState.value.house)?.icon ?? "🏠");
 
-function decoKey(): string {
-  return `${DECO_KEY_PREFIX}${farm.snapshot.value?.state.studentId ?? "anon"}`;
+function sceneKey(): string {
+  return `pclab-farm-scene-${farm.snapshot.value?.state.studentId ?? "anon"}`;
 }
-function loadDecor(): void {
+function defaultHouse(): string {
+  const level = farm.level.value;
+  if (level < 3) return "camp";
+  if (level < 5) return "cottage";
+  if (level < 8) return "garden";
+  return "mansion";
+}
+function loadScene(): void {
   try {
-    const raw = localStorage.getItem(decoKey());
-    placedDecor.value = raw ? (JSON.parse(raw) as Record<number, string>) : {};
+    const raw = localStorage.getItem(sceneKey());
+    const saved = raw
+      ? (JSON.parse(raw) as { items?: Record<string, { x: number; y: number }>; house?: string })
+      : null;
+    sceneState.value = { items: saved?.items ?? {}, house: saved?.house ?? defaultHouse() };
   } catch {
-    placedDecor.value = {};
+    sceneState.value = { items: {}, house: defaultHouse() };
   }
 }
-function saveDecor(): void {
+function saveScene(): void {
   try {
-    localStorage.setItem(decoKey(), JSON.stringify(placedDecor.value));
+    localStorage.setItem(sceneKey(), JSON.stringify(sceneState.value));
   } catch {
     // sin almacenamiento
   }
 }
-function placeDecor(item: FarmItem): void {
-  for (let spot = 1; spot <= DECO_SPOTS; spot++) {
-    if (!placedDecor.value[spot]) {
-      placedDecor.value = { ...placedDecor.value, [spot]: item.id };
-      saveDecor();
-      notify({ kind: "item", icon: item.icon, title: `Colocaste ${item.name}`, detail: "Tu jardín se ve mejor.", sound: false });
+function setItemPos(itemId: string, x: number, y: number): void {
+  sceneState.value = { ...sceneState.value, items: { ...sceneState.value.items, [itemId]: { x, y } } };
+  saveScene();
+}
+function removeItem(itemId: string): void {
+  const items = { ...sceneState.value.items };
+  delete items[itemId];
+  sceneState.value = { ...sceneState.value, items };
+  saveScene();
+}
+function defaultSpot(): { x: number; y: number } {
+  const used = new Set(Object.values(sceneState.value.items).map((p) => `${Math.round(p.x)},${Math.round(p.y)}`));
+  return DEFAULT_SPOTS.find((s) => !used.has(`${s.x},${s.y}`)) ?? { x: 8 + Math.random() * 84, y: 60 + Math.random() * 28 };
+}
+function pct(client: number, start: number, size: number): number {
+  return Math.min(96, Math.max(4, ((client - start) / size) * 100));
+}
+function onTrayDown(item: FarmItem, e: PointerEvent): void {
+  e.preventDefault();
+  drag.value = { item, fromPlaced: false, x: e.clientX, y: e.clientY, moved: false };
+  window.addEventListener("pointermove", onPointerMove);
+  window.addEventListener("pointerup", onPointerUp);
+}
+function onPlacedDown(item: FarmItem, e: PointerEvent): void {
+  e.preventDefault();
+  drag.value = { item, fromPlaced: true, x: e.clientX, y: e.clientY, moved: false };
+  window.addEventListener("pointermove", onPointerMove);
+  window.addEventListener("pointerup", onPointerUp);
+}
+function onPointerMove(e: PointerEvent): void {
+  const d = drag.value;
+  if (!d) return;
+  if (Math.abs(e.clientX - d.x) + Math.abs(e.clientY - d.y) > 6) d.moved = true;
+  d.x = e.clientX;
+  d.y = e.clientY;
+}
+function onPointerUp(e: PointerEvent): void {
+  window.removeEventListener("pointermove", onPointerMove);
+  window.removeEventListener("pointerup", onPointerUp);
+  const d = drag.value;
+  drag.value = null;
+  if (!d) return;
+  const rect = sceneEl.value?.getBoundingClientRect();
+  const inside = !!rect && e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+  if (d.fromPlaced) {
+    if (!d.moved) {
+      removeItem(d.item.id);
+      notify({ kind: "info", icon: "🧹", title: `Quitaste ${d.item.name}`, sound: false });
       return;
     }
+    if (inside && rect) setItemPos(d.item.id, pct(e.clientX, rect.left, rect.width), pct(e.clientY, rect.top, rect.height));
+    else removeItem(d.item.id);
+    return;
   }
-  notify({ kind: "info", icon: "🌼", title: "No hay más espacios", detail: "Quita una decoración para poner otra.", sound: false });
+  if (d.moved && inside && rect) {
+    setItemPos(d.item.id, pct(e.clientX, rect.left, rect.width), pct(e.clientY, rect.top, rect.height));
+  } else {
+    const spot = defaultSpot();
+    setItemPos(d.item.id, spot.x, spot.y);
+    notify({ kind: "item", icon: d.item.icon, title: `Colocaste ${d.item.name}`, detail: "Arrástralo para moverlo.", sound: false });
+  }
 }
-function removeDecor(spot: number): void {
-  const next = { ...placedDecor.value };
-  delete next[spot];
-  placedDecor.value = next;
-  saveDecor();
+function chooseHouse(id: string): void {
+  sceneState.value = { ...sceneState.value, house: id };
+  saveScene();
 }
 
 const panel = ref<"shop" | "inventory" | null>(null);
@@ -106,7 +184,7 @@ let timer: number | undefined;
 onMounted(async () => {
   if (courseId.value) {
     await farm.load(courseId.value);
-    loadDecor();
+    loadScene();
   }
   timer = window.setInterval(() => {
     now.value = Date.now();
@@ -257,17 +335,17 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
           <p class="muted small">Tu personaje viste lo que equipas en el inventario.</p>
         </div>
 
-        <div class="farm-scene">
+        <div ref="sceneEl" class="farm-scene">
           <div class="scene-sky" aria-hidden="true">
             <span class="sun">☀️</span>
             <span class="cloud cloud-a">☁️</span>
             <span class="cloud cloud-b">☁️</span>
           </div>
 
-          <div class="scene-house">
+          <button type="button" class="scene-house" aria-label="Entrar a mi casa" @click="houseOpen = true">
             <span class="house-ico" aria-hidden="true">{{ houseIcon }}</span>
-            <span class="house-name">Mi casa · nivel {{ farm.level.value }}</span>
-          </div>
+            <span class="house-name">Mi casa · entrar ›</span>
+          </button>
 
           <div class="scene-field">
             <h2 class="scene-title">Mi parcela <small>({{ farm.plots.value.length }} casillas)</small></h2>
@@ -298,42 +376,44 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
             </div>
           </div>
 
+          <button
+            v-for="p in placedItems"
+            :key="p.item.id"
+            type="button"
+            class="placed-item"
+            :class="{ animal: p.item.category === 'npc' }"
+            :style="{ left: `${p.x}%`, top: `${p.y}%` }"
+            :title="`${p.item.name} — arrastra para mover, toca para quitar`"
+            :aria-label="`${p.item.name} colocado`"
+            @pointerdown="onPlacedDown(p.item, $event)"
+          >
+            {{ p.item.icon }}
+          </button>
+
           <div class="scene-lawn">
             <div class="lawn-head">
-              <span class="lawn-title">🌷 Jardín y decoración</span>
-              <span class="muted small">{{ ownedDecorations.length }} decoración(es)</span>
+              <span class="lawn-title">🎨 Decora tu granja</span>
+              <span class="muted small">{{ placedItems.length }}/{{ placeableItems.length }} colocados</span>
             </div>
-            <div class="deco-spots">
+            <div v-if="unplacedItems.length" class="deco-tray">
               <button
-                v-for="spot in DECO_SPOTS"
-                :key="spot"
+                v-for="item in unplacedItems"
+                :key="item.id"
                 type="button"
-                class="deco-spot"
-                :class="{ filled: !!placedDecor[spot] }"
-                :disabled="!placedDecor[spot]"
-                :aria-label="placedDecor[spot] ? `Quitar ${FARM_ITEM_BY_ID[placedDecor[spot]]?.name}` : 'Espacio libre'"
-                @click="placedDecor[spot] && removeDecor(spot)"
+                class="deco-chip"
+                :title="`Arrastra o toca para colocar ${item.name}`"
+                @pointerdown="onTrayDown(item, $event)"
               >
-                <span v-if="placedDecor[spot]" class="deco-emoji">{{ FARM_ITEM_BY_ID[placedDecor[spot]]?.icon }}</span>
-                <span v-else class="deco-empty" aria-hidden="true">＋</span>
+                {{ item.icon }} {{ item.name }}
               </button>
             </div>
-            <div v-if="decorTray.length" class="deco-tray">
-              <button v-for="d in decorTray" :key="d.id" type="button" class="deco-chip" @click="placeDecor(d)">
-                {{ d.icon }} {{ d.name }}
-              </button>
-            </div>
-            <p v-else-if="!ownedDecorations.length" class="muted small">
-              Compra decoraciones en la Tienda para adornar tu jardín.
+            <p v-else-if="!placeableItems.length" class="muted small">
+              Compra animalitos, ayudantes y decoraciones en la Tienda para adornar tu granja.
             </p>
+            <p v-else class="muted small">¡Todo colocado! Arrastra para reordenar o toca un objeto para quitarlo.</p>
           </div>
 
-          <div v-if="ownedHelpers.length" class="scene-helpers">
-            <span class="helpers-title">🧰 Ayudantes y herramientas</span>
-            <ul>
-              <li v-for="h in ownedHelpers" :key="h.id" :title="h.name">{{ h.icon }} <small>{{ h.name }}</small></li>
-            </ul>
-          </div>
+          <span v-if="drag" class="drag-ghost" :style="{ left: `${drag.x}px`, top: `${drag.y}px` }" aria-hidden="true">{{ drag.item.icon }}</span>
         </div>
       </section>
 
@@ -433,6 +513,52 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
           </div>
         </div>
       </div>
+
+      <div v-if="houseOpen" class="overlay" @click.self="houseOpen = false">
+        <div class="house-modal" role="dialog" aria-modal="true" aria-label="Mi casa">
+          <div class="modal-head">
+            <h2>🏠 Mi casa</h2>
+            <button class="close" aria-label="Cerrar" @click="houseOpen = false">×</button>
+          </div>
+          <div class="house-room">
+            <div class="room-window" aria-hidden="true"><span>🌤️</span></div>
+            <div class="room-shelf" aria-hidden="true">📚 🪴 🖼️</div>
+            <div class="room-fire" aria-hidden="true">🔥</div>
+            <div class="room-rug" aria-hidden="true"></div>
+            <div class="room-avatar">
+              <Avatar
+                :seed="avatar.pref.value.seed"
+                :style="avatar.pref.value.style"
+                :level="farm.level.value"
+                :size="120"
+                :outfit="outfitEmoji"
+                :accessory="accessoryEmoji"
+              />
+            </div>
+          </div>
+          <p class="muted small">Descansa, ordena tus tesoros y elige el estilo de tu casa.</p>
+          <p class="group-title">Estilo de casa</p>
+          <div class="house-styles">
+            <button
+              v-for="h in HOUSE_STYLES"
+              :key="h.id"
+              type="button"
+              class="house-style"
+              :class="{ active: sceneState.house === h.id }"
+              @click="chooseHouse(h.id)"
+            >
+              <span class="house-style-ico" aria-hidden="true">{{ h.icon }}</span>
+              <span>{{ h.label }}</span>
+            </button>
+          </div>
+          <div class="house-treasures">
+            <span>🐾 Animales: {{ ownedAnimals.length }}</span>
+            <span>🌳 Decoraciones: {{ ownedDecorations.length }}</span>
+            <span>🧰 Herramientas: {{ ownedTools.length }}</span>
+            <span>🎒 Objetos: {{ ownedIds.size }}</span>
+          </div>
+        </div>
+      </div>
     </Teleport>
   </section>
 </template>
@@ -464,7 +590,8 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .cloud-b { top: 12px; left: 42%; animation-duration: 28s; }
 @keyframes drift { from { transform: translateX(0); } to { transform: translateX(50px); } }
 @keyframes sunpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-.scene-house { align-self: flex-end; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.82); border: 1px solid rgba(0,0,0,.08); border-radius: 12px; padding: 4px 10px; margin-top: -30px; position: relative; z-index: 2; }
+.scene-house { align-self: flex-end; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.12); border-radius: 12px; padding: 4px 12px; margin-top: -30px; position: relative; z-index: 2; cursor: pointer; font: inherit; box-shadow: var(--shadow); }
+.scene-house:hover { border-color: #2f9e83; }
 .house-ico { font-size: 1.9rem; }
 .house-name { font-weight: 800; color: #4a4a2a; font-size: .8rem; }
 .scene-field { background: repeating-linear-gradient(90deg, #8b5e34, #8b5e34 16px, #7d532d 16px, #7d532d 32px); border-radius: 14px; padding: 12px; box-shadow: inset 0 0 0 4px rgba(255,255,255,.14); }
@@ -484,20 +611,28 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .scene-lawn { background: rgba(255,255,255,.78); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
 .lawn-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .lawn-title { font-weight: 800; color: #33502a; font-size: .9rem; }
-.deco-spots { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 8px; }
-.deco-spot { aspect-ratio: 1; border-radius: 50%; border: 2px dashed #9bbf7d; background: radial-gradient(circle at 40% 35%, #b6db8c, #7fb356); display: grid; place-items: center; cursor: pointer; font: inherit; padding: 0; }
-.deco-spot.filled { border-style: solid; border-color: #6b4a24; background: radial-gradient(circle at 40% 35%, #efe3c6, #cdb98c); }
-.deco-spot:disabled { cursor: default; }
-.deco-emoji { font-size: 1.5rem; }
-.deco-empty { color: #4f6b3a; font-size: 1.2rem; }
 .deco-tray { display: flex; flex-wrap: wrap; gap: 6px; }
-.deco-chip { border: 1px solid var(--color-border); background: var(--color-surface); border-radius: 999px; padding: 4px 10px; font: inherit; font-size: .8rem; cursor: pointer; color: var(--color-text); }
+.deco-chip { border: 1px solid var(--color-border); background: var(--color-surface); border-radius: 999px; padding: 4px 10px; font: inherit; font-size: .8rem; cursor: grab; color: var(--color-text); touch-action: none; }
 .deco-chip:hover { border-color: var(--color-accent); }
-.scene-helpers { display: flex; flex-direction: column; gap: 4px; }
-.helpers-title { font-weight: 800; color: #33502a; font-size: .85rem; }
-.scene-helpers ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
-.scene-helpers li { background: rgba(255,255,255,.88); border-radius: 10px; padding: 4px 8px; font-size: 1.25rem; display: inline-flex; align-items: center; gap: 4px; }
-.scene-helpers li small { font-size: .66rem; color: var(--color-text-muted); }
+.placed-item { position: absolute; transform: translate(-50%, -50%); background: transparent; border: 0; padding: 0; font-size: 1.9rem; line-height: 1; cursor: grab; touch-action: none; z-index: 3; filter: drop-shadow(0 2px 2px rgba(0,0,0,.28)); }
+.placed-item:active { cursor: grabbing; }
+.placed-item.animal { animation: bob 3s ease-in-out infinite; }
+@keyframes bob { 0%,100% { transform: translate(-50%, -50%) rotate(-4deg); } 50% { transform: translate(-50%, -58%) rotate(4deg); } }
+.drag-ghost { position: fixed; transform: translate(-50%, -50%); font-size: 2rem; line-height: 1; pointer-events: none; z-index: 5000; opacity: .92; filter: drop-shadow(0 3px 4px rgba(0,0,0,.35)); }
+.group-title { font-weight: 800; color: var(--color-primary); margin: var(--space-3) 0 6px; font-size: .9rem; }
+.house-modal { width: min(560px, 96vw); max-height: 90vh; overflow: auto; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 18px; padding: var(--space-5); box-shadow: 0 20px 50px rgba(0,0,0,.4); }
+.house-room { position: relative; height: 240px; border-radius: 14px; overflow: hidden; margin: var(--space-4) 0; background: linear-gradient(180deg, #f6e7cf 0%, #f6e7cf 62%, #b98a5a 62%, #a8763f 100%); border: 1px solid var(--color-border); }
+.room-window { position: absolute; top: 16px; left: 20px; width: 84px; height: 64px; border-radius: 8px; background: linear-gradient(#bfe3ff, #dff2ff); border: 6px solid #fff; box-shadow: inset 0 0 0 2px rgba(0,0,0,.06); display: grid; place-items: center; font-size: 1.4rem; }
+.room-shelf { position: absolute; top: 18px; right: 20px; font-size: 1.3rem; letter-spacing: 4px; }
+.room-fire { position: absolute; bottom: 16px; right: 22px; font-size: 2rem; }
+.room-rug { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); width: 58%; height: 46px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #e06d6d, #b8476b); opacity: .85; }
+.room-avatar { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 2; }
+.house-styles { display: flex; flex-wrap: wrap; gap: 8px; }
+.house-style { display: inline-flex; align-items: center; gap: 6px; border: 2px solid var(--color-border); background: var(--color-bg); border-radius: 12px; padding: 6px 12px; font: inherit; cursor: pointer; color: var(--color-text); }
+.house-style.active { border-color: var(--color-accent); background: #eefaf6; }
+.house-style-ico { font-size: 1.3rem; }
+.house-treasures { display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--space-3); }
+.house-treasures span { background: var(--color-primary-soft); border-radius: 999px; padding: 6px 12px; font-weight: 700; font-size: .82rem; }
 .farm-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: var(--space-4) 0; }
 .perks { margin-top: var(--space-4); }
 .perks h2 { color: var(--color-primary); font-size: 1.05rem; }
