@@ -39,14 +39,75 @@ function emojiForSlot(category: FarmItem["category"]): string | undefined {
   return id ? FARM_ITEM_BY_ID[id]?.icon : undefined;
 }
 
+// ── Escena visual: casa, jardín decorable y ayudantes ──────────
+const DECO_KEY_PREFIX = "pclab-farm-deco-";
+const DECO_SPOTS = 8;
+
+const ownedItems = computed<FarmItem[]>(() =>
+  farm.inventory.value.map((entry) => FARM_ITEM_BY_ID[entry.itemId]).filter((item): item is FarmItem => !!item),
+);
+const ownedDecorations = computed(() => ownedItems.value.filter((item) => item.category === "decoration"));
+const ownedHelpers = computed(() =>
+  ownedItems.value.filter((item) => item.category === "npc" || item.category === "tool" || item.category === "weapon"),
+);
+const placedDecor = ref<Record<number, string>>({});
+const decorTray = computed(() =>
+  ownedDecorations.value.filter((item) => !Object.values(placedDecor.value).includes(item.id)),
+);
+const houseIcon = computed(() => {
+  if (farm.level.value < 3) return "🏕️";
+  if (farm.level.value < 5) return "🏠";
+  if (farm.level.value < 8) return "🏡";
+  return "🏰";
+});
+
+function decoKey(): string {
+  return `${DECO_KEY_PREFIX}${farm.snapshot.value?.state.studentId ?? "anon"}`;
+}
+function loadDecor(): void {
+  try {
+    const raw = localStorage.getItem(decoKey());
+    placedDecor.value = raw ? (JSON.parse(raw) as Record<number, string>) : {};
+  } catch {
+    placedDecor.value = {};
+  }
+}
+function saveDecor(): void {
+  try {
+    localStorage.setItem(decoKey(), JSON.stringify(placedDecor.value));
+  } catch {
+    // sin almacenamiento
+  }
+}
+function placeDecor(item: FarmItem): void {
+  for (let spot = 1; spot <= DECO_SPOTS; spot++) {
+    if (!placedDecor.value[spot]) {
+      placedDecor.value = { ...placedDecor.value, [spot]: item.id };
+      saveDecor();
+      notify({ kind: "item", icon: item.icon, title: `Colocaste ${item.name}`, detail: "Tu jardín se ve mejor.", sound: false });
+      return;
+    }
+  }
+  notify({ kind: "info", icon: "🌼", title: "No hay más espacios", detail: "Quita una decoración para poner otra.", sound: false });
+}
+function removeDecor(spot: number): void {
+  const next = { ...placedDecor.value };
+  delete next[spot];
+  placedDecor.value = next;
+  saveDecor();
+}
+
 const panel = ref<"shop" | "inventory" | null>(null);
 const shopCategory = ref<FarmItem["category"]>("npc");
 const cropPickerPlot = ref<number | null>(null);
 const now = ref(Date.now());
 let timer: number | undefined;
 
-onMounted(() => {
-  if (courseId.value) void farm.load(courseId.value);
+onMounted(async () => {
+  if (courseId.value) {
+    await farm.load(courseId.value);
+    loadDecor();
+  }
   timer = window.setInterval(() => {
     now.value = Date.now();
   }, 1000);
@@ -196,32 +257,82 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
           <p class="muted small">Tu personaje viste lo que equipas en el inventario.</p>
         </div>
 
-        <div class="plots">
-          <h2>Mi parcela <small class="muted">({{ farm.plots.value.length }} casillas)</small></h2>
-          <div class="plot-grid">
-            <button
-              v-for="plot in farm.plots.value"
-              :key="plot.index"
-              class="plot"
-              :class="{ ready: plotInfo(plot).ready, growing: !!plotInfo(plot).crop && !plotInfo(plot).ready, locked: !plot.unlocked }"
-              :disabled="farm.busy.value || !plot.unlocked"
-              @click="onPlotClick(plot)"
-            >
-              <template v-if="plotInfo(plot).crop">
-                <span class="plot-emoji">{{ plotInfo(plot).crop!.icon }}</span>
-                <span v-if="plotInfo(plot).ready" class="plot-label">¡Cosechar!</span>
-                <span v-else class="plot-label">{{ formatRemaining(plotInfo(plot).remainingMs) }}</span>
-                <span class="plot-progress"><span :style="{ width: `${plotInfo(plot).progress}%` }"></span></span>
-              </template>
-              <template v-else-if="plot.unlocked">
-                <span class="plot-plus">＋</span>
-                <span class="plot-label">Plantar</span>
-              </template>
-              <template v-else>
-                <span class="plot-plus">🔒</span>
-                <span class="plot-label">Nivel {{ plot.index + 1 }}</span>
-              </template>
-            </button>
+        <div class="farm-scene">
+          <div class="scene-sky" aria-hidden="true">
+            <span class="sun">☀️</span>
+            <span class="cloud cloud-a">☁️</span>
+            <span class="cloud cloud-b">☁️</span>
+          </div>
+
+          <div class="scene-house">
+            <span class="house-ico" aria-hidden="true">{{ houseIcon }}</span>
+            <span class="house-name">Mi casa · nivel {{ farm.level.value }}</span>
+          </div>
+
+          <div class="scene-field">
+            <h2 class="scene-title">Mi parcela <small>({{ farm.plots.value.length }} casillas)</small></h2>
+            <div class="plot-grid">
+              <button
+                v-for="plot in farm.plots.value"
+                :key="plot.index"
+                class="plot"
+                :class="{ ready: plotInfo(plot).ready, growing: !!plotInfo(plot).crop && !plotInfo(plot).ready, locked: !plot.unlocked }"
+                :disabled="farm.busy.value || !plot.unlocked"
+                @click="onPlotClick(plot)"
+              >
+                <template v-if="plotInfo(plot).crop">
+                  <span class="plot-emoji">{{ plotInfo(plot).ready ? plotInfo(plot).crop!.icon : "🌱" }}</span>
+                  <span v-if="plotInfo(plot).ready" class="plot-label">¡Cosechar!</span>
+                  <span v-else class="plot-label">{{ formatRemaining(plotInfo(plot).remainingMs) }}</span>
+                  <span class="plot-progress"><span :style="{ width: `${plotInfo(plot).progress}%` }"></span></span>
+                </template>
+                <template v-else-if="plot.unlocked">
+                  <span class="plot-plus">＋</span>
+                  <span class="plot-label">Plantar</span>
+                </template>
+                <template v-else>
+                  <span class="plot-plus">🔒</span>
+                  <span class="plot-label">Nivel {{ plot.index + 1 }}</span>
+                </template>
+              </button>
+            </div>
+          </div>
+
+          <div class="scene-lawn">
+            <div class="lawn-head">
+              <span class="lawn-title">🌷 Jardín y decoración</span>
+              <span class="muted small">{{ ownedDecorations.length }} decoración(es)</span>
+            </div>
+            <div class="deco-spots">
+              <button
+                v-for="spot in DECO_SPOTS"
+                :key="spot"
+                type="button"
+                class="deco-spot"
+                :class="{ filled: !!placedDecor[spot] }"
+                :disabled="!placedDecor[spot]"
+                :aria-label="placedDecor[spot] ? `Quitar ${FARM_ITEM_BY_ID[placedDecor[spot]]?.name}` : 'Espacio libre'"
+                @click="placedDecor[spot] && removeDecor(spot)"
+              >
+                <span v-if="placedDecor[spot]" class="deco-emoji">{{ FARM_ITEM_BY_ID[placedDecor[spot]]?.icon }}</span>
+                <span v-else class="deco-empty" aria-hidden="true">＋</span>
+              </button>
+            </div>
+            <div v-if="decorTray.length" class="deco-tray">
+              <button v-for="d in decorTray" :key="d.id" type="button" class="deco-chip" @click="placeDecor(d)">
+                {{ d.icon }} {{ d.name }}
+              </button>
+            </div>
+            <p v-else-if="!ownedDecorations.length" class="muted small">
+              Compra decoraciones en la Tienda para adornar tu jardín.
+            </p>
+          </div>
+
+          <div v-if="ownedHelpers.length" class="scene-helpers">
+            <span class="helpers-title">🧰 Ayudantes y herramientas</span>
+            <ul>
+              <li v-for="h in ownedHelpers" :key="h.id" :title="h.name">{{ h.icon }} <small>{{ h.name }}</small></li>
+            </ul>
           </div>
         </div>
       </section>
@@ -345,18 +456,48 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .golden { color: #b7791f; font-weight: 800; }
 .farm-main { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-4); margin: var(--space-4) 0; align-items: start; }
 .character { text-align: center; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
-.plots h2 { margin: 0 0 10px; color: var(--color-primary); }
+.farm-scene { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow); background: linear-gradient(180deg, #bfe3ff 0%, #d9efff 26%, #8ec46f 26%, #6fae55 100%); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.scene-sky { position: relative; height: 34px; }
+.sun { position: absolute; right: 8px; top: -6px; font-size: 1.8rem; animation: sunpulse 4s ease-in-out infinite; }
+.cloud { position: absolute; font-size: 1.3rem; opacity: .92; animation: drift 20s ease-in-out infinite alternate; }
+.cloud-a { top: 2px; left: 8%; }
+.cloud-b { top: 12px; left: 42%; animation-duration: 28s; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(50px); } }
+@keyframes sunpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+.scene-house { align-self: flex-end; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.82); border: 1px solid rgba(0,0,0,.08); border-radius: 12px; padding: 4px 10px; margin-top: -30px; position: relative; z-index: 2; }
+.house-ico { font-size: 1.9rem; }
+.house-name { font-weight: 800; color: #4a4a2a; font-size: .8rem; }
+.scene-field { background: repeating-linear-gradient(90deg, #8b5e34, #8b5e34 16px, #7d532d 16px, #7d532d 32px); border-radius: 14px; padding: 12px; box-shadow: inset 0 0 0 4px rgba(255,255,255,.14); }
+.scene-title { margin: 0 0 8px; color: #fff; font-size: 1rem; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+.scene-title small { color: rgba(255,255,255,.85); font-weight: 600; }
 .plot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
-.plot { position: relative; aspect-ratio: 1; border: 2px dashed var(--color-border); border-radius: 14px; background: var(--color-surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; font: inherit; color: var(--color-text); overflow: hidden; }
+.plot { position: relative; aspect-ratio: 1; border: 2px dashed #6b4a24; border-radius: 14px; background: linear-gradient(180deg, #e9d6ae, #d8b98a); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; font: inherit; color: #3f2c14; overflow: hidden; }
 .plot.growing { border-style: solid; border-color: #2f9e83; }
 .plot.ready { border-style: solid; border-color: #e0b34f; background: #fffaf0; animation: pulse 1.4s ease-in-out infinite; }
 .plot.locked { opacity: .6; cursor: not-allowed; }
 .plot-emoji { font-size: 2rem; }
-.plot-plus { font-size: 1.6rem; color: var(--color-text-muted); }
-.plot-label { font-size: .78rem; font-weight: 700; color: var(--color-text-muted); }
-.plot-progress { position: absolute; left: 8px; right: 8px; bottom: 8px; height: 5px; background: var(--color-primary-soft); border-radius: 999px; overflow: hidden; }
+.plot-plus { font-size: 1.6rem; color: #6b4a24; }
+.plot-label { font-size: .78rem; font-weight: 700; color: #5b4426; }
+.plot-progress { position: absolute; left: 8px; right: 8px; bottom: 8px; height: 5px; background: rgba(0,0,0,.12); border-radius: 999px; overflow: hidden; }
 .plot-progress span { display: block; height: 100%; background: #2f9e83; }
 @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+.scene-lawn { background: rgba(255,255,255,.78); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.lawn-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.lawn-title { font-weight: 800; color: #33502a; font-size: .9rem; }
+.deco-spots { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 8px; }
+.deco-spot { aspect-ratio: 1; border-radius: 50%; border: 2px dashed #9bbf7d; background: radial-gradient(circle at 40% 35%, #b6db8c, #7fb356); display: grid; place-items: center; cursor: pointer; font: inherit; padding: 0; }
+.deco-spot.filled { border-style: solid; border-color: #6b4a24; background: radial-gradient(circle at 40% 35%, #efe3c6, #cdb98c); }
+.deco-spot:disabled { cursor: default; }
+.deco-emoji { font-size: 1.5rem; }
+.deco-empty { color: #4f6b3a; font-size: 1.2rem; }
+.deco-tray { display: flex; flex-wrap: wrap; gap: 6px; }
+.deco-chip { border: 1px solid var(--color-border); background: var(--color-surface); border-radius: 999px; padding: 4px 10px; font: inherit; font-size: .8rem; cursor: pointer; color: var(--color-text); }
+.deco-chip:hover { border-color: var(--color-accent); }
+.scene-helpers { display: flex; flex-direction: column; gap: 4px; }
+.helpers-title { font-weight: 800; color: #33502a; font-size: .85rem; }
+.scene-helpers ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
+.scene-helpers li { background: rgba(255,255,255,.88); border-radius: 10px; padding: 4px 8px; font-size: 1.25rem; display: inline-flex; align-items: center; gap: 4px; }
+.scene-helpers li small { font-size: .66rem; color: var(--color-text-muted); }
 .farm-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: var(--space-4) 0; }
 .perks { margin-top: var(--space-4); }
 .perks h2 { color: var(--color-primary); font-size: 1.05rem; }

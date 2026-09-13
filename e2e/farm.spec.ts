@@ -8,7 +8,7 @@ test.setTimeout(120_000);
  * Requiere emuladores + `pnpm seed:content` + `pnpm seed:students-auth -- --test=3`.
  * Tolerante a estados ya sembrados (cultivos plantados, objetos comprados, quiz aprobado).
  */
-test("GRANJA — plantar, tienda e inventario", async ({ page }) => {
+test("GRANJA — plantar, tienda, decorar e inventario", async ({ page }) => {
   await login(page, "student");
 
   // Anuncio en el inicio + navegación a la granja
@@ -31,10 +31,10 @@ test("GRANJA — plantar, tienda e inventario", async ({ page }) => {
     else await page.getByRole("button", { name: "Cerrar" }).click();
   }
 
-  // Comprar un objeto asequible en la tienda
+  // Comprar una decoración en la tienda
   await page.getByRole("button", { name: /Tienda/ }).click();
   await expect(page.getByRole("heading", { name: "Tienda de la granja" })).toBeVisible();
-  await expect(page.getByRole("button", { name: /Ayudantes/ })).toBeVisible();
+  await page.getByRole("button", { name: /Decoración/ }).click();
   const buyable = page.locator(".item-card:not([disabled])").first();
   if (await buyable.count()) {
     const name = (await buyable.locator("strong").first().textContent())?.trim() ?? "";
@@ -42,6 +42,13 @@ test("GRANJA — plantar, tienda e inventario", async ({ page }) => {
     if (name) await expect(page.getByText(new RegExp(`Compraste ${name}`))).toBeVisible({ timeout: 10_000 });
   }
   await page.getByRole("button", { name: "Cerrar" }).click();
+
+  // Colocar la decoración en el jardín
+  const chip = page.locator(".deco-chip").first();
+  if (await chip.count()) {
+    await chip.click();
+    await expect(page.locator(".deco-spot.filled").first()).toBeVisible();
+  }
 
   // Inventario (con al menos lo comprado)
   await page.getByRole("button", { name: /Inventario/ }).click();
