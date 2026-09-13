@@ -31,8 +31,8 @@ arquitectura limpia del monorepo. Este documento es a la vez **plan de implement
 | 11 | E2E (UI) | ✅ |
 | 12 | Verificación local con emuladores | ✅ |
 | 13 | Versionado y CHANGELOG | ✅ |
-| 14 | Deploy a producción | ⬜ |
-| 15 | Post-deploy y monitoreo | ⬜ |
+| 14 | Deploy a producción | ✅ |
+| 15 | Post-deploy y monitoreo | 🟡 |
 
 ---
 
@@ -251,14 +251,29 @@ Archivo: `e2e/farm.spec.ts` (requiere emuladores + seeds).
 
 ---
 
-## Fase 14 — Deploy a producción ⬜ (gated por Fase 12)
+## Fase 14 — Deploy a producción ✅
 
-- [ ] Confirmar plan Blaze + Cloud Functions/Cloud Build habilitados.
-- [ ] `pnpm seed:content --prod` (siembra `conceptQuizzes` en producción).
-- [ ] `npm run build:functions`.
-- [ ] `firebase deploy --only functions,firestore:rules`.
-- [ ] `firebase deploy --only hosting` (build web ya generado).
-- [ ] Smoke test en producción con una cuenta de prueba (no con estudiantes reales).
+**Desplegado el 2026-09-13 · commit `dc934b8` · https://ciudadania-lab.web.app**
+
+- [x] Plan Blaze y Cloud Functions/Cloud Build activos (58+ funciones v2 en `us-central1`).
+- [x] **Seed dirigido** `pnpm seed:farm -- --prod` → 32 medallas + 12 desafíos de conceptos.
+      *Se evitó `seed:content --prod` para no sobrescribir 37 materiales (16 editados) ni las
+      13 presentaciones de producción.*
+- [x] `npm run build:functions` (bundle esbuild con aliases).
+- [x] `firebase deploy --only firestore:rules` (incluye `farms` y `conceptQuizzes`).
+- [x] `firebase deploy --only functions` (nuevas: `getFarm`, `plantSeed`, `harvestPlot`,
+      `buyFarmItem`, `equipFarmItem`, `getConceptQuiz`, `submitConceptQuiz`, `teacherGrant`).
+- [x] `npm run build:web` (sin referencias a emuladores) + `firebase deploy --only hosting`.
+- [x] **Smoke test** con cuenta demo: login ✓, `getFarm` (nivel 1, 60 monedas) ✓,
+      `getConceptQuiz` (10 preguntas) ✓, `getStudentGamification` ✓.
+
+## Fase 15 — Post-deploy y monitoreo 🟡
+
+- [x] Smoke test funcional (Fase 14).
+- [ ] Revisar logs de Functions (errores de `getFarm`/acciones).
+- [ ] Verificar latencia de las acciones de granja.
+- [ ] Revisar costos/lecturas de Firestore.
+- [ ] Comunicar a estudiantes el nuevo espacio "Granja".
 
 ---
 

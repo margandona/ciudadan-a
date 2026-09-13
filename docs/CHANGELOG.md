@@ -30,6 +30,11 @@ Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / 
 - **E2E** (`npx playwright test e2e/farm.spec.ts`): **2 passed** (plantado/tienda/inventario y desafío de conceptos).
 - `typecheck:web` y `build:web` OK (se corrigió el tipado del mock de participación en `MissionResultsView.test.ts`).
 
+### Deploy
+- **Producción `ciudadania-lab`** (commit `dc934b8`): seed dirigido `pnpm seed:farm -- --prod` (32 medallas + 12 desafíos de conceptos), `firestore:rules`, Cloud Functions (8 nuevas: `getFarm`, `plantSeed`, `harvestPlot`, `buyFarmItem`, `equipFarmItem`, `getConceptQuiz`, `submitConceptQuiz`, `teacherGrant`) y hosting en **https://ciudadania-lab.web.app**.
+- **Smoke test OK**: login demo, `getFarm` (nivel 1, 60 monedas), `getConceptQuiz` (10 preguntas), `getStudentGamification`.
+- Se evitó `seed:content --prod` para **no sobrescribir 37 materiales (16 editados) ni 13 presentaciones** de producción; se sembró solo lo nuevo (`badges`, `conceptQuizzes`) con `scripts/src/seed-farm.ts`.
+
 ## [0.17.6] — Deploy parcial del proyecto real (hosting + rules + datos)
 
 ### Added / Changed
