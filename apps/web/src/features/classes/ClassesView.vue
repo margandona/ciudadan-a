@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { CLASS_STATUS, CLASS_STATUS_LABELS } from "@pclab/shared";
 import type { TeacherClassRow } from "@pclab/application";
 import { useSessionStore } from "@/stores/session";
@@ -9,14 +9,21 @@ import BaseBadge from "@/components/ui/BaseBadge.vue";
 import SkeletonRows from "@/components/ui/SkeletonRows.vue";
 import AppErrorState from "@/components/ui/AppErrorState.vue";
 import AppEmptyState from "@/components/ui/AppEmptyState.vue";
+import AppIcon from "@/components/ui/AppIcon.vue";
 
 const session = useSessionStore();
-const courseId = ref(session.courses[0] ?? "");
+const props = defineProps<{ courseId?: string }>();
+const courseId = ref(props.courseId ?? session.courses[0] ?? "");
 const rows = ref<TeacherClassRow[]>([]);
 const loading = ref(true);
 const error = ref("");
 const savingId = ref("");
 const notice = ref("");
+const tab = ref<"misiones" | "alternativas">("misiones");
+
+const missionRows = computed(() => rows.value.filter((r) => !r.class.alternative));
+const alternativeRows = computed(() => rows.value.filter((r) => !!r.class.alternative));
+const activeRows = computed(() => (tab.value === "alternativas" ? alternativeRows.value : missionRows.value));
 
 function actor() {
   return { uid: session.user?.uid ?? "", role: session.role, courses: session.courses };
@@ -92,98 +99,159 @@ onMounted(load);
     <AppEmptyState v-else-if="!courseId" message="No tienes cursos asignados." />
     <AppEmptyState v-else-if="rows.length === 0" message="Aún no hay contenido de clases." />
 
-    <div v-else class="table-wrap">
-      <table>
-        <caption class="sr-only">Programación de las 12 misiones</caption>
-        <thead>
-          <tr>
-            <th scope="col">Nº</th>
-            <th scope="col">Misión</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Aula invertida</th>
-            <th scope="col">Disponible desde</th>
-            <th scope="col">Hasta</th>
-            <th scope="col"><span class="sr-only">Acciones</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="row in rows" :key="row.class.id">
-            <td>{{ row.class.number }}</td>
-            <td>
-              {{ row.class.title }}
-              <BaseBadge v-if="row.class.hasFeedback" tone="warning">feedback</BaseBadge>
-            </td>
-            <td>
-              <select
-                class="select select-sm"
-                v-model="row.schedule.status"
-                :aria-label="`Estado de ${row.class.title}`"
-              >
-                <option v-for="s in CLASS_STATUS" :key="s" :value="s">{{ CLASS_STATUS_LABELS[s] }}</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="checkbox"
-                v-model="row.schedule.availability.flippedAvailable"
-                :aria-label="`Habilitar aula invertida de ${row.class.title}`"
-              />
-            </td>
-            <td>
-              <input
-                type="datetime-local"
-                class="input-sm"
-                :value="toLocalInput(row.schedule.availability.startAt)"
-                @change="row.schedule.availability.startAt = fromLocalInput(($event.target as HTMLInputElement).value)"
-                :aria-label="`Disponible desde ${row.class.title}`"
-              />
-            </td>
-            <td>
-              <input
-                type="datetime-local"
-                class="input-sm"
-                :value="toLocalInput(row.schedule.availability.endAt)"
-                @change="row.schedule.availability.endAt = fromLocalInput(($event.target as HTMLInputElement).value)"
-                :aria-label="`Disponible hasta ${row.class.title}`"
-              />
-            </td>
-            <td class="actions">
-              <button class="btn btn-primary btn-sm" :disabled="savingId === row.class.id" @click="save(row)">
-                {{ savingId === row.class.id ? "Guardando…" : "Guardar" }}
-              </button>
-              <RouterLink
-                :to="`/teacher/classes/${row.class.id}/dashboard`"
-                class="btn btn-ghost btn-sm"
-              >Dashboard</RouterLink>
-              <RouterLink
-                :to="`/teacher/classes/${row.class.id}/presentation`"
-                class="btn btn-ghost btn-sm"
-              >Presentación</RouterLink>
-              <RouterLink
-                :to="`/projection/${row.class.id}`"
-                class="btn btn-ghost btn-sm"
-              >Proyección</RouterLink>
-              <RouterLink
-                :to="`/teacher/classes/${row.class.id}/flipped`"
-                class="btn btn-ghost btn-sm"
-              >Aula invertida</RouterLink>
-              <RouterLink
-                :to="`/teacher/classes/${row.class.id}/submissions`"
-                class="btn btn-ghost btn-sm"
-              >Evidencias</RouterLink>
-              <RouterLink
-                :to="`/teacher/classes/${row.class.id}/quizzes`"
-                class="btn btn-ghost btn-sm"
-              >Quizzes</RouterLink>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <template v-else>
+      <div class="tabs" role="tablist" aria-label="Programación de clases">
+        <button
+          class="tab"
+          :class="{ active: tab === 'misiones' }"
+          role="tab"
+          :aria-selected="tab === 'misiones'"
+          @click="tab = 'misiones'"
+        >
+          Misiones ({{ missionRows.length }})
+        </button>
+        <button
+          class="tab"
+          :class="{ active: tab === 'alternativas' }"
+          role="tab"
+          :aria-selected="tab === 'alternativas'"
+          @click="tab = 'alternativas'"
+        >
+          Alternativas ({{ alternativeRows.length }})
+        </button>
+      </div>
+
+      <AppEmptyState
+        v-if="activeRows.length === 0"
+        :message="tab === 'alternativas' ? 'Aún no hay misiones alternativas programables.' : 'Aún no hay misiones programables.'"
+      />
+
+      <div v-else class="table-wrap">
+        <table>
+          <caption class="sr-only">
+            {{
+              tab === "alternativas" ? "Misiones alternativas por curso" : `Programación de las ${missionRows.length} misiones`
+            }}
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Nº</th>
+              <th scope="col">Misión</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Aula invertida</th>
+              <th scope="col">Disponible desde</th>
+              <th scope="col">Hasta</th>
+              <th scope="col"><span class="sr-only">Acciones</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="row in activeRows" :key="row.class.id">
+              <td>{{ row.class.number }}</td>
+              <td>
+                {{ row.class.title }}
+                <BaseBadge v-if="row.class.hasFeedback" tone="warning">feedback</BaseBadge>
+                <BaseBadge v-if="row.class.alternative">alternativa</BaseBadge>
+              </td>
+              <td>
+                <select
+                  class="select select-sm"
+                  v-model="row.schedule.status"
+                  :aria-label="`Estado de ${row.class.title}`"
+                >
+                  <option v-for="s in CLASS_STATUS" :key="s" :value="s">{{ CLASS_STATUS_LABELS[s] }}</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  v-model="row.schedule.availability.flippedAvailable"
+                  :aria-label="`Habilitar aula invertida de ${row.class.title}`"
+                />
+              </td>
+              <td>
+                <input
+                  type="datetime-local"
+                  class="input-sm"
+                  :value="toLocalInput(row.schedule.availability.startAt)"
+                  @change="row.schedule.availability.startAt = fromLocalInput(($event.target as HTMLInputElement).value)"
+                  :aria-label="`Disponible desde ${row.class.title}`"
+                />
+              </td>
+              <td>
+                <input
+                  type="datetime-local"
+                  class="input-sm"
+                  :value="toLocalInput(row.schedule.availability.endAt)"
+                  @change="row.schedule.availability.endAt = fromLocalInput(($event.target as HTMLInputElement).value)"
+                  :aria-label="`Disponible hasta ${row.class.title}`"
+                />
+              </td>
+              <td class="actions">
+                <button class="btn btn-primary btn-sm" :disabled="savingId === row.class.id" @click="save(row)">
+                  <AppIcon v-if="savingId !== row.class.id" name="check" />{{ savingId === row.class.id ? "Guardando…" : "Guardar" }}
+                </button>
+                <RouterLink
+                  :to="`/teacher/classes/${row.class.id}/dashboard`"
+                  class="btn btn-ghost btn-sm"
+                ><AppIcon name="gauge" /> Dashboard</RouterLink>
+                <RouterLink
+                  :to="`/teacher/classes/${row.class.id}/results`"
+                  class="btn btn-ghost btn-sm"
+                ><AppIcon name="chart" /> Resultados</RouterLink>
+                <RouterLink
+                  :to="`/teacher/classes/${row.class.id}/plan`"
+                  class="btn btn-ghost btn-sm"
+                ><AppIcon name="book" /> Plan de la clase</RouterLink>
+                <RouterLink
+                  :to="`/teacher/classes/${row.class.id}/presentation`"
+                  class="btn btn-ghost btn-sm"
+                ><AppIcon name="video" /> Presentación</RouterLink>
+                <RouterLink
+                  :to="`/projection/${row.class.id}`"
+                  class="btn btn-ghost btn-sm"
+                ><AppIcon name="play" /> Proyección</RouterLink>
+                <RouterLink
+                  :to="`/teacher/classes/${row.class.id}/flipped`"
+                  class="btn btn-ghost btn-sm"
+                ><AppIcon name="sparkles" /> Aula invertida</RouterLink>
+                <RouterLink
+                  :to="`/teacher/classes/${row.class.id}/submissions`"
+                  class="btn btn-ghost btn-sm"
+                ><AppIcon name="file" /> Evidencias</RouterLink>
+                <RouterLink
+                  :to="`/teacher/classes/${row.class.id}/quizzes`"
+                  class="btn btn-ghost btn-sm"
+                ><AppIcon name="lightning" /> Quizzes</RouterLink>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </template>
   </div>
 </template>
 
 <style scoped>
+.tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+.tab {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border-radius: 999px;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
 .muted {
   color: var(--color-text-muted);
 }
@@ -236,6 +304,13 @@ th {
 .btn-sm {
   padding: 4px 10px;
   font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-sm svg {
+  width: 14px;
+  height: 14px;
 }
 .sr-only {
   position: absolute;

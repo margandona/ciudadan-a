@@ -31,11 +31,13 @@ export const FLIPPED_AVAILABLE_STATUS: readonly ClassStatus[] = [
   CLASS_STATUS.IN_PROGRESS,
 ];
 
-/** Catálogo de las 12 misiones (mismo para todos los cursos). */
+/** Catálogo de misiones (mismo para todos los cursos). */
 export interface ClassEntity {
-  id: string; // 'class-01' … 'class-12'
-  number: number; // 1..12
+  id: string; // 'class-01' … 'class-12', alternativas 'class-13'…
+  number: number; // 1..12 (orden de la ruta); alternativas pueden usar 13+
   missionId: string; // 'mission-01'
+  /** True si es una misión alternativa (fuera de la ruta de 12). */
+  alternative?: boolean;
   title: string; // 'Misión 01 — ¿Qué significa ser ciudadana?'
   subtitle?: string;
   unitId: string; // 'U3' | 'U4'
@@ -88,10 +90,10 @@ export type FlippedBlock =
   | { type: "problem"; id: string; text: string }
   | { type: "concepts"; id: string; items: string[] }
   | { type: "text"; id: string; markdown: string; readingLevel?: "simple" | "standard" }
-  | { type: "image"; id: string; url: string; alt: string; caption?: string; attribution?: Attribution }
-  | { type: "video"; id: string; url: string; title?: string; subtitles?: boolean }
-  | { type: "map"; id: string; ref: string; alt?: string; attribution?: Attribution }
-  | { type: "infographic"; id: string; url: string; alt: string; attribution?: Attribution }
+  | { type: "image"; id: string; url: string; alt: string; caption?: string; attribution?: Attribution; note?: string }
+  | { type: "video"; id: string; url: string; title?: string; subtitles?: boolean; note?: string }
+  | { type: "map"; id: string; ref: string; alt?: string; attribution?: Attribution; note?: string }
+  | { type: "infographic"; id: string; url: string; alt: string; attribution?: Attribution; note?: string }
   | { type: "reading"; id: string; title: string; text: string; source?: Attribution }
   | {
       type: "question";

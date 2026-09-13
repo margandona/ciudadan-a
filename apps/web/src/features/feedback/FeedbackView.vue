@@ -53,9 +53,10 @@ onMounted(() => undefined);
 
 <template>
   <div>
-    <RouterLink to="/student" class="back">← Mis misiones</RouterLink>
-    <h1>Tu feedback</h1>
-    <p class="muted">Tu opinión es privada y nos ayuda a mejorar. Puedes enviarla en forma anónima.</p>
+     <RouterLink :to="`/student/missions/${props.classId}/flipped`" class="back">← Volver a la misión</RouterLink>
+     <p class="stage-kicker">Etapa 4 · Contar</p>
+     <h1>Tu voz cuenta</h1>
+     <p class="muted">Cuéntale a tu profesora cómo viviste la misión. Tu opinión es privada y puedes enviarla en forma anónima.</p>
 
     <AppErrorState v-if="error" :message="error" @retry="send" />
 
@@ -90,12 +91,13 @@ onMounted(() => undefined);
         <label for="keep">¿Qué debería mantener el profesor?</label>
         <textarea id="keep" v-model="learning.keep" rows="2"></textarea>
 
-        <button class="btn btn-primary" type="submit" :disabled="busy">{{ busy ? "Enviando…" : "Enviar feedback" }}</button>
+         <button class="btn btn-primary" type="submit" :disabled="busy">{{ busy ? "Enviando…" : "Dejar mi voz" }}</button>
       </form>
     </BaseCard>
 
-    <p v-else-if="sent" class="ok" role="status">
-      {{ pending ? "Feedback guardado en tu dispositivo. Se sincronizará cuando tengas conexión." : "¡Gracias por tu feedback! Se guardó de forma privada." }}
+     <p v-else-if="sent" class="ok" role="status">
+       {{ pending ? "Feedback guardado en tu dispositivo. Se sincronizará cuando tengas conexión." : "¡Gracias por tu feedback! Se guardó de forma privada." }}
+       <br /><RouterLink to="/student" class="next-stage">Volver a mi ruta de misiones →</RouterLink>
     </p>
   </div>
 </template>
@@ -106,6 +108,8 @@ onMounted(() => undefined);
   color: var(--color-text-muted);
   font-size: 0.9rem;
 }
+.stage-kicker { margin: var(--space-3) 0 0; color: var(--color-accent); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.next-stage { color: var(--color-primary); text-decoration: none; }
 .muted {
   color: var(--color-text-muted);
 }

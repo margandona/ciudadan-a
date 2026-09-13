@@ -17,6 +17,10 @@ const base = (over: Partial<Submission>): Submission => ({
 });
 
 describe("canTransition", () => {
+  it("permite guardar feedback sin cambiar el estado", () => {
+    expect(canTransition(SUBMISSION_STATUS.ENTREGADO, SUBMISSION_STATUS.ENTREGADO)).toBe(true);
+  });
+
   it("permite transiciones del profesor", () => {
     expect(canTransition(SUBMISSION_STATUS.ENTREGADO, SUBMISSION_STATUS.REVISADO)).toBe(true);
     expect(canTransition(SUBMISSION_STATUS.ENTREGADO, SUBMISSION_STATUS.RETROALIMENTADO)).toBe(true);

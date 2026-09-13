@@ -85,6 +85,41 @@ const ITEM_TYPE_LABELS: Record<string, string> = {
   fill: "Completar",
 };
 
+/** Tipos de material que son guías de trabajo y necesitan espacio para responder. */
+const WORK_TYPES = new Set(["GUIDE", "WORKSHEET", "PRACTICAL_WORK", "PROJECT"]);
+
+function isWorkMaterial(material: Material): boolean {
+  return WORK_TYPES.has(material.type);
+}
+
+function taskKind(text: string): "" | "task" | "question" {
+  const t = text.trim();
+  if (!t || t.startsWith("•") || t.startsWith("Abre esta fuente") || t.startsWith("—")) return "";
+  if (/[?¿]/.test(t)) return "question";
+  if (
+    /^(explica|describe|completa|redacta|prop[oó]n|escribe|argumenta|nombra|lista|interpreta|analiza|explica)/i.test(t) ||
+    /(con tus palabras|con un ejemplo|por qué|qu[eé] |c[oó]mo |cu[aá]l )/i.test(t)
+  ) {
+    return "task";
+  }
+  return "";
+}
+
+function pdfAnswerLines(doc: PDFKit.PDFDocument, count: number): void {
+  for (let i = 0; i < count; i++) {
+    if (doc.y > doc.page.height - 90) doc.addPage();
+    doc.moveTo(48, doc.y + 6).lineTo(562, doc.y + 6).strokeColor("#c9d4df").lineWidth(0.8).stroke();
+    doc.moveDown(1);
+  }
+}
+
+function answerLinesFor(text: string): number {
+  const kind = taskKind(text);
+  if (kind === "question") return 3;
+  if (kind === "task") return 2;
+  return 0;
+}
+
 function pdfBlocks(material: Material): { kind: string; text?: string; items?: string[]; table?: { headers: string[]; rows: MaterialTableRow[] }; lines?: number; points?: number }[] {
   const c = material.content as MaterialContent | undefined;
   const out: { kind: string; text?: string; items?: string[]; table?: { headers: string[]; rows: MaterialTableRow[] }; lines?: number; points?: number }[] = [];
@@ -247,34 +282,38 @@ export async function buildMaterialPdf(material: Material): Promise<{ buffer: Ui
   for (const block of pdfBlocks(material)) {
     if (block.kind === "heading") {
       ensurePdfSpace(doc);
-      doc.fontSize(12).fillColor(INSTITUTIONAL_TONE).text(block.text ?? "", 48, doc.y);
-      doc.moveDown(0.3);
+      doc.fontSize(12.5).fillColor(INSTITUTIONAL_TONE).text(block.text ?? "", 48, doc.y);
+      doc.moveDown(0.45);
     } else if (block.kind === "text") {
       ensurePdfSpace(doc);
-      doc.fontSize(10.5).fillColor("#111111").text(block.text ?? "", 48, doc.y, { width: 514 });
-      doc.moveDown(0.4);
+      doc.fontSize(11.5).fillColor("#111111").text(block.text ?? "", 48, doc.y, { width: 514, lineGap: 4 });
+      doc.moveDown(0.55);
     } else if (block.kind === "list") {
       ensurePdfSpace(doc);
-      (block.items ?? []).forEach((it, i) => {
-        doc.fontSize(10.5).fillColor("#111111").text(`${i + 1}. ${it}`, 48, doc.y, { width: 514 });
+      const items = block.items ?? [];
+      items.forEach((it, i) => {
+        ensurePdfSpace(doc, 120);
+        doc.fontSize(11.5).fillColor("#111111").text(`${i + 1}. ${it}`, 48, doc.y, { width: 514, lineGap: 4 });
+        doc.moveDown(0.2);
+        if (isWorkMaterial(material)) {
+          const lines = answerLinesFor(it);
+          if (lines > 0) pdfAnswerLines(doc, lines);
+        }
+        doc.moveDown(0.1);
       });
-      doc.moveDown(0.3);
+      if (!isWorkMaterial(material)) doc.moveDown(0.3);
     } else if (block.kind === "item") {
       ensurePdfSpace(doc);
-      doc.fontSize(10.5).fillColor("#111111").text(block.text ?? "", 48, doc.y, { width: 514 });
+      doc.fontSize(11).fillColor("#111111").text(block.text ?? "", 48, doc.y, { width: 514, lineGap: 4 });
       (block.items ?? []).forEach((o, i) => {
         doc.fontSize(10).text(`   ${String.fromCharCode(97 + i)}) ${o}`, 48, doc.y, { width: 500 });
       });
-      doc.moveDown(0.4);
+      doc.moveDown(0.5);
     } else if (block.kind === "table" && block.table) {
       y = drawTable(doc, doc.y, block.table.headers, block.table.rows, { width: 514, left: 48 }, material);
-      doc.y = y + 6;
+      doc.y = y + 8;
     } else if (block.kind === "response") {
-      for (let i = 0; i < (block.lines ?? 6); i++) {
-        if (doc.y > doc.page.height - 90) doc.addPage();
-        doc.moveTo(48, doc.y + 6).lineTo(562, doc.y + 6).strokeColor("#c9d4df").lineWidth(0.7).stroke();
-        doc.moveDown(0.9);
-      }
+      pdfAnswerLines(doc, block.lines ?? 6);
     }
   }
 
@@ -369,11 +408,23 @@ export async function buildMaterialDocx(material: Material): Promise<{ buffer: U
   }
 
   for (const s of c?.sections ?? []) {
-    if (s.kind === "heading") children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(s.text ?? "")] }));
-    else if (s.kind === "list") (s.items ?? []).forEach((it, i) => children.push(new Paragraph({ children: [new TextRun(`${i + 1}. ${it}`)] })));
-    else if (s.kind === "table" && s.table) children.push(borderedTable(s.table.headers, s.table.rows));
-    else if (s.kind === "response") children.push(...responseLines(6));
-    else children.push(new Paragraph({ children: [new TextRun(s.text ?? "")], spacing: { after: 120 } }));
+    if (s.kind === "heading") {
+      children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, spacing: { before: 160, after: 90 }, children: [new TextRun(s.text ?? "")] }));
+    } else if (s.kind === "list") {
+      (s.items ?? []).forEach((it, i) => {
+        children.push(new Paragraph({ spacing: { after: 60 }, children: [new TextRun(`${i + 1}. ${it}`)] }));
+        if (isWorkMaterial(material)) {
+          const lines = answerLinesFor(it);
+          if (lines > 0) children.push(...responseLines(lines));
+        }
+      });
+    } else if (s.kind === "table" && s.table) {
+      children.push(borderedTable(s.table.headers, s.table.rows));
+    } else if (s.kind === "response") {
+      children.push(...responseLines(6));
+    } else {
+      children.push(new Paragraph({ children: [new TextRun(s.text ?? "")], spacing: { after: 160 } }));
+    }
   }
 
   if (c?.items?.length) {

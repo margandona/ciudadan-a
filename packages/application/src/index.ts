@@ -17,3 +17,4 @@ export * from "./material/material-v2.use-case";
 export * from "./badges/badges.use-case";
 export * from "./feedback/feedback.use-case";
 export * from "./projects/projects.use-case";
+export * from "./farm/farm.use-case";

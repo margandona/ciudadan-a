@@ -33,9 +33,13 @@ describe("resolveStudentVisibility", () => {
     expect(resolveStudentVisibility(s, "2026-08-13T10:00:00.000Z")).toBe("open");
   });
 
-  it("oculta después de endAt", () => {
+  it("mantiene accesibles las misiones pasadas (después de endAt)", () => {
     const s = schedule(CLASS_STATUS.OPEN, { endAt: "2026-08-12T10:00:00.000Z" });
-    expect(resolveStudentVisibility(s, "2026-08-13T10:00:00.000Z")).toBe("hidden");
+    expect(resolveStudentVisibility(s, "2026-08-13T10:00:00.000Z")).toBe("done");
+  });
+
+  it("muestra CLOSED como 'done' (accesible)", () => {
+    expect(resolveStudentVisibility(schedule(CLASS_STATUS.CLOSED, {}), "2026-08-10T12:00:00.000Z")).toBe("done");
   });
 
   it("oculta si enabled=false", () => {

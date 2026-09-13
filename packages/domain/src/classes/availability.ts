@@ -1,6 +1,5 @@
 import {
   CLASS_STATUS,
-  FLIPPED_AVAILABLE_STATUS,
   STUDENT_VISIBLE_STATUS,
   type ClassAvailability,
   type ClassSchedule,
@@ -32,7 +31,8 @@ export function resolveStudentVisibility(
   if (schedule.status === CLASS_STATUS.DRAFT || schedule.status === CLASS_STATUS.ARCHIVED) {
     return "hidden";
   }
-  if (schedule.status === CLASS_STATUS.COMPLETED) return "done";
+  // Completadas o cerradas: accesibles como «done» (se puede reingresar al material).
+  if (schedule.status === CLASS_STATUS.COMPLETED || schedule.status === CLASS_STATUS.CLOSED) return "done";
   if (!STUDENT_VISIBLE_STATUS.includes(schedule.status)) return "hidden";
   if (!schedule.availability.enabled) return "hidden";
 
@@ -40,14 +40,15 @@ export function resolveStudentVisibility(
   const start = schedule.availability.startAt ? new Date(schedule.availability.startAt).getTime() : null;
   const end = schedule.availability.endAt ? new Date(schedule.availability.endAt).getTime() : null;
   if (start !== null && now < start) return "locked";
-  if (end !== null && now > end) return "hidden";
+  // Misiones ya pasadas: siguen accesibles (marcadas como completadas).
+  if (end !== null && now > end) return "done";
   return "open";
 }
 
 /** ¿El aula invertida está disponible para la estudiante ahora? */
 export function isFlippedAvailable(schedule: ClassSchedule | null, nowIso: string): boolean {
   if (!schedule) return false;
-  if (!FLIPPED_AVAILABLE_STATUS.includes(schedule.status)) return false;
+  if (schedule.status === CLASS_STATUS.DRAFT || schedule.status === CLASS_STATUS.ARCHIVED) return false;
   if (!schedule.availability.flippedAvailable) return false;
   const visibility = resolveStudentVisibility(schedule, nowIso);
   return visibility === "open" || visibility === "done";

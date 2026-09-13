@@ -76,7 +76,7 @@ describe("FlippedLessonPlayer", () => {
     });
 
     await wrapper.find("button").trigger("click"); // Comenzar → último paso
-    const ready = wrapper.find("button.btn-lg");
+    const ready = wrapper.find("button.btn-primary-big");
     expect(ready.exists()).toBe(true);
     expect(ready.text()).toContain("Estoy lista para la misión");
     await ready.trigger("click");

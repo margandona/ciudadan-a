@@ -5,8 +5,10 @@ import type {
   ClassEntity,
   ClassSchedule,
   ColumnMapping,
+  ConceptQuiz,
   Course,
   ExitTicket,
+  FarmState,
   Feedback,
   FlippedLesson,
   FlippedProgress,
@@ -116,6 +118,9 @@ export interface ActivityRepository {
 export interface SubmissionRepository {
   getById(id: string): Promise<Submission | null>;
   findByStudentAndActivity(studentId: string, activityId: string): Promise<Submission | null>;
+  findByStudentAndClass?(studentId: string, classId: string): Promise<Submission[]>;
+  /** Entregas propias de la estudiante (regla: uid == studentId). */
+  findByStudent?(studentId: string): Promise<Submission[]>;
   listByClass(courseId: string, classId: string): Promise<Submission[]>;
   upsert(submission: Submission): Promise<Submission>;
 }
@@ -240,6 +245,17 @@ export interface VoteRepository {
   get(classId: string, questionId: string): Promise<VoteResult | null>;
   increment(classId: string, questionId: string, option: string): Promise<VoteResult>;
   setManual(classId: string, questionId: string, counts: Record<string, number>): Promise<VoteResult>;
+}
+
+/** Estado de la Granja Ciudadana (server-authoritative). */
+export interface FarmRepository {
+  get(studentId: string): Promise<FarmState | null>;
+  save(state: FarmState): Promise<FarmState>;
+}
+
+/** Banco de preguntas de conceptos clave por nivel. */
+export interface ConceptQuizRepository {
+  getByLevel(level: number): Promise<ConceptQuiz | null>;
 }
 
 /** Contexto de actor autenticado (claims). */

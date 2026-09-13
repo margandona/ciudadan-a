@@ -269,6 +269,12 @@ export class WebSubmissionRepository implements SubmissionRepository {
     return snap.docs.map((d) => submissionFromDoc(d.id, d.data()));
   }
 
+  /** Entregas propias de la estudiante (consistente con la regla: uid == studentId). */
+  async findByStudent(studentId: string): Promise<Submission[]> {
+    const snap = await getDocs(query(collection(this.db, "submissions"), where("studentId", "==", studentId)));
+    return snap.docs.map((d) => submissionFromDoc(d.id, d.data()));
+  }
+
   async listByClass(courseId: string, classId: string): Promise<Submission[]> {
     const snap = await getDocs(
       query(collection(this.db, "submissions"), where("courseId", "==", courseId), where("classId", "==", classId)),

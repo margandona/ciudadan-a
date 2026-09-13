@@ -47,6 +47,11 @@ onMounted(load);
     <h1>Aula invertida — {{ props.classId }}</h1>
     <p class="muted">Quién completó el aula invertida de esta misión.</p>
 
+    <label for="course">Curso</label>
+    <select id="course" v-model="courseId" class="select" @change="load" :disabled="loading">
+      <option v-for="c in session.courses" :key="c" :value="c">{{ c }}</option>
+    </select>
+
     <SkeletonRows v-if="loading" />
     <AppErrorState v-else-if="error" :message="error" @retry="load" />
 
@@ -88,6 +93,13 @@ onMounted(load);
   text-decoration: none;
   color: var(--color-text-muted);
   font-size: 0.9rem;
+}
+.select {
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  margin: var(--space-2) 0;
 }
 .muted {
   color: var(--color-text-muted);

@@ -9,3 +9,6 @@ export * from "./projection";
 export * from "./badges";
 export * from "./feedback";
 export * from "./projects";
+export * from "./farm";
+export * from "./concept-quiz";
+export * from "./avatar";

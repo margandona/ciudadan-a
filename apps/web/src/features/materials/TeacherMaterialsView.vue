@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import type { Material } from "@pclab/shared";
 import { MATERIAL_STATUS, MATERIAL_STATUS_LABELS, MATERIAL_TYPE } from "@pclab/shared";
@@ -12,6 +12,7 @@ import {
   duplicateMaterial,
   generateMaterial,
   listMaterialsForTeacher,
+  mirrorCourseGuides,
   readyToPrintMaterial,
   sendMaterialForReview,
 } from "@/services/importApi";
@@ -19,6 +20,7 @@ import BaseCard from "@/components/ui/BaseCard.vue";
 import BaseBadge from "@/components/ui/BaseBadge.vue";
 import SkeletonRows from "@/components/ui/SkeletonRows.vue";
 import AppErrorState from "@/components/ui/AppErrorState.vue";
+import AppIcon from "@/components/ui/AppIcon.vue";
 
 interface VersionForm {
   kind: string;
@@ -41,6 +43,12 @@ const notice = ref("");
 const genForm = ref({ type: MATERIAL_TYPE.GUIDE, title: "", classId: "", classDate: "", requiresPrinting: true });
 const versionForm = ref<Record<string, VersionForm>>({});
 const busy = ref("");
+const mirrorFrom = ref(session.courses.find((c) => c !== courseId.value) ?? "");
+const otherCourses = computed(() => session.courses.filter((c) => c !== courseId.value));
+
+watch(courseId, (c) => {
+  mirrorFrom.value = session.courses.find((x) => x !== c) ?? "";
+});
 
 function vf(materialId: string): VersionForm {
   const existing = versionForm.value[materialId];
@@ -164,6 +172,25 @@ async function duplicate(material: Material): Promise<void> {
   }
 }
 
+async function mirror(): Promise<void> {
+  if (!mirrorFrom.value || !courseId.value) return;
+  busy.value = "mirror";
+  notice.value = "";
+  let result: { copied: number; skipped: number };
+  try {
+    result = await mirrorCourseGuides(mirrorFrom.value, courseId.value);
+    await load();
+    notice.value =
+      result.copied > 0
+        ? `Se copiaron ${result.copied} material(es) desde ${mirrorFrom.value}. Se omitieron ${result.skipped} (ya existían o no aplican).`
+        : `No había materiales nuevos que copiar desde ${mirrorFrom.value} (${result.skipped} omitidos por ya existir o estar archivados).`;
+  } catch (e) {
+    notice.value = (e as Error).message;
+  } finally {
+    busy.value = "";
+  }
+}
+
 async function archive(material: Material): Promise<void> {
   busy.value = `a-${material.id}`;
   notice.value = "";
@@ -250,9 +277,19 @@ onMounted(load);
       <option v-for="c in session.courses" :key="c" :value="c">{{ c }}</option>
     </select>
 
+    <div v-if="otherCourses.length" class="row mirror-row">
+      <label for="mirrorFrom" class="mirror-label">Copiar materiales desde</label>
+      <select id="mirrorFrom" v-model="mirrorFrom" class="select" aria-label="Curso origen de los materiales">
+        <option v-for="c in otherCourses" :key="c" :value="c">{{ c }}</option>
+      </select>
+      <button class="btn btn-ghost" :disabled="busy === 'mirror' || !mirrorFrom" @click="mirror">
+        <AppIcon name="copy" /> {{ busy === "mirror" ? "Copiando…" : `Copiar materiales a ${courseId}` }}
+      </button>
+    </div>
+
     <div class="row download-all">
-      <button class="btn btn-primary btn-sm" :disabled="busy === 'all-PDF'" @click="downloadAll('PDF')">Descargar todo (PDF)</button>
-      <button class="btn btn-ghost btn-sm" :disabled="busy === 'all-DOCX'" @click="downloadAll('DOCX')">Descargar todo (DOCX)</button>
+      <button class="btn btn-primary btn-sm" :disabled="busy === 'all-PDF'" @click="downloadAll('PDF')"><AppIcon name="download" /> Descargar todo (PDF)</button>
+      <button class="btn btn-ghost btn-sm" :disabled="busy === 'all-DOCX'" @click="downloadAll('DOCX')"><AppIcon name="download" /> Descargar todo (DOCX)</button>
       <span class="muted small">Un ZIP por formato, ordenado por fases, con índice para evaluadora · PIE · UTP.</span>
     </div>
 
@@ -303,8 +340,8 @@ onMounted(load);
         </p>
 
         <div class="actions">
-          <RouterLink :to="`/teacher/materials/${material.id}`" class="btn btn-ghost btn-sm">Ver</RouterLink>
-          <RouterLink :to="`/teacher/materials/${material.id}/edit`" class="btn btn-ghost btn-sm">Editar</RouterLink>
+          <RouterLink :to="`/teacher/materials/${material.id}`" class="btn btn-ghost btn-sm"><AppIcon name="eye" /> Ver</RouterLink>
+          <RouterLink :to="`/teacher/materials/${material.id}/edit`" class="btn btn-ghost btn-sm"><AppIcon name="pencil" /> Editar</RouterLink>
           <button class="btn btn-ghost btn-sm" :disabled="busy === `dl-${material.id}`" @click="download(material, 'PDF')">PDF</button>
           <button class="btn btn-ghost btn-sm" :disabled="busy === `dl-${material.id}`" @click="download(material, 'DOCX')">DOCX</button>
           <button class="btn btn-ghost btn-sm" :disabled="busy === `d-${material.id}`" @click="duplicate(material)">Duplicar</button>
@@ -401,5 +438,21 @@ onMounted(load);
 }
 .download-all {
   margin: var(--space-3) 0;
+}
+.mirror-row {
+  margin: var(--space-2) 0 var(--space-1);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  background: var(--color-surface);
+}
+.mirror-label {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 </style>

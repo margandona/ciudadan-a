@@ -3,19 +3,103 @@
   "title": "¿Qué significa ser ciudadana?",
   "objective": "Comprender la ciudadanía como una condición que implica derechos y responsabilidades en la vida democrática.",
   "problemQuestion": "¿Nacer en un país basta para ser ciudadana o la ciudadanía se construye participando?",
-  "concepts": ["ciudadanía", "democracia", "participación", "bien común"],
+  "concepts": [
+    "ciudadanía",
+    "democracia",
+    "participación",
+    "bien común"
+  ],
   "blocks": [
-    { "type": "title", "id": "b-title", "text": "Misión 01 — ¿Qué significa ser ciudadana?" },
-    { "type": "objective", "id": "b-obj", "text": "Al terminar podrás explicar qué es ser ciudadana y dar un ejemplo de participación en tu entorno." },
-    { "type": "problem", "id": "b-prob", "text": "Piensa: ¿participar es solo votar cada cuatro años, o también opinar en tu barrio, colegio o en internet?" },
-    { "type": "concepts", "id": "b-concepts", "items": ["Ciudadanía: condición de pertenencia a una comunidad política con derechos y deberes.", "Democracia: forma de gobierno donde el poder se ejerce con la participación del pueblo.", "Participación: acciones que inciden en las decisiones que afectan la vida en común.", "Bien común: lo que beneficia a toda la comunidad, no solo a algunas personas."] },
-    { "type": "text", "id": "b-micro-1", "markdown": "Ser ciudadana o ciudadano no es solo tener un documento. En la tradición democrática, la ciudadanía se reconoce cuando una persona puede **participar en las decisiones públicas** y, a la vez, se hace responsable de los compromisos que asume con su comunidad.\n\nEn Chile, la participación puede ser formal (votar, firmar, participar en organizaciones) o cotidiana (cuidar un espacio común, organizarse en el colegio, proponer soluciones en tu barrio).", "readingLevel": "simple" },
-    { "type": "text", "id": "b-micro-2", "markdown": "Pregúntate sobre tu propia vida: **¿qué decisiones de tu entorno te afectan y en cuáles podrías incidir?** Desde la mesa del curso hasta el presupuesto municipal, siempre hay un espacio donde tu voz puede contar.\n\nDurante esta misión pensarás qué significa ser ciudadana en Ovalle y qué significa el bien común para tu comunidad." },
-    { "type": "reading", "id": "b-reading", "title": "Ciudadanía en la vida diaria", "text": "Un grupo de vecinas de Ovalle se organiza para recuperar una plaza abandonada. Piden reuniones con el municipio, juntan firmas y proponen un diseño. No todas votaron en la última elección, pero todas participan en una decisión que mejora su barrio. ¿Son ciudadanas? Sí: ejercen la ciudadanía al participar por el bien común.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
-    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "Según la lectura, ¿por qué las vecinas de la plaza son ciudadanas aunque no hayan votado?", "options": ["Porque votaron en la última elección.", "Porque participan en una decisión que mejora su barrio.", "Porque tienen cédula de identidad.", "Porque viven en el mismo país."], "correctIndex": 1, "explanation": "La ciudadanía se ejerce participando por el bien común, no solo votando." },
-    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "La participación ciudadana solo ocurre el día de las elecciones.", "options": ["Verdadero", "Falso"], "correctIndex": 1, "explanation": "La participación ocurre en muchas escalas y momentos: barrio, colegio, organizaciones y también en lo digital." },
-    { "type": "reflection", "id": "b-refl", "prompt": "Escribe un ejemplo real de participación ciudadana que hayas visto en Ovalle o en tu colegio. ¿Qué bien común buscaba?" },
-    { "type": "resource", "id": "b-res", "title": "¿Qué es la participación ciudadana? (para explorar)", "note": "Revisa el sitio de participación de tu municipio o el de la Biblioteca del Congreso Nacional (BCN).", "attribution": { "source": "BCN / municipalidad local", "verified": false } }
+    {
+      "type": "title",
+      "id": "b-title",
+      "text": "Misión 01 — ¿Qué significa ser ciudadana?"
+    },
+    {
+      "type": "objective",
+      "id": "b-obj",
+      "text": "Al terminar podrás explicar qué es ser ciudadana y dar un ejemplo de participación en tu entorno."
+    },
+    {
+      "type": "problem",
+      "id": "b-prob",
+      "text": "Piensa: ¿participar es solo votar cada cuatro años, o también opinar en tu barrio, colegio o en internet?"
+    },
+    {
+      "type": "concepts",
+      "id": "b-concepts",
+      "items": [
+        "Ciudadanía: condición de pertenencia a una comunidad política con derechos y deberes.",
+        "Democracia: forma de gobierno donde el poder se ejerce con la participación del pueblo.",
+        "Participación: acciones que inciden en las decisiones que afectan la vida en común.",
+        "Bien común: lo que beneficia a toda la comunidad, no solo a algunas personas."
+      ]
+    },
+    {
+      "type": "text",
+      "id": "b-micro-1",
+      "markdown": "Ser ciudadana o ciudadano no es solo tener un documento. En la tradición democrática, la ciudadanía se reconoce cuando una persona puede **participar en las decisiones públicas** y, a la vez, se hace responsable de los compromisos que asume con su comunidad.\n\nEn Chile, la participación puede ser formal (votar, firmar, participar en organizaciones) o cotidiana (cuidar un espacio común, organizarse en el colegio, proponer soluciones en tu barrio).",
+      "readingLevel": "simple"
+    },
+    {
+      "type": "text",
+      "id": "b-micro-2",
+      "markdown": "Pregúntate sobre tu propia vida: **¿qué decisiones de tu entorno te afectan y en cuáles podrías incidir?** Desde la mesa del curso hasta el presupuesto municipal, siempre hay un espacio donde tu voz puede contar.\n\nDurante esta misión pensarás qué significa ser ciudadana en Ovalle y qué significa el bien común para tu comunidad."
+    },
+    {
+      "type": "reading",
+      "id": "b-reading",
+      "title": "Ciudadanía en la vida diaria",
+      "text": "Un grupo de vecinas de Ovalle se organiza para recuperar una plaza abandonada. Piden reuniones con el municipio, juntan firmas y proponen un diseño. No todas votaron en la última elección, pero todas participan en una decisión que mejora su barrio. ¿Son ciudadanas? Sí: ejercen la ciudadanía al participar por el bien común.",
+      "source": {
+        "author": "Contenido editorial PCLab",
+        "license": "CC BY-NC 4.0",
+        "verified": true,
+        "originalUrl": "https://www.bcn.cl/formacioncivica/presentacion"
+      }
+    },
+    {
+      "type": "question",
+      "id": "b-q1",
+      "kind": "choice",
+      "prompt": "Según la lectura, ¿por qué las vecinas de la plaza son ciudadanas aunque no hayan votado?",
+      "options": [
+        "Porque votaron en la última elección.",
+        "Porque participan en una decisión que mejora su barrio.",
+        "Porque tienen cédula de identidad.",
+        "Porque viven en el mismo país."
+      ],
+      "correctIndex": 1,
+      "explanation": "La ciudadanía se ejerce participando por el bien común, no solo votando."
+    },
+    {
+      "type": "question",
+      "id": "b-q2",
+      "kind": "truefalse",
+      "prompt": "La participación ciudadana solo ocurre el día de las elecciones.",
+      "options": [
+        "Verdadero",
+        "Falso"
+      ],
+      "correctIndex": 1,
+      "explanation": "La participación ocurre en muchas escalas y momentos: barrio, colegio, organizaciones y también en lo digital."
+    },
+    {
+      "type": "reflection",
+      "id": "b-refl",
+      "prompt": "Escribe un ejemplo real de participación ciudadana que hayas visto en Ovalle o en tu colegio. ¿Qué bien común buscaba?"
+    },
+    {
+      "type": "resource",
+      "id": "b-res",
+      "title": "¿Qué es la participación ciudadana? (para explorar)",
+      "note": "Revisa el sitio de participación de tu municipio o el de la Biblioteca del Congreso Nacional (BCN).",
+      "attribution": {
+        "source": "Biblioteca del Congreso Nacional de Chile",
+        "verified": true
+      },
+      "url": "https://centroderecursos.educarchile.cl/items/928d5945-2558-422d-8d39-7510f91cd5fc"
+    }
   ],
   "estMinutes": 12,
   "readyLabel": "Estoy lista para la misión",

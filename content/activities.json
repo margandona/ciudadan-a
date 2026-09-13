@@ -119,6 +119,19 @@
     "active": true
   },
   {
+    "id": "act-class-09-ai-detective",
+    "classId": "class-09",
+    "courseId": "course-3med-d-2026",
+    "title": "Misión IA — Copilota de datos",
+    "type": "aiLab",
+    "description": "Usa una herramienta de IA para explorar una explicación sobre desigualdad, pero conserva tú el control: verifica, corrige y cita las fuentes.",
+    "instructions": ["Copia el prompt sugerido y agrega el dato o gráfico que estés estudiando; no compartas nombres, fotos ni datos personales.", "Compara la respuesta de la IA con una fuente confiable (INE, CASEN, BCN o MINEDUC).", "Escribe qué parte aceptas, qué parte corregirías y qué evidencia respalda tu decisión."],
+    "evidenceRequired": true,
+    "evidenceTypes": ["text"],
+    "order": 2,
+    "active": true
+  },
+  {
     "id": "act-class-10-agua",
     "classId": "class-10",
     "courseId": "course-3med-d-2026",
@@ -154,6 +167,21 @@
     "instructions": ["Describe cómo presentaron la propuesta", "Evalúa la claridad y argumentación de tu equipo", "Escribe un aprendizaje para tu vida ciudadana"],
     "evidenceRequired": true,
     "evidenceTypes": ["text"],
+    "order": 1,
+    "active": true
+  },
+  {
+    "id": "act-class-13-debate",
+    "classId": "class-13",
+    "courseId": "course-3med-d-2026",
+    "title": "Gran Debate: ¿Quién debe resolver los problemas?",
+    "type": "debate",
+    "description": "Delibera en mesa qué actor o colaboración debería resolver un problema de Ovalle, con argumento y evidencia.",
+    "instructions": ["Elige un problema público real de tu expediente o de los casos", "Defiende una postura (Estado, mercado, ciudadanía o colaboración) con un argumento en tres pasos", "Escucha, pregunta a otras posturas y registra el acuerdo de tu mesa"],
+    "evidenceRequired": true,
+    "evidenceTypes": ["text"],
+    "rubricId": "rubric-debate",
+    "maxScore": 16,
     "order": 1,
     "active": true
   }

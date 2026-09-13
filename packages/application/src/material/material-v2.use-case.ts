@@ -357,6 +357,76 @@ export class DuplicateMaterialUseCase {
   }
 }
 
+export interface MirrorCourseGuidesInput {
+  sourceCourseId: string;
+  targetCourseId: string;
+}
+
+/** Copia todos los materiales de un curso a otro (mismo contenido, nuevas IDs) sin pisar lo que ya exista en el destino. */
+export class MirrorCourseGuidesUseCase {
+  constructor(private deps: { materials: MaterialRepository; audit: AuditRepository }) {}
+
+  async run(input: MirrorCourseGuidesInput, actor: AuthContext | null): Promise<{ copied: number; skipped: number }> {
+    assertRole(actor, ["PROFESOR", "ADMIN", "MASTER"]);
+    assertCourse(actor, input.sourceCourseId);
+    assertCourse(actor, input.targetCourseId);
+
+    const [source, existing] = await Promise.all([
+      this.deps.materials.listByCourse(input.sourceCourseId),
+      this.deps.materials.listByCourse(input.targetCourseId),
+    ]);
+
+    const existingKeys = new Set<string>();
+    for (const m of existing) {
+      if (!m.parentMaterialId && m.status !== MATERIAL_STATUS.ARCHIVED) {
+        existingKeys.add(`${m.classId ?? "general"}|${m.type}`);
+      }
+    }
+
+    const now = new Date().toISOString();
+    let copied = 0;
+    let skipped = 0;
+
+    for (const m of source) {
+      if (m.parentMaterialId || m.status === MATERIAL_STATUS.ARCHIVED) {
+        skipped += 1;
+        continue;
+      }
+      const key = `${m.classId ?? "general"}|${m.type}`;
+      if (existingKeys.has(key)) {
+        skipped += 1;
+        continue;
+      }
+
+      const copy: Material = {
+        ...m,
+        id: generateId(),
+        courseId: input.targetCourseId,
+        parentMaterialId: undefined,
+        title: m.title,
+        createdBy: actor?.uid ?? "server",
+        createdAt: now,
+        updatedAt: now,
+      };
+
+      await this.deps.materials.upsert(copy);
+      await this.deps.audit.log({
+        userId: actor?.uid ?? "server",
+        action: "MATERIAL_MIRRORED",
+        entity: "materials",
+        entityId: copy.id,
+        courseId: input.targetCourseId,
+        timestamp: now,
+        metadata: { sourceId: m.id, sourceCourseId: input.sourceCourseId },
+      });
+      existingKeys.add(key);
+      copied += 1;
+    }
+
+    return { copied, skipped };
+  }
+}
+
 /** Archiva un material (no se elimina). */
 export class ArchiveMaterialUseCase {
   constructor(private deps: { materials: MaterialRepository; audit: AuditRepository }) {}

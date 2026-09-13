@@ -10,6 +10,7 @@ import type {
   ParticipationRepository,
   QuizAttemptRepository,
   QuizRepository,
+  StudentRepository,
   SubmissionRepository,
 } from "../ports";
 
@@ -75,6 +76,8 @@ export class GetCourseAnalyticsUseCase {
       participation: ParticipationRepository;
       quizzes: QuizRepository;
       quizAttempts: QuizAttemptRepository;
+      /** Opcional: permite alertar estudiantes sin actividad registrada. */
+      students?: StudentRepository;
     },
   ) {}
 
@@ -94,12 +97,19 @@ export class GetCourseAnalyticsUseCase {
         ]);
 
         const lowPerformance: CourseAnalytics["classes"][number]["lowPerformance"] = [];
+        const durations: number[] = [];
         for (const quiz of quizzes) {
           const attempts = await this.deps.quizAttempts.listByQuiz(quiz.id);
           const submitted = attempts
             .filter((a) => a.status === "SUBMITTED")
             .map((a) => a.answers.map((answer) => ({ qid: answer.qid, correct: answer.correct })));
           lowPerformance.push(...questionPerformance({ id: quiz.id, title: quiz.title }, submitted.map((answers) => ({ answers }))));
+          for (const attempt of attempts) {
+            if (attempt.status === "SUBMITTED" && attempt.startedAt && attempt.submittedAt) {
+              const ms = new Date(attempt.submittedAt).getTime() - new Date(attempt.startedAt).getTime();
+              if (ms > 0) durations.push(ms / 60000);
+            }
+          }
         }
 
         const flippedReady = flipped.filter((f) => f.ready).length;
@@ -111,11 +121,36 @@ export class GetCourseAnalyticsUseCase {
           avgDifficulty: tickets.length > 0 ? Math.round((tickets.reduce((a, t) => a + t.difficulty, 0) / tickets.length) * 10) / 10 : null,
           participation: participation.reduce((acc, r) => acc + r.total, 0),
           lowPerformance,
+          avgQuizMinutes: durations.length > 0 ? Math.round((durations.reduce((a, b) => a + b, 0) / durations.length) * 10) / 10 : null,
         };
       }),
     );
 
     const alertClasses: CourseAnalytics["classes"] = results;
-    return { courseId, classes: results, alerts: buildAlerts(alertClasses) };
+    const alerts = buildAlerts(alertClasses);
+
+    // Alerta de estudiantes sin actividad registrada (opcional: requiere el repo de estudiantes).
+    if (this.deps.students) {
+      const activity = new Set<string>();
+      for (const cls of classes) {
+        const [flipped, submissions, participation, tickets] = await Promise.all([
+          this.deps.flipped.listByClass(courseId, cls.id),
+          this.deps.submissions.listByClass(courseId, cls.id),
+          this.deps.participation.listByClass(courseId, cls.id),
+          this.deps.exitTickets.listByClass(courseId, cls.id),
+        ]);
+        for (const f of flipped) activity.add(f.studentId);
+        for (const s of submissions) activity.add(s.studentId);
+        for (const p of participation) activity.add(p.studentId);
+        for (const t of tickets) activity.add(t.studentId);
+      }
+      const list = await this.deps.students.findByCourse(courseId);
+      const inactive = list.filter((s) => s.active && !activity.has(s.userId ?? s.id));
+      if (inactive.length > 0) {
+        alerts.push(`${inactive.length} estudiante(s) sin actividad registrada (sin aula invertida, evidencias ni participación).`);
+      }
+    }
+
+    return { courseId, classes: results, alerts };
   }
 }

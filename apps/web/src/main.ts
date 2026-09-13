@@ -5,12 +5,14 @@ import { router } from "./router";
 import { useSessionStore } from "./stores/session";
 import { useSyncStore } from "./stores/sync";
 import { registerOfflineHandlers } from "./services/offlineSafe";
+import { tilt } from "./directives/tilt";
 import "./styles/main.css";
 
 void registerOfflineHandlers();
 
 const app = createApp(App);
 app.use(createPinia());
+app.directive("tilt", tilt);
 
 const session = useSessionStore();
 session.init().catch(() => {

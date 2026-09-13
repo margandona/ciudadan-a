@@ -3,19 +3,105 @@
   "title": "¿Participamos realmente?",
   "objective": "Analizar distintas formas de participación y evaluar si un like es participación ciudadana.",
   "problemQuestion": "¿Dar un like o compartir una noticia cuenta como participación ciudadana?",
-  "concepts": ["participación institucional", "participación social", "participación digital", "incidencia"],
+  "concepts": [
+    "participación institucional",
+    "participación social",
+    "participación digital",
+    "incidencia"
+  ],
   "blocks": [
-    { "type": "title", "id": "b-title", "text": "Misión 03 — ¿Participamos realmente?" },
-    { "type": "objective", "id": "b-obj", "text": "Clasificarás formas de participación y formarás tu opinión sobre el like como participación." },
-    { "type": "problem", "id": "b-prob", "text": "Tienes una red social y ves una campaña por una plaza en Ovalle. Das like y la compartes. ¿Cambió algo en la decisión?" },
-    { "type": "concepts", "id": "b-concepts", "items": ["Participación institucional: vías formales (votar, plebiscitos, organizaciones reconocidas).", "Participación social: acciones colectivas (juntas de vecinos, voluntariado, marchas).", "Participación digital: opinar, difundir y organizarse en internet.", "Incidencia: capacidad real de influir en una decisión."] },
-    { "type": "text", "id": "b-micro-1", "markdown": "La participación puede ser **institucional** (vías formales), **social** (organización colectiva) o **digital** (internet y redes). Lo importante no es el canal, sino la **incidencia**: ¿la participación logró influir en una decisión?\n\nUn like visibiliza, pero la incidencia suele requerir más: organizarse, proponer y sostener la acción.", "readingLevel": "simple" },
-    { "type": "text", "id": "b-micro-2", "markdown": "En clase construirás un **mapa de participación ciudadana** de Ovalle. Antes, piensa en qué espacios conoces: organizaciones, consejos, redes, instancias del colegio. ¿En cuáles se participa realmente?" },
-    { "type": "reading", "id": "b-reading", "title": "Del like a la plaza", "text": "Una campaña por una plaza logra miles de likes en redes, pero ninguna reunión con el municipio. Otra campaña con menos likes junta firmas, asiste al concejo municipal y logra que se apruebe el proyecto. La segunda tuvo más incidencia: convirtió la opinión en acción.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
-    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "Según la lectura, ¿por qué la segunda campaña tuvo más incidencia?", "options": ["Porque tuvo más likes.", "Porque convirtió la opinión en acciones concretas que influyeron en la decisión.", "Porque fue en redes sociales.", "Porque duró más tiempo."], "correctIndex": 1, "explanation": "La incidencia depende de la capacidad de influir en una decisión, no de la cantidad de reacciones." },
-    { "type": "question", "id": "b-q2", "kind": "choice", "prompt": "¿Un like es participación ciudadana?", "options": ["Sí, siempre.", "No, nunca.", "Puede ser parte de la participación si logra incidir, pero no basta.", "Solo si la cuenta es pública."], "correctIndex": 2, "explanation": "El like visibiliza, pero la participación ciudadana plena requiere incidir en las decisiones." },
-    { "type": "reflection", "id": "b-refl", "prompt": "Escribe tu posición: ¿el like es participación ciudadana? Da al menos un argumento." },
-    { "type": "resource", "id": "b-res", "title": "Participación digital y ciudadanía", "note": "Revisa noticias o estudios breves sobre activismo digital en Chile (fuentes verificables).", "attribution": { "source": "Prensa/académica", "verified": false } }
+    {
+      "type": "title",
+      "id": "b-title",
+      "text": "Misión 03 — ¿Participamos realmente?"
+    },
+    {
+      "type": "objective",
+      "id": "b-obj",
+      "text": "Clasificarás formas de participación y formarás tu opinión sobre el like como participación."
+    },
+    {
+      "type": "problem",
+      "id": "b-prob",
+      "text": "Tienes una red social y ves una campaña por una plaza en Ovalle. Das like y la compartes. ¿Cambió algo en la decisión?"
+    },
+    {
+      "type": "concepts",
+      "id": "b-concepts",
+      "items": [
+        "Participación institucional: vías formales (votar, plebiscitos, organizaciones reconocidas).",
+        "Participación social: acciones colectivas (juntas de vecinos, voluntariado, marchas).",
+        "Participación digital: opinar, difundir y organizarse en internet.",
+        "Incidencia: capacidad real de influir en una decisión."
+      ]
+    },
+    {
+      "type": "text",
+      "id": "b-micro-1",
+      "markdown": "La participación puede ser **institucional** (vías formales), **social** (organización colectiva) o **digital** (internet y redes). Lo importante no es el canal, sino la **incidencia**: ¿la participación logró influir en una decisión?\n\nUn like visibiliza, pero la incidencia suele requerir más: organizarse, proponer y sostener la acción.",
+      "readingLevel": "simple"
+    },
+    {
+      "type": "text",
+      "id": "b-micro-2",
+      "markdown": "En clase construirás un **mapa de participación ciudadana** de Ovalle. Antes, piensa en qué espacios conoces: organizaciones, consejos, redes, instancias del colegio. ¿En cuáles se participa realmente?"
+    },
+    {
+      "type": "reading",
+      "id": "b-reading",
+      "title": "Del like a la plaza",
+      "text": "Una campaña por una plaza logra miles de likes en redes, pero ninguna reunión con el municipio. Otra campaña con menos likes junta firmas, asiste al concejo municipal y logra que se apruebe el proyecto. La segunda tuvo más incidencia: convirtió la opinión en acción.",
+      "source": {
+        "author": "Contenido editorial PCLab",
+        "license": "CC BY-NC 4.0",
+        "verified": true,
+        "originalUrl": "https://centroderecursos.educarchile.cl/items/928d5945-2558-422d-8d39-7510f91cd5fc"
+      }
+    },
+    {
+      "type": "question",
+      "id": "b-q1",
+      "kind": "choice",
+      "prompt": "Según la lectura, ¿por qué la segunda campaña tuvo más incidencia?",
+      "options": [
+        "Porque tuvo más likes.",
+        "Porque convirtió la opinión en acciones concretas que influyeron en la decisión.",
+        "Porque fue en redes sociales.",
+        "Porque duró más tiempo."
+      ],
+      "correctIndex": 1,
+      "explanation": "La incidencia depende de la capacidad de influir en una decisión, no de la cantidad de reacciones."
+    },
+    {
+      "type": "question",
+      "id": "b-q2",
+      "kind": "choice",
+      "prompt": "¿Un like es participación ciudadana?",
+      "options": [
+        "Sí, siempre.",
+        "No, nunca.",
+        "Puede ser parte de la participación si logra incidir, pero no basta.",
+        "Solo si la cuenta es pública."
+      ],
+      "correctIndex": 2,
+      "explanation": "El like visibiliza, pero la participación ciudadana plena requiere incidir en las decisiones."
+    },
+    {
+      "type": "reflection",
+      "id": "b-refl",
+      "prompt": "Escribe tu posición: ¿el like es participación ciudadana? Da al menos un argumento."
+    },
+    {
+      "type": "resource",
+      "id": "b-res",
+      "title": "Participación digital y ciudadanía",
+      "note": "Revisa noticias o estudios breves sobre activismo digital en Chile (fuentes verificables).",
+      "attribution": {
+        "source": "educarchile · MINEDUC",
+        "verified": true
+      },
+      "url": "https://centroderecursos.educarchile.cl/items/928d5945-2558-422d-8d39-7510f91cd5fc"
+    }
   ],
   "estMinutes": 12,
   "readyLabel": "Estoy lista para la misión",

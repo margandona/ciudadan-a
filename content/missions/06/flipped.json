@@ -3,19 +3,103 @@
   "title": "Cabildo Providencia",
   "objective": "Argumentar una propuesta ciudadana sobre el territorio en un cabildo.",
   "problemQuestion": "¿Qué necesita nuestro territorio y cómo lo defenderías con argumentos ante la comunidad?",
-  "concepts": ["cabildo", "argumentación", "propuesta ciudadana", "evaluación auténtica"],
+  "concepts": [
+    "cabildo",
+    "argumentación",
+    "propuesta ciudadana",
+    "evaluación auténtica"
+  ],
   "blocks": [
-    { "type": "title", "id": "b-title", "text": "Misión 06 — Cabildo Providencia" },
-    { "type": "objective", "id": "b-obj", "text": "Prepararás tu argumentación para el cabildo «Nuestro territorio necesita…» y conocerás la rúbrica." },
-    { "type": "problem", "id": "b-prob", "text": "En el cabildo dirás: «Nuestro territorio necesita…». ¿Qué frase completarías y con qué argumentos la sostendrías?" },
-    { "type": "concepts", "id": "b-concepts", "items": ["Cabildo: asamblea donde la comunidad discute y decide asuntos públicos.", "Argumentación: dar razones y evidencias para sostener una postura.", "Propuesta ciudadana: solución concreta y realizable pensada por la comunidad.", "Evaluación auténtica: se evalúa el desempeño en una tarea real y contextualizada."] },
-    { "type": "text", "id": "b-micro-1", "markdown": "En esta misión prepararás tu participación en el **Cabildo Providencia**, una evaluación auténtica. La frase base es: **«Nuestro territorio necesita…»**.\n\nUna buena argumentación tiene tres partes: una **postura clara**, **razones** y **evidencia** que la apoyen, y una **propuesta** realizable.", "readingLevel": "simple" },
-    { "type": "text", "id": "b-micro-2", "markdown": "Revisa la rúbrica que tu profesor compartirá: qué se evalúa (claridad de la postura, uso de conceptos, evidencia, propuesta y participación en el cabildo) y cómo se autoevalúa tu desempeño." },
-    { "type": "reading", "id": "b-reading", "title": "Así se argumenta en un cabildo", "text": "Una estudiante dice: “Nuestro territorio necesita más áreas verdes. Sostengo esta idea porque mejoran la calidad de vida y el acceso a espacios comunes. Como evidencia, nuestro barrio tiene menos de un metro cuadrado de áreas verdes por persona según datos municipales. Propongo que el curso diseñe un proyecto de plaza comunitaria para presentar al municipio”.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
-    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "En el ejemplo, ¿cuál es la propuesta de la estudiante?", "options": ["Criticar al municipio.", "Diseñar un proyecto de plaza comunitaria para presentar al municipio.", "Contar cuántas áreas verdes existen.", "Votar por una idea."], "correctIndex": 1, "explanation": "La propuesta es la solución concreta y realizable: un proyecto de plaza comunitaria." },
-    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "En una argumentación, la evidencia fortalece la postura porque la sustenta con datos o testimonios.", "options": ["Verdadero", "Falso"], "correctIndex": 0, "explanation": "La evidencia transforma una opinión en un argumento sustentado." },
-    { "type": "reflection", "id": "b-refl", "prompt": "Completa la frase «Nuestro territorio necesita…» y escribe una razón y una evidencia para tu postura." },
-    { "type": "resource", "id": "b-res", "title": "Rúbrica del Cabildo", "note": "Tu profesor compartirá la rúbrica, la autoevaluación y la coevaluación en la clase.", "attribution": { "source": "Material del curso", "verified": true } }
+    {
+      "type": "title",
+      "id": "b-title",
+      "text": "Misión 06 — Cabildo Providencia"
+    },
+    {
+      "type": "objective",
+      "id": "b-obj",
+      "text": "Prepararás tu argumentación para el cabildo «Nuestro territorio necesita…» y conocerás la rúbrica."
+    },
+    {
+      "type": "problem",
+      "id": "b-prob",
+      "text": "En el cabildo dirás: «Nuestro territorio necesita…». ¿Qué frase completarías y con qué argumentos la sostendrías?"
+    },
+    {
+      "type": "concepts",
+      "id": "b-concepts",
+      "items": [
+        "Cabildo: asamblea donde la comunidad discute y decide asuntos públicos.",
+        "Argumentación: dar razones y evidencias para sostener una postura.",
+        "Propuesta ciudadana: solución concreta y realizable pensada por la comunidad.",
+        "Evaluación auténtica: se evalúa el desempeño en una tarea real y contextualizada."
+      ]
+    },
+    {
+      "type": "text",
+      "id": "b-micro-1",
+      "markdown": "En esta misión prepararás tu participación en el **Cabildo Providencia**, una evaluación auténtica. La frase base es: **«Nuestro territorio necesita…»**.\n\nUna buena argumentación tiene tres partes: una **postura clara**, **razones** y **evidencia** que la apoyen, y una **propuesta** realizable.",
+      "readingLevel": "simple"
+    },
+    {
+      "type": "text",
+      "id": "b-micro-2",
+      "markdown": "Revisa la rúbrica que tu profesor compartirá: qué se evalúa (claridad de la postura, uso de conceptos, evidencia, propuesta y participación en el cabildo) y cómo se autoevalúa tu desempeño."
+    },
+    {
+      "type": "reading",
+      "id": "b-reading",
+      "title": "Así se argumenta en un cabildo",
+      "text": "Una estudiante dice: “Nuestro territorio necesita más áreas verdes. Sostengo esta idea porque mejoran la calidad de vida y el acceso a espacios comunes. Como evidencia, nuestro barrio tiene menos de un metro cuadrado de áreas verdes por persona según datos municipales. Propongo que el curso diseñe un proyecto de plaza comunitaria para presentar al municipio”.",
+      "source": {
+        "author": "Contenido editorial PCLab",
+        "license": "CC BY-NC 4.0",
+        "verified": true,
+        "originalUrl": "https://ciudadanosparachile.mineduc.cl/"
+      }
+    },
+    {
+      "type": "question",
+      "id": "b-q1",
+      "kind": "choice",
+      "prompt": "En el ejemplo, ¿cuál es la propuesta de la estudiante?",
+      "options": [
+        "Criticar al municipio.",
+        "Diseñar un proyecto de plaza comunitaria para presentar al municipio.",
+        "Contar cuántas áreas verdes existen.",
+        "Votar por una idea."
+      ],
+      "correctIndex": 1,
+      "explanation": "La propuesta es la solución concreta y realizable: un proyecto de plaza comunitaria."
+    },
+    {
+      "type": "question",
+      "id": "b-q2",
+      "kind": "truefalse",
+      "prompt": "En una argumentación, la evidencia fortalece la postura porque la sustenta con datos o testimonios.",
+      "options": [
+        "Verdadero",
+        "Falso"
+      ],
+      "correctIndex": 0,
+      "explanation": "La evidencia transforma una opinión en un argumento sustentado."
+    },
+    {
+      "type": "reflection",
+      "id": "b-refl",
+      "prompt": "Completa la frase «Nuestro territorio necesita…» y escribe una razón y una evidencia para tu postura."
+    },
+    {
+      "type": "resource",
+      "id": "b-res",
+      "title": "Rúbrica del Cabildo",
+      "note": "Tu profesor compartirá la rúbrica, la autoevaluación y la coevaluación en la clase.",
+      "attribution": {
+        "source": "MINEDUC · Ciudadanos para Chile",
+        "verified": true
+      },
+      "url": "https://ciudadanosparachile.mineduc.cl/"
+    }
   ],
   "estMinutes": 12,
   "readyLabel": "Estoy lista para la misión",

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import type { Slide, SlideBlock, SlideDeck, VoteResult } from "@pclab/shared";
+import SpeakButton from "@/components/ui/SpeakButton.vue";
 
 const props = defineProps<{
   deck: SlideDeck;
@@ -21,6 +22,12 @@ const showTimer = ref(false);
 
 const slide = computed<Slide | null>(() => props.deck.slides[step.value] ?? null);
 const isLast = computed(() => step.value >= props.deck.slides.length - 1);
+const slideSpeakText = computed(() => {
+  const currentSlide = slide.value;
+  if (!currentSlide) return "";
+  const parts = currentSlide.blocks.flatMap((block) => [block.title, block.text, block.a, block.b, block.note, ...(block.options ?? [])].filter(Boolean));
+  return [currentSlide.title, ...parts].filter(Boolean).join(". ");
+});
 
 function toggleFullscreen(): void {
   if (!document.fullscreenElement) {
@@ -88,8 +95,10 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKey));
   <div class="deck">
     <header class="bar">
       <span class="title">{{ deck.slides[step]?.title ?? `Diapositiva ${step + 1}` }}</span>
+      <span class="support-label">Apoyo de aula · la misión principal se juega en la ruta de estudiante</span>
       <span class="muted">{{ step + 1 }} / {{ deck.slides.length }}</span>
       <div class="actions">
+        <SpeakButton :text="slideSpeakText" label="Leer diapositiva" />
         <button class="btn btn-ghost btn-sm" @click="revealed = !revealed">Revelar (H)</button>
         <button class="btn btn-ghost btn-sm" @click="toggleFullscreen">Pantalla completa (F)</button>
         <button class="btn btn-ghost btn-sm" :disabled="step === 0" @click="prev">←</button>
@@ -134,7 +143,8 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKey));
           </template>
 
           <template v-else-if="block.type === 'video'">
-            <p class="muted">{{ block.title ?? "Video" }} (se habilitará cuando su uso esté verificado)</p>
+            <p class="muted">{{ block.title ?? "Video" }}</p>
+            <a v-if="block.url" :href="block.url" target="_blank" rel="noreferrer" class="resource-link">Abrir video ↗</a>
           </template>
 
           <template v-else-if="block.type === 'question'">
@@ -175,6 +185,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKey));
 
           <template v-else-if="block.type === 'resource'">
             <p class="muted">{{ block.note }}</p>
+            <a v-if="block.url" :href="block.url" target="_blank" rel="noreferrer" class="resource-link">Abrir fuente ↗</a>
           </template>
         </div>
       </template>
@@ -200,6 +211,11 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKey));
 }
 .title {
   font-weight: 600;
+}
+.support-label {
+  color: #9fb4c7;
+  font-size: 0.75rem;
+  max-width: 260px;
 }
 .actions {
   display: flex;
@@ -288,6 +304,13 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKey));
 }
 .muted {
   opacity: 0.7;
+}
+.resource-link {
+  display: inline-block;
+  color: #7fd6bf;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: var(--space-2);
 }
 .btn-sm {
   padding: 6px 12px;

@@ -117,6 +117,20 @@ export class FirestoreSubmissionRepository implements SubmissionRepository {
     return recordToSubmission(doc.id, doc.data() ?? {});
   }
 
+  async findByStudentAndClass(studentId: string, classId: string): Promise<Submission[]> {
+    const snap = await this.db
+      .collection("submissions")
+      .where("studentId", "==", studentId)
+      .where("classId", "==", classId)
+      .get();
+    return snap.docs.map((doc) => recordToSubmission(doc.id, doc.data() ?? {}));
+  }
+
+  async findByStudent(studentId: string): Promise<Submission[]> {
+    const snap = await this.db.collection("submissions").where("studentId", "==", studentId).get();
+    return snap.docs.map((doc) => recordToSubmission(doc.id, doc.data() ?? {}));
+  }
+
   async listByClass(courseId: string, classId: string): Promise<Submission[]> {
     const snap = await this.db
       .collection("submissions")
@@ -394,6 +408,7 @@ function recordToBadge(id: string, data: Record<string, unknown>): Badge {
     order: (data.order as number) ?? 0,
     level: (data.level as number) ?? 1,
     criteria: (data.criteria as Badge["criteria"]) ?? [],
+    classId: (data.classId as string | undefined) ?? undefined,
   };
 }
 

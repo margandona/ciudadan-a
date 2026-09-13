@@ -15,6 +15,7 @@ const STUDENT_EDITABLE: SubmissionStatus[] = [SUBMISSION_STATUS.ENTREGADO, SUBMI
 
 /** ¿Puede el profesor mover la evidencia al nuevo estado? */
 export function canTransition(current: SubmissionStatus, next: SubmissionStatus): boolean {
+  if (current === next) return true;
   return TEACHER_TRANSITIONS[current]?.includes(next) ?? false;
 }
 

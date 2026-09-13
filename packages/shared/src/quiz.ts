@@ -97,6 +97,13 @@ export interface QuizAttempt {
   status: "IN_PROGRESS" | "SUBMITTED";
 }
 
+/** Resultado de enviar un quiz: el intento y el XP ganado (0 si no sumó). */
+export interface QuizSubmitResult {
+  attempt: QuizAttempt;
+  /** XP de actividad otorgado al aprobar el quiz por primera vez (0 si ya estaba aprobado o no aprobó). */
+  xpAwarded: number;
+}
+
 /** Etiquetas en español para el estado de un intento (solo presentación). */
 export const QUIZ_ATTEMPT_STATUS_LABELS: Record<QuizAttempt["status"], string> = {
   IN_PROGRESS: "En curso",

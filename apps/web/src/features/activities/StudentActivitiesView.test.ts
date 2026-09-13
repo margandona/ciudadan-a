@@ -81,6 +81,7 @@ describe("StudentActivitiesView", () => {
       classId: "class-01",
       courseId: "course-d",
       content: { text: "Mi análisis" },
+      attachments: [],
     });
     expect(wrapper.text()).toContain("ENTREGADO");
   });

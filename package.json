@@ -1,6 +1,6 @@
 {
   "name": "providencia-ciudadania-lab",
-  "version": "0.2.0",
+  "version": "0.20.0",
   "private": true,
   "description": "PWA educativa Observatorio Ciudadano — Ovalle 2035. Monorepo.",
   "workspaces": [
@@ -35,9 +35,11 @@
     "seed:demo-evaluator": "tsx scripts/src/seed-demo-evaluator.ts",
     "seed:demo-pie": "tsx scripts/src/seed-demo-pie.ts",
     "seed:demo-utp": "tsx scripts/src/seed-demo-utp.ts",
+    "seed:students-auth": "tsx scripts/src/seed-students-auth.ts",
     "import:students": "tsx scripts/src/import-students.ts",
     "import:students:dry": "tsx scripts/src/import-students.ts --dry-run",
-    "analyze:roster": "tsx scripts/src/analyze-roster.ts"
+    "analyze:roster": "tsx scripts/src/analyze-roster.ts",
+    "verify:farm": "tsx scripts/src/verify-farm.ts"
   },
   "engines": {
     "node": ">=20"

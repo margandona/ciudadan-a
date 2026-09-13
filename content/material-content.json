@@ -308,6 +308,59 @@
      "text": "Para empezar: tres formas de entender la ciudadanía"
     },
     {
+     "id": "lee2-0",
+     "kind": "heading",
+     "text": "Lectura · Tres miradas para cuidar lo público"
+    },
+    {
+     "id": "lee2-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee2-2",
+     "kind": "text",
+     "text": "Cuando hay un problema común, por ejemplo una plaza descuidada, podemos pensar soluciones desde tres tradiciones. La tradición republicana preguntará qué debería hacer una buena ciudadana por su comunidad y valorará el compromiso con el bien común. Para el republicanismo, participar no es un favor: es un deber cívico que fortalece la vida democrática."
+    },
+    {
+     "id": "lee2-3",
+     "kind": "text",
+     "text": "La tradición liberal pondrá atención en la libertad de cada persona y en sus derechos. Dirá que nadie puede ser obligado a hacer algo contra su voluntad y que el Estado debe proteger las libertades individuales. Sin embargo, también recordará que existen derechos que deben garantizarse a todas las personas por igual."
+    },
+    {
+     "id": "lee2-4",
+     "kind": "text",
+     "text": "La tradición comunitaria partirá desde los vínculos concretos: la familia, la junta de vecinos, el club, el grupo del barrio. Para ella, las personas no existen aisladas, sino en comunidades con historia e identidad propias. Por eso propone soluciones nacidas desde los propios territorios y sus organizaciones."
+    },
+    {
+     "id": "lee2-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee2-6",
+     "kind": "list",
+     "items": [
+      "1. ¿Qué pregunta haría una persona republicana ante una plaza descuidada?",
+      "2. ¿En qué se diferencia la mirada liberal de la comunitaria?",
+      "3. Elige la tradición que más te convenza para cuidar un espacio común y explica por qué."
+     ]
+    },
+    {
+     "id": "lee2-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee2-8",
+     "kind": "list",
+     "items": [
+      "• Tradición",
+      "• Bien común",
+      "• Autonomía"
+     ]
+    },
+    {
      "id": "s1",
      "kind": "list",
      "items": [
@@ -390,6 +443,61 @@
      "id": "cierre1",
      "kind": "response",
      "text": "Escribe qué perspectiva te convenció más y por qué, y qué idea del acuerdo de tu consejo te gustaría aplicar en tu barrio."
+    },
+    {
+     "id": "ext2-14",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext2-15",
+     "kind": "text",
+     "text": "Tema de la guía: las tres tradiciones de ciudadanía. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext2-16",
+     "kind": "heading",
+     "text": "Fuente 1 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext2-17",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la fuente, busca cómo se entiende la ciudadanía en los enfoques liberal, comunitario y republicano. Copia con tus palabras UNA idea de cada uno."
+     ]
+    },
+    {
+     "id": "ext2-18",
+     "kind": "heading",
+     "text": "Fuente 2 · MINEDUC · Ciudadanos para Chile"
+    },
+    {
+     "id": "ext2-19",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://ciudadanosparachile.mineduc.cl/",
+      "Revisa un material del programa de MINEDUC y describe qué «valor ciudadano» propone y cómo se pondría en práctica en una plaza o junta de vecinos."
+     ]
+    },
+    {
+     "id": "ext2-20",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext2-21",
+     "kind": "list",
+     "items": [
+      "1. ¿Qué tradición te convence más para cuidar una plaza pública? Argumenta con una razón y un ejemplo.",
+      "2. Explica con tus palabras la diferencia entre republicanismo y liberalismo.",
+      "3. Propón un acuerdo donde las tres tradiciones aporten a un problema de Ovalle."
+     ]
+    },
+    {
+     "id": "ext2-22",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "referencias": [
@@ -463,6 +571,59 @@
      "id": "ins",
      "kind": "heading",
      "text": "Instrucciones"
+    },
+    {
+     "id": "lee3-0",
+     "kind": "heading",
+     "text": "Lectura · Participar: de opinar a decidir"
+    },
+    {
+     "id": "lee3-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee3-2",
+     "kind": "text",
+     "text": "Participación ciudadana es el involucramiento activo de las personas en las decisiones públicas que afectan su vida. No es lo mismo informarse que opinar, y no es lo mismo opinar que decidir. Existe una escala: en un extremo las personas solo reciben información; en el medio pueden dar su opinión; y en el otro extremo tienen poder real sobre la decisión."
+    },
+    {
+     "id": "lee3-3",
+     "kind": "text",
+     "text": "La participación puede ser institucional, social o digital. Es institucional cuando usa los canales formales, como votar o participar de una consulta. Es social cuando nace de la organización de la comunidad, como una junta de vecinos. Y es digital cuando se expresa en plataformas y redes, por ejemplo firmando un petitorio o participando de una consulta en línea."
+    },
+    {
+     "id": "lee3-4",
+     "kind": "text",
+     "text": "Un «me gusta» en una red social expresa una opinión, pero no asegura que esa opinión incida en una decisión. Para incidir, la participación suele necesitar organización, información y un canal concreto: una carta al municipio, una reunión con la junta de vecinos, una consulta o una propuesta presentada a la autoridad."
+    },
+    {
+     "id": "lee3-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee3-6",
+     "kind": "list",
+     "items": [
+      "1. Ordena de menor a mayor: decidir, opinar, informarse.",
+      "2. ¿Por qué el «me gusta» por sí solo no es participación plena?",
+      "3. Da un ejemplo de participación social en tu barrio y uno institucional en tu comuna."
+     ]
+    },
+    {
+     "id": "lee3-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee3-8",
+     "kind": "list",
+     "items": [
+      "• Incidir",
+      "• Participación institucional",
+      "• Organización social"
+     ]
     },
     {
      "id": "ins1",
@@ -556,6 +717,61 @@
     {
      "id": "r1",
      "kind": "response"
+    },
+    {
+     "id": "ext3-11",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext3-12",
+     "kind": "text",
+     "text": "Tema de la guía: formas de participación ciudadana. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext3-13",
+     "kind": "heading",
+     "text": "Fuente 1 · educarchile · Participación y ciudadanía digital"
+    },
+    {
+     "id": "ext3-14",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://centroderecursos.educarchile.cl/items/928d5945-2558-422d-8d39-7510f91cd5fc",
+      "En el recurso de educarchile, identifica tres formas de participación digital y escribe un ejemplo de cada una con tus palabras."
+     ]
+    },
+    {
+     "id": "ext3-15",
+     "kind": "heading",
+     "text": "Fuente 2 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext3-16",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "Busca en la BCN cómo se define participación ciudadana y copia UNA definición con tu propia redacción."
+     ]
+    },
+    {
+     "id": "ext3-17",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext3-18",
+     "kind": "list",
+     "items": [
+      "1. Clasifica 5 espacios de participación que conoces en institucional, social y digital.",
+      "2. ¿Por qué un «me gusta» por sí solo no es participación plena? Explica y propón una acción que sí incida.",
+      "3. ¿Qué espacio de participación de Ovalle te gustaría usar o crear? Justifica."
+     ]
+    },
+    {
+     "id": "ext3-19",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "referencias": [
@@ -626,6 +842,59 @@
      "id": "ins",
      "kind": "heading",
      "text": "Instrucciones"
+    },
+    {
+     "id": "lee4-0",
+     "kind": "heading",
+     "text": "Lectura · El territorio no es solo un mapa"
+    },
+    {
+     "id": "lee4-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee4-2",
+     "kind": "text",
+     "text": "Un territorio es más que un límite dibujado en un mapa. Es un espacio construido por las personas que lo habitan: sus relaciones, decisiones, trabajos e historias lo van transformando. Por eso se dice que el territorio es una construcción social. Una plaza no es solo pasto y juegos: es el lugar donde se juntan las familias, donde se realizan ferias y donde se toman acuerdos."
+    },
+    {
+     "id": "lee4-3",
+     "kind": "text",
+     "text": "En un territorio actúan distintos actores en distintas escalas. En Ovalle conviven el municipio, las juntas de vecinos, las organizaciones de regantes, las escuelas, las empresas agrícolas y las familias. Cada uno tiene intereses, recursos y responsabilidades diferentes. La escala puede ser local (la comuna), regional (la región de Coquimbo) o nacional (el país)."
+    },
+    {
+     "id": "lee4-4",
+     "kind": "text",
+     "text": "Comprender el territorio ayuda a encontrar buenas soluciones: un problema no se entiende igual si solo miramos una cuadra, que si miramos la cuenca completa. La cartografía social es una herramienta para dibujar el territorio junto con la comunidad, marcando los problemas, las oportunidades y los actores que lo habitan."
+    },
+    {
+     "id": "lee4-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee4-6",
+     "kind": "list",
+     "items": [
+      "1. Explica con un ejemplo por qué el territorio es una construcción social.",
+      "2. Nombra tres actores del territorio de Ovalle y en qué escala actúan.",
+      "3. ¿Para qué sirve la cartografía social?"
+     ]
+    },
+    {
+     "id": "lee4-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee4-8",
+     "kind": "list",
+     "items": [
+      "• Construcción social",
+      "• Actor",
+      "• Escala"
+     ]
     },
     {
      "id": "ins1",
@@ -722,6 +991,61 @@
      "id": "cierre1",
      "kind": "response",
      "text": "Explica con una idea por qué el territorio es una construcción social y nombra un actor de tu mapa."
+    },
+    {
+     "id": "ext4-16",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext4-17",
+     "kind": "text",
+     "text": "Tema de la guía: territorio, actores y escalas. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext4-18",
+     "kind": "heading",
+     "text": "Fuente 1 · educarchile · La construcción social del espacio (video)"
+    },
+    {
+     "id": "ext4-19",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://centroderecursos.educarchile.cl/items/580ec4f3-17f8-4c25-ae6b-beca0e8f3790/full",
+      "Mira el video de educarchile y escribe qué significa que el territorio sea una «construcción social», con dos ejemplos."
+     ]
+    },
+    {
+     "id": "ext4-20",
+     "kind": "heading",
+     "text": "Fuente 2 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext4-21",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "Con la guía de la BCN, identifica dos actores de tu territorio y la escala en que actúan (local, regional o nacional)."
+     ]
+    },
+    {
+     "id": "ext4-22",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext4-23",
+     "kind": "list",
+     "items": [
+      "1. Describe tu lugar favorito de Ovalle como espacio construido por personas: ¿quiénes lo usan y cómo lo han cambiado?",
+      "2. Nombra 3 actores del territorio del Limarí y di en qué escala actúan.",
+      "3. ¿Qué actor o institución debería escuchar más a tu comunidad? Explica por qué."
+     ]
+    },
+    {
+     "id": "ext4-24",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "referencias": [
@@ -791,6 +1115,59 @@
      "id": "ins",
      "kind": "heading",
      "text": "Instrucciones"
+    },
+    {
+     "id": "lee5-0",
+     "kind": "heading",
+     "text": "Lectura · Investigar para comprender y proponer"
+    },
+    {
+     "id": "lee5-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee5-2",
+     "kind": "text",
+     "text": "Una investigación ciudadana parte de una buena pregunta y usa más de una fuente. Una fuente puede ser una entrevista a una vecina, una encuesta del curso, una fotografía, un dato oficial o un documento de una institución. Cruzar distintas fuentes hace que la información sea más confiable: si dos fuentes independientes dicen lo mismo, la evidencia es más fuerte."
+    },
+    {
+     "id": "lee5-3",
+     "kind": "text",
+     "text": "El Expediente Ciudadano es una herramienta que ordena la investigación de un problema local. Reúne la descripción del problema, su ubicación, la población afectada, las causas, los actores, la evidencia, la institución responsable y una propuesta. Al llenar el expediente, convertimos una molestia cotidiana en un problema bien documentado que puede presentarse a la autoridad."
+    },
+    {
+     "id": "lee5-4",
+     "kind": "text",
+     "text": "Cuidar la evidencia también es ética: se registra de dónde salió cada dato y se respeta a las personas que participan. Una buena investigadora no inventa información ni etiqueta a las personas; describe situaciones y busca soluciones con respeto."
+    },
+    {
+     "id": "lee5-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee5-6",
+     "kind": "list",
+     "items": [
+      "1. ¿Por qué conviene usar más de una fuente de información?",
+      "2. Nombra las partes principales de un Expediente Ciudadano.",
+      "3. ¿Qué harías para registrar de dónde sacaste un dato sin dañar a las personas?"
+     ]
+    },
+    {
+     "id": "lee5-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee5-8",
+     "kind": "list",
+     "items": [
+      "• Fuente",
+      "• Evidencia",
+      "• Expediente Ciudadano"
+     ]
     },
     {
      "id": "ins1",
@@ -893,6 +1270,61 @@
     {
      "id": "r8",
      "kind": "response"
+    },
+    {
+     "id": "ext5-22",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext5-23",
+     "kind": "text",
+     "text": "Tema de la guía: investigación y expediente ciudadano. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext5-24",
+     "kind": "heading",
+     "text": "Fuente 1 · MINEDUC · Ciudadanos para Chile"
+    },
+    {
+     "id": "ext5-25",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://ciudadanosparachile.mineduc.cl/",
+      "Revisa un material de MINEDUC y anota cómo una comunidad organizada puede proponer mejoras a su entorno."
+     ]
+    },
+    {
+     "id": "ext5-26",
+     "kind": "heading",
+     "text": "Fuente 2 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext5-27",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la BCN, busca cómo se define «sociedad civil» u «organización social» y escribe un ejemplo local con tus palabras."
+     ]
+    },
+    {
+     "id": "ext5-28",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext5-29",
+     "kind": "list",
+     "items": [
+      "1. Redacta el problema central de tu expediente en 2–3 frases claras.",
+      "2. Lista 2 fuentes de información que usarías y qué tipo de evidencia aporta cada una.",
+      "3. Explica qué institución debería resolver tu problema y qué le pedirías."
+     ]
+    },
+    {
+     "id": "ext5-30",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "referencias": [
@@ -965,6 +1397,59 @@
      "text": "Antes del cabildo: prepara tu argumento"
     },
     {
+     "id": "lee6-0",
+     "kind": "heading",
+     "text": "Lectura · Deliberar y construir acuerdos"
+    },
+    {
+     "id": "lee6-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee6-2",
+     "kind": "text",
+     "text": "Deliberar es conversar con otras personas para tomar una decisión colectiva. No es un concurso de quién grita más fuerte: es un proceso donde se exponen posturas, se escuchan razones y se buscan acuerdos. Para deliberar bien hacen falta tres cosas: respeto (se escucha sin interrumpir), argumentos (postura + razón + evidencia) y disposición a cambiar de opinión si hay mejores razones."
+    },
+    {
+     "id": "lee6-3",
+     "kind": "text",
+     "text": "Un cabildo es una instancia de deliberación donde la comunidad propone y debate sobre los problemas que le importan. En un cabildo, todas las voces tienen espacio: las que viven el problema, las que conocen el territorio y las que tienen información técnica. De allí pueden salir propuestas que luego se llevan a las autoridades."
+    },
+    {
+     "id": "lee6-4",
+     "kind": "text",
+     "text": "El acuerdo no significa que todas piensen igual. Significa que, después de deliberar, el grupo encuentra una decisión que puede apoyar y que deja registro de las diferencias. Evaluar un proceso deliberativo considera cómo se argumentó, cómo se escuchó a otras posturas y cómo se contribuyó al acuerdo final."
+    },
+    {
+     "id": "lee6-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee6-6",
+     "kind": "list",
+     "items": [
+      "1. ¿Qué tres condiciones ayudan a deliberar bien?",
+      "2. Explica con tus palabras qué es un cabildo.",
+      "3. ¿Qué significa llegar a un acuerdo sin que todas piensen igual?"
+     ]
+    },
+    {
+     "id": "lee6-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee6-8",
+     "kind": "list",
+     "items": [
+      "• Deliberar",
+      "• Argumento",
+      "• Acuerdo"
+     ]
+    },
+    {
      "id": "ins1",
      "kind": "list",
      "items": [
@@ -1027,6 +1512,61 @@
     {
      "id": "esp",
      "kind": "response"
+    },
+    {
+     "id": "ext6-9",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext6-10",
+     "kind": "text",
+     "text": "Tema de la guía: deliberación y cabildo. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext6-11",
+     "kind": "heading",
+     "text": "Fuente 1 · MINEDUC · Ciudadanos para Chile"
+    },
+    {
+     "id": "ext6-12",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://ciudadanosparachile.mineduc.cl/",
+      "Revisa el material de MINEDUC sobre diálogo y valores; escribe qué condiciones hacen que una conversación sea respetuosa."
+     ]
+    },
+    {
+     "id": "ext6-13",
+     "kind": "heading",
+     "text": "Fuente 2 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext6-14",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la BCN, busca el concepto de «deliberación» o «participación» y explica cómo ayuda a tomar mejores decisiones."
+     ]
+    },
+    {
+     "id": "ext6-15",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext6-16",
+     "kind": "list",
+     "items": [
+      "1. Completa: «Nuestro territorio necesita…» y explica por qué es prioritario.",
+      "2. Aporta UNA razón y UNA evidencia que sostengan tu propuesta.",
+      "3. Describe cómo escucharías a alguien que piensa distinto y qué harías si no llegan a acuerdo."
+     ]
+    },
+    {
+     "id": "ext6-17",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "referencias": [
@@ -1089,6 +1629,59 @@
      "id": "ins",
      "kind": "heading",
      "text": "Instrucciones"
+    },
+    {
+     "id": "lee7-0",
+     "kind": "heading",
+     "text": "Lectura · ¿Quién resuelve los problemas públicos?"
+    },
+    {
+     "id": "lee7-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee7-2",
+     "kind": "text",
+     "text": "Algunos bienes y servicios son públicos: calles, alumbrado, salud y educación de todos. Un bien público se caracteriza porque beneficia a todas las personas y porque nadie debería quedar excluido de él. El mercado, que funciona con oferta y demanda, no siempre produce bienes públicos porque puede no ser rentable para una empresa individual. Por eso suele ser el Estado quien los garantiza."
+    },
+    {
+     "id": "lee7-3",
+     "kind": "text",
+     "text": "El Estado no lo hace todo. La ciudadanía también participa cuidando, exigiendo y proponiendo. Muchas veces el mercado puede aportar bienes y servicios útiles (por ejemplo, transporte o tecnología), y la ciudadanía organizada vigila que esos aportes sirvan al bien común. Ningún actor tiene todas las respuestas."
+    },
+    {
+     "id": "lee7-4",
+     "kind": "text",
+     "text": "Por eso, la pregunta correcta no es «¿quién paga?», sino «¿qué actor está mejor situado y con qué responsabilidades?». A veces la mejor respuesta es la colaboración: el Estado garantiza el bien, el mercado aporta eficiencia y recursos, y la comunidad participa y vigila. Para justificar una decisión se pueden usar criterios como la igualdad, la eficiencia y la participación."
+    },
+    {
+     "id": "lee7-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee7-6",
+     "kind": "list",
+     "items": [
+      "1. ¿Qué es un bien público y por qué el mercado no siempre lo produce?",
+      "2. ¿Por qué la pregunta clave no es solo «quién paga»?",
+      "3. Explica un ejemplo de colaboración entre Estado, mercado y ciudadanía en Ovalle."
+     ]
+    },
+    {
+     "id": "lee7-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee7-8",
+     "kind": "list",
+     "items": [
+      "• Bien público",
+      "• Estado",
+      "• Colaboración"
+     ]
     },
     {
      "id": "ins1",
@@ -1168,6 +1761,61 @@
      "id": "cierre1",
      "kind": "response",
      "text": "Elige un caso y explica cómo Estado, mercado y ciudadanía podrían colaborar."
+    },
+    {
+     "id": "ext7-8",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext7-9",
+     "kind": "text",
+     "text": "Tema de la guía: Estado, mercado y ciudadanía. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext7-10",
+     "kind": "heading",
+     "text": "Fuente 1 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext7-11",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la BCN, identifica qué es un bien público y escribe 3 ejemplos de tu comuna con tus palabras."
+     ]
+    },
+    {
+     "id": "ext7-12",
+     "kind": "heading",
+     "text": "Fuente 2 · MINEDUC · Orientaciones del Plan de Formación Ciudadana"
+    },
+    {
+     "id": "ext7-13",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.mineduc.cl/wp-content/uploads/sites/19/2016/11/Orientaciones-curriculares-PFC-op-web.pdf",
+      "En el documento de MINEDUC, busca qué se entiende por participación y qué rol tienen las organizaciones sociales; resume una idea."
+     ]
+    },
+    {
+     "id": "ext7-14",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext7-15",
+     "kind": "list",
+     "items": [
+      "1. Elige un problema de Ovalle y asigna el actor que debería resolverlo, justificando con un criterio (igualdad, eficiencia o participación).",
+      "2. Explica con un ejemplo qué es la colaboración entre Estado, mercado y ciudadanía.",
+      "3. ¿Qué problema de tu barrio resolverías primero y con quién te asociarías?"
+     ]
+    },
+    {
+     "id": "ext7-16",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "contenido": [
@@ -1229,6 +1877,59 @@
      "id": "h2",
      "kind": "text",
      "text": "Colegio La Providencia · Ovalle — Educación Ciudadana · Tercero Medio"
+    },
+    {
+     "id": "lee8-0",
+     "kind": "heading",
+     "text": "Lectura · Gobernar es decidir con recursos limitados"
+    },
+    {
+     "id": "lee8-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee8-2",
+     "kind": "text",
+     "text": "El presupuesto de una comuna es el plan anual de sus ingresos y gastos. Los recursos no son infinitos: cada peso que se destina a un área deja de destinarse a otra. A esa decisión se le llama costo de oportunidad. Elegir más iluminación puede significar postergar un área verde, y elegir más áreas verdes puede significar menos recursos para otra necesidad."
+    },
+    {
+     "id": "lee8-3",
+     "kind": "text",
+     "text": "Las decisiones de presupuesto no son neutras: pueden aumentar o reducir la desigualdad. Si una comuna invierte solo en un sector o solo en un tipo de necesidad, algunos grupos quedan beneficiados y otros esperando. Por eso se usa el criterio de la justicia: ¿quiénes se benefician?, ¿qué necesidades son más urgentes?, ¿qué grupos han estado más postergados?"
+    },
+    {
+     "id": "lee8-4",
+     "kind": "text",
+     "text": "Una autoridad democrática justifica sus prioridades, informa a la comunidad y abre espacios para participar. El buen gobierno no se mide solo por la popularidad inmediata de una decisión, sino por sus efectos en el bienestar de las personas y en la igualdad de oportunidades de largo plazo."
+    },
+    {
+     "id": "lee8-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee8-6",
+     "kind": "list",
+     "items": [
+      "1. Explica con un ejemplo qué es el costo de oportunidad en una comuna.",
+      "2. ¿Por qué las decisiones de presupuesto pueden aumentar o reducir la desigualdad?",
+      "3. ¿Qué criterios usarías para priorizar el gasto público de tu comuna?"
+     ]
+    },
+    {
+     "id": "lee8-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee8-8",
+     "kind": "list",
+     "items": [
+      "• Presupuesto",
+      "• Costo de oportunidad",
+      "• Prioridad"
+     ]
     },
     {
      "id": "ins",
@@ -1332,6 +2033,61 @@
      "id": "cierre1",
      "kind": "response",
      "text": "¿A qué grupo beneficia tu prioridad? ¿Cómo afecta la igualdad en Ovalle?"
+    },
+    {
+     "id": "ext8-7",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext8-8",
+     "kind": "text",
+     "text": "Tema de la guía: presupuesto y prioridades públicas. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext8-9",
+     "kind": "heading",
+     "text": "Fuente 1 · MINEDUC · Orientaciones del Plan de Formación Ciudadana"
+    },
+    {
+     "id": "ext8-10",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.mineduc.cl/wp-content/uploads/sites/19/2016/11/Orientaciones-curriculares-PFC-op-web.pdf",
+      "En el documento de MINEDUC, encuentra una idea sobre derechos o bienestar de la comunidad y escribe cómo se relaciona con el presupuesto de tu comuna."
+     ]
+    },
+    {
+     "id": "ext8-11",
+     "kind": "heading",
+     "text": "Fuente 2 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext8-12",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la BCN, revisa qué servicios públicos existen y piensa cuál es el más necesario para tu sector."
+     ]
+    },
+    {
+     "id": "ext8-13",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext8-14",
+     "kind": "list",
+     "items": [
+      "1. Propón cómo repartirías 100 unidades entre 4 áreas y explica por qué.",
+      "2. Explica con tus palabras qué es el costo de oportunidad con un ejemplo de Ovalle.",
+      "3. ¿Qué grupo de tu comunidad beneficiaría tu decisión y qué otro quedaría esperando?"
+     ]
+    },
+    {
+     "id": "ext8-15",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "contenido": [
@@ -1400,6 +2156,59 @@
      "text": "Datos disponibles (elige uno)"
     },
     {
+     "id": "lee9-0",
+     "kind": "heading",
+     "text": "Lectura · Pobreza y desigualdad: conceptos distintos"
+    },
+    {
+     "id": "lee9-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee9-2",
+     "kind": "text",
+     "text": "Pobreza y desigualdad no son lo mismo. La pobreza se refiere a la insuficiencia de recursos para satisfacer necesidades básicas: una persona o familia en situación de pobreza no alcanza a cubrir lo esencial. La desigualdad, en cambio, se refiere a cómo se distribuyen los ingresos y las oportunidades entre las personas: puede bajar la pobreza y, a la vez, mantenerse una alta desigualdad."
+    },
+    {
+     "id": "lee9-3",
+     "kind": "text",
+     "text": "Para medir la desigualdad existen herramientas como el coeficiente de Gini, que va de 0 (igualdad perfecta) a 1 (concentración total). Encuestas como la CASEN permiten conocer las condiciones de vida de los hogares con datos oficiales. Estas herramientas describen situaciones y no etiquetan a las personas: un dato no dice cómo es cada familia, sino cómo se reparten los recursos."
+    },
+    {
+     "id": "lee9-4",
+     "kind": "text",
+     "text": "El método Observo–Interpreto–Cuestiono–Propongo ayuda a analizar un dato con cuidado. Primero se observa qué muestra el gráfico; luego se interpreta con contexto; después se cuestiona qué falta saber; y finalmente se propone una acción de equidad. Pensar con datos es una forma de participación que puede mejorar las decisiones públicas."
+    },
+    {
+     "id": "lee9-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee9-6",
+     "kind": "list",
+     "items": [
+      "1. Explica la diferencia entre pobreza y desigualdad con un ejemplo.",
+      "2. ¿Por qué se dice que los datos no deben usarse para etiquetar a las personas?",
+      "3. Ordena los cuatro pasos del método Observo–Interpreto–Cuestiono–Propongo."
+     ]
+    },
+    {
+     "id": "lee9-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee9-8",
+     "kind": "list",
+     "items": [
+      "• Pobreza",
+      "• Desigualdad",
+      "• Coeficiente de Gini"
+     ]
+    },
+    {
      "id": "d1",
      "kind": "list",
      "items": [
@@ -1452,6 +2261,61 @@
      "id": "p1",
      "kind": "response",
      "text": "Propón una acción para el territorio que responda al dato."
+    },
+    {
+     "id": "ext9-13",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext9-14",
+     "kind": "text",
+     "text": "Tema de la guía: datos, pobreza y desigualdad. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext9-15",
+     "kind": "heading",
+     "text": "Fuente 1 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext9-16",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la BCN, busca cómo se usa la información en la participación ciudadana y escribe por qué los datos ayudan a tomar decisiones."
+     ]
+    },
+    {
+     "id": "ext9-17",
+     "kind": "heading",
+     "text": "Fuente 2 · educarchile · Participación y ciudadanía digital"
+    },
+    {
+     "id": "ext9-18",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://centroderecursos.educarchile.cl/items/928d5945-2558-422d-8d39-7510f91cd5fc",
+      "Revisa el recurso de educarchile y anota una forma responsable de usar información digital sin difundir datos personales."
+     ]
+    },
+    {
+     "id": "ext9-19",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext9-20",
+     "kind": "list",
+     "items": [
+      "1. Explica con tus palabras la diferencia entre pobreza y desigualdad.",
+      "2. Interpreta un dato de tu región y propón UNA acción de equidad para tu escuela o comuna.",
+      "3. ¿Qué pregunta harías a un gráfico antes de confiar en él? Lista 3."
+     ]
+    },
+    {
+     "id": "ext9-21",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "contenido": [
@@ -1596,6 +2460,114 @@
      "id": "arg1",
      "kind": "response",
      "text": "¿Debería priorizarse el agua para consumo humano por sobre el riego agrícola en períodos de escasez? Argumenta con un criterio y una evidencia."
+    },
+    {
+     "id": "ext10-12",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext10-13",
+     "kind": "text",
+     "text": "Tema de la guía: agua y desarrollo del Limarí. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext10-14",
+     "kind": "heading",
+     "text": "Fuente 1 · MINVU · Territorio Ciudadano"
+    },
+    {
+     "id": "lee10-0",
+     "kind": "heading",
+     "text": "Lectura · El agua del Limarí y sus actores"
+    },
+    {
+     "id": "lee10-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee10-2",
+     "kind": "text",
+     "text": "La provincia del Limarí vive del agua: regar el valle sostiene la agricultura, el agua de las casas sostiene la vida cotidiana y el cauce sostiene el río y sus ecosistemas. Cuando el año es seco, estos usos compiten por el mismo caudal. Por eso el agua es un buen ejemplo de un problema colectivo que no tiene una solución única ni sencilla."
+    },
+    {
+     "id": "lee10-3",
+     "kind": "text",
+     "text": "En torno al agua actúan distintos actores. Las organizaciones de regantes distribuyen el agua para la agricultura; el municipio y las comunidades rurales necesitan el agua para consumo humano; la Dirección General de Aguas (DGA) administra el recurso; y las organizaciones ambientales vigilan que el río mantenga vida. Cada actor tiene intereses y necesidades legítimas."
+    },
+    {
+     "id": "lee10-4",
+     "kind": "text",
+     "text": "Un desarrollo sostenible del territorio busca acuerdos que consideren el presente y el futuro: no basta con que un actor obtenga todo lo que pide hoy si eso pone en riesgo el agua de mañana. Las decisiones sobre el agua requieren información, participación de las comunidades y un compromiso de largo plazo con el bien común."
+    },
+    {
+     "id": "lee10-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee10-6",
+     "kind": "list",
+     "items": [
+      "1. ¿Qué usos del agua compiten en el Limarí?",
+      "2. Nombra dos actores del agua y qué necesitan cada uno.",
+      "3. ¿Qué significa que un acuerdo sobre el agua sea sostenible?"
+     ]
+    },
+    {
+     "id": "lee10-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee10-8",
+     "kind": "list",
+     "items": [
+      "• Cuenca",
+      "• Riego",
+      "• Sostenibilidad"
+     ]
+    },
+    {
+     "id": "ext10-15",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://territoriociudadano.minvu.gob.cl/",
+      "En Territorio Ciudadano, revisa qué mecanismos de participación existen y cuáles podrían usarse para decidir sobre el agua en el Limarí."
+     ]
+    },
+    {
+     "id": "ext10-16",
+     "kind": "heading",
+     "text": "Fuente 2 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext10-17",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la BCN, busca qué es la participación ciudadana en la gestión pública y relacionala con el cuidado del agua."
+     ]
+    },
+    {
+     "id": "ext10-18",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext10-19",
+     "kind": "list",
+     "items": [
+      "1. Nombra 3 usos del agua en el Limarí y qué actor representa cada uno.",
+      "2. Propón un acuerdo que considere a regantes, comunidades y medio ambiente.",
+      "3. ¿Qué significa que un acuerdo sobre el agua sea sostenible? Explica con un ejemplo."
+     ]
+    },
+    {
+     "id": "ext10-20",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "contenido": [
@@ -1666,6 +2638,59 @@
      "text": "Instrucciones"
     },
     {
+     "id": "lee11-0",
+     "kind": "heading",
+     "text": "Lectura · Del diagnóstico a la propuesta"
+    },
+    {
+     "id": "lee11-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee11-2",
+     "kind": "text",
+     "text": "Una propuesta ciudadana parte de un problema observable y delimitado: por ejemplo, un canal lleno de basura o una plaza sin juegos para la infancia. Luego se reúne evidencia (fotos, datos, testimonios) que demuestra que el problema existe y que afecta a personas concretas. Sin diagnóstico, una propuesta corre el riesgo de ser solo una buena idea."
+    },
+    {
+     "id": "lee11-3",
+     "kind": "text",
+     "text": "El proyecto Ovalle 2035 organiza esa propuesta en campos: el problema, la evidencia, el territorio, la población afectada, la participación ciudadana, el organismo público que puede apoyar, el actor privado que puede colaborar, los recursos necesarios y los impactos social y ambiental. Completar cada campo obliga a pensar la propuesta con detalle y a anticipar dificultades."
+    },
+    {
+     "id": "lee11-4",
+     "kind": "text",
+     "text": "Una propuesta sólida considera su viabilidad: ¿quién la haría realidad?, ¿con qué recursos?, ¿cómo se sabrá si funcionó? También valora su impacto social y ambiental, y busca la colaboración entre la comunidad, el Estado y los actores privados, sin que ninguno reemplace a otro. Así, el proyecto puede pasar del papel a la práctica."
+    },
+    {
+     "id": "lee11-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee11-6",
+     "kind": "list",
+     "items": [
+      "1. ¿Por qué una propuesta necesita partir de un problema bien diagnosticado?",
+      "2. Nombra al menos cinco campos del proyecto Ovalle 2035.",
+      "3. ¿Qué hace que una propuesta sea viable?"
+     ]
+    },
+    {
+     "id": "lee11-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee11-8",
+     "kind": "list",
+     "items": [
+      "• Diagnóstico",
+      "• Viabilidad",
+      "• Impacto social"
+     ]
+    },
+    {
      "id": "ins1",
      "kind": "list",
      "items": [
@@ -1733,6 +2758,61 @@
      "id": "c11a",
      "kind": "text",
      "text": "11. Propuesta: ________"
+    },
+    {
+     "id": "ext11-16",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext11-17",
+     "kind": "text",
+     "text": "Tema de la guía: proyecto Ovalle 2035. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext11-18",
+     "kind": "heading",
+     "text": "Fuente 1 · MINEDUC · Orientaciones del Plan de Formación Ciudadana"
+    },
+    {
+     "id": "ext11-19",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.mineduc.cl/wp-content/uploads/sites/19/2016/11/Orientaciones-curriculares-PFC-op-web.pdf",
+      "En el documento de MINEDUC, busca qué es el aprendizaje-servicio o la participación y explica cómo fortalece un proyecto de barrio."
+     ]
+    },
+    {
+     "id": "ext11-20",
+     "kind": "heading",
+     "text": "Fuente 2 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext11-21",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la BCN, identifica qué organismo público o servicio podría apoyar una propuesta como la tuya."
+     ]
+    },
+    {
+     "id": "ext11-22",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext11-23",
+     "kind": "list",
+     "items": [
+      "1. Describe el problema de tu proyecto en 2–3 frases y nombra su territorio.",
+      "2. Redacta la propuesta de tu equipo y qué actor público o privado la apoyaría.",
+      "3. Explica un impacto social y uno ambiental de tu propuesta."
+     ]
+    },
+    {
+     "id": "ext11-24",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "rubric": {
@@ -1936,6 +3016,59 @@
      "text": "Colegio La Providencia · Ovalle — Educación Ciudadana · Tercero Medio"
     },
     {
+     "id": "lee12-0",
+     "kind": "heading",
+     "text": "Lectura · Comunicar para participar"
+    },
+    {
+     "id": "lee12-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee12-2",
+     "kind": "text",
+     "text": "Presentar una propuesta también es una forma de participar: permite que otras personas conozcan un problema, evalúen alternativas y entreguen retroalimentación. Una buena presentación ciudadana es clara: explica el problema y a quiénes afecta, muestra una evidencia concreta y propone una solución realizable. La claridad no es solo estética: es respeto por el tiempo y la comprensión de quienes escuchan."
+    },
+    {
+     "id": "lee12-3",
+     "kind": "text",
+     "text": "Para comunicar bien conviene estructurar el mensaje. Se puede partir por el problema y la población afectada; luego mostrar la evidencia; después explicar la propuesta y quién hace qué; y finalmente cerrar con el impacto que se espera lograr. Anticipar preguntas también ayuda: ¿por qué esto es necesario?, ¿con qué recursos?, ¿cómo se sostiene en el tiempo?"
+    },
+    {
+     "id": "lee12-4",
+     "kind": "text",
+     "text": "En una feria ciudadana, los equipos presentan sus proyectos a la comunidad y reciben preguntas y comentarios. Este intercambio mejora las propuestas porque suma miradas distintas. Una comunicación democrática usa lenguaje claro, reconoce límites y escucha sin descalificar: de eso se trata convivir con otras opiniones en una comunidad."
+    },
+    {
+     "id": "lee12-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee12-6",
+     "kind": "list",
+     "items": [
+      "1. ¿Qué elementos debe tener una presentación clara de un proyecto?",
+      "2. Propón un orden para presentar tu proyecto en 3 minutos.",
+      "3. ¿Cómo puede la retroalimentación de la comunidad mejorar una propuesta?"
+     ]
+    },
+    {
+     "id": "lee12-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee12-8",
+     "kind": "list",
+     "items": [
+      "• Retroalimentación",
+      "• Claridad",
+      "• Audiencia"
+     ]
+    },
+    {
      "id": "ins",
      "kind": "list",
      "items": [
@@ -1954,6 +3087,61 @@
      "id": "tick1",
      "kind": "response",
      "text": "Escribe una idea que te lleves del proyecto y cómo seguirás participando en Ovalle."
+    },
+    {
+     "id": "ext12-5",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext12-6",
+     "kind": "text",
+     "text": "Tema de la guía: comunicación y feria ciudadana. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext12-7",
+     "kind": "heading",
+     "text": "Fuente 1 · Currículum Nacional · Video «Educación ciudadana: ¿qué es?»"
+    },
+    {
+     "id": "ext12-8",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.curriculumnacional.cl/recursos/video-educacion-ciudadana",
+      "Mira el video del Currículum Nacional y escribe qué hace una buena explicación ciudadana (claridad, ejemplo, argumento)."
+     ]
+    },
+    {
+     "id": "ext12-9",
+     "kind": "heading",
+     "text": "Fuente 2 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext12-10",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la BCN, busca consejos de comunicación o participación y anota 3 ideas para presentar mejor."
+     ]
+    },
+    {
+     "id": "ext12-11",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext12-12",
+     "kind": "list",
+     "items": [
+      "1. Escribe el guion de tu presentación de 3 minutos (problema, evidencia, propuesta, actores, impacto).",
+      "2. Elige UNA frase que la comunidad recordará de tu equipo y explica por qué.",
+      "3. Describe qué aprendiste del proceso y qué mejorarías en tu equipo."
+     ]
+    },
+    {
+     "id": "ext12-13",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ],
    "rubric": {
@@ -3531,6 +4719,59 @@
      "text": "Instrucciones"
     },
     {
+     "id": "lee1-0",
+     "kind": "heading",
+     "text": "Lectura · ¿Qué es la ciudadanía y por qué importa?"
+    },
+    {
+     "id": "lee1-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee1-2",
+     "kind": "text",
+     "text": "La ciudadanía es mucho más que tener un documento o cumplir años: es una condición que une derechos con responsabilidades. Una ciudadana tiene derecho a participar, a opinar y a que se le escuche, pero también tiene la responsabilidad de informarse, de respetar a las demás personas y de aportar al bien común. En otras palabras, ser ciudadana se aprende y se practica todos los días."
+    },
+    {
+     "id": "lee1-3",
+     "kind": "text",
+     "text": "La ciudadanía se ejerce en distintas escalas. En tu casa, cuando ayudas a decidir cómo organizar un espacio común; en tu barrio, cuando participas en la junta de vecinos; en tu comuna, cuando opinas sobre una plaza o un problema de tu sector; y en tu país, cuando conoces tus derechos y participas de las decisiones que afectan a todas y todos."
+    },
+    {
+     "id": "lee1-4",
+     "kind": "text",
+     "text": "Existen tres tradiciones que piensan la ciudadanía de maneras distintas. La tradición republicana destaca la virtud cívica y el compromiso con el bien común. La tradición liberal pone el acento en la libertad y los derechos de cada persona frente al poder. La tradición comunitaria valora los lazos, la identidad y las comunidades concretas. Las tres se complementan cuando se trata de resolver problemas reales."
+    },
+    {
+     "id": "lee1-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee1-6",
+     "kind": "list",
+     "items": [
+      "1. Explica con tus palabras por qué la ciudadanía une derechos con responsabilidades.",
+      "2. Nombra una escala de participación (casa, barrio, comuna o país) y pon un ejemplo.",
+      "3. ¿Qué diferencia hay entre la mirada republicana y la liberal sobre la ciudadanía?"
+     ]
+    },
+    {
+     "id": "lee1-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee1-8",
+     "kind": "list",
+     "items": [
+      "• Bien común",
+      "• Virtud cívica",
+      "• Comunidad"
+     ]
+    },
+    {
      "id": "ins1",
      "kind": "list",
      "items": [
@@ -3568,8 +4809,373 @@
      "id": "c1",
      "kind": "response",
      "text": "Comparte en una frase qué esperas aprender este semestre."
+    },
+    {
+     "id": "ext1-10",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext1-11",
+     "kind": "text",
+     "text": "Tema de la guía: ciudadanía y participación. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext1-12",
+     "kind": "heading",
+     "text": "Fuente 1 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext1-13",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "Busca en la fuente el capítulo de «ciudadanía y participación» y escribe con tus palabras UNA idea central (cita el nombre de la fuente)."
+     ]
+    },
+    {
+     "id": "ext1-14",
+     "kind": "heading",
+     "text": "Fuente 2 · educarchile · Participación y ciudadanía digital"
+    },
+    {
+     "id": "ext1-15",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://centroderecursos.educarchile.cl/items/928d5945-2558-422d-8d39-7510f91cd5fc",
+      "Después de ver/leer el recurso, responde: ¿qué diferencia hay entre opinar en redes y participar en una decisión pública? Da un ejemplo cercano."
+     ]
+    },
+    {
+     "id": "ext1-16",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext1-17",
+     "kind": "list",
+     "items": [
+      "1. Explica con tus palabras qué es ser ciudadana y da un ejemplo de tu barrio.",
+      "2. Elige una tradición (republicana, liberal o comunitaria) y explica cómo resolvería un problema de tu sector.",
+      "3. ¿En qué te gustaría participar este año en tu colegio o en Ovalle y cómo lo harías?"
+     ]
+    },
+    {
+     "id": "ext1-18",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
     }
    ]
   }
+ },
+ {
+  "id": "mat-class-13-debate",
+  "courseId": "course-3med-d-2026",
+  "classId": "class-13",
+  "unitId": "U4",
+  "type": "GUIDE",
+  "title": "Guía 13 · Gran Debate — ¿Quién debe resolver los problemas?",
+  "description": "Misión alternativa: preparación (martes), organización (miércoles) y debate en mesas (jueves) sobre qué actor o colaboración resuelve un problema de Ovalle.",
+  "oaIds": [
+   "OA4"
+  ],
+  "classObjective": "Evaluar, con argumentos y evidencia, qué actor (Estado, mercado, ciudadanía o colaboración) debería resolver distintos problemas de Ovalle, deliberando en mesa y construyendo acuerdos.",
+  "indicators": [
+   "Clasifica problemas por actor",
+   "Justifica con un criterio",
+   "Propone colaboraciones",
+   "Escucha y construye acuerdos"
+  ],
+  "duration": 90,
+  "estimatedPages": 2,
+  "requiresPrinting": true,
+  "reviewConfig": {
+   "evaluatorRequired": true,
+   "pieRequired": false,
+   "utpRequired": false
+  },
+  "content": {
+   "curricular": {
+    "oa": [
+     "OA4"
+    ],
+    "objective": "Evaluar qué actor o colaboración debería resolver distintos problemas públicos, con argumentos y evidencia.",
+    "indicators": [
+     "Clasifica problemas por actor",
+     "Justifica con un criterio",
+     "Propone colaboraciones",
+     "Escucha y construye acuerdos"
+    ]
+   },
+   "contenido": [
+    "Algunos problemas se resuelven mejor con el Estado (bienes públicos y derechos), otros con el mercado (producción de bienes) y otros exigen ciudadanía (cuidado comunitario). Muchas veces la mejor respuesta es la colaboración: alianzas entre Estado, mercado y ciudadanía que combinan capacidades y recursos.",
+    "En el debate cada integrante defiende una postura (Estado, mercado, ciudadanía o colaboración) con un argumento en tres pasos, como en el cabildo: postura clara, razón con un criterio (igualdad, eficiencia o participación) y evidencia que la sostenga.",
+    "El debate no busca un ganador: se escucha sin interrumpir, se pregunta para comprender y se termina en un acuerdo orientado al bien común (Arnstein, 1969; MINEDUC, 2020)."
+   ],
+   "sections": [
+    {
+     "id": "h1",
+     "kind": "heading",
+     "text": "Guía del Gran Debate — ¿Quién resuelve?"
+    },
+    {
+     "id": "h2",
+     "kind": "text",
+     "text": "Colegio La Providencia · Ovalle — Educación Ciudadana · Tercero Medio · Misión alternativa"
+    },
+    {
+     "id": "ins",
+     "kind": "heading",
+     "text": "Cómo se organiza la semana"
+    },
+    {
+     "id": "tabla-crono",
+     "kind": "table",
+     "table": {
+      "headers": [
+       "Día",
+       "Trabajo",
+       "Qué se hace"
+      ],
+      "rows": [
+       {
+        "cells": [
+         "Martes (2 h)",
+         "Preparación",
+         "Conocer Estado, mercado, ciudadanía, bienes públicos y colaboración; elegir caso y postura; completar el argumento en tres pasos."
+        ]
+       },
+       {
+        "cells": [
+         "Miércoles (1 h)",
+         "Organización",
+         "Definir formato y tiempos; roles de mesa (moderadora, secretaria, cronometrista); ensayo de aperturas de 1 minuto."
+        ]
+       },
+       {
+        "cells": [
+         "Jueves (2 h)",
+         "Debate",
+         "Deliberación en mesas, propuestas de colaboración, acuerdos en plenaria, autoevaluación con rúbrica y ticket de salida."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "ins1",
+     "kind": "heading",
+     "text": "Instrucciones del debate"
+    },
+    {
+     "id": "lee13-0",
+     "kind": "heading",
+     "text": "Lectura · Argumentar y deliberar en una mesa"
+    },
+    {
+     "id": "lee13-1",
+     "kind": "text",
+     "text": "Lee con atención el siguiente texto de la clase. Después responde las preguntas de comprensión con tus propias palabras."
+    },
+    {
+     "id": "lee13-2",
+     "kind": "text",
+     "text": "Un argumento es una postura sostenida por razones y evidencia. No es lo mismo opinar que argumentar: opinar puede ser solo un gusto, mientras que argumentar invita a explicar por qué se piensa así y qué información apoya esa idea. En un debate ciudadano, la calidad del argumento importa más que la fuerza de la voz."
+    },
+    {
+     "id": "lee13-3",
+     "kind": "text",
+     "text": "Argumentar bien sigue tres pasos: primero, decir con claridad la postura o el actor que se defiende; segundo, dar una razón usando conceptos de la unidad (por ejemplo, bien público, igualdad o participación); y tercero, apoyar la razón con una evidencia o un ejemplo local. Esta estructura ayuda a ordenar las ideas y a que los demás puedan responder."
+    },
+    {
+     "id": "lee13-4",
+     "kind": "text",
+     "text": "Deliberar en una mesa significa poner los argumentos al servicio de un acuerdo. Se escucha sin interrumpir, se hacen preguntas para comprender y se busca una solución que pueda apoyar el grupo. El objetivo no es que una postura «gane» sobre otra, sino que la conversación produzca mejores decisiones para la comunidad."
+    },
+    {
+     "id": "lee13-5",
+     "kind": "heading",
+     "text": "Preguntas de comprensión lectora"
+    },
+    {
+     "id": "lee13-6",
+     "kind": "list",
+     "items": [
+      "1. ¿Qué diferencia hay entre opinar y argumentar?",
+      "2. Nombra los tres pasos del argumento trabajado en clase.",
+      "3. ¿Qué hace que una mesa deliberativa llegue a un buen acuerdo?"
+     ]
+    },
+    {
+     "id": "lee13-7",
+     "kind": "heading",
+     "text": "Vocabulario de la clase"
+    },
+    {
+     "id": "lee13-8",
+     "kind": "list",
+     "items": [
+      "• Argumento",
+      "• Postura",
+      "• Acuerdo"
+     ]
+    },
+    {
+     "id": "ins2",
+     "kind": "list",
+     "items": [
+      "Formen mesas de 4–5 integrantes.",
+      "Elijan un caso de la lista o un problema real del expediente.",
+      "Cada integrante defiende una postura: Estado, mercado, ciudadanía o colaboración.",
+      "Completen la tabla «mi argumento en tres pasos» y traigan al menos una evidencia o ejemplo local.",
+      "Durante el debate: apertura de 1 minuto por postura, preguntas cruzadas y cierre de 1 minuto.",
+      "La secretaria registra el acuerdo; la plenaria comparte los acuerdos de cada mesa."
+     ]
+    },
+    {
+     "id": "casos",
+     "kind": "heading",
+     "text": "Casos posibles (elijan uno por mesa)"
+    },
+    {
+     "id": "casos1",
+     "kind": "list",
+     "items": [
+      "Atención de salud en el sector rural.",
+      "Mantención de las áreas verdes de la plaza.",
+      "Transporte público entre Ovalle y las localidades.",
+      "Seguridad e iluminación de una calle del barrio.",
+      "Vivienda para familias de la comuna."
+     ]
+    },
+    {
+     "id": "roles",
+     "kind": "heading",
+     "text": "Roles de mesa (rotativos)"
+    },
+    {
+     "id": "roles1",
+     "kind": "list",
+     "items": [
+      "Moderadora: da los turnos y cuida los tiempos.",
+      "Secretaria: registra el acta de acuerdos.",
+      "Cronometrista: controla el cronómetro visible.",
+      "Defensoras: una por postura (Estado, mercado, ciudadanía, colaboración)."
+     ]
+    },
+    {
+     "id": "tabla",
+     "kind": "heading",
+     "text": "Tabla de apoyo: mi argumento en tres pasos"
+    },
+    {
+     "id": "t1",
+     "kind": "table",
+     "table": {
+      "headers": [
+       "Paso",
+       "Qué incluye",
+       "Mi respuesta"
+      ],
+      "rows": [
+       {
+        "cells": [
+         "1. Postura",
+         "Qué actor defiendo y por qué le corresponde el caso",
+         ""
+        ]
+       },
+       {
+        "cells": [
+         "2. Razón con criterio",
+         "Igualdad, eficiencia o participación",
+         ""
+        ]
+       },
+       {
+        "cells": [
+         "3. Evidencia",
+         "Dato, ejemplo local o fuente que sostiene mi postura",
+         ""
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "cierre",
+     "kind": "heading",
+     "text": "Cierre y evaluación"
+    },
+    {
+     "id": "c1",
+     "kind": "text",
+     "text": "Autoevaluación con la rúbrica (postura y actor · argumentación · evidencia · diálogo y acuerdos) y ticket de salida: «¿Qué actor te convenció más y por qué? ¿Qué colaboración aplicarías en tu barrio?»"
+    },
+    {
+     "id": "ext13-14",
+     "kind": "heading",
+     "text": "Parte 2 · Investigar con fuentes externas (≈ 30 minutos)"
+    },
+    {
+     "id": "ext13-15",
+     "kind": "text",
+     "text": "Tema de la guía: debate y argumentación. Para profundizar, visita las dos fuentes oficiales indicadas y registra lo que encuentres. Usa siempre tus propias palabras y anota de dónde sacaste cada idea."
+    },
+    {
+     "id": "ext13-16",
+     "kind": "heading",
+     "text": "Fuente 1 · Biblioteca del Congreso Nacional · Guía de Formación Cívica"
+    },
+    {
+     "id": "ext13-17",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.bcn.cl/formacioncivica/presentacion",
+      "En la BCN, busca qué es deliberar o participar en decisiones públicas y escribe qué se necesita para argumentar bien."
+     ]
+    },
+    {
+     "id": "ext13-18",
+     "kind": "heading",
+     "text": "Fuente 2 · MINEDUC · Orientaciones del Plan de Formación Ciudadana"
+    },
+    {
+     "id": "ext13-19",
+     "kind": "list",
+     "items": [
+      "Abre esta fuente: https://www.mineduc.cl/wp-content/uploads/sites/19/2016/11/Orientaciones-curriculares-PFC-op-web.pdf",
+      "En el documento de MINEDUC, encuentra una idea sobre diálogo o convivencia democrática y aplícala a tu mesa de debate."
+     ]
+    },
+    {
+     "id": "ext13-20",
+     "kind": "heading",
+     "text": "Parte 3 · Escribe tu respuesta (≈ 20 minutos)"
+    },
+    {
+     "id": "ext13-21",
+     "kind": "list",
+     "items": [
+      "1. Escribe tu postura en UNA frase y agrégale una razón.",
+      "2. Aporta UNA evidencia o ejemplo local que sostenga tu postura.",
+      "3. Describe qué acuerdo logró tu mesa y qué tuviste que ceder o negociar."
+     ]
+    },
+    {
+     "id": "ext13-22",
+     "kind": "text",
+     "text": "Revisa tu respuesta: ¿tiene postura?, ¿tiene al menos una razón?, ¿cita o nombra la fuente consultada? Eso convierte una opinión en un argumento."
+    }
+   ],
+   "referencias": [
+    "Arnstein, S. R. (1969). A ladder of citizen participation. Journal of the American Institute of Planners, 35(4), 216–224.",
+    "Locke, J. (1690). Segundo tratado sobre el gobierno civil. Madrid: Alianza (2014).",
+    "Mill, J. S. (1859). Sobre la libertad. Madrid: Alianza (2005).",
+    "MINEDUC (2020). Bases Curriculares 3° y 4° medio: Formación Ciudadana. Santiago: Ministerio de Educación.",
+    "Observatodo. (2026). Periódico local de la Provincia de Limarí, Ovalle."
+   ]
+  },
+  "classDate": "2026-09-07T14:00:00.000Z"
  }
 ]

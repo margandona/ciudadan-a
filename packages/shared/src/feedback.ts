@@ -63,6 +63,8 @@ export interface QuestionPerformance {
   prompt: string;
   correctRate: number; // 0..1
   attempts: number;
+  /** Retroalimentación sugerida automáticamente según el rendimiento. */
+  suggestion?: string;
 }
 
 /** Analítica pedagógica de una clase (descriptiva, sin etiquetas). */
@@ -74,6 +76,8 @@ export interface ClassAnalytics {
   avgDifficulty: number | null;
   participation: number;
   lowPerformance: QuestionPerformance[];
+  /** Duración promedio de los quizzes (minutos). */
+  avgQuizMinutes: number | null;
 }
 
 export interface CourseAnalytics {

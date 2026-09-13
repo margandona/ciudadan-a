@@ -59,7 +59,7 @@ describe("StudentQuizView", () => {
 
   it("envía respuestas y muestra el resultado", async () => {
     vi.mocked(getQuizForStudent).mockResolvedValue(quiz);
-    vi.mocked(submitQuizAttempt).mockResolvedValue(attempt);
+    vi.mocked(submitQuizAttempt).mockResolvedValue({ attempt, xpAwarded: 25 });
     const wrapper = mount(StudentQuizView, {
       props: { quizId: "quiz-1" },
       global: { stubs: { RouterLink: true } },

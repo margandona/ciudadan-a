@@ -15,6 +15,13 @@ export function evaluateBadge(stats: StudentActivityStats, badge: Badge): boolea
         return stats.participationTotal >= criteria.threshold;
       case "EXIT_TICKETS":
         return stats.exitTickets >= criteria.threshold;
+      case "MISSION_COMPLETED":
+        // Las medallas de misión se otorgan al completar el recorrido (evento),
+        // no por estadísticas acumuladas; nunca se conceden aquí automáticamente.
+        return false;
+      case "MANUAL":
+        // Medallas de comportamiento, colaboración o mérito: las otorga el docente.
+        return false;
       default:
         return false;
     }

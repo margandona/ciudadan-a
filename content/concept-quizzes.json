@@ -1,0 +1,218 @@
+[
+  {
+    "level": 1,
+    "title": "Ciudadanía",
+    "passPercent": 70,
+    "xpReward": 40,
+    "questions": [
+      { "id": "c1-q1", "prompt": "¿Qué implica ejercer la ciudadanía?", "options": ["Tener un documento de identidad", "Participar en los asuntos comunes ejerciendo derechos y deberes", "Vivir en un país", "Pagar impuestos"], "correctIndex": 1, "concept": "ciudadanía activa", "explanation": "La ciudadanía se ejerce participando y asumiendo derechos y responsabilidades." },
+      { "id": "c1-q2", "prompt": "La ciudadanía se aprende principalmente…", "options": ["Memorizando leyes", "Practicándola en la escuela, el barrio y la comunidad", "Leyendo el diario", "Solo al cumplir 18 años"], "correctIndex": 1, "concept": "aprendizaje ciudadano", "explanation": "Se aprende en la práctica cotidiana y colectiva." },
+      { "id": "c1-q3", "prompt": "¿Cuál es un derecho ciudadano?", "options": ["Expresar opiniones y reunirse pacíficamente", "Obedecer sin cuestionar", "No informarse", "Imponer ideas"], "correctIndex": 0, "concept": "derechos", "explanation": "La libertad de expresión y reunión son derechos fundamentales." },
+      { "id": "c1-q4", "prompt": "¿Cuál es un deber ciudadano?", "options": ["Respetar los derechos de las demás personas", "Ganar siempre", "Evitar la comunidad", "No participar"], "correctIndex": 0, "concept": "deberes", "explanation": "Los derechos de unos terminan donde empiezan los de otros." },
+      { "id": "c1-q5", "prompt": "¿Qué caracteriza a una ciudadana activa?", "options": ["Informarse y participar en decisiones de su entorno", "Esperar que otros resuelvan", "Desconfiar de todo", "Evitar opinar"], "correctIndex": 0, "concept": "participación", "explanation": "Informarse y participar es el núcleo de la ciudadanía activa." },
+      { "id": "c1-q6", "prompt": "¿Cuál es la diferencia entre un derecho y un deber?", "options": ["Son lo mismo", "El derecho protege a la persona; el deber obliga a respetar los derechos de las demás", "El deber solo lo tienen las autoridades", "El derecho se puede quitar libremente"], "correctIndex": 1, "concept": "derechos y deberes", "explanation": "Derechos y deberes se complementan en la convivencia." },
+      { "id": "c1-q7", "prompt": "Una ciudadana que se informa antes de opinar…", "options": ["Pierde tiempo", "Participa con responsabilidad", "Copia a otros", "Evita el debate"], "correctIndex": 1, "concept": "responsabilidad", "explanation": "Informarse mejora la calidad de la participación." },
+      { "id": "c1-q8", "prompt": "¿Qué institución está más cerca de la vida diaria del territorio?", "options": ["El municipio", "Un tribunal internacional", "El banco central", "La ONU"], "correctIndex": 0, "concept": "instituciones locales", "explanation": "El municipio gestiona servicios y decisiones cercanas." },
+      { "id": "c1-q9", "prompt": "La convivencia democrática se basa en…", "options": ["El respeto y el diálogo", "La fuerza", "El silencio", "La indiferencia"], "correctIndex": 0, "concept": "convivencia", "explanation": "Sin respeto y diálogo no hay convivencia democrática." },
+      { "id": "c1-q10", "prompt": "Ser ciudadana en la escuela significa…", "options": ["Solo obedecer normas", "Participar en las decisiones que te afectan", "No involucrarse", "Competir por notas"], "correctIndex": 1, "concept": "ciudadanía escolar", "explanation": "La escuela es un primer espacio de ciudadanía." }
+    ]
+  },
+  {
+    "level": 2,
+    "title": "Tradiciones y cultura",
+    "passPercent": 70,
+    "xpReward": 50,
+    "questions": [
+      { "id": "c2-q1", "prompt": "Las tradiciones de un territorio…", "options": ["Expresan la identidad y memoria de su comunidad", "No tienen relación con la historia", "Solo interesan a los turistas", "Deben eliminarse con el tiempo"], "correctIndex": 0, "concept": "identidad cultural", "explanation": "Las tradiciones condensan identidad y memoria colectiva." },
+      { "id": "c2-q2", "prompt": "¿Cuál es un ejemplo de patrimonio cultural inmaterial?", "options": ["Una fiesta o baile tradicional", "Un edificio antiguo", "Una estatua", "Un parque nacional"], "correctIndex": 0, "concept": "patrimonio inmaterial", "explanation": "El patrimonio inmaterial incluye prácticas, fiestas y saberes." },
+      { "id": "c2-q3", "prompt": "Respetar tradiciones distintas…", "options": ["Fortalece la convivencia intercultural", "Empobrece la cultura", "Es una pérdida de tiempo", "Debilita la identidad propia"], "correctIndex": 0, "concept": "interculturalidad", "explanation": "El respeto a la diversidad fortalece la convivencia." },
+      { "id": "c2-q4", "prompt": "La cultura se transmite…", "options": ["De generación en generación y también se transforma", "Solo por escrito", "Únicamente en la escuela", "Nunca cambia"], "correctIndex": 0, "concept": "transmisión cultural", "explanation": "La cultura se hereda y a la vez se recrea." },
+      { "id": "c2-q5", "prompt": "Cuidar el patrimonio local…", "options": ["Es responsabilidad de la comunidad", "Es tarea solo del Estado", "No tiene importancia", "Es solo para expertos"], "correctIndex": 0, "concept": "cuidado del patrimonio", "explanation": "La comunidad es la primera guardiana de su patrimonio." },
+      { "id": "c2-q6", "prompt": "El patrimonio cultural incluye…", "options": ["Solo objetos valiosos", "Bienes materiales e inmateriales", "Únicamente monumentos", "Solo documentos"], "correctIndex": 1, "concept": "patrimonio", "explanation": "Abarca tanto objetos como prácticas y saberes." },
+      { "id": "c2-q7", "prompt": "Una tradición puede cambiar con el tiempo porque…", "options": ["Las culturas son dinámicas", "Se olvidan las reglas", "Nadie las respeta", "El Estado lo ordena"], "correctIndex": 0, "concept": "dinamismo cultural", "explanation": "Las culturas se transforman con las sociedades." },
+      { "id": "c2-q8", "prompt": "¿Por qué es importante registrar las tradiciones?", "options": ["Para preservar la memoria colectiva", "Para venderlas", "Para prohibirlas", "No es importante"], "correctIndex": 0, "concept": "memoria", "explanation": "El registro ayuda a conservar la memoria para el futuro." },
+      { "id": "c2-q9", "prompt": "La diversidad cultural enriquece…", "options": ["La identidad del territorio", "La uniformidad", "El aislamiento", "El conflicto"], "correctIndex": 0, "concept": "diversidad", "explanation": "La diversidad aporta riqueza a la identidad colectiva." },
+      { "id": "c2-q10", "prompt": "¿Cuál es un ejemplo de bien cultural material?", "options": ["Un edificio histórico", "Una canción", "Una receta", "Una leyenda"], "correctIndex": 0, "concept": "patrimonio material", "explanation": "Los bienes materiales son tangibles, como edificios y objetos." }
+    ]
+  },
+  {
+    "level": 3,
+    "title": "Participación",
+    "passPercent": 70,
+    "xpReward": 60,
+    "questions": [
+      { "id": "c3-q1", "prompt": "Participar significa…", "options": ["Incidir en decisiones que afectan lo común", "Solo opinar sin escuchar", "Asistir en silencio", "Delegar todo en otros"], "correctIndex": 0, "concept": "participación", "explanation": "Participar es incidir en lo colectivo." },
+      { "id": "c3-q2", "prompt": "¿Cuál es un mecanismo de participación escolar?", "options": ["El centro de estudiantes", "La sala de clases vacía", "El timbre", "El recreo"], "correctIndex": 0, "concept": "participación escolar", "explanation": "El centro de estudiantes canaliza la voz estudiantil." },
+      { "id": "c3-q3", "prompt": "La participación mejora cuando…", "options": ["Hay información clara y canales abiertos", "Se decide sin informar", "Solo participan algunos", "No hay reglas"], "correctIndex": 0, "concept": "calidad democrática", "explanation": "Información y canales abiertos habilitan la participación." },
+      { "id": "c3-q4", "prompt": "Participar responsablemente implica…", "options": ["Escuchar y argumentar, no solo exigir", "Imponer la propia idea", "No ceder nunca", "Callar a quien piensa distinto"], "correctIndex": 0, "concept": "deliberación", "explanation": "La deliberación combina argumentos y escucha." },
+      { "id": "c3-q5", "prompt": "La abstención (no participar)…", "options": ["Deja que otros decidan por ti", "Es una forma de decidir", "No tiene consecuencias", "Mejora la democracia"], "correctIndex": 0, "concept": "consecuencias de no participar", "explanation": "Quien no participa deja las decisiones en manos ajenas." },
+      { "id": "c3-q6", "prompt": "Un presupuesto participativo es…", "options": ["Una forma de decidir el gasto con la comunidad", "Un impuesto nuevo", "Una multa", "Un préstamo"], "correctIndex": 0, "concept": "presupuesto participativo", "explanation": "La comunidad propone y prioriza parte del gasto público." },
+      { "id": "c3-q7", "prompt": "La participación ciudadana requiere…", "options": ["Información y organización", "Dinero únicamente", "Permiso especial", "No requiere nada"], "correctIndex": 0, "concept": "condiciones", "explanation": "Sin información ni organización la participación se debilita." },
+      { "id": "c3-q8", "prompt": "¿Cuál es un obstáculo para participar?", "options": ["La falta de canales y de tiempo", "Tener opiniones", "Vivir en comunidad", "Saber leer"], "correctIndex": 0, "concept": "barreras", "explanation": "La falta de canales y tiempo limita la participación." },
+      { "id": "c3-q9", "prompt": "El voto es…", "options": ["Una forma de participación, no la única", "La única forma de participar", "Un deber sin sentido", "Un trámite"], "correctIndex": 0, "concept": "formas de participación", "explanation": "Existen muchas formas de participar además de votar." },
+      { "id": "c3-q10", "prompt": "La participación de las y los jóvenes…", "options": ["Aporta nuevas miradas a lo común", "No sirve", "Es un problema", "Debe evitarse"], "correctIndex": 0, "concept": "participación juvenil", "explanation": "Las nuevas generaciones aportan perspectivas necesarias." }
+    ]
+  },
+  {
+    "level": 4,
+    "title": "Territorio",
+    "passPercent": 70,
+    "xpReward": 70,
+    "questions": [
+      { "id": "c4-q1", "prompt": "El territorio es…", "options": ["El espacio donde se construyen relaciones sociales y culturales", "Solo un mapa", "Un límite administrativo", "Un terreno sin historia"], "correctIndex": 0, "concept": "territorio", "explanation": "El territorio se vive y se construye socialmente." },
+      { "id": "c4-q2", "prompt": "Conocer el territorio permite…", "options": ["Identificar problemas y oportunidades locales", "Evitar a la comunidad", "Ignorar el entorno", "Depender de otros"], "correctIndex": 0, "concept": "diagnóstico territorial", "explanation": "El conocimiento del territorio orienta la acción." },
+      { "id": "c4-q3", "prompt": "¿Cuál es un actor del territorio?", "options": ["La junta de vecinos", "Un videojuego", "Una nube", "Un algoritmo"], "correctIndex": 0, "concept": "actores del territorio", "explanation": "Las organizaciones sociales son actores del territorio." },
+      { "id": "c4-q4", "prompt": "Un problema territorial se aborda mejor…", "options": ["Con la participación de varios actores", "Solo por una persona", "Sin información", "Aisladamente"], "correctIndex": 0, "concept": "gestión colaborativa", "explanation": "La colaboración entre actores mejora las soluciones." },
+      { "id": "c4-q5", "prompt": "La identidad local se forma…", "options": ["A partir de la historia y el paisaje del lugar", "Solo por internet", "De un día para otro", "Sin relación con el lugar"], "correctIndex": 0, "concept": "identidad local", "explanation": "Historia y paisaje configuran la identidad local." },
+      { "id": "c4-q6", "prompt": "Un mapa comunitario sirve para…", "options": ["Visualizar recursos y problemas del lugar", "Decorar", "Medir distancias exactas", "Vender terrenos"], "correctIndex": 0, "concept": "cartografía social", "explanation": "El mapa comunitario hace visibles recursos y conflictos." },
+      { "id": "c4-q7", "prompt": "La escala local es importante porque…", "options": ["Las decisiones cercanas afectan la vida diaria", "Es la única escala", "Reemplaza al Estado", "No importa"], "correctIndex": 0, "concept": "escala local", "explanation": "Lo local es donde se sienten los efectos de las decisiones." },
+      { "id": "c4-q8", "prompt": "Un conflicto territorial se resuelve mejor…", "options": ["Con diálogo y acuerdos entre actores", "Con violencia", "Ignorándolo", "Con una sola parte decidiendo"], "correctIndex": 0, "concept": "resolución de conflictos", "explanation": "El diálogo y los acuerdos sostienen soluciones duraderas." },
+      { "id": "c4-q9", "prompt": "El paisaje es parte de…", "options": ["La identidad del territorio", "Un adorno", "Un recurso sin valor", "Un obstáculo"], "correctIndex": 0, "concept": "paisaje", "explanation": "El paisaje configura la identidad y el sentido de pertenencia." },
+      { "id": "c4-q10", "prompt": "La ruralidad y la ciudad…", "options": ["Se complementan en un mismo territorio", "Son mundos separados", "No se relacionan", "Compiten siempre"], "correctIndex": 0, "concept": "rural-urbano", "explanation": "Campo y ciudad se necesitan y se relacionan." }
+    ]
+  },
+  {
+    "level": 5,
+    "title": "Expediente ciudadano",
+    "passPercent": 70,
+    "xpReward": 80,
+    "questions": [
+      { "id": "c5-q1", "prompt": "Un expediente ciudadano sirve para…", "options": ["Organizar información y evidencias sobre un tema", "Adornar la sala", "Reemplazar el examen", "Guardar secretos"], "correctIndex": 0, "concept": "expediente", "explanation": "El expediente ordena datos y evidencias." },
+      { "id": "c5-q2", "prompt": "Una fuente confiable se caracteriza por…", "options": ["Ser verificable y citar su origen", "Ser anónima", "No tener fecha", "Repetirse en redes"], "correctIndex": 0, "concept": "fuentes", "explanation": "La verificabilidad y la trazabilidad dan confianza." },
+      { "id": "c5-q3", "prompt": "Contrastar fuentes ayuda a…", "options": ["Evitar desinformación y sesgos", "Confirmar prejuicios", "Perder tiempo", "Escribir más rápido"], "correctIndex": 0, "concept": "verificación", "explanation": "Contrastar fuentes reduce sesgos y errores." },
+      { "id": "c5-q4", "prompt": "Una buena pregunta de investigación es…", "options": ["Clara, acotada y respondible con datos", "Muy amplia e imprecisa", "Imposible de responder", "Una opinión disfrazada"], "correctIndex": 0, "concept": "pregunta de investigación", "explanation": "Una pregunta acotada guía la búsqueda de evidencias." },
+      { "id": "c5-q5", "prompt": "Una conclusión debe…", "options": ["Basarse en las evidencias recogidas", "Expresar solo una opinión", "Ignorar los datos", "Ser la primera idea"], "correctIndex": 0, "concept": "conclusiones", "explanation": "Las conclusiones se sostienen en las evidencias." },
+      { "id": "c5-q6", "prompt": "Citar una fuente significa…", "options": ["Indicar de dónde proviene la información", "Copiar sin mencionar", "Inventar datos", "Ocultar el origen"], "correctIndex": 0, "concept": "citas", "explanation": "Citar da credibilidad y respeta el trabajo ajeno." },
+      { "id": "c5-q7", "prompt": "Un sesgo es…", "options": ["Una inclinación que distorsiona el análisis", "Un dato exacto", "Una fuente oficial", "Una conclusión"], "correctIndex": 0, "concept": "sesgos", "explanation": "Los sesgos distorsionan la lectura de la información." },
+      { "id": "c5-q8", "prompt": "Los datos cuantitativos son…", "options": ["Mediciones numéricas", "Opiniones", "Relatos", "Dibujos"], "correctIndex": 0, "concept": "datos cuantitativos", "explanation": "Los datos cuantitativos permiten medir y comparar." },
+      { "id": "c5-q9", "prompt": "Un testimonio aporta…", "options": ["La perspectiva de quien vive la situación", "Datos falsos", "Una ley", "Un impuesto"], "correctIndex": 0, "concept": "testimonios", "explanation": "El testimonio aporta la voz y experiencia de las personas." },
+      { "id": "c5-q10", "prompt": "La estructura de un expediente incluye…", "options": ["Problema, evidencias y conclusiones", "Solo opiniones", "Solo imágenes", "Nada en particular"], "correctIndex": 0, "concept": "estructura", "explanation": "Un expediente ordena problema, evidencias y conclusiones." }
+    ]
+  },
+  {
+    "level": 6,
+    "title": "Cabildo",
+    "passPercent": 70,
+    "xpReward": 90,
+    "questions": [
+      { "id": "c6-q1", "prompt": "Un cabildo es…", "options": ["Una instancia de deliberación y decisión colectiva", "Una fiesta privada", "Una reunión sin acuerdos", "Una autoridad única"], "correctIndex": 0, "concept": "cabildo", "explanation": "El cabildo es un espacio de deliberación colectiva." },
+      { "id": "c6-q2", "prompt": "En un cabildo se busca…", "options": ["Acordar propuestas para el bien común", "Ganar una discusión", "Elegir un dueño", "Evitar el diálogo"], "correctIndex": 0, "concept": "bien común", "explanation": "El cabildo apunta al bien común." },
+      { "id": "c6-q3", "prompt": "Para que un cabildo sea justo…", "options": ["Deben participar voces diversas", "Solo debe hablar una persona", "Debe ser secreto", "Debe excluir a algunos"], "correctIndex": 0, "concept": "pluralidad", "explanation": "La pluralidad legitima los acuerdos." },
+      { "id": "c6-q4", "prompt": "Un acuerdo de cabildo se legitima…", "options": ["Cuando es conocido y aceptado por la comunidad", "Cuando lo decide una sola persona", "Cuando no se comunica", "Cuando se impone"], "correctIndex": 0, "concept": "legitimidad", "explanation": "La publicidad y aceptación dan legitimidad." },
+      { "id": "c6-q5", "prompt": "La deliberación implica…", "options": ["Argumentar y escuchar con respeto", "Gritar más fuerte", "Ignorar al resto", "Repetir consignas"], "correctIndex": 0, "concept": "deliberación", "explanation": "Deliberar es argumentar y escuchar." },
+      { "id": "c6-q6", "prompt": "Un acuerdo se toma por…", "options": ["Deliberación y votación", "Imposición", "Sorteo siempre", "Herencia"], "correctIndex": 0, "concept": "toma de decisiones", "explanation": "La deliberación y la votación legitiman los acuerdos." },
+      { "id": "c6-q7", "prompt": "La moderación en un cabildo sirve para…", "options": ["Garantizar que todas las voces se escuchen", "Apurar la reunión", "Decidir por todos", "Impedir hablar"], "correctIndex": 0, "concept": "moderación", "explanation": "Quien modera cuida que todas las voces sean escuchadas." },
+      { "id": "c6-q8", "prompt": "Un acta de cabildo…", "options": ["Registra los acuerdos y compromisos", "Es un adorno", "Reemplaza la votación", "Se guarda en secreto"], "correctIndex": 0, "concept": "acta", "explanation": "El acta deja constancia de acuerdos y responsables." },
+      { "id": "c6-q9", "prompt": "La representación es…", "options": ["Hablar en nombre de un grupo", "Decidir solo", "Ignorar a las bases", "Un privilegio"], "correctIndex": 0, "concept": "representación", "explanation": "Representar es llevar la voz de un colectivo." },
+      { "id": "c6-q10", "prompt": "La democracia directa se expresa en…", "options": ["La asamblea o cabildo", "El mercado", "La empresa", "La escuela"], "correctIndex": 0, "concept": "democracia directa", "explanation": "En la asamblea las personas deciden directamente." }
+    ]
+  },
+  {
+    "level": 7,
+    "title": "Estado y mercado",
+    "passPercent": 70,
+    "xpReward": 100,
+    "questions": [
+      { "id": "c7-q1", "prompt": "El Estado se encarga principalmente de…", "options": ["Garantizar derechos y bienes públicos", "Vender productos", "Maximizar ganancias", "Competir en el mercado"], "correctIndex": 0, "concept": "rol del Estado", "explanation": "El Estado garantiza derechos y bienes públicos." },
+      { "id": "c7-q2", "prompt": "El mercado…", "options": ["Intercambia bienes y servicios según oferta y demanda", "Reparte derechos", "Dicta leyes", "Administra justicia"], "correctIndex": 0, "concept": "mercado", "explanation": "El mercado coordina intercambios por oferta y demanda." },
+      { "id": "c7-q3", "prompt": "Un bien público es…", "options": ["No excluyente y de beneficio colectivo", "Solo para quienes pagan", "De propiedad privada", "Un producto de lujo"], "correctIndex": 0, "concept": "bienes públicos", "explanation": "Los bienes públicos benefician a toda la comunidad." },
+      { "id": "c7-q4", "prompt": "¿Cuál es un fallo del mercado?", "options": ["La contaminación no pagada por quien la produce", "La competencia leal", "La innovación", "El comercio justo"], "correctIndex": 0, "concept": "fallos de mercado", "explanation": "Las externalidades negativas son fallos de mercado." },
+      { "id": "c7-q5", "prompt": "Estado y mercado…", "options": ["Pueden complementarse para el bien común", "Son siempre enemigos", "Nunca se relacionan", "Son lo mismo"], "correctIndex": 0, "concept": "complementariedad", "explanation": "Pueden complementarse con reglas claras." },
+      { "id": "c7-q6", "prompt": "Un impuesto es…", "options": ["Un aporte obligatorio para financiar bienes públicos", "Una donación", "Un préstamo", "Una multa"], "correctIndex": 0, "concept": "impuestos", "explanation": "Los impuestos financian bienes y servicios públicos." },
+      { "id": "c7-q7", "prompt": "La regulación estatal busca…", "options": ["Proteger derechos y corregir fallos", "Aumentar precios", "Eliminar la competencia", "Cerrar empresas"], "correctIndex": 0, "concept": "regulación", "explanation": "Regular protege derechos y corrige fallos del mercado." },
+      { "id": "c7-q8", "prompt": "La competencia favorece…", "options": ["Mejores precios y servicios, con reglas", "El desorden", "Los monopolios", "La escasez"], "correctIndex": 0, "concept": "competencia", "explanation": "Con reglas claras, la competencia beneficia a los consumidores." },
+      { "id": "c7-q9", "prompt": "Un monopolio puede…", "options": ["Perjudicar a los consumidores", "Mejorar los precios", "Aumentar la oferta", "Proteger derechos"], "correctIndex": 0, "concept": "monopolio", "explanation": "Sin competencia, un monopolio puede abusar del precio." },
+      { "id": "c7-q10", "prompt": "Los bienes comunes (como el agua)…", "options": ["Requieren cuidado colectivo y regulación", "Son de libre abuso", "No necesitan reglas", "Solo importan a las empresas"], "correctIndex": 0, "concept": "bienes comunes", "explanation": "Los bienes comunes exigen cuidado y regulación." }
+    ]
+  },
+  {
+    "level": 8,
+    "title": "Presupuesto",
+    "passPercent": 70,
+    "xpReward": 110,
+    "questions": [
+      { "id": "c8-q1", "prompt": "Un presupuesto es…", "options": ["Un plan de ingresos y gastos", "Una ley penal", "Una lista de deseos", "Un impuesto"], "correctIndex": 0, "concept": "presupuesto", "explanation": "El presupuesto ordena ingresos y gastos." },
+      { "id": "c8-q2", "prompt": "Priorizar el gasto público implica…", "options": ["Decidir según necesidades y derechos", "Gastar sin plan", "Favorecer a unos pocos", "No informar"], "correctIndex": 0, "concept": "priorización", "explanation": "Priorizar es decidir con criterios de necesidad y derecho." },
+      { "id": "c8-q3", "prompt": "Un ingreso del Estado son…", "options": ["Los impuestos", "Las donaciones privadas", "Las ventas del comercio", "Los sueldos"], "correctIndex": 0, "concept": "ingresos fiscales", "explanation": "Los impuestos son la principal fuente de ingresos fiscales." },
+      { "id": "c8-q4", "prompt": "Participar en el presupuesto local permite…", "options": ["Orientar recursos a necesidades del territorio", "Elegir funcionarios", "Cambiar la constitución", "Fijar precios"], "correctIndex": 0, "concept": "presupuesto participativo", "explanation": "La participación orienta los recursos a lo local." },
+      { "id": "c8-q5", "prompt": "La transparencia presupuestaria…", "options": ["Permite fiscalizar el uso de los recursos", "Oculta la información", "Aumenta la corrupción", "Es opcional"], "correctIndex": 0, "concept": "transparencia", "explanation": "La transparencia habilita la fiscalización ciudadana." },
+      { "id": "c8-q6", "prompt": "Un déficit ocurre cuando…", "options": ["Los gastos superan los ingresos", "Sobran recursos", "No hay gastos", "Se pagan impuestos"], "correctIndex": 0, "concept": "déficit", "explanation": "Hay déficit cuando el gasto supera al ingreso." },
+      { "id": "c8-q7", "prompt": "El gasto social se destina a…", "options": ["Educación, salud y protección", "Publicidad", "Lujos", "Deportes profesionales"], "correctIndex": 0, "concept": "gasto social", "explanation": "El gasto social financia derechos como educación y salud." },
+      { "id": "c8-q8", "prompt": "Fiscalizar el gasto público es tarea de…", "options": ["La ciudadanía y los organismos de control", "Solo del gobierno", "Nadie", "Solo las empresas"], "correctIndex": 0, "concept": "fiscalización", "explanation": "La ciudadanía y los organismos de control fiscalizan." },
+      { "id": "c8-q9", "prompt": "Priorizar significa…", "options": ["Elegir entre necesidades con criterios", "Gastar en todo", "No decidir", "Repartir por igual sin pensar"], "correctIndex": 0, "concept": "priorización", "explanation": "Priorizar es elegir con criterios entre necesidades." },
+      { "id": "c8-q10", "prompt": "Un presupuesto participativo incluye…", "options": ["Propuestas de la comunidad", "Solo del alcalde", "Solo de expertos", "Solo de empresas"], "correctIndex": 0, "concept": "participación", "explanation": "La comunidad propone y prioriza en el presupuesto participativo." }
+    ]
+  },
+  {
+    "level": 9,
+    "title": "Desigualdad",
+    "passPercent": 70,
+    "xpReward": 120,
+    "questions": [
+      { "id": "c9-q1", "prompt": "La desigualdad es…", "options": ["La distribución injusta de recursos y oportunidades", "La diferencia natural entre personas", "Un tipo de mercado", "Una ley"], "correctIndex": 0, "concept": "desigualdad", "explanation": "La desigualdad es una distribución injusta." },
+      { "id": "c9-q2", "prompt": "Un efecto de la desigualdad es…", "options": ["Menores oportunidades para algunos grupos", "Más equidad", "Mejor convivencia", "Más justicia"], "correctIndex": 0, "concept": "efectos", "explanation": "La desigualdad limita oportunidades." },
+      { "id": "c9-q3", "prompt": "Una medida para reducirla es…", "options": ["Políticas públicas focalizadas", "Eliminar impuestos", "Reducir la participación", "Ocultar datos"], "correctIndex": 0, "concept": "políticas públicas", "explanation": "Las políticas focalizadas buscan equiparar oportunidades." },
+      { "id": "c9-q4", "prompt": "La desigualdad se puede medir con…", "options": ["Indicadores como el ingreso por hogar", "La opinión de una persona", "El clima", "El número de calles"], "correctIndex": 0, "concept": "indicadores", "explanation": "Los indicadores permiten dimensionar la desigualdad." },
+      { "id": "c9-q5", "prompt": "La equidad busca…", "options": ["Trato justo considerando diferencias", "Trato idéntico siempre", "Favorecer a los más ricos", "Ignorar el contexto"], "correctIndex": 0, "concept": "equidad", "explanation": "La equidad considera las diferencias para ser justa." },
+      { "id": "c9-q6", "prompt": "La pobreza se mide con…", "options": ["Ingresos y acceso a servicios", "El ánimo de las personas", "El clima", "La altura"], "correctIndex": 0, "concept": "medición de pobreza", "explanation": "La pobreza se mide por ingresos y acceso a servicios." },
+      { "id": "c9-q7", "prompt": "La movilidad social es…", "options": ["La posibilidad de mejorar la situación propia", "Mudarse de casa", "Viajar", "Cambiar de trabajo siempre"], "correctIndex": 0, "concept": "movilidad social", "explanation": "La movilidad social es poder mejorar la propia situación." },
+      { "id": "c9-q8", "prompt": "¿Cuál es un grupo históricamente postergado?", "options": ["Los pueblos originarios", "Los bancos", "Las grandes empresas", "Los medios"], "correctIndex": 0, "concept": "grupos postergados", "explanation": "Los pueblos originarios han sufrido postergación histórica." },
+      { "id": "c9-q9", "prompt": "Reducir brechas requiere…", "options": ["Políticas sostenidas en el tiempo", "Una acción aislada", "Menos información", "Menos participación"], "correctIndex": 0, "concept": "políticas sostenidas", "explanation": "Reducir brechas exige políticas sostenidas." },
+      { "id": "c9-q10", "prompt": "La justicia social busca…", "options": ["Que todas las personas tengan oportunidades", "Que unos ganen más", "Eliminar la propiedad", "Que no haya reglas"], "correctIndex": 0, "concept": "justicia social", "explanation": "La justicia social busca oportunidades para todas y todos." }
+    ]
+  },
+  {
+    "level": 10,
+    "title": "Agua",
+    "passPercent": 70,
+    "xpReward": 130,
+    "questions": [
+      { "id": "c10-q1", "prompt": "El agua es un derecho humano porque…", "options": ["Es indispensable para la vida y la dignidad", "Es escasa", "Se puede vender", "Es un lujo"], "correctIndex": 0, "concept": "derecho al agua", "explanation": "El agua es esencial para la vida y la dignidad." },
+      { "id": "c10-q2", "prompt": "Un uso responsable del agua implica…", "options": ["Consumir solo lo necesario y evitar contaminarla", "Regarla sin control", "Dejarla correr", "Privatizarla"], "correctIndex": 0, "concept": "uso responsable", "explanation": "Usar lo necesario y no contaminar es responsabilidad." },
+      { "id": "c10-q3", "prompt": "La escasez hídrica se agrava por…", "options": ["El cambio climático y el mal uso", "La lluvia", "Los ríos", "Las plantas"], "correctIndex": 0, "concept": "escasez hídrica", "explanation": "Cambio climático y mal uso agravan la escasez." },
+      { "id": "c10-q4", "prompt": "Un actor clave en la gestión del agua es…", "options": ["La comunidad organizada y las autoridades", "Solo las empresas", "Solo los turistas", "Nadie"], "correctIndex": 0, "concept": "gobernanza del agua", "explanation": "La gestión del agua involucra a comunidad y autoridades." },
+      { "id": "c10-q5", "prompt": "Cuidar las cuencas beneficia…", "options": ["A todo el territorio y sus ecosistemas", "Solo a los dueños de la tierra", "Solo a la ciudad", "A nadie"], "correctIndex": 0, "concept": "cuencas", "explanation": "Las cuencas sostienen la vida de todo el territorio." },
+      { "id": "c10-q6", "prompt": "Una cuenca hidrográfica es…", "options": ["El territorio que drena hacia un mismo río", "Un embalse", "Una tubería", "Un pozo"], "correctIndex": 0, "concept": "cuenca", "explanation": "La cuenca es el territorio que aporta agua a un mismo cauce." },
+      { "id": "c10-q7", "prompt": "El riego eficiente ayuda a…", "options": ["Usar menos agua para producir", "Regar más", "Gastar más", "Contaminar"], "correctIndex": 0, "concept": "riego eficiente", "explanation": "La eficiencia hídrica reduce el consumo en la producción." },
+      { "id": "c10-q8", "prompt": "La contaminación del agua afecta…", "options": ["La salud y los ecosistemas", "Solo a los peces", "Solo a los ríos", "A nadie"], "correctIndex": 0, "concept": "contaminación", "explanation": "El agua contaminada daña la salud y los ecosistemas." },
+      { "id": "c10-q9", "prompt": "La gestión comunitaria del agua…", "options": ["Fortalece el cuidado local", "Es ilegal", "No sirve", "Debilita el territorio"], "correctIndex": 0, "concept": "gestión comunitaria", "explanation": "La comunidad organizada cuida mejor sus fuentes de agua." },
+      { "id": "c10-q10", "prompt": "El cambio climático en zonas áridas…", "options": ["Aumenta la escasez hídrica", "Aumenta la lluvia", "No influye", "Mejora el suelo"], "correctIndex": 0, "concept": "cambio climático", "explanation": "En zonas áridas el cambio climático agrava la escasez." }
+    ]
+  },
+  {
+    "level": 11,
+    "title": "Proyecto comunitario",
+    "passPercent": 70,
+    "xpReward": 140,
+    "questions": [
+      { "id": "c11-q1", "prompt": "Un proyecto comunitario parte de…", "options": ["Una necesidad identificada colectivamente", "Una idea individual sin contexto", "Una moda", "Un capricho"], "correctIndex": 0, "concept": "diagnóstico participativo", "explanation": "El proyecto nace de una necesidad colectiva." },
+      { "id": "c11-q2", "prompt": "Un objetivo debe ser…", "options": ["Medible y alcanzable", "Vago y general", "Imposible", "Oculto"], "correctIndex": 0, "concept": "objetivos", "explanation": "Los objetivos medibles y alcanzables orientan la acción." },
+      { "id": "c11-q3", "prompt": "Un plan de acción incluye…", "options": ["Responsables, plazos y recursos", "Solo buenas intenciones", "Nombres sin tareas", "Nada"], "correctIndex": 0, "concept": "plan de acción", "explanation": "Responsables, plazos y recursos hacen ejecutable el plan." },
+      { "id": "c11-q4", "prompt": "Evaluar un proyecto permite…", "options": ["Aprender y mejorar sus resultados", "Ocultar errores", "Terminarlo antes", "Gastar más"], "correctIndex": 0, "concept": "evaluación", "explanation": "La evaluación permite aprender y mejorar." },
+      { "id": "c11-q5", "prompt": "La sostenibilidad de un proyecto depende de…", "options": ["La participación y el compromiso de la comunidad", "Una sola persona", "La suerte", "El dinero solamente"], "correctIndex": 0, "concept": "sostenibilidad", "explanation": "Sin comunidad no hay sostenibilidad." },
+      { "id": "c11-q6", "prompt": "Un indicador sirve para…", "options": ["Medir el avance del proyecto", "Adornar", "Confundir", "Reemplazar el objetivo"], "correctIndex": 0, "concept": "indicadores", "explanation": "Los indicadores muestran si el proyecto avanza." },
+      { "id": "c11-q7", "prompt": "Un riesgo del proyecto es…", "options": ["Algo que puede impedir cumplir el objetivo", "Una meta", "Un recurso", "Un aliado"], "correctIndex": 0, "concept": "riesgos", "explanation": "Identificar riesgos permite anticiparse." },
+      { "id": "c11-q8", "prompt": "El cronograma ordena…", "options": ["Las actividades en el tiempo", "Los colores", "Las personas por edad", "El presupuesto por número"], "correctIndex": 0, "concept": "cronograma", "explanation": "El cronograma organiza actividades y plazos." },
+      { "id": "c11-q9", "prompt": "Un aliado del proyecto puede ser…", "options": ["Una organización o institución que apoya", "Un obstáculo", "Un riesgo", "Un problema"], "correctIndex": 0, "concept": "aliados", "explanation": "Los aliados aportan apoyo y recursos." },
+      { "id": "c11-q10", "prompt": "Socializar el proyecto sirve para…", "options": ["Sumar participación y legitimidad", "Guardarlo en secreto", "Terminarlo antes", "Gastar más"], "correctIndex": 0, "concept": "socialización", "explanation": "Socializar suma apoyos y legitima el proyecto." }
+    ]
+  },
+  {
+    "level": 12,
+    "title": "Feria y comunicación",
+    "passPercent": 70,
+    "xpReward": 150,
+    "questions": [
+      { "id": "c12-q1", "prompt": "Comunicar un proyecto sirve para…", "options": ["Compartir hallazgos y movilizar a otros", "Guardar secretos", "Cumplir un trámite", "Adornar"], "correctIndex": 0, "concept": "comunicación pública", "explanation": "Comunicar comparte y moviliza." },
+      { "id": "c12-q2", "prompt": "Una buena presentación…", "options": ["Explica con claridad y usa evidencias", "Usa solo opiniones", "Es larga y confusa", "No tiene estructura"], "correctIndex": 0, "concept": "presentación", "explanation": "Claridad y evidencias hacen convincente una presentación." },
+      { "id": "c12-q3", "prompt": "Escuchar preguntas del público…", "options": ["Permite mejorar y responder dudas", "Es una amenaza", "Debe evitarse", "No aporta"], "correctIndex": 0, "concept": "retroalimentación", "explanation": "Las preguntas aportan retroalimentación valiosa." },
+      { "id": "c12-q4", "prompt": "La feria ciudadana promueve…", "options": ["El intercambio de aprendizajes entre pares", "La competencia desleal", "El aislamiento", "El silencio"], "correctIndex": 0, "concept": "aprendizaje entre pares", "explanation": "La feria facilita el aprendizaje entre pares." },
+      { "id": "c12-q5", "prompt": "Defender una idea con respeto implica…", "options": ["Argumentar y aceptar críticas", "Imponer la idea", "Atacar a quien critica", "No escuchar"], "correctIndex": 0, "concept": "argumentación", "explanation": "Argumentar y aceptar críticas es defender con respeto." },
+      { "id": "c12-q6", "prompt": "Una pregunta del público sirve para…", "options": ["Mejorar y aclarar el proyecto", "Ofender", "Terminar la feria", "Ocultar datos"], "correctIndex": 0, "concept": "preguntas", "explanation": "Las preguntas ayudan a aclarar y mejorar el proyecto." },
+      { "id": "c12-q7", "prompt": "Un póster eficaz…", "options": ["Comunica la idea central con claridad", "Tiene mucho texto pequeño", "No tiene título", "Es ilegible"], "correctIndex": 0, "concept": "póster", "explanation": "Un buen póster comunica la idea central con claridad." },
+      { "id": "c12-q8", "prompt": "El pitch breve busca…", "options": ["Captar interés en poco tiempo", "Contar todo el proyecto", "Aburrir", "No decir nada"], "correctIndex": 0, "concept": "pitch", "explanation": "El pitch capta interés en poco tiempo." },
+      { "id": "c12-q9", "prompt": "Documentar el proceso permite…", "options": ["Compartir aprendizajes y replicar", "Ocultar errores", "Gastar más", "Terminar antes"], "correctIndex": 0, "concept": "documentación", "explanation": "Documentar permite compartir y replicar lo aprendido." },
+      { "id": "c12-q10", "prompt": "Evaluar la feria ayuda a…", "options": ["Mejorar próximas versiones", "Repetir errores", "No aprender", "Cerrar el proyecto"], "correctIndex": 0, "concept": "evaluación", "explanation": "Evaluar la feria mejora las próximas versiones." }
+    ]
+  }
+]

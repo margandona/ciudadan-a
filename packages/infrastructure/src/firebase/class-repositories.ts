@@ -107,6 +107,7 @@ export function recordToClass(id: string, data: Record<string, unknown>): ClassE
     id,
     number: (data.number as number) ?? 0,
     missionId: (data.missionId as string) ?? "",
+    alternative: (data.alternative as boolean) ?? false,
     title: (data.title as string) ?? "",
     subtitle: (data.subtitle as string) ?? undefined,
     unitId: (data.unitId as string) ?? "",

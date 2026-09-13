@@ -48,6 +48,7 @@ export const listMissions = new ListMissionsForStudentUseCase({
   classes: classRepo,
   schedules: scheduleRepo,
   progress: progressRepo,
+  submissions: submissionRepo,
 });
 export const getFlippedLesson = new GetFlippedLessonForStudentUseCase({
   schedules: scheduleRepo,

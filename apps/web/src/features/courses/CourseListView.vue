@@ -6,6 +6,7 @@ import BaseCard from "@/components/ui/BaseCard.vue";
 import SkeletonRows from "@/components/ui/SkeletonRows.vue";
 import AppErrorState from "@/components/ui/AppErrorState.vue";
 import AppEmptyState from "@/components/ui/AppEmptyState.vue";
+import AppIcon from "@/components/ui/AppIcon.vue";
 
 const courses = ref<Course[]>([]);
 const loading = ref(true);
@@ -42,19 +43,19 @@ onMounted(load);
     <p class="muted">Educación Ciudadana · Tercero Medio · 2026</p>
 
     <div class="toolbar">
-      <RouterLink to="/teacher/students/import" class="btn btn-primary">Importar estudiantes</RouterLink>
+      <RouterLink to="/teacher/students/import" class="btn btn-primary"><AppIcon name="users" /> Importar estudiantes</RouterLink>
     </div>
 
     <SkeletonRows v-if="loading" />
     <AppErrorState v-else-if="error" :message="error" @retry="load" />
     <AppEmptyState v-else-if="courses.length === 0" message="Aún no hay cursos creados.">
-      <RouterLink to="/teacher/students/import" class="btn btn-ghost">Importar nóminas para crear los cursos</RouterLink>
+      <RouterLink to="/teacher/students/import" class="btn btn-ghost"><AppIcon name="users" /> Importar nóminas para crear los cursos</RouterLink>
     </AppEmptyState>
     <div v-else class="grid">
       <BaseCard v-for="c in courses" :key="c.id" :title="c.name">
         <h2>{{ c.name }}</h2>
         <p class="muted">{{ c.subject }} · {{ c.year }}</p>
-        <RouterLink :to="`/teacher/courses/${c.id}`" class="btn btn-primary">Abrir dashboard</RouterLink>
+        <RouterLink :to="`/teacher/courses/${c.id}`" class="btn btn-primary"><AppIcon name="gauge" /> Abrir dashboard</RouterLink>
       </BaseCard>
     </div>
   </div>
@@ -66,6 +67,11 @@ onMounted(load);
 }
 .toolbar {
   margin: var(--space-4) 0;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .grid {
   display: grid;

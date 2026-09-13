@@ -1,0 +1,23 @@
+{
+  "classId": "class-13",
+  "title": "Gran Debate: ¿Quién debe resolver los problemas?",
+  "objective": "Prepararás tu postura para el Gran Debate: qué actor (Estado, mercado, ciudadanía o colaboración) debería resolver un problema de Ovalle y con qué argumento y evidencia lo defenderás.",
+  "problemQuestion": "Una plaza deteriorada, un medicamento caro, una escuela por construir, una cancha sin luz. ¿Quién debería resolver cada problema y con qué argumento lo defenderías?",
+  "concepts": ["Estado", "mercado", "ciudadanía", "bienes públicos", "colaboración", "argumento en tres pasos"],
+  "blocks": [
+    { "type": "title", "id": "b-title", "text": "Misión 13 · Alternativa — Gran Debate: ¿Quién resuelve?" },
+    { "type": "objective", "id": "b-obj", "text": "Decidirás, con argumentos y evidencia, qué actor debe hacerse cargo de un problema. Esta semana la clase se organiza como un debate: martes preparas tu postura, miércoles organizamos el formato y jueves debatimos en mesas." },
+    { "type": "problem", "id": "b-prob", "text": "En el debate defenderás una postura: Estado, mercado, ciudadanía o colaboración. ¿Qué actor defenderías para el problema que elegiste y por qué?" },
+    { "type": "concepts", "id": "b-concepts", "items": ["Estado: institución que provee bienes públicos y regula la vida común.", "Mercado: espacio donde bienes y servicios se intercambian según oferta y demanda.", "Ciudadanía: comunidad que participa y exige soluciones.", "Bienes públicos: bienes que benefician a todos y nadie debería quedar excluido (calles, salud, educación).", "Colaboración: alianzas entre Estado, mercado y ciudadanía.", "Argumento en tres pasos: postura + razón con criterio + evidencia."] },
+    { "type": "text", "id": "b-micro-1", "markdown": "Algunos problemas se resuelven mejor con el **Estado** (bienes públicos y derechos), otros con el **mercado** (producción de bienes) y otros exigen **ciudadanía** (cuidado comunitario). Muchas veces la mejor respuesta es la **colaboración**: combinar capacidades y recursos.\n\nEn el debate defenderás una postura con un **argumento en tres pasos** (como en el cabildo): una postura clara, una razón con un criterio (igualdad, eficiencia o participación) y una evidencia que la sostenga.", "readingLevel": "simple" },
+    { "type": "text", "id": "b-micro-2", "markdown": "No hay una receta única: la pregunta correcta es qué actor está mejor situado y con qué recursos. Piensa en un problema de Ovalle: ¿qué actor debería hacerse cargo y por qué?" },
+    { "type": "reading", "id": "b-reading", "title": "El agua de la villa", "text": "En un sector rural de Ovalle, un grupo de familias no tiene acceso regular a agua potable. Una empresa no lo resuelve sola porque no es rentable llevar la red a pocas casas. El Estado debe garantizar el agua como bien público y derecho. Pero la comunidad también participa: un comité de agua potable rural organiza la postura, reúne antecedentes y vigila el avance. Es una colaboración entre Estado y ciudadanía.", "source": { "author": "Contenido editorial PCLab", "license": "CC BY-NC 4.0", "verified": true } },
+    { "type": "question", "id": "b-q1", "kind": "choice", "prompt": "En el ejemplo del agua, ¿cuál es la evidencia que sostiene la postura de la comunidad?", "options": ["Una opinión sobre el campo.", "El comité de agua reúne antecedentes y vigila el avance.", "El precio del agua.", "La cantidad de casas de la ciudad."], "correctIndex": 1, "explanation": "La evidencia transforma una opinión en un argumento sustentado: antecedentes y seguimiento concreto." },
+    { "type": "question", "id": "b-q2", "kind": "truefalse", "prompt": "En un debate, basta con dar una opinión: la evidencia no es necesaria para defender una postura.", "options": ["Verdadero", "Falso"], "correctIndex": 1, "explanation": "Como en el cabildo, el argumento en tres pasos pide postura, razón con criterio y evidencia." },
+    { "type": "reflection", "id": "b-refl", "prompt": "Elige un problema de tu entorno y escribe tu argumento en tres pasos: postura (qué actor), razón con criterio y una evidencia o ejemplo local." },
+    { "type": "resource", "id": "b-res", "title": "Guía del Gran Debate", "note": "En clase recibirás la Guía del debate con los casos, el formato por días (martes–miércoles–jueves) y la rúbrica.", "attribution": { "source": "Material del curso", "verified": true } }
+  ],
+  "estMinutes": 14,
+  "readyLabel": "Estoy lista para la misión",
+  "version": 1
+}

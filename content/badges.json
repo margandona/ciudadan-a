@@ -1,12 +1,506 @@
 [
-  { "id": "badge-analista", "code": "ANALISTA", "name": "Analista", "description": "Aprobaste varios quizzes demostrando comprensión de los conceptos.", "icon": "spyglass", "order": 1, "level": 1, "criteria": [{ "kind": "QUIZ_PASSED", "threshold": 4 }] },
-  { "id": "badge-investigadora", "code": "INVESTIGADORA", "name": "Investigadora", "description": "Entregaste evidencias de tu proceso de investigación.", "icon": "magnifier", "order": 2, "level": 1, "criteria": [{ "kind": "EVIDENCE_SUBMITTED", "threshold": 6 }] },
-  { "id": "badge-cartografa", "code": "CARTOGRAFA", "name": "Cartógrafa", "description": "Completaste el aula invertida de varias misiones del territorio.", "icon": "map", "order": 3, "level": 1, "criteria": [{ "kind": "FLIPPED_COMPLETED", "threshold": 6 }] },
-  { "id": "badge-ciudadana", "code": "CIUDADANA", "name": "Ciudadana", "description": "Registraste una participación activa y constante en clase.", "icon": "people", "order": 4, "level": 1, "criteria": [{ "kind": "PARTICIPATION", "threshold": 10 }] },
-  { "id": "badge-mediadora", "code": "MEDIADORA", "name": "Mediadora", "description": "Contribuiste a construir acuerdos mediando en el diálogo.", "icon": "handshake", "order": 5, "level": 1, "criteria": [{ "kind": "PARTICIPATION", "threshold": 5, "skill": "mediacion" }] },
-  { "id": "badge-innovadora", "code": "INNOVADORA", "name": "Innovadora", "description": "Aprobaste la mayoría de los quizzes con propuestas propias.", "icon": "bulb", "order": 6, "level": 1, "criteria": [{ "kind": "QUIZ_PASSED", "threshold": 8 }] },
-  { "id": "badge-bien-comun", "code": "BIEN_COMUN", "name": "Defensora del Bien Común", "description": "Entregaste muchas evidencias orientadas al bienestar de la comunidad.", "icon": "shield", "order": 7, "level": 1, "criteria": [{ "kind": "EVIDENCE_SUBMITTED", "threshold": 12 }] },
-  { "id": "badge-pensamiento-critico", "code": "PENSAMIENTO_CRITICO", "name": "Pensamiento Crítico", "description": "Sostuviste un alto rendimiento en las evaluaciones de comprensión.", "icon": "scale", "order": 8, "level": 1, "criteria": [{ "kind": "QUIZ_PASSED", "threshold": 10 }] },
-  { "id": "badge-constructora-acuerdos", "code": "CONSTRUCTORA_ACUERDOS", "name": "Constructora de Acuerdos", "description": "Argumentaste con frecuencia para construir acuerdos colectivos.", "icon": "bridge", "order": 9, "level": 1, "criteria": [{ "kind": "PARTICIPATION", "threshold": 8, "skill": "argumentacion" }] },
-  { "id": "badge-ciudadania-digital", "code": "CIUDADANIA_DIGITAL", "name": "Ciudadanía Digital", "description": "Cerraste muchas clases con tu ticket de salida reflexivo.", "icon": "device", "order": 10, "level": 1, "criteria": [{ "kind": "EXIT_TICKETS", "threshold": 8 }] }
+ {
+  "id": "badge-analista",
+  "code": "ANALISTA",
+  "name": "Analista",
+  "description": "Aprobaste varios quizzes demostrando comprensión de los conceptos.",
+  "icon": "spyglass",
+  "order": 1,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "QUIZ_PASSED",
+    "threshold": 4
+   }
+  ]
+ },
+ {
+  "id": "badge-investigadora",
+  "code": "INVESTIGADORA",
+  "name": "Investigadora",
+  "description": "Entregaste evidencias de tu proceso de investigación.",
+  "icon": "magnifier",
+  "order": 2,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "EVIDENCE_SUBMITTED",
+    "threshold": 6
+   }
+  ]
+ },
+ {
+  "id": "badge-cartografa",
+  "code": "CARTOGRAFA",
+  "name": "Cartógrafa",
+  "description": "Completaste el aula invertida de varias misiones del territorio.",
+  "icon": "map",
+  "order": 3,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "FLIPPED_COMPLETED",
+    "threshold": 6
+   }
+  ]
+ },
+ {
+  "id": "badge-ciudadana",
+  "code": "CIUDADANA",
+  "name": "Ciudadana",
+  "description": "Registraste una participación activa y constante en clase.",
+  "icon": "people",
+  "order": 4,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "PARTICIPATION",
+    "threshold": 10
+   }
+  ]
+ },
+ {
+  "id": "badge-mediadora",
+  "code": "MEDIADORA",
+  "name": "Mediadora",
+  "description": "Contribuiste a construir acuerdos mediando en el diálogo.",
+  "icon": "handshake",
+  "order": 5,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "PARTICIPATION",
+    "threshold": 5,
+    "skill": "mediacion"
+   }
+  ]
+ },
+ {
+  "id": "badge-innovadora",
+  "code": "INNOVADORA",
+  "name": "Innovadora",
+  "description": "Aprobaste la mayoría de los quizzes con propuestas propias.",
+  "icon": "bulb",
+  "order": 6,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "QUIZ_PASSED",
+    "threshold": 8
+   }
+  ]
+ },
+ {
+  "id": "badge-bien-comun",
+  "code": "BIEN_COMUN",
+  "name": "Defensora del Bien Común",
+  "description": "Entregaste muchas evidencias orientadas al bienestar de la comunidad.",
+  "icon": "shield",
+  "order": 7,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "EVIDENCE_SUBMITTED",
+    "threshold": 12
+   }
+  ]
+ },
+ {
+  "id": "badge-pensamiento-critico",
+  "code": "PENSAMIENTO_CRITICO",
+  "name": "Pensamiento Crítico",
+  "description": "Sostuviste un alto rendimiento en las evaluaciones de comprensión.",
+  "icon": "scale",
+  "order": 8,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "QUIZ_PASSED",
+    "threshold": 10
+   }
+  ]
+ },
+ {
+  "id": "badge-constructora-acuerdos",
+  "code": "CONSTRUCTORA_ACUERDOS",
+  "name": "Constructora de Acuerdos",
+  "description": "Argumentaste con frecuencia para construir acuerdos colectivos.",
+  "icon": "bridge",
+  "order": 9,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "PARTICIPATION",
+    "threshold": 8,
+    "skill": "argumentacion"
+   }
+  ]
+ },
+ {
+  "id": "badge-ciudadania-digital",
+  "code": "CIUDADANIA_DIGITAL",
+  "name": "Ciudadanía Digital",
+  "description": "Cerraste muchas clases con tu ticket de salida reflexivo.",
+  "icon": "device",
+  "order": 10,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "EXIT_TICKETS",
+    "threshold": 8
+   }
+  ]
+ },
+ {
+  "id": "badge-mision-01",
+  "code": "MISION_01",
+  "name": "Semilla Ciudadana",
+  "description": "Completaste la misión 1: qué significa ser ciudadana.",
+  "icon": "star",
+  "order": 11,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-01"
+ },
+ {
+  "id": "badge-mision-02",
+  "code": "MISION_02",
+  "name": "Deliberante",
+  "description": "Completaste la misión 2: tres maneras de entender la ciudadanía.",
+  "icon": "flame",
+  "order": 12,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-02"
+ },
+ {
+  "id": "badge-mision-03",
+  "code": "MISION_03",
+  "name": "Participante Activa",
+  "description": "Completaste la misión 3: el mapa de participación ciudadana.",
+  "icon": "flag",
+  "order": 13,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-03"
+ },
+ {
+  "id": "badge-mision-04",
+  "code": "MISION_04",
+  "name": "Constructora de Territorio",
+  "description": "Completaste la misión 4: quién construye el territorio.",
+  "icon": "map-pin",
+  "order": 14,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-04"
+ },
+ {
+  "id": "badge-mision-05",
+  "code": "MISION_05",
+  "name": "Detective del Territorio",
+  "description": "Completaste la misión 5: el Expediente Ciudadano.",
+  "icon": "magnifier",
+  "order": 15,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-05"
+ },
+ {
+  "id": "badge-mision-06",
+  "code": "MISION_06",
+  "name": "Vocera del Cabildo",
+  "description": "Completaste la misión 6: el Cabildo Providencia.",
+  "icon": "mic",
+  "order": 16,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-06"
+ },
+ {
+  "id": "badge-mision-07",
+  "code": "MISION_07",
+  "name": "Solucionadora de Problemas",
+  "description": "Completaste la misión 7: quién debe resolver los problemas.",
+  "icon": "compass",
+  "order": 17,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-07"
+ },
+ {
+  "id": "badge-mision-08",
+  "code": "MISION_08",
+  "name": "Gobierna Ovalle",
+  "description": "Completaste la misión 8: el presupuesto comunal.",
+  "icon": "chart",
+  "order": 18,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-08"
+ },
+ {
+  "id": "badge-mision-09",
+  "code": "MISION_09",
+  "name": "Analista de Datos",
+  "description": "Completaste la misión 9: el laboratorio ciudadano de datos.",
+  "icon": "scale",
+  "order": 19,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-09"
+ },
+ {
+  "id": "badge-mision-10",
+  "code": "MISION_10",
+  "name": "Guardiana del Agua",
+  "description": "Completaste la misión 10: agua y desarrollo en el Limarí.",
+  "icon": "droplet",
+  "order": 20,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-10"
+ },
+ {
+  "id": "badge-mision-11",
+  "code": "MISION_11",
+  "name": "Diseñadora Ovalle 2035",
+  "description": "Completaste la misión 11: diseñamos una solución.",
+  "icon": "bulb",
+  "order": 21,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-11"
+ },
+ {
+  "id": "badge-mision-12",
+  "code": "MISION_12",
+  "name": "Feria Ciudadana",
+  "description": "Completaste la misión 12: la Feria Ciudadana Ovalle 2035.",
+  "icon": "trophy",
+  "order": 22,
+  "level": 1,
+  "criteria": [
+   {
+    "kind": "MISSION_COMPLETED",
+    "threshold": 1
+   }
+  ],
+  "classId": "class-12"
+ },
+ {
+  "id": "badge-comportamiento",
+  "code": "CONVIVENCIA",
+  "name": "Convivencia ejemplar",
+  "description": "Mantienes un trato respetuoso y cuidas la convivencia del grupo.",
+  "icon": "shield",
+  "order": 23,
+  "level": 1,
+  "category": "comportamiento",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ },
+ {
+  "id": "badge-puntualidad",
+  "code": "PUNTUALIDAD",
+  "name": "Puntualidad y compromiso",
+  "description": "Llegas a tiempo y cumples tus compromisos.",
+  "icon": "star",
+  "order": 24,
+  "level": 1,
+  "category": "comportamiento",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ },
+ {
+  "id": "badge-colaboracion",
+  "code": "COLABORACION",
+  "name": "Colaboradora",
+  "description": "Ayudas a tus compañeras y aportas al trabajo común.",
+  "icon": "handshake",
+  "order": 25,
+  "level": 1,
+  "category": "colaboracion",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ },
+ {
+  "id": "badge-equipo",
+  "code": "EQUIPO",
+  "name": "Trabajo en equipo",
+  "description": "Coordinas y colaboras para lograr metas colectivas.",
+  "icon": "people",
+  "order": 26,
+  "level": 1,
+  "category": "colaboracion",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ },
+ {
+  "id": "badge-apoyo-pares",
+  "code": "APOYO_PARES",
+  "name": "Apoyo entre pares",
+  "description": "Acompañas y explicas a quien lo necesita.",
+  "icon": "bridge",
+  "order": 27,
+  "level": 1,
+  "category": "colaboracion",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ },
+ {
+  "id": "badge-merito",
+  "code": "MERITO",
+  "name": "Mérito académico",
+  "description": "Destacas por tu aprendizaje y dominio de los contenidos.",
+  "icon": "trophy",
+  "order": 28,
+  "level": 1,
+  "category": "merito",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ },
+ {
+  "id": "badge-esfuerzo",
+  "code": "ESFUERZO",
+  "name": "Esfuerzo destacado",
+  "description": "Persistes y mejoras con dedicación.",
+  "icon": "flame",
+  "order": 29,
+  "level": 1,
+  "category": "merito",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ },
+ {
+  "id": "badge-creatividad",
+  "code": "CREATIVIDAD",
+  "name": "Creatividad",
+  "description": "Propones ideas originales para resolver desafíos.",
+  "icon": "bulb",
+  "order": 30,
+  "level": 1,
+  "category": "merito",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ },
+ {
+  "id": "badge-estrella-semana",
+  "code": "ESTRELLA_SEMANA",
+  "name": "Estrella de la semana",
+  "description": "Reconocimiento especial de la semana.",
+  "icon": "star",
+  "order": 31,
+  "level": 1,
+  "category": "especial",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ },
+ {
+  "id": "badge-reconocimiento",
+  "code": "RECONOCIMIENTO",
+  "name": "Reconocimiento del docente",
+  "description": "El equipo docente reconoce tu aporte al curso.",
+  "icon": "medal",
+  "order": 32,
+  "level": 1,
+  "category": "especial",
+  "criteria": [
+   {
+    "kind": "MANUAL",
+    "threshold": 0
+   }
+  ]
+ }
 ]

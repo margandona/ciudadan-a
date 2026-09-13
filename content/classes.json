@@ -166,5 +166,20 @@
     "hasFeedback": false,
     "flippedEnabled": true,
     "estMinutes": 12
+  },
+  {
+    "id": "class-13",
+    "number": 13,
+    "missionId": "mission-13",
+    "alternative": true,
+    "title": "Misión 13 · Alternativa — Gran Debate: ¿Quién resuelve?",
+    "subtitle": "Debate de actores: Estado, mercado, ciudadanía y colaboración",
+    "unitId": "U4",
+    "oaIds": ["OA4"],
+    "learningGoal": "Evaluar, con argumentos y evidencia, qué actor (Estado, mercado, ciudadanía o colaboración) debería resolver distintos problemas de Ovalle.",
+    "order": 13,
+    "hasFeedback": false,
+    "flippedEnabled": true,
+    "estMinutes": 14
   }
 ]

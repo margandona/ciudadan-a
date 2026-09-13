@@ -1,5 +1,27 @@
 import { QUESTION_TYPE, type QuizAnswerGiven, type QuizAnswerResult, type QuizQuestion } from "@pclab/shared";
 
+/** Porcentaje mínimo para considerar un quiz aprobado. */
+export const QUIZ_PASS_RATIO = 0.6;
+/** XP de actividad otorgado por cada quiz aprobado (primera vez). */
+export const QUIZ_PASS_XP = 25;
+
+/** ¿El intento alcanza el mínimo para aprobar? */
+export function isQuizPassing(attempt: { score: number; maxScore: number }): boolean {
+  return attempt.maxScore > 0 && attempt.score / attempt.maxScore >= QUIZ_PASS_RATIO;
+}
+
+/**
+ * XP que otorga aprobar un quiz: solo la primera vez (si el intento anterior ya
+ * estaba aprobado, no vuelve a sumar).
+ */
+export function quizXpAward(
+  previous: { score: number; maxScore: number } | null | undefined,
+  next: { score: number; maxScore: number },
+): number {
+  const wasPassing = !!previous && isQuizPassing(previous);
+  return isQuizPassing(next) && !wasPassing ? QUIZ_PASS_XP : 0;
+}
+
 /** Normaliza texto para comparar respuestas de tipo fill/short. */
 export function normalizeText(value: string): string {
   return value

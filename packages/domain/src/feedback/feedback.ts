@@ -68,7 +68,7 @@ export function aggregateFeedbackTendencies(courseId: string, feedback: Feedback
   return { courseId, tendencies, totalResponses: feedback.length };
 }
 
-/** Rendimiento de preguntas de quiz (tasa de acierto por pregunta). */
+/** Rendimiento de preguntas de quiz (tasa de acierto por pregunta + sugerencia automática). */
 export function questionPerformance(
   quiz: { id: string; title: string },
   attempts: { answers: { qid: string; correct: boolean }[] }[],
@@ -82,14 +82,24 @@ export function questionPerformance(
       byQuestion.set(answer.qid, stat);
     }
   }
-  return [...byQuestion.entries()].map(([questionId, stat]) => ({
-    quizId: quiz.id,
-    quizTitle: quiz.title,
-    questionId,
-    prompt: questionId,
-    correctRate: stat.attempts > 0 ? Math.round((stat.correct / stat.attempts) * 100) / 100 : 0,
-    attempts: stat.attempts,
-  }));
+  return [...byQuestion.entries()].map(([questionId, stat]) => {
+    const rate = stat.attempts > 0 ? Math.round((stat.correct / stat.attempts) * 100) / 100 : 0;
+    const suggestion =
+      rate < 0.4
+        ? "Concepto a repasar en clases: se falla con frecuencia."
+        : rate < 0.6
+          ? "Reforzar con un ejemplo local y una nueva práctica."
+          : undefined;
+    return {
+      quizId: quiz.id,
+      quizTitle: quiz.title,
+      questionId,
+      prompt: questionId,
+      correctRate: rate,
+      attempts: stat.attempts,
+      suggestion,
+    };
+  });
 }
 
 const LOW_PERFORMANCE_THRESHOLD = 0.6;

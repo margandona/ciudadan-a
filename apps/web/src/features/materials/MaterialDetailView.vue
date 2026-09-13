@@ -24,6 +24,7 @@ import {
 import BaseBadge from "@/components/ui/BaseBadge.vue";
 import SkeletonRows from "@/components/ui/SkeletonRows.vue";
 import AppErrorState from "@/components/ui/AppErrorState.vue";
+import SpeakButton from "@/components/ui/SpeakButton.vue";
 
 const props = defineProps<{ materialId: string }>();
 
@@ -148,6 +149,19 @@ function content(): MaterialContent | undefined {
   return m.value?.content;
 }
 
+const docSpeakText = computed(() => {
+  const c = content();
+  if (!c) return "";
+  const parts: string[] = [];
+  for (const para of c.contenido ?? []) parts.push(para);
+  for (const s of c.sections ?? []) {
+    if (s.text) parts.push(s.text);
+    if (s.items) parts.push(s.items.join(". "));
+  }
+  if (c.referencias) parts.push("Referencias: " + c.referencias.join(". "));
+  return parts.join(". ");
+});
+
 onMounted(load);
 </script>
 
@@ -223,6 +237,7 @@ onMounted(load);
 
       <section class="panel" aria-label="Documento">
         <h2>Documento</h2>
+        <SpeakButton :text="docSpeakText" label="Escuchar documento" />
         <div class="doc">
           <div v-if="content()?.contenido?.length" class="contenido">
             <h3>Contenido / Lectura</h3>

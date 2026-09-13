@@ -1,39 +1,196 @@
 [
+ {
+  "id": "rubric-proyecto",
+  "title": "Rúbrica — Proyecto Ovalle 2035",
+  "oaIds": [
+   "OA4",
+   "OA7"
+  ],
+  "criteria": [
+   {
+    "id": "problema",
+    "name": "Problema y evidencia",
+    "maxPoints": 4,
+    "descriptor": "Define un problema local con evidencia verificable."
+   },
+   {
+    "id": "territorio",
+    "name": "Territorio y población afectada",
+    "maxPoints": 4,
+    "descriptor": "Describe el territorio y a quiénes afecta."
+   },
+   {
+    "id": "participacion",
+    "name": "Participación ciudadana",
+    "maxPoints": 4,
+    "descriptor": "Propone cómo participa la comunidad."
+   },
+   {
+    "id": "actores",
+    "name": "Actores estatal y privado",
+    "maxPoints": 4,
+    "descriptor": "Identifica organismo público y actor privado viables."
+   },
+   {
+    "id": "sostenibilidad",
+    "name": "Impacto social y ambiental",
+    "maxPoints": 4,
+    "descriptor": "Explica impactos y sostenibilidad de la propuesta."
+   },
+   {
+    "id": "propuesta",
+    "name": "Propuesta",
+    "maxPoints": 4,
+    "descriptor": "Propuesta clara, realizable y fundamentada."
+   }
+  ]
+ },
+ {
+  "id": "rubric-cabildo",
+  "title": "Rúbrica — Cabildo Providencia «Nuestro territorio necesita…»",
+  "oaIds": [
+   "OA6",
+   "OA7"
+  ],
+  "criteria": [
+   {
+    "id": "postura",
+    "name": "Postura clara",
+    "maxPoints": 4,
+    "descriptor": "Expone la frase y su postura con claridad."
+   },
+   {
+    "id": "argumentos",
+    "name": "Argumentación",
+    "maxPoints": 4,
+    "descriptor": "Usa razones y conceptos de la unidad."
+   },
+   {
+    "id": "evidencia",
+    "name": "Evidencia",
+    "maxPoints": 4,
+    "descriptor": "Sustenta con datos, ejemplos o testimonios."
+   },
+   {
+    "id": "propuesta",
+    "name": "Propuesta realizable",
+    "maxPoints": 4,
+    "descriptor": "Plantea una solución concreta y viable."
+   },
+   {
+    "id": "participacion",
+    "name": "Participación en el cabildo",
+    "maxPoints": 4,
+    "descriptor": "Escucha, responde y construye acuerdos."
+   }
+  ]
+ },
+ {
+  "id": "rubric-feria",
+  "title": "Rúbrica — Feria Ciudadana Ovalle 2035",
+  "oaIds": [
+   "OA4",
+   "OA7"
+  ],
+  "criteria": [
+   {
+    "id": "presentacion",
+    "name": "Presentación",
+    "maxPoints": 4,
+    "descriptor": "Comunica el proyecto de forma clara y ordenada."
+   },
+   {
+    "id": "contenido",
+    "name": "Contenido",
+    "maxPoints": 4,
+    "descriptor": "Incluye problema, territorio, mapa y evidencia."
+   },
+   {
+    "id": "propuesta",
+    "name": "Propuesta y actores",
+    "maxPoints": 4,
+    "descriptor": "Presenta propuesta con actor estatal y privado."
+   },
+   {
+    "id": "ciudadania",
+    "name": "Ciudadanía y sostenibilidad",
+    "maxPoints": 4,
+    "descriptor": "Explica participación ciudadana y sostenibilidad."
+   },
+   {
+    "id": "impacto",
+    "name": "Impacto",
+    "maxPoints": 4,
+    "descriptor": "Comunica el impacto social y ambiental esperado."
+   }
+  ]
+ },
   {
-    "id": "rubric-proyecto",
-    "title": "Rúbrica — Proyecto Ovalle 2035",
-    "oaIds": ["OA4", "OA7"],
-    "criteria": [
-      { "id": "problema", "name": "Problema y evidencia", "maxPoints": 4, "descriptor": "Define un problema local con evidencia verificable." },
-      { "id": "territorio", "name": "Territorio y población afectada", "maxPoints": 4, "descriptor": "Describe el territorio y a quiénes afecta." },
-      { "id": "participacion", "name": "Participación ciudadana", "maxPoints": 4, "descriptor": "Propone cómo participa la comunidad." },
-      { "id": "actores", "name": "Actores estatal y privado", "maxPoints": 4, "descriptor": "Identifica organismo público y actor privado viables." },
-      { "id": "sostenibilidad", "name": "Impacto social y ambiental", "maxPoints": 4, "descriptor": "Explica impactos y sostenibilidad de la propuesta." },
-      { "id": "propuesta", "name": "Propuesta", "maxPoints": 4, "descriptor": "Propuesta clara, realizable y fundamentada." }
-    ]
+   "id": "rubric-proceso",
+   "title": "Rúbrica de proceso — semestre",
+   "oaIds": [
+    "OA6",
+    "OA7",
+    "OA4"
+   ],
+   "criteria": [
+    {
+     "id": "participacion",
+     "name": "Participación",
+     "maxPoints": 4,
+     "descriptor": "Interviene, escucha y colabora en las clases (registro en vivo)."
+    },
+    {
+     "id": "responsabilidad",
+     "name": "Responsabilidad",
+     "maxPoints": 4,
+     "descriptor": "Completa el aula invertida y entrega evidencias y tickets a tiempo."
+    },
+    {
+     "id": "colaboracion",
+     "name": "Colaboración",
+     "maxPoints": 4,
+     "descriptor": "Trabaja en equipo, aporta a los acuerdos y respeta otras posturas."
+    },
+    {
+     "id": "reflexion",
+     "name": "Reflexión",
+     "maxPoints": 4,
+     "descriptor": "Usa la retroalimentación y reflexiona en los tickets de salida."
+    }
+   ]
   },
   {
-    "id": "rubric-cabildo",
-    "title": "Rúbrica — Cabildo Providencia «Nuestro territorio necesita…»",
-    "oaIds": ["OA6", "OA7"],
-    "criteria": [
-      { "id": "postura", "name": "Postura clara", "maxPoints": 4, "descriptor": "Expone la frase y su postura con claridad." },
-      { "id": "argumentos", "name": "Argumentación", "maxPoints": 4, "descriptor": "Usa razones y conceptos de la unidad." },
-      { "id": "evidencia", "name": "Evidencia", "maxPoints": 4, "descriptor": "Sustenta con datos, ejemplos o testimonios." },
-      { "id": "propuesta", "name": "Propuesta realizable", "maxPoints": 4, "descriptor": "Plantea una solución concreta y viable." },
-      { "id": "participacion", "name": "Participación en el cabildo", "maxPoints": 4, "descriptor": "Escucha, responde y construye acuerdos." }
-    ]
-  },
-  {
-    "id": "rubric-feria",
-    "title": "Rúbrica — Feria Ciudadana Ovalle 2035",
-    "oaIds": ["OA4", "OA7"],
-    "criteria": [
-      { "id": "presentacion", "name": "Presentación", "maxPoints": 4, "descriptor": "Comunica el proyecto de forma clara y ordenada." },
-      { "id": "contenido", "name": "Contenido", "maxPoints": 4, "descriptor": "Incluye problema, territorio, mapa y evidencia." },
-      { "id": "propuesta", "name": "Propuesta y actores", "maxPoints": 4, "descriptor": "Presenta propuesta con actor estatal y privado." },
-      { "id": "ciudadania", "name": "Ciudadanía y sostenibilidad", "maxPoints": 4, "descriptor": "Explica participación ciudadana y sostenibilidad." },
-      { "id": "impacto", "name": "Impacto", "maxPoints": 4, "descriptor": "Comunica el impacto social y ambiental esperado." }
-    ]
+   "id": "rubric-debate",
+   "title": "Rúbrica — Gran Debate: ¿Quién debe resolver los problemas?",
+   "oaIds": [
+    "OA4"
+   ],
+   "criteria": [
+    {
+     "id": "postura",
+     "name": "Postura y actor",
+     "maxPoints": 4,
+     "descriptor": "Explica con claridad el actor que defiende y por qué le corresponde el caso."
+    },
+    {
+     "id": "argumentos",
+     "name": "Argumentación",
+     "maxPoints": 4,
+     "descriptor": "Justifica con razones y conceptos de la unidad (bienes públicos, colaboración) y un criterio (igualdad, eficiencia o participación)."
+    },
+    {
+     "id": "evidencia",
+     "name": "Evidencia",
+     "maxPoints": 4,
+     "descriptor": "Sustenta con datos, ejemplos locales o fuentes."
+    },
+    {
+     "id": "dialogo",
+     "name": "Diálogo y acuerdos",
+     "maxPoints": 4,
+     "descriptor": "Escucha, pregunta a otras posturas y contribuye a la colaboración final."
+    }
+   ]
   }
 ]

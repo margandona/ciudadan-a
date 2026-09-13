@@ -3,16 +3,18 @@ import { onMounted, ref } from "vue";
 import type { Quiz, QuizAttempt } from "@pclab/shared";
 import { QUIZ_ATTEMPT_STATUS_LABELS } from "@pclab/shared";
 import { useSessionStore } from "@/stores/session";
-import { listQuizResults, quizRepo } from "@/infrastructure/appDeps";
+import { listQuizResults, quizRepo, studentRepo } from "@/infrastructure/appDeps";
 import SkeletonRows from "@/components/ui/SkeletonRows.vue";
 import AppErrorState from "@/components/ui/AppErrorState.vue";
 
 const props = defineProps<{ classId: string }>();
 
 const session = useSessionStore();
+const courseId = ref(session.courses[0] ?? "");
 const quizzes = ref<Quiz[]>([]);
 const selectedQuiz = ref("");
 const attempts = ref<QuizAttempt[]>([]);
+const names = ref<Map<string, string>>(new Map());
 const loading = ref(true);
 const error = ref("");
 
@@ -20,11 +22,25 @@ function actor() {
   return { uid: session.user?.uid ?? "", role: session.role, courses: session.courses };
 }
 
+function nameOf(studentId: string): string {
+  return names.value.get(studentId) ?? studentId;
+}
+
 async function load(): Promise<void> {
   loading.value = true;
   error.value = "";
   try {
-    quizzes.value = (await quizRepo.listByClass(props.classId)).sort((a, b) => a.order - b.order);
+    const [quizList, students] = await Promise.all([
+      quizRepo.listByClass(props.classId),
+      studentRepo.findByCourse(courseId.value).catch(() => []),
+    ]);
+    quizzes.value = [...quizList].sort((a, b) => a.order - b.order);
+    const map = new Map<string, string>();
+    for (const s of students) {
+      map.set(s.id, s.displayName);
+      if (s.userId) map.set(s.userId, s.displayName);
+    }
+    names.value = map;
     if (quizzes.value[0]) selectedQuiz.value = quizzes.value[0].id;
     await loadResults();
   } catch (e) {
@@ -51,6 +67,11 @@ onMounted(load);
     <RouterLink to="/teacher/classes" class="back">← Clases</RouterLink>
     <h1>Resultados de quizzes — {{ props.classId }}</h1>
 
+    <label for="course">Curso</label>
+    <select id="course" v-model="courseId" class="select" @change="load" :disabled="loading">
+      <option v-for="c in session.courses" :key="c" :value="c">{{ c }}</option>
+    </select>
+
     <SkeletonRows v-if="loading" />
     <AppErrorState v-else-if="error && quizzes.length === 0" :message="error" @retry="load" />
 
@@ -59,6 +80,12 @@ onMounted(load);
       <select id="quiz" v-model="selectedQuiz" class="select" @change="loadResults">
         <option v-for="q in quizzes" :key="q.id" :value="q.id">{{ q.title }}</option>
       </select>
+
+      <RouterLink
+        v-if="selectedQuiz"
+        :to="`/teacher/classes/${props.classId}/quizzes/${selectedQuiz}/live`"
+        class="btn btn-primary"
+      >▶ Quiz en vivo (proyectar)</RouterLink>
 
       <p v-if="attempts.length === 0" class="muted">Aún no hay intentos.</p>
 
@@ -76,7 +103,7 @@ onMounted(load);
           </thead>
           <tbody>
             <tr v-for="a in attempts" :key="a.studentId">
-              <td>{{ a.studentId }}</td>
+              <td>{{ nameOf(a.studentId) }}</td>
               <td>{{ a.score }}</td>
               <td>{{ a.maxScore }}</td>
               <td>{{ a.status === "SUBMITTED" ? 1 : 0 }}</td>

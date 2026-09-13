@@ -7,13 +7,14 @@ import type { Student, Submission } from "@pclab/shared";
 vi.mock("@/infrastructure/appDeps", () => ({
   listSubmissions: { run: vi.fn() },
   studentRepo: { findByCourse: vi.fn() },
+  activityRepo: { listByClass: vi.fn() },
 }));
 vi.mock("@/services/importApi", () => ({
   reviewSubmission: vi.fn(),
 }));
 
 import SubmissionsReviewView from "./SubmissionsReviewView.vue";
-import { listSubmissions, studentRepo } from "@/infrastructure/appDeps";
+import { activityRepo, listSubmissions, studentRepo } from "@/infrastructure/appDeps";
 import { reviewSubmission } from "@/services/importApi";
 import { useSessionStore } from "@/stores/session";
 
@@ -58,6 +59,8 @@ describe("SubmissionsReviewView", () => {
   beforeEach(() => {
     vi.mocked(listSubmissions.run).mockReset();
     vi.mocked(studentRepo.findByCourse).mockReset();
+    vi.mocked(activityRepo.listByClass).mockReset();
+    vi.mocked(activityRepo.listByClass).mockResolvedValue([]);
     vi.mocked(reviewSubmission).mockReset();
   });
 

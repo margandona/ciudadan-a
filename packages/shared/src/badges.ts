@@ -1,8 +1,26 @@
 import type { IsoTimestamp } from "./types";
 
+/** Categoría de una medalla (para agrupar en la galería y en la vista del docente). */
+export type BadgeCategory = "logro" | "comportamiento" | "colaboracion" | "merito" | "especial";
+
+export const BADGE_CATEGORY_LABELS: Record<BadgeCategory, string> = {
+  logro: "Logros de aprendizaje",
+  comportamiento: "Comportamiento y convivencia",
+  colaboracion: "Colaboración",
+  merito: "Mérito y esfuerzo",
+  especial: "Reconocimientos especiales",
+};
+
 /** Criterio de una medalla (datos por defecto; configurables en content/badges.json). */
 export interface BadgeCriteria {
-  kind: "FLIPPED_COMPLETED" | "QUIZ_PASSED" | "EVIDENCE_SUBMITTED" | "PARTICIPATION" | "EXIT_TICKETS";
+  kind:
+    | "FLIPPED_COMPLETED"
+    | "QUIZ_PASSED"
+    | "EVIDENCE_SUBMITTED"
+    | "PARTICIPATION"
+    | "EXIT_TICKETS"
+    | "MISSION_COMPLETED"
+    | "MANUAL";
   threshold: number;
   /** Para PARTICIPATION: habilidad específica (opcional). */
   skill?: string;
@@ -18,6 +36,10 @@ export interface Badge {
   order: number;
   level: number;
   criteria: BadgeCriteria[];
+  /** Para medallas de misión: id de la clase/misión que se debe completar. */
+  classId?: string;
+  /** Categoría (agrupa la galería; por defecto "logro"). */
+  category?: BadgeCategory;
 }
 
 /** Medalla otorgada a una estudiante. */

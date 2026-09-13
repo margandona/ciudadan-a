@@ -45,9 +45,10 @@ onMounted(() => {
 
 <template>
   <div>
-    <RouterLink to="/student" class="back">← Mis misiones</RouterLink>
-    <h1>Ticket de salida</h1>
-    <p class="muted">Cierra la clase con tus propias palabras.</p>
+     <RouterLink :to="`/student/missions/${props.classId}/flipped`" class="back">← Volver a la misión</RouterLink>
+     <p class="stage-kicker">Etapa 3 · Cerrar</p>
+     <h1>La última jugada</h1>
+     <p class="muted">Cierra la misión con tus propias palabras: qué descubriste, qué evidencia te convenció y qué pregunta te queda.</p>
 
     <AppErrorState v-if="error" :message="error" @retry="send" />
 
@@ -73,13 +74,14 @@ onMounted(() => {
         <span class="muted">{{ difficulty }}/5</span>
 
         <button class="btn btn-primary" type="submit" :disabled="loading">
-          {{ loading ? "Enviando…" : "Enviar ticket" }}
+           {{ loading ? "Enviando…" : "Guardar mi última jugada" }}
         </button>
       </form>
     </BaseCard>
 
-    <p v-else class="ok" role="status">
-      {{ pending ? "¡Ticket guardado! Se sincronizará cuando tengas conexión." : "¡Ticket enviado! Gracias por cerrar la clase." }}
+     <p v-else class="ok" role="status">
+       {{ pending ? "¡Ticket guardado! Se sincronizará cuando tengas conexión." : "¡Ticket enviado! Gracias por cerrar la clase." }}
+       <br /><RouterLink to="/student" class="next-stage">Volver a mi ruta de misiones →</RouterLink>
     </p>
   </div>
 </template>
@@ -90,6 +92,8 @@ onMounted(() => {
   color: var(--color-text-muted);
   font-size: 0.9rem;
 }
+.stage-kicker { margin: var(--space-3) 0 0; color: var(--color-accent); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.next-stage { color: var(--color-primary); text-decoration: none; }
 .muted {
   color: var(--color-text-muted);
 }

@@ -2,6 +2,34 @@
 
 Formato: [SemVer](https://semver.org/) + categorías `Added / Changed / Fixed / Security`.
 
+## [0.20.0] — Granja Ciudadana: farmeo, inventario, perks y quiz de conceptos
+
+### Added
+- **Notificaciones de recompensas (toasts)**: sistema global (`useNotify.ts` + `AppToasts.vue`) que avisa cada ganancia con su cantidad — cosecha (+monedas/+XP/+semillas), desafío de conceptos (+XP), **quiz individual (+25 XP exacto, `submitQuizAttempt` ahora devuelve `{ attempt, xpAwarded }`)**, medallas (+15 XP c/u), medalla de misión, compras, **regalos del docente en vivo** (`useFarmWatch` escucha `farms/{uid}` con `onSnapshot` y consume los `FarmNotice` de `teacherGrant`) y **subida de nivel**.
+- **Granja Ciudadana** (server-authoritative): parcela con casillas desbloqueables por nivel, cultivos que crecen en tiempo real, cosecha de monedas/semillas/XP, tienda e inventario con **49 objetos** y perks pasivos (`xp_bonus`, `coin_bonus`, `growth_speed`, `seed_bonus`, `unlock_plot`, `concept_hint`) en 7 categorías (cultivos, NPCs, herramientas, talismanes, vestimenta, accesorios, decoración). **Cosecha Dorada** como condición de victoria. Ver `docs/GRANJA_CIUDADANA.md`.
+- **Quiz de conceptos clave por nivel** ("Desafío de Saberes"): `content/concept-quizzes.json` con **12 niveles × 10 preguntas = 120 preguntas**, corrección server-side y bono de XP la primera aprobación por nivel.
+- **Callables**: `getFarm`, `plantSeed`, `harvestPlot`, `buyFarmItem`, `equipFarmItem`, `getConceptQuiz`, `submitConceptQuiz`. Repos Firestore `farms/{uid}` y `conceptQuizzes/{level}`.
+- **Web**: `composables/useFarm.ts`, `features/farm/FarmView.vue`, `features/farm/ConceptQuizView.vue`, rutas `/student/farm` y `/student/farm/concept/:level`, enlace "Granja" en la navegación del estudiante.
+- **Otorgamientos del docente**: **10 medallas manuales** (comportamiento, puntualidad, colaboración, trabajo en equipo, apoyo entre pares, mérito, esfuerzo, creatividad, estrella de la semana y reconocimiento del docente) agrupadas por categoría, y callable **`teacherGrant`** para regalar **avatares premium**, **objetos de la granja** y **monedas/semillas**. Los avatares premium aparecen bloqueados ("🔒 Regalo del profe") hasta que el docente los regala.
+- **Catálogos expandidos**: avatares **10 → 29** estilos DiceBear (17 base + 12 premium); loaders **4 → 10** animaciones (`sparkle`, `leaf`, `wave`, `gear`, `coin`, `rocket`); iconos **+44 SVG**.
+- **E2E**: `e2e/farm.spec.ts` (parcela, tienda, inventario y desafío de conceptos).
+- **Helper reutilizable** `computeActivityXp` en infraestructura, compartido por `getStudentGamification` y la granja.
+
+### Changed
+- `getStudentGamification` suma `bonusXp` (cosechas + quiz) al XP total, agrega `breakdown.farm` y **recorta `progressToNext` a 100%**.
+- `Avatar.vue` muestra vestimenta y accesorios equipados.
+- `activityXp` se cachea en `farms/{uid}`: solo `getFarm` lo recalcula (las acciones son baratas).
+
+### Security
+- Reglas Firestore: `farms/{uid}` (lee la propia estudiante; escribe solo el servidor) y `conceptQuizzes/{level}` (solo servidor; contiene respuestas).
+
+### Tests
+- `pnpm typecheck` (web + server) OK · `lint` de archivos nuevos OK · `build:web` y `build:functions` OK.
+- Unitarias: **249** pasan (incluye 11 de dominio de granja y 8 de casos de uso).
+- **Verificación local con emuladores** (`pnpm verify:farm`): **11/11** — `getFarm`, `plantSeed`, `harvestPlot`, `buyFarmItem`, `getConceptQuiz`, `submitConceptQuiz`, `submitQuizAttempt` (+25 XP exacto), `teacherGrant` (avatar premium + monedas + aviso), y regla de Firestore (`farms` solo escribe el servidor → HTTP 403).
+- **E2E** (`npx playwright test e2e/farm.spec.ts`): **2 passed** (plantado/tienda/inventario y desafío de conceptos).
+- `typecheck:web` y `build:web` OK (se corrigió el tipado del mock de participación en `MissionResultsView.test.ts`).
+
 ## [0.17.6] — Deploy parcial del proyecto real (hosting + rules + datos)
 
 ### Added / Changed

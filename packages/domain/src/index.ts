@@ -16,3 +16,4 @@ export * from "./material/material-review";
 export * from "./badges/badges";
 export * from "./feedback/feedback";
 export * from "./projects/project";
+export * from "./farm/farm";

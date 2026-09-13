@@ -22,6 +22,7 @@ import type {
   ClassScheduleRepository,
   FlippedLessonRepository,
   FlippedProgressRepository,
+  SubmissionRepository,
 } from "../ports";
 
 /** Una misión con su visibilidad y progreso flipped para la estudiante. */
@@ -31,6 +32,7 @@ export interface StudentMission {
   visibility: StudentVisibility;
   flippedAvailable: boolean;
   flippedProgress: FlippedProgress | null;
+  feedbackReady?: boolean;
 }
 
 /** Lista las 12 misiones para la estudiante, ordenadas y con su estado. */
@@ -40,6 +42,7 @@ export class ListMissionsForStudentUseCase {
       classes: ClassRepository;
       schedules: ClassScheduleRepository;
       progress: FlippedProgressRepository;
+      submissions?: SubmissionRepository;
     },
   ) {}
 
@@ -56,22 +59,37 @@ export class ListMissionsForStudentUseCase {
     ]);
 
     const scheduleByClass = new Map(schedules.map((s) => [s.classId, s]));
+    const ownSubmissions = this.deps.submissions?.findByStudent
+      ? await this.deps.submissions.findByStudent(input.studentId)
+      : [];
+    const feedbackByClass = new Map<string, boolean>();
+    for (const submission of ownSubmissions) {
+      const hasFeedback = Boolean(submission.teacherFeedback?.trim()) || submission.score !== null;
+      if (hasFeedback && !feedbackByClass.has(submission.classId)) {
+        feedbackByClass.set(submission.classId, true);
+      }
+    }
     const missions: StudentMission[] = [];
+    const pending: { cls: ClassEntity; schedule: ClassSchedule | null; visibility: StudentVisibility; flippedAvailable: boolean; progress: Promise<FlippedProgress | null> }[] = [];
 
     for (const cls of catalog.sort((a, b) => a.order - b.order)) {
       const schedule = scheduleByClass.get(cls.id) ?? null;
       const visibility = resolveStudentVisibility(schedule, now);
       const flippedAvailable = isFlippedAvailable(schedule, now);
-      let flippedProgress: FlippedProgress | null = null;
-      if (flippedAvailable && schedule) {
-        flippedProgress = await this.deps.progress.get(cls.id, input.studentId);
-      }
+      const progressTask =
+        flippedAvailable && schedule ? this.deps.progress.get(cls.id, input.studentId) : Promise.resolve(null);
+      pending.push({ cls, schedule, visibility, flippedAvailable, progress: progressTask });
+    }
+
+    const rows = await Promise.all(pending.map((item) => item.progress.then((flippedProgress) => ({ ...item, flippedProgress }))));
+    for (const row of rows) {
       missions.push({
-        class: cls,
-        schedule,
-        visibility,
-        flippedAvailable,
-        flippedProgress,
+        class: row.cls,
+        schedule: row.schedule,
+        visibility: row.visibility,
+        flippedAvailable: row.flippedAvailable,
+        flippedProgress: row.flippedProgress,
+        feedbackReady: feedbackByClass.get(row.cls.id) ?? false,
       });
     }
     return missions;

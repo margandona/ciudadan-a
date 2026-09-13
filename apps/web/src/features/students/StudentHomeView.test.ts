@@ -11,6 +11,7 @@ vi.mock("@/services/importApi", () => ({
   getBadgesForStudent: vi.fn(),
   getPositiveMessage: vi.fn(),
   evaluateBadges: vi.fn(),
+  getStudentGamification: vi.fn().mockResolvedValue({ xp: 0, level: 1, progressToNext: 0, streak: 0, weeklyStars: 0, breakdown: {}, badges: 0, totalBadges: 0 }),
 }));
 
 import StudentHomeView from "./StudentHomeView.vue";

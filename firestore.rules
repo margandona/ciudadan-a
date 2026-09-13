@@ -221,6 +221,20 @@ service cloud.firestore {
       allow create, update, delete: if onlyServer();
     }
 
+    // Quiz en vivo: lectura en tiempo real para autenticados; escritura solo servidor.
+    match /liveQuizzes/{sessionId} {
+      allow read: if signedIn();
+      allow create, update, delete: if onlyServer();
+      match /players/{uid} {
+        allow read: if signedIn();
+        allow create, update, delete: if onlyServer();
+      }
+       match /responses/{qIndex}/answers/{uid} {
+        allow read: if signedIn();
+        allow create, update, delete: if onlyServer();
+      }
+    }
+
     match /activities/{activityId} {
       allow read: if signedIn();
       allow write: if onlyServer()
@@ -265,6 +279,28 @@ service cloud.firestore {
       allow create: if signedIn()
         && ((isRole('PROFESOR') && isInCourseOf(resource.data)) || onlyServer());
       allow update, delete: if onlyServer();
+    }
+
+    // Granja Ciudadana: la estudiante lee su propia parcela; solo el servidor escribe.
+    match /farms/{studentId} {
+      allow read: if signedIn() && (request.auth.uid == studentId || isAdminish());
+      allow write: if onlyServer();
+    }
+
+    // Quiz de conceptos clave: contiene respuestas, solo el servidor accede.
+    match /conceptQuizzes/{level} {
+      allow read, write: if onlyServer();
+    }
+
+    // Presencia en vivo: solo escribe el servidor (latido de estudiante); la
+    // docente lee para ver quién está conectado y trabajando ahora.
+    match /presence/{courseId}/students/{studentId} {
+      allow read: if signedIn() && (
+        request.auth.uid == studentId
+        || isAdminish()
+        || (isRole('PROFESOR') && isInCourse(courseId))
+      );
+      allow create, update, delete: if onlyServer();
     }
 
     match /feedback/{classId}/records/{studentId} {

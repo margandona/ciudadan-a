@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { QUESTION_TYPE, type QuizQuestion } from "@pclab/shared";
-import { gradeAttempt, gradeQuestion, maxPoints, normalizeText, validateGiven } from "./quiz-scoring";
+import { gradeAttempt, gradeQuestion, isQuizPassing, maxPoints, normalizeText, quizXpAward, validateGiven } from "./quiz-scoring";
 
 const base = (over: Partial<QuizQuestion>): QuizQuestion => ({
   id: "q1",
@@ -87,6 +87,21 @@ describe("validateGiven", () => {
 
 describe("normalizeText", () => {
   it("quita tildes, minúsculas y colapsa espacios", () => {
-    expect(normalizeText("  CiUdAdanÍA  MÚNÍZ  ")).toBe("ciudadania muniz");
+    expect(normalizeText("  CiUdAdan\u00EDa  Mu\u00F1iz  ")).toBe("ciudadania muniz");
+  });
+});
+
+describe("isQuizPassing / quizXpAward", () => {
+  it("considera aprobado desde el 60%", () => {
+    expect(isQuizPassing({ score: 3, maxScore: 5 })).toBe(true);
+    expect(isQuizPassing({ score: 2, maxScore: 5 })).toBe(false);
+    expect(isQuizPassing({ score: 0, maxScore: 0 })).toBe(false);
+  });
+
+  it("otorga 25 XP solo la primera aprobaci\u00F3n", () => {
+    expect(quizXpAward(null, { score: 3, maxScore: 5 })).toBe(25);
+    expect(quizXpAward({ score: 2, maxScore: 5 }, { score: 3, maxScore: 5 })).toBe(25);
+    expect(quizXpAward({ score: 4, maxScore: 5 }, { score: 5, maxScore: 5 })).toBe(0);
+    expect(quizXpAward(null, { score: 1, maxScore: 5 })).toBe(0);
   });
 });

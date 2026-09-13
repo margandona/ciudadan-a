@@ -18,6 +18,64 @@
   --space-4: 16px;
   --space-5: 24px;
   --space-6: 32px;
+  --font-scale: 1;
+}
+
+/* Escala de letra controlada desde la barra de accesibilidad. */
+html {
+  font-size: calc(100% * var(--font-scale));
+}
+
+/* Modo oscuro (barra de accesibilidad). */
+html.dark {
+  color-scheme: dark;
+  --color-bg: #0d1622;
+  --color-surface: #17222f;
+  --color-surface-2: #1d2a3a;
+  --color-border: #2c3e52;
+  --color-primary: #8fb9e6;
+  --color-primary-soft: #1b3146;
+  --color-accent: #3ecfb0;
+  --color-warning: #e5b34f;
+  --color-danger: #ef806f;
+  --color-text: #e8eef4;
+  --color-text-muted: #a4b2c0;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+html.dark img { opacity: 0.94; }
+html.dark .btn-ghost,
+html.dark .btn-ghost-small,
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: var(--color-surface-2);
+  color: var(--color-text);
+}
+html.dark table td { background: var(--color-surface); }
+
+/* Alto contraste (barra de accesibilidad). */
+html.hc {
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-border: #0b0b0b;
+  --color-primary: #003060;
+  --color-primary-soft: #dce6f0;
+  --color-accent: #005b3f;
+  --color-warning: #5c3a00;
+  --color-danger: #8b0000;
+  --color-text: #000000;
+  --color-text-muted: #1b1b1b;
+}
+html.hc a,
+html.hc .btn {
+  text-decoration-thickness: 2px;
+}
+html.hc .option,
+html.hc .step,
+html.hc input,
+html.hc select,
+html.hc textarea {
+  border-width: 2px;
 }
 
 * {
@@ -30,6 +88,14 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.5;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
 }
 
 a {
@@ -46,5 +112,33 @@ a {
   * {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+/* ===== Mobile-first: ajustes SOLO en pantallas pequeñas (desktop intacto) ===== */
+@media (max-width: 480px) {
+  :root {
+    --space-4: 12px;
+    --space-5: 16px;
+    --space-6: 20px;
+  }
+  .app-main {
+    padding: 12px;
+  }
+  .app-header {
+    padding: var(--space-3);
+  }
+  .brand-sub {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --space-3: 10px;
+  }
+  .nav-link {
+    padding: var(--space-1) var(--space-2);
+    font-size: 0.85rem;
   }
 }

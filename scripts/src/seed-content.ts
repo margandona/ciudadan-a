@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Activity, Badge, ClassEntity, FlippedLesson, Material, PositiveMessage, Quiz, QuizQuestion, Rubric, SlideDeck, SlideKind } from "@pclab/shared";
+import type { Activity, Badge, ClassEntity, ConceptQuiz, FlippedLesson, Material, PositiveMessage, Quiz, QuizQuestion, Rubric, SlideDeck, SlideKind } from "@pclab/shared";
 import { MANDATORY_SLIDE_KINDS } from "@pclab/shared";
 import { isoToTimestamp } from "@pclab/infrastructure";
 import { getDb, parseFlags, requireEmulator } from "./lib";
@@ -38,9 +38,14 @@ async function main(): Promise<void> {
   console.log(`Catálogo: ${classes.length} misiones listas.`);
 
   let flippedCount = 0;
-  for (let n = 1; n <= 12; n++) {
-    const dir = path.join(ROOT, "content", "missions", String(n).padStart(2, "0"));
-    const file = path.join(dir, "flipped.json");
+  const missionsRoot = path.join(ROOT, "content", "missions");
+  const missionDirs = fs
+    .readdirSync(missionsRoot, { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => e.name)
+    .sort();
+  for (const dir of missionDirs) {
+    const file = path.join(missionsRoot, dir, "flipped.json");
     if (!fs.existsSync(file)) continue;
     const lesson = readJson<FlippedLesson>(file);
     await db.collection("flippedLesson").doc(lesson.classId).set(
@@ -139,6 +144,15 @@ async function main(): Promise<void> {
     console.log(`Medallas: ${badges.length} listas.`);
   }
 
+  const conceptQuizzesFile = path.join(ROOT, "content", "concept-quizzes.json");
+  if (fs.existsSync(conceptQuizzesFile)) {
+    const conceptQuizzes = readJson<ConceptQuiz[]>(conceptQuizzesFile);
+    for (const quiz of conceptQuizzes) {
+      await db.collection("conceptQuizzes").doc(String(quiz.level)).set(quiz, { merge: true });
+    }
+    console.log(`Desafíos de conceptos: ${conceptQuizzes.length} listos.`);
+  }
+
   const messagesFile = path.join(ROOT, "content", "messages.json");
   if (fs.existsSync(messagesFile)) {
     const messages = readJson<PositiveMessage[]>(messagesFile);
@@ -177,6 +191,15 @@ async function main(): Promise<void> {
     const slides = (MANDATORY_SLIDE_KINDS as readonly SlideKind[]).concat(
       ["contenido", "actividad", "pregunta", "quiz", "discusion", "actividadPrincipal", "evaluacion", "sintesis"] as SlideKind[],
     );
+    const labStories: Record<number, { chapter: string; hook: string; task: string; context: string; source: string }> = {
+      7: { chapter: "Consejo de soluciones", hook: "La plaza de Ovalle está a oscuras: reúne Estado, mercado y ciudadanía.", task: "Defiende un actor y termina con una colaboración concreta.", context: "La Ley 20.500 (2011) fortaleció mecanismos de participación en la gestión pública. Analizaremos responsabilidades, bienes públicos y rendición de cuentas.", source: "https://www.bcn.cl/formacioncivica/presentacion" },
+      8: { chapter: "Presupuesto bajo presión", hook: "Tienes 100 fichas para mejorar Ovalle, pero cada decisión deja otra necesidad esperando.", task: "Prioriza áreas y explica tu costo de oportunidad.", context: "Un presupuesto municipal es un plan anual de ingresos y gastos. La justicia de una decisión se analiza preguntando quién se beneficia, qué queda pendiente y por qué.", source: "https://www.mineduc.cl/wp-content/uploads/sites/19/2016/11/Orientaciones-curriculares-PFC-op-web.pdf" },
+      9: { chapter: "Código desigualdad", hook: "Los datos esconden pistas sobre oportunidades distintas en el territorio.", task: "Observa, interpreta, cuestiona y propone sin etiquetar personas.", context: "El Gini resume desigualdad de ingresos y la encuesta CASEN permite estudiar condiciones sociales. Un dato necesita año, población y contexto para interpretarse.", source: "https://www.bcn.cl/formacioncivica/presentacion" },
+      10: { chapter: "El acuerdo del Limarí", hook: "El agua debe alcanzar para las casas, el riego y el río.", task: "Construye un acuerdo que sea sostenible para varias voces.", context: "DGA, organizaciones de usuarios, municipios, comunidades y actividades agrícolas son actores con responsabilidades e intereses distintos.", source: "https://territoriociudadano.minvu.gob.cl/" },
+      11: { chapter: "Diseño Ovalle 2035", hook: "El mapa del futuro está en blanco y tu equipo puede transformarlo.", task: "Conecta problema, evidencia, actores, recursos e impactos.", context: "Un proyecto ciudadano pasa del diagnóstico a una propuesta evaluable: problema, evidencia, actores, recursos, impactos y acciones.", source: "https://www.mineduc.cl/wp-content/uploads/sites/19/2016/11/Orientaciones-curriculares-PFC-op-web.pdf" },
+      12: { chapter: "Feria ciudadana", hook: "Solo tres minutos separan tu propuesta del apoyo de la comunidad.", task: "Ensaya una presentación clara, realizable y con evidencia.", context: "Comunicar una propuesta es participar: se presenta evidencia, se explican decisiones, se escuchan preguntas y se mejora el proyecto.", source: "https://www.curriculumnacional.cl/recursos/video-educacion-ciudadana" },
+    };
+    const lab = labStories[cls.number];
     return {
       classId: cls.id,
       courseId,
@@ -191,8 +214,33 @@ async function main(): Promise<void> {
           {
             id: `b${i}-2`,
             type: "text" as const,
-            text: kind === "objetivo" && cls.learningGoal ? cls.learningGoal : "Contenido en preparación para esta clase.",
+            text: lab
+              ? kind === "portada"
+                ? `Laboratorio Ciudadano · ${lab.chapter}`
+                : kind === "aprendizaje" || kind === "objetivo"
+                  ? cls.learningGoal ?? lab.task
+                  : kind === "ruta"
+                    ? "1. Escuchar la historia\n2. Desbloquear conceptos\n3. Resolver el reto\n4. Compartir una estrategia\n5. Cerrar con ticket"
+                    : kind === "activacion"
+                      ? lab.hook
+                      : kind === "actividad" || kind === "actividadPrincipal"
+                        ? `Reto de equipo: ${lab.task}`
+                        : kind === "discusion"
+                          ? "Conversen: ¿qué decisión protege mejor el bien común y qué evidencia la sostiene?"
+                          : kind === "sintesis"
+                            ? `Misión completada cuando puedes explicar: ${lab.task}`
+                            : "Aprender jugando significa probar, justificar, escuchar y volver a intentar."
+              : kind === "objetivo" && cls.learningGoal ? cls.learningGoal : "Contenido en preparación para esta clase.",
           },
+          ...(lab && ["contenido", "actividad", "discusion", "sintesis"].includes(kind)
+            ? [{ id: `b${i}-context`, type: "callout" as const, text: lab.context }]
+            : []),
+          ...(lab && ["pregunta", "quiz", "evaluacion"].includes(kind)
+            ? [{ id: `b${i}-3`, type: "question" as const, title: "Reto relámpago", text: lab.task, options: ["Lo justifico con evidencia", "Elijo al azar", "No necesito explicar"], correctIndex: 0, explanation: "En el laboratorio, una decisión ciudadana se explica con razones y evidencia." }]
+            : []),
+          ...(lab && kind === "contenido"
+            ? [{ id: `b${i}-source`, type: "resource" as const, title: "Fuente recomendada", url: lab.source, note: "Abre esta fuente para profundizar después de la explicación." }]
+            : []),
         ],
       })),
       updatedAt: new Date().toISOString(),

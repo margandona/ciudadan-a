@@ -68,6 +68,7 @@ describe("buildAlerts", () => {
       exitTickets: 2,
       avgDifficulty: 4.2,
       participation: 5,
+      avgQuizMinutes: null,
       lowPerformance: [{ quizId: "q", quizTitle: "Quiz", questionId: "p1", prompt: "p1", correctRate: 0.4, attempts: 10 }],
     };
     const alerts = buildAlerts([cls]);

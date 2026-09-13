@@ -7,3 +7,5 @@ export * from "./firebase/class-repositories";
 export * from "./firebase/content-repositories";
 export * from "./firebase/projection-repositories";
 export * from "./firebase/project-repositories";
+export * from "./firebase/farm-repositories";
+export * from "./firebase/gamification";
