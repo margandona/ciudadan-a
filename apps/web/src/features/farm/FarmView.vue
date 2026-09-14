@@ -140,6 +140,7 @@ function pct(client: number, start: number, size: number): number {
 }
 function onTrayDown(item: FarmItem, e: PointerEvent): void {
   e.preventDefault();
+  collapseField();
   drag.value = { item, fromPlaced: false, x: e.clientX, y: e.clientY, moved: false };
   window.addEventListener("pointermove", onPointerMove);
   window.addEventListener("pointerup", onPointerUp);
@@ -249,6 +250,16 @@ function toggleField(): void {
   fieldOpen.value = !fieldOpen.value;
   try {
     localStorage.setItem(FIELD_KEY, fieldOpen.value ? "1" : "0");
+  } catch {
+    // sin almacenamiento
+  }
+}
+/** Al empezar a colocar un objeto, oculta los cultivos para dejar el mapa libre. */
+function collapseField(): void {
+  if (!fieldOpen.value) return;
+  fieldOpen.value = false;
+  try {
+    localStorage.setItem(FIELD_KEY, "0");
   } catch {
     // sin almacenamiento
   }
@@ -407,7 +418,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
         <li><b>Planta</b>: toca una casilla y elige un cultivo.</li>
         <li><b>Cosecha</b>: cuando aparezca <b>«¡Cosechar!»</b>, tócala para ganar monedas, semillas y XP.</li>
         <li><b>Compra</b> en la <b>Tienda</b> (botón arriba y abajo): cultivos, animalitos, herramientas, vestimenta y decoración.</li>
-        <li><b>Decora</b>: en «Decora tu granja» (debajo del mapa) <b>arrastra</b> una ficha al mapa o <b>tócala</b> para colocarla: animalitos, decoraciones, <b>herramientas y talismanes</b>. Toca un objeto colocado para quitarlo. <b>Cada objeto colocado te da mejora</b> (monedas, XP o crecimiento). Si te falta espacio, toca <b>«Ocultar cultivos»</b> en Mi parcela para dejar el mapa libre.</li>
+        <li><b>Decora</b>: en «Decora tu granja» (debajo del mapa) <b>arrastra</b> una ficha al mapa o <b>tócala</b> para colocarla: animalitos, decoraciones, <b>herramientas y talismanes</b>. Toca un objeto colocado para quitarlo. <b>Cada objeto colocado te da mejora</b> (monedas, XP o crecimiento). Al colocar un objeto, <b>los cultivos se ocultan solos</b> para dejarte espacio (vuelve a mostrarlos con «Mostrar cultivos»).</li>
         <li><b>Amplía tu parcela</b>: toca «＋ Ampliar parcela» y compra cercos o estanques para tener más casillas.</li>
         <li><b>Mi casa</b>: toca tu casa para entrar, cambiar de estilo y recorrer sus pisos (Living, Cocina, Dormitorio, Estudio, Taller, Terraza). Cada piso y estilo cambia los muebles y colores.</li>
         <li><b>Sube de nivel</b> con misiones, quizzes y el Desafío de conceptos (la barra llega a 100%).</li>

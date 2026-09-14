@@ -36,10 +36,14 @@ await page.locator(".placed-item").first().waitFor({ timeout: 10_000 });
 // Espera a que se oculten los toasts para que se vea la casa.
 await page.waitForTimeout(7000);
 
+// 1) Con cultivos visibles (colocar un adorno los oculta; los mostramos de nuevo).
+const showCrops = page.getByRole("button", { name: /Mostrar cultivos/ });
+if (await showCrops.count()) await showCrops.click();
+await page.waitForTimeout(500);
 await page.screenshot({ path: OUT, fullPage: true });
 console.log(`Captura guardada en ${OUT}`);
 
-// Captura con los cultivos ocultos (mapa libre para colocar adornos).
+// 2) Cultivos ocultos: mapa libre para colocar adornos.
 await page.getByRole("button", { name: /Ocultar cultivos/ }).click();
 await page.waitForTimeout(500);
 await page.screenshot({ path: "docs/assets/granja-adornos.png", fullPage: true });
