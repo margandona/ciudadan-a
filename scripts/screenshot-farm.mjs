@@ -38,4 +38,15 @@ await page.waitForTimeout(7000);
 
 await page.screenshot({ path: OUT, fullPage: true });
 console.log(`Captura guardada en ${OUT}`);
+
+// Captura del interior de la casa (con el piso más alto desbloqueado).
+await page.getByRole("button", { name: "Entrar a mi casa" }).click();
+await page.getByRole("heading", { name: /Mi casa/ }).waitFor({ timeout: 10_000 });
+const floors = page.locator(".house-floor:not([disabled])");
+const floorCount = await floors.count();
+if (floorCount) await floors.nth(floorCount - 1).click();
+await page.waitForTimeout(400);
+await page.locator(".house-room").screenshot({ path: "docs/assets/granja-casa.png" });
+console.log("Captura del interior en docs/assets/granja-casa.png");
+
 await browser.close();

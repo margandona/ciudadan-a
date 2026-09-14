@@ -25,6 +25,8 @@ import {
   levelFromXp,
   ownedItems,
   perksForState,
+  placedItemCount,
+  placementBonuses,
   progressFromXp,
   readyAtFor,
   syncPlots,
@@ -70,6 +72,7 @@ function project(state: FarmState, at: string): { state: FarmState; snap: FarmSn
   const next: FarmState = { ...state, plots, updatedAt: at };
   const legendaryOwned = ownedItems(next).some((item) => item.rarity === "legendary");
   next.goldenHarvest = checkGoldenHarvest(next, capacity, legendaryOwned);
+  const placement = placementBonuses(next);
   const snap: FarmSnapshot = {
     state: next,
     level,
@@ -78,6 +81,12 @@ function project(state: FarmState, at: string): { state: FarmState; snap: FarmSn
     plotCapacity: capacity,
     perks,
     goldenHarvest: next.goldenHarvest,
+    placement: {
+      objects: placedItemCount(next),
+      coinBonusPercent: placement.coinBonusPercent,
+      xpBonusPercent: placement.xpBonusPercent,
+      growthSpeedPercent: placement.growthSpeedPercent,
+    },
   };
   return { state: next, snap };
 }

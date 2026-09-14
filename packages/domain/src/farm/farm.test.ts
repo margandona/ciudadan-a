@@ -11,6 +11,7 @@ import {
   growthDurationMs,
   harvestRewards,
   levelFromXp,
+  placementBonuses,
   plotCapacityForLevel,
   progressFromXp,
   readyAtFor,
@@ -116,5 +117,27 @@ describe("farm domain", () => {
     expect(conceptXpAward(100, false, 0)).toBe(100);
     expect(conceptXpAward(100, false, 10)).toBe(110);
     expect(conceptXpAward(100, true, 10)).toBe(0);
+  });
+
+  it("calcula bonos por objetos colocados según su categoría", () => {
+    const state = defaultFarmState("s1", "2026-01-01T00:00:00.000Z");
+    const at = "2026-01-01T00:00:00.000Z";
+    state.inventory = [
+      { itemId: "deco-tree", acquiredAt: at, quantity: 1 },
+      { itemId: "npc-hen", acquiredAt: at, quantity: 1 },
+      { itemId: "tool-hoe", acquiredAt: at, quantity: 1 },
+      { itemId: "weapon-pencil", acquiredAt: at, quantity: 1 },
+    ];
+    state.layout = {
+      "deco-tree": { x: 1, y: 1 },
+      "npc-hen": { x: 2, y: 2 },
+      "tool-hoe": { x: 3, y: 3 },
+      "weapon-pencil": { x: 4, y: 4 },
+      "no-existe": { x: 5, y: 5 },
+    };
+    const bonuses = placementBonuses(state);
+    expect(bonuses.coinBonusPercent).toBe(3);
+    expect(bonuses.xpBonusPercent).toBe(3);
+    expect(bonuses.growthSpeedPercent).toBe(2);
   });
 });

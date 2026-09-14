@@ -6,7 +6,7 @@ import type {
   FarmState,
   InventoryEntry,
 } from "@pclab/shared";
-import { FARM_ITEM_BY_ID, PLACED_BONUS_MAX_PERCENT, PLACED_BONUS_PERCENT } from "@pclab/shared";
+import { FARM_ITEM_BY_ID, PLACED_BONUS_CAP, PLACED_BONUS_CATEGORY } from "@pclab/shared";
 
 /** XP necesaria por nivel (coincide con `getStudentGamification`). */
 export const XP_PER_LEVEL = 150;
@@ -123,19 +123,42 @@ export function placedItemCount(state: FarmState): number {
   return Object.keys(state.layout ?? {}).filter((id) => owned.has(id)).length;
 }
 
-/** Bonus por decorar: cada objeto colocado da +% monedas y +% XP (con tope). */
-export function placementBonusPercent(state: FarmState): number {
-  return Math.min(PLACED_BONUS_MAX_PERCENT, placedItemCount(state) * PLACED_BONUS_PERCENT);
+export interface PlacementBonuses {
+  coinBonusPercent: number;
+  xpBonusPercent: number;
+  growthSpeedPercent: number;
+}
+
+/** Bonus que aportan los objetos colocados, según su categoría (con topes). */
+export function placementBonuses(state: FarmState): PlacementBonuses {
+  const owned = new Set(state.inventory.map((entry) => entry.itemId));
+  let coin = 0;
+  let xp = 0;
+  let growth = 0;
+  for (const id of Object.keys(state.layout ?? {})) {
+    if (!owned.has(id)) continue;
+    const item = FARM_ITEM_BY_ID[id];
+    const bonus = item ? PLACED_BONUS_CATEGORY[item.category] : undefined;
+    if (!bonus) continue;
+    coin += bonus.coin ?? 0;
+    xp += bonus.xp ?? 0;
+    growth += bonus.growth ?? 0;
+  }
+  return {
+    coinBonusPercent: Math.min(PLACED_BONUS_CAP, coin),
+    xpBonusPercent: Math.min(PLACED_BONUS_CAP, xp),
+    growthSpeedPercent: Math.min(PLACED_BONUS_CAP, growth),
+  };
 }
 
 export function perksForState(state: FarmState): FarmPerkTotals {
   const base = aggregatePerks(ownedItems(state));
-  const bonus = placementBonusPercent(state);
-  if (bonus === 0) return base;
+  const placement = placementBonuses(state);
   return {
     ...base,
-    coinBonusPercent: base.coinBonusPercent + bonus,
-    xpBonusPercent: base.xpBonusPercent + bonus,
+    coinBonusPercent: base.coinBonusPercent + placement.coinBonusPercent,
+    xpBonusPercent: base.xpBonusPercent + placement.xpBonusPercent,
+    growthSpeedPercent: Math.min(MAX_GROWTH_REDUCTION, base.growthSpeedPercent + placement.growthSpeedPercent),
   };
 }
 

@@ -8,8 +8,6 @@ import {
   FARM_CATEGORY_LABELS,
   FARM_CATEGORY_ORDER,
   FARM_ITEM_BY_ID,
-  PLACED_BONUS_MAX_PERCENT,
-  PLACED_BONUS_PERCENT,
 } from "@pclab/shared";
 import { growthDurationMs } from "@pclab/domain";
 import { useSessionStore } from "@/stores/session";
@@ -44,10 +42,15 @@ function emojiForSlot(category: FarmItem["category"]): string | undefined {
 // ── Escena visual: casa, granja decorable (drag & drop) ────────
 const HOUSE_STYLES = [
   { id: "camp", label: "Refugio", icon: "🏕️" },
+  { id: "cabin", label: "Cabaña", icon: "🛖" },
   { id: "cottage", label: "Casa", icon: "🏠" },
   { id: "garden", label: "Casa con jardín", icon: "🏡" },
   { id: "mansion", label: "Casona", icon: "🏘️" },
   { id: "castle", label: "Castillo", icon: "🏰" },
+  { id: "old", label: "Casa antigua", icon: "🏚️" },
+  { id: "japanese", label: "Casa oriental", icon: "🏯" },
+  { id: "classical", label: "Palacete", icon: "🏛️" },
+  { id: "factory", label: "Fábrica", icon: "🏭" },
 ];
 const DEFAULT_SPOTS = [
   { x: 12, y: 74 }, { x: 24, y: 84 }, { x: 37, y: 70 }, { x: 52, y: 82 },
@@ -187,22 +190,57 @@ function placementClass(item: FarmItem): string {
 }
 
 const HOUSE_FLOORS = [
-  { minLevel: 1, id: "ground", label: "Planta baja", icon: "🛋️", props: ["🛋️", "🪴", "🖼️"] },
-  { minLevel: 4, id: "first", label: "Primer piso", icon: "🛏️", props: ["🛏️", "🧸", "🪟"] },
-  { minLevel: 7, id: "second", label: "Segundo piso", icon: "📚", props: ["📚", "🖥️", "🪑"] },
-  { minLevel: 10, id: "terrace", label: "Terraza", icon: "🌇", props: ["🌇", "🪴", "🛋️"] },
+  {
+    minLevel: 1,
+    id: "ground",
+    label: "Planta baja",
+    icon: "🛋️",
+    caption: "Living",
+    props: ["🛋️", "📺", "🪴", "🖼️"],
+    bg: "linear-gradient(180deg,#f6e7cf 0%,#f6e7cf 60%,#b98a5a 60%,#a8763f 100%)",
+  },
+  {
+    minLevel: 4,
+    id: "first",
+    label: "Primer piso",
+    icon: "🛏️",
+    caption: "Dormitorio",
+    props: ["🛏️", "🧸", "🪟", "🕯️"],
+    bg: "linear-gradient(180deg,#e7e0f6 0%,#e7e0f6 60%,#8a6db9 60%,#6f529e 100%)",
+  },
+  {
+    minLevel: 7,
+    id: "second",
+    label: "Segundo piso",
+    icon: "📚",
+    caption: "Estudio",
+    props: ["📚", "🖥️", "🪑", "🖊️"],
+    bg: "linear-gradient(180deg,#dcefe0 0%,#dcefe0 60%,#6fae7b 60%,#4f8f5d 100%)",
+  },
+  {
+    minLevel: 10,
+    id: "terrace",
+    label: "Terraza",
+    icon: "🌇",
+    caption: "Terraza",
+    props: ["🌇", "🪴", "⛱️", "🪑"],
+    bg: "linear-gradient(180deg,#ffd9a8 0%,#ffd9a8 45%,#7ec8e3 45%,#5aa9c9 100%)",
+  },
 ];
 const activeFloor = ref("ground");
-const activeFloorProps = computed(
-  () => HOUSE_FLOORS.find((f) => f.id === activeFloor.value)?.props ?? HOUSE_FLOORS[0]!.props,
-);
+const activeRoom = computed(() => HOUSE_FLOORS.find((f) => f.id === activeFloor.value) ?? HOUSE_FLOORS[0]!);
 function selectFloor(id: string): void {
   activeFloor.value = id;
 }
-
-const placedBonusPercent = computed(() =>
-  Math.min(PLACED_BONUS_MAX_PERCENT, placedItems.value.length * PLACED_BONUS_PERCENT),
-);
+function openHouse(): void {
+  const unlocked = HOUSE_FLOORS.filter((f) => farm.level.value >= f.minLevel);
+  activeFloor.value = unlocked[unlocked.length - 1]?.id ?? "ground";
+  houseOpen.value = true;
+}
+function openShop(category?: FarmItem["category"]): void {
+  if (category) shopCategory.value = category;
+  panel.value = "shop";
+}
 
 const HELP_KEY = "pclab-farm-help";
 const showHelp = ref(
@@ -341,7 +379,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
         </p>
       </div>
       <div class="farm-head-actions">
-        <button class="btn-primary" @click="panel = 'shop'"><AppIcon name="shop" /> Tienda</button>
+        <button class="btn-primary" @click="openShop()"><AppIcon name="shop" /> Tienda</button>
         <button class="btn-ghost" @click="showHelp = true"><AppIcon name="help" /> ¿Cómo juego?</button>
         <button class="btn-ghost" @click="router.push('/student')"><AppIcon name="arrow" /> Volver a mis misiones</button>
       </div>
@@ -357,8 +395,9 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
         <li><b>Planta</b>: toca una casilla y elige un cultivo.</li>
         <li><b>Cosecha</b>: cuando aparezca <b>«¡Cosechar!»</b>, tócala para ganar monedas, semillas y XP.</li>
         <li><b>Compra</b> en la <b>Tienda</b> (botón arriba y abajo): cultivos, animalitos, herramientas, vestimenta y decoración.</li>
-        <li><b>Decora</b>: en «Decora tu granja» <b>arrastra</b> una ficha al campo o <b>tócala</b> para colocarla; toca un objeto colocado para quitarlo. <b>Cada objeto colocado te da mejora</b> (+% monedas y XP).</li>
-        <li><b>Mi casa</b>: toca tu casa para entrar, cambiar de estilo y ver tus pisos y tesoros.</li>
+        <li><b>Decora</b>: en «Decora tu granja» (debajo del mapa) <b>arrastra</b> una ficha al mapa o <b>tócala</b> para colocarla; toca un objeto colocado para quitarlo. <b>Cada objeto colocado te da mejora</b> (monedas, XP o crecimiento).</li>
+        <li><b>Amplía tu parcela</b>: toca «＋ Ampliar parcela» y compra cercos o estanques para tener más casillas.</li>
+        <li><b>Mi casa</b>: toca tu casa para entrar, cambiar de estilo y recorrer sus pisos (cada piso tiene sus muebles).</li>
         <li><b>Sube de nivel</b> con misiones, quizzes y el Desafío de conceptos (la barra llega a 100%).</li>
       </ol>
     </section>
@@ -410,13 +449,16 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
             <span class="cloud cloud-b">☁️</span>
           </div>
 
-          <button type="button" class="scene-house" aria-label="Entrar a mi casa" @click="houseOpen = true">
+          <button type="button" class="scene-house" aria-label="Entrar a mi casa" @click="openHouse">
             <span class="house-ico" aria-hidden="true">{{ houseIcon }}</span>
             <span class="house-name">Mi casa · entrar ›</span>
           </button>
 
           <div class="scene-field">
-            <h2 class="scene-title">Mi parcela <small>({{ farm.plots.value.length }} casillas)</small></h2>
+            <div class="scene-title-row">
+              <h2 class="scene-title">Mi parcela <small>({{ farm.plots.value.length }} casillas)</small></h2>
+              <button type="button" class="scene-expand" @click="openShop('decoration')">＋ Ampliar parcela</button>
+            </div>
             <div class="plot-grid">
               <button
                 v-for="plot in farm.plots.value"
@@ -458,32 +500,36 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
             {{ p.item.icon }}
           </button>
 
-          <div class="scene-lawn">
-            <div class="lawn-head">
-              <span class="lawn-title">🎨 Decora tu granja</span>
-              <span class="muted small">{{ placedItems.length }}/{{ placeableItems.length }} colocados</span>
-            </div>
-            <div v-if="unplacedItems.length" class="deco-tray">
-              <button
-                v-for="item in unplacedItems"
-                :key="item.id"
-                type="button"
-                class="deco-chip"
-                :title="`Arrastra o toca para colocar ${item.name}`"
-                @pointerdown="onTrayDown(item, $event)"
-              >
-                {{ item.icon }} {{ item.name }}
-              </button>
-            </div>
-            <div v-else-if="!placeableItems.length" class="lawn-empty">
-              <p class="muted small">Compra animalitos, ayudantes y decoraciones para adornar tu granja.</p>
-              <button type="button" class="btn-primary" @click="panel = 'shop'"><AppIcon name="shop" /> Ir a la Tienda</button>
-            </div>
-            <p v-else class="muted small">¡Todo colocado! Arrastra para reordenar o toca un objeto para quitarlo.</p>
-          </div>
-
           <span v-if="drag" class="drag-ghost" :style="{ left: `${drag.x}px`, top: `${drag.y}px` }" aria-hidden="true">{{ drag.item.icon }}</span>
         </div>
+
+        <section class="decor-panel" aria-label="Decora tu granja">
+          <div class="lawn-head">
+            <span class="lawn-title">🎨 Decora tu granja</span>
+            <span class="muted small">{{ placedItems.length }}/{{ placeableItems.length }} colocados</span>
+          </div>
+          <p class="muted small">
+            Arrastra una ficha al mapa o tócala para colocarla; toca un objeto colocado para quitarlo.
+            <b>Cada objeto colocado da mejora</b> (monedas, XP o crecimiento).
+          </p>
+          <div v-if="unplacedItems.length" class="deco-tray">
+            <button
+              v-for="item in unplacedItems"
+              :key="item.id"
+              type="button"
+              class="deco-chip"
+              :title="`Arrastra o toca para colocar ${item.name}`"
+              @pointerdown="onTrayDown(item, $event)"
+            >
+              {{ item.icon }} {{ item.name }}
+            </button>
+          </div>
+          <div v-else-if="!placeableItems.length" class="lawn-empty">
+            <p class="muted small">Compra animalitos, ayudantes y decoraciones para adornar tu granja.</p>
+            <button type="button" class="btn-primary" @click="openShop('decoration')"><AppIcon name="shop" /> Ir a la Tienda</button>
+          </div>
+          <p v-else class="muted small">¡Todo colocado! Arrastra para reordenar o toca un objeto para quitarlo.</p>
+        </section>
       </section>
 
       <section class="farm-actions">
@@ -498,7 +544,10 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
           <span>🪙 Monedas +{{ farm.perks.value.coinBonusPercent }}%</span>
           <span>⚡ Crecimiento +{{ farm.perks.value.growthSpeedPercent }}%</span>
           <span>🌰 Semillas +{{ farm.perks.value.seedBonus }}</span>
-          <span>🎨 Decoración +{{ placedBonusPercent }}% · {{ placedItems.length }} objeto(s) colocado(s)</span>
+          <span v-if="farm.snapshot.value.placement.objects > 0">
+            🎨 {{ farm.snapshot.value.placement.objects }} objeto(s) colocado(s): +{{ farm.snapshot.value.placement.coinBonusPercent }}% 🪙 ·
+            +{{ farm.snapshot.value.placement.xpBonusPercent }}% ⭐ · +{{ farm.snapshot.value.placement.growthSpeedPercent }}% ⚡
+          </span>
         </div>
       </section>
     </template>
@@ -590,10 +639,11 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
             <h2>🏠 Mi casa</h2>
             <button class="close" aria-label="Cerrar" @click="houseOpen = false">×</button>
           </div>
-          <div class="house-room">
+          <div class="house-room" :style="{ background: activeRoom.bg }">
+            <span class="room-caption">{{ activeRoom.caption }}</span>
             <div class="room-window" aria-hidden="true"><span>🌤️</span></div>
-            <div class="room-props" aria-hidden="true"><span v-for="(prop, i) in activeFloorProps" :key="i">{{ prop }}</span></div>
-            <div class="room-fire" aria-hidden="true">🔥</div>
+            <div class="room-props" aria-hidden="true"><span v-for="(prop, i) in activeRoom.props" :key="i">{{ prop }}</span></div>
+            <div v-if="activeFloor === 'ground'" class="room-fire" aria-hidden="true">🔥</div>
             <div class="room-rug" aria-hidden="true"></div>
             <div class="room-avatar">
               <Avatar
@@ -667,8 +717,8 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .bar-fill { height: 100%; background: linear-gradient(90deg, #2f9e83, #37c3a2); border-radius: 999px; transition: width .4s ease; }
 .level-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 .golden { color: #b7791f; font-weight: 800; }
-.farm-main { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-4); margin: var(--space-4) 0; align-items: start; }
-.character { text-align: center; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
+.farm-main { display: flex; flex-direction: column; gap: var(--space-4); margin: var(--space-4) 0; }
+.character { display: flex; align-items: center; gap: 12px; text-align: left; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 12px 16px; box-shadow: var(--shadow); }
 .farm-scene { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow); background: linear-gradient(180deg, #bfe3ff 0%, #d9efff 26%, #8ec46f 26%, #6fae55 100%); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
 .scene-sky { position: relative; height: 34px; }
 .sun { position: absolute; right: 8px; top: -6px; font-size: 1.8rem; animation: sunpulse 4s ease-in-out infinite; }
@@ -695,7 +745,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .plot-progress { position: absolute; left: 8px; right: 8px; bottom: 8px; height: 5px; background: rgba(0,0,0,.12); border-radius: 999px; overflow: hidden; }
 .plot-progress span { display: block; height: 100%; background: #2f9e83; }
 @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
-.scene-lawn { background: rgba(255,255,255,.78); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.decor-panel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow); }
 .lawn-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .lawn-title { font-weight: 800; color: #33502a; font-size: .9rem; }
 .deco-tray { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -763,4 +813,8 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .house-floor.locked { opacity: .55; cursor: not-allowed; }
 .house-floor small { color: var(--color-text-muted); font-size: .68rem; }
 .house-floor-ico { font-size: 1.3rem; }
+.scene-title-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.scene-expand { border: 1px solid rgba(255,255,255,.7); background: rgba(255,255,255,.85); color: #33502a; border-radius: 999px; padding: 4px 10px; font: inherit; font-size: .78rem; font-weight: 700; cursor: pointer; }
+.scene-expand:hover { background: #fff; }
+.room-caption { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-weight: 800; color: rgba(0,0,0,.55); font-size: .82rem; }
 </style>

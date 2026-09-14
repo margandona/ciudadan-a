@@ -152,15 +152,19 @@ Archivos: `apps/web/src/composables/useFarm.ts`, `features/farm/FarmView.vue`,
       regalos del docente (avatar/objeto/monedas) y **subida de nivel**.
 - [x] **Regalos en vivo**: `useFarmWatch.ts` escucha `farms/{uid}` con `onSnapshot` y
       notifica los `FarmNotice` que genera `teacherGrant`, sin recargar.
-- [x] **Escena visual**: cielo + campo de tierra con etapas de cultivo, **arrastrar y soltar
-      libre** de decoraciones y animalitos, **animalitos** (aves que vuelan y peces que nadan),
-      **parcela ampliable** (cerco/estanque), **5 formas de casa**, **pisos por nivel** y
+- [x] **Escena visual rediseñada**: escena a todo el ancho, campo con etapas de cultivo,
+      **arrastrar y soltar libre** de decoraciones y animalitos (aves que vuelan, peces que
+      nadan), **parcela ampliable** (cerco/estanque) y bandeja **"Decora tu granja" debajo del
+      mapa** (no lo tapa).
+- [x] **Los objetos colocados dan mejora** según su categoría (decoración 🪙, animalitos 🪙/⭐,
+      herramientas ⚡, talismanes ⭐; tope +20%), server-authoritative (`saveFarmLayout` +
+      `state.layout` + `FarmSnapshot.placement`).
+- [x] **Casa**: **10 estilos**, **pisos por nivel** con **salas y muebles distintos**, y
       **entrar a la casa**.
-- [x] **Los objetos colocados dan mejora** (+2% monedas/XP cada uno, tope +20%),
-      server-authoritative (`saveFarmLayout` + `state.layout`).
-- [x] **Instrucciones**: panel "¿Cómo juego en la granja?" en la granja, botón **Tienda** arriba,
-      y pasos de la Granja en el botón **"¿Cómo usar?"**.
-- [x] Captura actualizada en `docs/assets/granja-ciudadana.png`.
+- [x] **Instrucciones**: panel "¿Cómo juego en la granja?" en la granja (incluye "Ampliar
+      parcela" y cómo colocar objetos), botón **Tienda** arriba y pasos de la Granja en
+      **"¿Cómo usar?"**.
+- [x] Capturas: `docs/assets/granja-ciudadana.png` y `docs/assets/granja-casa.png`.
 
 ---
 

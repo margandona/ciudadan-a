@@ -102,9 +102,16 @@ export interface FarmRewards {
   xp: number;
 }
 
-/** Mejora que otorga cada objeto colocado en la escena (monedas y XP), con tope. */
-export const PLACED_BONUS_PERCENT = 2;
-export const PLACED_BONUS_MAX_PERCENT = 20;
+/** Mejora por cada objeto colocado según su categoría (con tope por tipo). */
+export const PLACED_BONUS_CATEGORY: Partial<
+  Record<FarmItemCategory, { coin?: number; xp?: number; growth?: number }>
+> = {
+  decoration: { coin: 2 },
+  npc: { coin: 1, xp: 1 },
+  tool: { growth: 2 },
+  weapon: { xp: 2 },
+};
+export const PLACED_BONUS_CAP = 20;
 
 /** Instantánea calculada que recibe la web. */
 export interface FarmSnapshot {
@@ -122,6 +129,13 @@ export interface FarmSnapshot {
     conceptHints: number;
   };
   goldenHarvest: boolean;
+  /** Resumen de las mejoras que aportan los objetos colocados en la escena. */
+  placement: {
+    objects: number;
+    coinBonusPercent: number;
+    xpBonusPercent: number;
+    growthSpeedPercent: number;
+  };
 }
 
 export interface FarmActionResult {
