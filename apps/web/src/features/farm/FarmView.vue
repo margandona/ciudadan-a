@@ -70,7 +70,13 @@ const ownedItems = computed<FarmItem[]>(() =>
   farm.inventory.value.map((entry) => FARM_ITEM_BY_ID[entry.itemId]).filter((item): item is FarmItem => !!item),
 );
 const placeableItems = computed(() =>
-  ownedItems.value.filter((item) => item.category === "decoration" || item.category === "npc"),
+  ownedItems.value.filter(
+    (item) =>
+      item.category === "decoration" ||
+      item.category === "npc" ||
+      item.category === "tool" ||
+      item.category === "weapon",
+  ),
 );
 const placedItems = computed(() =>
   placeableItems.value
@@ -190,45 +196,32 @@ function placementClass(item: FarmItem): string {
 }
 
 const HOUSE_FLOORS = [
-  {
-    minLevel: 1,
-    id: "ground",
-    label: "Planta baja",
-    icon: "🛋️",
-    caption: "Living",
-    props: ["🛋️", "📺", "🪴", "🖼️"],
-    bg: "linear-gradient(180deg,#f6e7cf 0%,#f6e7cf 60%,#b98a5a 60%,#a8763f 100%)",
-  },
-  {
-    minLevel: 4,
-    id: "first",
-    label: "Primer piso",
-    icon: "🛏️",
-    caption: "Dormitorio",
-    props: ["🛏️", "🧸", "🪟", "🕯️"],
-    bg: "linear-gradient(180deg,#e7e0f6 0%,#e7e0f6 60%,#8a6db9 60%,#6f529e 100%)",
-  },
-  {
-    minLevel: 7,
-    id: "second",
-    label: "Segundo piso",
-    icon: "📚",
-    caption: "Estudio",
-    props: ["📚", "🖥️", "🪑", "🖊️"],
-    bg: "linear-gradient(180deg,#dcefe0 0%,#dcefe0 60%,#6fae7b 60%,#4f8f5d 100%)",
-  },
-  {
-    minLevel: 10,
-    id: "terrace",
-    label: "Terraza",
-    icon: "🌇",
-    caption: "Terraza",
-    props: ["🌇", "🪴", "⛱️", "🪑"],
-    bg: "linear-gradient(180deg,#ffd9a8 0%,#ffd9a8 45%,#7ec8e3 45%,#5aa9c9 100%)",
-  },
+  { minLevel: 1, id: "ground", label: "Living", icon: "🛋️", caption: "Living", wall: "#f6e7cf", props: ["🛋️", "📺", "🪴", "🖼️"] },
+  { minLevel: 2, id: "kitchen", label: "Cocina", icon: "🍳", caption: "Cocina", wall: "#fdf1d6", props: ["🍳", "🥘", "🧊", "🧑‍🍳"] },
+  { minLevel: 4, id: "bedroom", label: "Dormitorio", icon: "🛏️", caption: "Dormitorio", wall: "#e7e0f6", props: ["🛏️", "🧸", "🪟", "🕯️"] },
+  { minLevel: 7, id: "study", label: "Estudio", icon: "📚", caption: "Estudio", wall: "#dcefe0", props: ["📚", "🖥️", "🪑", "🖊️"] },
+  { minLevel: 9, id: "workshop", label: "Taller", icon: "🔨", caption: "Taller", wall: "#e6e2da", props: ["🔨", "🧰", "🪚", "🪑"] },
+  { minLevel: 11, id: "terrace", label: "Terraza", icon: "🌇", caption: "Terraza", wall: "#ffd9a8", props: ["🌇", "🪴", "⛱️", "🪑"] },
 ];
+const HOUSE_THEMES: Record<string, { floorA: string; floorB: string }> = {
+  camp: { floorA: "#8a7653", floorB: "#6f5f42" },
+  cabin: { floorA: "#8a6a45", floorB: "#6f5233" },
+  cottage: { floorA: "#b98a5a", floorB: "#a8763f" },
+  garden: { floorA: "#9ec27a", floorB: "#7ba85c" },
+  mansion: { floorA: "#c9a04f", floorB: "#a87f36" },
+  castle: { floorA: "#9aa4b0", floorB: "#7a8694" },
+  old: { floorA: "#8a7a68", floorB: "#6f6152" },
+  japanese: { floorA: "#b5886a", floorB: "#956a4f" },
+  classical: { floorA: "#d8cbb0", floorB: "#bca98a" },
+  factory: { floorA: "#8c8f97", floorB: "#6f737b" },
+};
 const activeFloor = ref("ground");
 const activeRoom = computed(() => HOUSE_FLOORS.find((f) => f.id === activeFloor.value) ?? HOUSE_FLOORS[0]!);
+const activeRoomBg = computed(() => {
+  const theme = HOUSE_THEMES[sceneState.value.house] ?? HOUSE_THEMES.cottage!;
+  const wall = activeRoom.value.wall;
+  return `linear-gradient(180deg, ${wall} 0%, ${wall} 60%, ${theme.floorA} 60%, ${theme.floorB} 100%)`;
+});
 function selectFloor(id: string): void {
   activeFloor.value = id;
 }
@@ -395,9 +388,9 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
         <li><b>Planta</b>: toca una casilla y elige un cultivo.</li>
         <li><b>Cosecha</b>: cuando aparezca <b>«¡Cosechar!»</b>, tócala para ganar monedas, semillas y XP.</li>
         <li><b>Compra</b> en la <b>Tienda</b> (botón arriba y abajo): cultivos, animalitos, herramientas, vestimenta y decoración.</li>
-        <li><b>Decora</b>: en «Decora tu granja» (debajo del mapa) <b>arrastra</b> una ficha al mapa o <b>tócala</b> para colocarla; toca un objeto colocado para quitarlo. <b>Cada objeto colocado te da mejora</b> (monedas, XP o crecimiento).</li>
+        <li><b>Decora</b>: en «Decora tu granja» (debajo del mapa) <b>arrastra</b> una ficha al mapa o <b>tócala</b> para colocarla: animalitos, decoraciones, <b>herramientas y talismanes</b>. Toca un objeto colocado para quitarlo. <b>Cada objeto colocado te da mejora</b> (monedas, XP o crecimiento).</li>
         <li><b>Amplía tu parcela</b>: toca «＋ Ampliar parcela» y compra cercos o estanques para tener más casillas.</li>
-        <li><b>Mi casa</b>: toca tu casa para entrar, cambiar de estilo y recorrer sus pisos (cada piso tiene sus muebles).</li>
+        <li><b>Mi casa</b>: toca tu casa para entrar, cambiar de estilo y recorrer sus pisos (Living, Cocina, Dormitorio, Estudio, Taller, Terraza). Cada piso y estilo cambia los muebles y colores.</li>
         <li><b>Sube de nivel</b> con misiones, quizzes y el Desafío de conceptos (la barra llega a 100%).</li>
       </ol>
     </section>
@@ -525,7 +518,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
             </button>
           </div>
           <div v-else-if="!placeableItems.length" class="lawn-empty">
-            <p class="muted small">Compra animalitos, ayudantes y decoraciones para adornar tu granja.</p>
+            <p class="muted small">Compra animalitos, decoraciones, herramientas y talismanes para adornar tu granja.</p>
             <button type="button" class="btn-primary" @click="openShop('decoration')"><AppIcon name="shop" /> Ir a la Tienda</button>
           </div>
           <p v-else class="muted small">¡Todo colocado! Arrastra para reordenar o toca un objeto para quitarlo.</p>
@@ -639,7 +632,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
             <h2>🏠 Mi casa</h2>
             <button class="close" aria-label="Cerrar" @click="houseOpen = false">×</button>
           </div>
-          <div class="house-room" :style="{ background: activeRoom.bg }">
+          <div class="house-room" :style="{ background: activeRoomBg }">
             <span class="room-caption">{{ activeRoom.caption }}</span>
             <div class="room-window" aria-hidden="true"><span>🌤️</span></div>
             <div class="room-props" aria-hidden="true"><span v-for="(prop, i) in activeRoom.props" :key="i">{{ prop }}</span></div>

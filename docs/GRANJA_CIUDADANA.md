@@ -156,10 +156,12 @@ Archivos: `apps/web/src/composables/useFarm.ts`, `features/farm/FarmView.vue`,
       **arrastrar y soltar libre** de decoraciones y animalitos (aves que vuelan, peces que
       nadan), **parcela ampliable** (cerco/estanque) y bandeja **"Decora tu granja" debajo del
       mapa** (no lo tapa).
-- [x] **Los objetos colocados dan mejora** según su categoría (decoración 🪙, animalitos 🪙/⭐,
+- [x] **Todo se decora**: animalitos, decoraciones, **herramientas y talismanes** se colocan en
+      el mapa; cada objeto da mejora según su categoría (decoración 🪙, animalitos 🪙/⭐,
       herramientas ⚡, talismanes ⭐; tope +20%), server-authoritative (`saveFarmLayout` +
       `state.layout` + `FarmSnapshot.placement`).
-- [x] **Casa**: **10 estilos**, **pisos por nivel** con **salas y muebles distintos**, y
+- [x] **Casa**: **10 estilos**, **6 salas temáticas** por nivel (Living, Cocina, Dormitorio,
+      Estudio, Taller, Terraza) con muebles propios y **colores de piso según la casa**, y
       **entrar a la casa**.
 - [x] **Instrucciones**: panel "¿Cómo juego en la granja?" en la granja (incluye "Ampliar
       parcela" y cómo colocar objetos), botón **Tienda** arriba y pasos de la Granja en
