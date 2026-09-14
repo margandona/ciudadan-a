@@ -19,6 +19,9 @@ firebase-debug.*.log
 .env.staging
 .env.production
 
+# Documentos generados (no versionar)
+2do/
+
 # Datos privados — NUNCA versionar
 private-data/
 imports/
