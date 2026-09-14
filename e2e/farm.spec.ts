@@ -21,6 +21,12 @@ test("GRANJA — plantar, tienda, decorar e inventario", async ({ page }) => {
   await expect(page.getByText("semillas", { exact: true })).toBeVisible();
   await expect(page.getByText(/para el próximo nivel/)).toBeVisible();
 
+  // Colapsar/expandir la sección de cultivos (para dejar espacio a los adornos)
+  await page.getByRole("button", { name: /Ocultar cultivos/ }).click();
+  await expect(page.getByRole("button", { name: /Mostrar cultivos/ })).toBeVisible();
+  await page.getByRole("button", { name: /Mostrar cultivos/ }).click();
+  await expect(page.getByRole("button", { name: /Ocultar cultivos/ })).toBeVisible();
+
   // Plantar un cultivo en una casilla vacía (si hay)
   const emptyPlot = page.locator("button.plot", { hasText: "Plantar" }).first();
   if (await emptyPlot.count()) {

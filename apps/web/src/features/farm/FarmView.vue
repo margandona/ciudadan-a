@@ -235,6 +235,25 @@ function openShop(category?: FarmItem["category"]): void {
   panel.value = "shop";
 }
 
+const FIELD_KEY = "pclab-farm-field";
+const fieldOpen = ref(
+  (() => {
+    try {
+      return localStorage.getItem(FIELD_KEY) !== "0";
+    } catch {
+      return true;
+    }
+  })(),
+);
+function toggleField(): void {
+  fieldOpen.value = !fieldOpen.value;
+  try {
+    localStorage.setItem(FIELD_KEY, fieldOpen.value ? "1" : "0");
+  } catch {
+    // sin almacenamiento
+  }
+}
+
 const HELP_KEY = "pclab-farm-help";
 const showHelp = ref(
   (() => {
@@ -388,7 +407,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
         <li><b>Planta</b>: toca una casilla y elige un cultivo.</li>
         <li><b>Cosecha</b>: cuando aparezca <b>«¡Cosechar!»</b>, tócala para ganar monedas, semillas y XP.</li>
         <li><b>Compra</b> en la <b>Tienda</b> (botón arriba y abajo): cultivos, animalitos, herramientas, vestimenta y decoración.</li>
-        <li><b>Decora</b>: en «Decora tu granja» (debajo del mapa) <b>arrastra</b> una ficha al mapa o <b>tócala</b> para colocarla: animalitos, decoraciones, <b>herramientas y talismanes</b>. Toca un objeto colocado para quitarlo. <b>Cada objeto colocado te da mejora</b> (monedas, XP o crecimiento).</li>
+        <li><b>Decora</b>: en «Decora tu granja» (debajo del mapa) <b>arrastra</b> una ficha al mapa o <b>tócala</b> para colocarla: animalitos, decoraciones, <b>herramientas y talismanes</b>. Toca un objeto colocado para quitarlo. <b>Cada objeto colocado te da mejora</b> (monedas, XP o crecimiento). Si te falta espacio, toca <b>«Ocultar cultivos»</b> en Mi parcela para dejar el mapa libre.</li>
         <li><b>Amplía tu parcela</b>: toca «＋ Ampliar parcela» y compra cercos o estanques para tener más casillas.</li>
         <li><b>Mi casa</b>: toca tu casa para entrar, cambiar de estilo y recorrer sus pisos (Living, Cocina, Dormitorio, Estudio, Taller, Terraza). Cada piso y estilo cambia los muebles y colores.</li>
         <li><b>Sube de nivel</b> con misiones, quizzes y el Desafío de conceptos (la barra llega a 100%).</li>
@@ -447,12 +466,18 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
             <span class="house-name">Mi casa · entrar ›</span>
           </button>
 
-          <div class="scene-field">
+          <div class="scene-field" :class="{ collapsed: !fieldOpen }">
             <div class="scene-title-row">
               <h2 class="scene-title">Mi parcela <small>({{ farm.plots.value.length }} casillas)</small></h2>
-              <button type="button" class="scene-expand" @click="openShop('decoration')">＋ Ampliar parcela</button>
+              <div class="scene-title-actions">
+                <button type="button" class="scene-expand" @click="toggleField">
+                  {{ fieldOpen ? "▾ Ocultar cultivos" : "▸ Mostrar cultivos" }}
+                </button>
+                <button type="button" class="scene-expand" @click="openShop('decoration')">＋ Ampliar parcela</button>
+              </div>
             </div>
-            <div class="plot-grid">
+            <p v-if="!fieldOpen" class="field-collapsed-hint">Cultivos ocultos · usa este espacio para colocar tus adornos 🎨</p>
+            <div v-show="fieldOpen" class="plot-grid">
               <button
                 v-for="plot in farm.plots.value"
                 :key="plot.index"
@@ -712,7 +737,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .golden { color: #b7791f; font-weight: 800; }
 .farm-main { display: flex; flex-direction: column; gap: var(--space-4); margin: var(--space-4) 0; }
 .character { display: flex; align-items: center; gap: 12px; text-align: left; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 12px 16px; box-shadow: var(--shadow); }
-.farm-scene { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow); background: linear-gradient(180deg, #bfe3ff 0%, #d9efff 26%, #8ec46f 26%, #6fae55 100%); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.farm-scene { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow); background: linear-gradient(180deg, #bfe3ff 0%, #d9efff 26%, #8ec46f 26%, #6fae55 100%); padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 380px; }
 .scene-sky { position: relative; height: 34px; }
 .sun { position: absolute; right: 8px; top: -6px; font-size: 1.8rem; animation: sunpulse 4s ease-in-out infinite; }
 .cloud { position: absolute; font-size: 1.3rem; opacity: .92; animation: drift 20s ease-in-out infinite alternate; }
@@ -725,6 +750,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .house-ico { font-size: 1.9rem; }
 .house-name { font-weight: 800; color: #4a4a2a; font-size: .8rem; }
 .scene-field { background: repeating-linear-gradient(90deg, #8b5e34, #8b5e34 16px, #7d532d 16px, #7d532d 32px); border-radius: 14px; padding: 12px; box-shadow: inset 0 0 0 4px rgba(255,255,255,.14); }
+.scene-field.collapsed { background: rgba(0,0,0,.18); box-shadow: none; }
 .scene-title { margin: 0 0 8px; color: #fff; font-size: 1rem; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
 .scene-title small { color: rgba(255,255,255,.85); font-weight: 600; }
 .plot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
@@ -809,5 +835,7 @@ function itemsByCategory(category: FarmItem["category"]): FarmItem[] {
 .scene-title-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
 .scene-expand { border: 1px solid rgba(255,255,255,.7); background: rgba(255,255,255,.85); color: #33502a; border-radius: 999px; padding: 4px 10px; font: inherit; font-size: .78rem; font-weight: 700; cursor: pointer; }
 .scene-expand:hover { background: #fff; }
+.scene-title-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.field-collapsed-hint { margin: 6px 0 0; color: #fff; font-size: .82rem; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
 .room-caption { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-weight: 800; color: rgba(0,0,0,.55); font-size: .82rem; }
 </style>

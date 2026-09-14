@@ -39,6 +39,13 @@ await page.waitForTimeout(7000);
 await page.screenshot({ path: OUT, fullPage: true });
 console.log(`Captura guardada en ${OUT}`);
 
+// Captura con los cultivos ocultos (mapa libre para colocar adornos).
+await page.getByRole("button", { name: /Ocultar cultivos/ }).click();
+await page.waitForTimeout(500);
+await page.screenshot({ path: "docs/assets/granja-adornos.png", fullPage: true });
+console.log("Captura con mapa libre en docs/assets/granja-adornos.png");
+await page.getByRole("button", { name: /Mostrar cultivos/ }).click();
+
 // Captura del interior de la casa (con el piso más alto desbloqueado).
 await page.getByRole("button", { name: "Entrar a mi casa" }).click();
 await page.getByRole("heading", { name: /Mi casa/ }).waitFor({ timeout: 10_000 });

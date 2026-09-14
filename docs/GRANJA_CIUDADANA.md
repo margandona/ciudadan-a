@@ -166,7 +166,10 @@ Archivos: `apps/web/src/composables/useFarm.ts`, `features/farm/FarmView.vue`,
 - [x] **Instrucciones**: panel "¿Cómo juego en la granja?" en la granja (incluye "Ampliar
       parcela" y cómo colocar objetos), botón **Tienda** arriba y pasos de la Granja en
       **"¿Cómo usar?"**.
-- [x] Capturas: `docs/assets/granja-ciudadana.png` y `docs/assets/granja-casa.png`.
+- [x] **Colapsar la parcela**: botón **"Ocultar/Mostrar cultivos"** para ocultar la grilla de
+      siembra y dejar el mapa libre para colocar adornos (estado persistido).
+- [x] Capturas: `docs/assets/granja-ciudadana.png`, `docs/assets/granja-adornos.png` (mapa
+      libre) y `docs/assets/granja-casa.png`.
 
 ---
 
