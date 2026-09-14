@@ -3,6 +3,16 @@ import { SUBMISSION_STATUS, type SubmissionStatus } from "./constants";
 
 export { SUBMISSION_STATUS, type SubmissionStatus };
 
+/** Dilema o caso de la clase (asignado por el docente, visible para las estudiantes). */
+export interface ActivityDilemma {
+  title: string;
+  text: string;
+  /** Perspectivas o actores para analizar (opcional, p. ej. las 3 tradiciones). */
+  perspectives?: { label: string; text: string }[];
+  /** Pregunta de cierre para la evidencia. */
+  question?: string;
+}
+
 /** Actividad de una clase (instrucciones + evidencia esperada). */
 export interface Activity {
   id: string;
@@ -12,6 +22,8 @@ export interface Activity {
   type: string; // dilemma | council | map | investigation | cabildo | budgetSim | dataLab | project | fair | ...
   description: string;
   instructions: string[];
+  /** Dilema/caso de la clase (opcional). */
+  dilemma?: ActivityDilemma;
   evidenceRequired: boolean;
   evidenceTypes: string[];
   rubricId?: string;

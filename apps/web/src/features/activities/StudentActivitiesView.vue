@@ -203,6 +203,16 @@ onMounted(load);
          <blockquote>{{ aiPrompt }}</blockquote>
          <button type="button" class="btn-ghost" @click="copyAiPrompt">{{ copiedAi ? "Prompt copiado ✓" : "Copiar prompt de investigación" }}</button>
        </div>
+       <div v-if="activity.dilemma" class="dilemma">
+         <p class="dilemma-kicker">Dilema de la clase</p>
+         <h3>{{ activity.dilemma.title }}</h3>
+         <p>{{ activity.dilemma.text }}</p>
+         <ul v-if="activity.dilemma.perspectives?.length">
+           <li v-for="(p, i) in activity.dilemma.perspectives" :key="i"><strong>{{ p.label }}:</strong> {{ p.text }}</li>
+         </ul>
+         <p v-if="activity.dilemma.question" class="dilemma-q"><strong>Para tu evidencia:</strong> {{ activity.dilemma.question }}</p>
+       </div>
+
        <ol v-if="activity.instructions.length">
         <li v-for="(ins, i) in activity.instructions" :key="i">{{ ins }}</li>
       </ol>
@@ -288,6 +298,41 @@ onMounted(load);
 }
 .activity {
   margin: var(--space-4) 0;
+}
+.dilemma {
+  margin: var(--space-3) 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid #2f9e83;
+  border-left: 6px solid #2f9e83;
+  border-radius: 14px;
+  background: #eefaf6;
+}
+.dilemma-kicker {
+  margin: 0;
+  color: #0e7c66;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.dilemma h3 {
+  margin: 4px 0 6px;
+  color: var(--color-primary);
+}
+.dilemma p {
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+.dilemma ul {
+  margin: 0 0 8px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dilemma-q {
+  margin: 0;
+  color: var(--color-primary);
 }
 .delivered {
   margin-top: var(--space-3);

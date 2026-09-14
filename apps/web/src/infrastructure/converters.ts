@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 import type {
   Activity,
+  ActivityDilemma,
   ClassEntity,
   ClassSchedule,
   Course,
@@ -247,6 +248,7 @@ export function activityFromDoc(id: string, data: Record<string, unknown>): Acti
     type: (data.type as string) ?? "",
     description: (data.description as string) ?? "",
     instructions: (data.instructions as string[]) ?? [],
+    dilemma: (data.dilemma as ActivityDilemma | undefined) ?? undefined,
     evidenceRequired: (data.evidenceRequired as boolean) ?? true,
     evidenceTypes: (data.evidenceTypes as string[]) ?? [],
     rubricId: (data.rubricId as string | undefined) ?? undefined,

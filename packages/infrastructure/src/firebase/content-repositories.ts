@@ -1,6 +1,7 @@
 import { Firestore } from "firebase-admin/firestore";
 import type {
   Activity,
+  ActivityDilemma,
   Badge,
   ExitTicket,
   Feedback,
@@ -567,6 +568,7 @@ function recordToActivity(id: string, data: Record<string, unknown>): Activity {
     type: (data.type as string) ?? "",
     description: (data.description as string) ?? "",
     instructions: (data.instructions as string[]) ?? [],
+    dilemma: (data.dilemma as ActivityDilemma | undefined) ?? undefined,
     evidenceRequired: (data.evidenceRequired as boolean) ?? true,
     evidenceTypes: (data.evidenceTypes as string[]) ?? [],
     rubricId: (data.rubricId as string | undefined) ?? undefined,

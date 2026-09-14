@@ -31,6 +31,7 @@
     "seed:courses": "tsx scripts/src/seed-courses.ts",
     "seed:content": "tsx scripts/src/seed-content.ts",
     "seed:farm": "tsx scripts/src/seed-farm.ts",
+    "seed:activities": "tsx scripts/src/seed-activities.ts",
     "seed:demo-teacher": "tsx scripts/src/seed-demo-teacher.ts",
     "seed:demo-student": "tsx scripts/src/seed-demo-student.ts",
     "seed:demo-evaluator": "tsx scripts/src/seed-demo-evaluator.ts",

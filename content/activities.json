@@ -6,11 +6,22 @@
     "title": "Dilemas ciudadanos",
     "type": "dilemma",
     "description": "Analiza un dilema ciudadano y decide qué harías, argumentando por el bien común.",
-    "instructions": ["Lee el dilema que asigne tu profesor", "Responde por qué tomarías esa decisión", "Argumenta usando al menos un concepto de la clase"],
+    "instructions": [
+      "Lee el dilema que asigne tu profesor",
+      "Responde por qué tomarías esa decisión",
+      "Argumenta usando al menos un concepto de la clase"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "La plaza contaminada",
+      "text": "La plaza principal de Ovalle amanece llena de basura después de una feria. Algunos vecinos piden multas y más vigilancia; otros dicen que falta educación y más basureros. ¿Qué debería hacer la ciudad?",
+      "question": "¿Qué harías tú y por qué? Argumenta con un concepto de la clase (ciudadanía, bien común, participación)."
+    }
   },
   {
     "id": "act-class-02-tradiciones",
@@ -19,11 +30,36 @@
     "title": "Tres tradiciones, una ciudadana",
     "type": "reflection",
     "description": "Mira el mismo problema desde el republicanismo, el liberalismo y el comunitarismo, y decide qué tradición te convence más.",
-    "instructions": ["Elige un problema de tu barrio", "Propón una solución desde cada tradición (republicana, liberal, comunitaria)", "Explica cuál te convence más y por qué"],
+    "instructions": [
+      "Elige un problema de tu barrio",
+      "Propón una solución desde cada tradición (republicana, liberal, comunitaria)",
+      "Explica cuál te convence más y por qué"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "Las ferias libres y el orden de la ciudad",
+      "text": "El municipio quiere reubicar o prohibir las ferias libres del centro para «ordenar» el comercio y limpiar las calles. Los feriantes dicen que es su trabajo y tradición; los vecinos están divididos.",
+      "perspectives": [
+        {
+          "label": "Republicana",
+          "text": "Busca el bien común y decide con normas y deliberación de todos."
+        },
+        {
+          "label": "Liberal",
+          "text": "Prioriza las libertades individuales y limita la intervención del Estado."
+        },
+        {
+          "label": "Comunitaria",
+          "text": "La comunidad y su tradición deciden; la feria es parte de la vida del barrio."
+        }
+      ],
+      "question": "¿Qué solución propondrías desde cada tradición y cuál te convence más?"
+    }
   },
   {
     "id": "act-class-03-mapa-participacion",
@@ -32,11 +68,23 @@
     "title": "Mapa de participación ciudadana",
     "type": "map",
     "description": "Dibuja un mapa de Ovalle con los espacios donde se participa (institucional, social y digital).",
-    "instructions": ["Identifica al menos 5 espacios de participación", "Clasifica cada uno (institucional/social/digital)", "Marca cuáles tienen mayor incidencia"],
+    "instructions": [
+      "Identifica al menos 5 espacios de participación",
+      "Clasifica cada uno (institucional/social/digital)",
+      "Marca cuáles tienen mayor incidencia"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text", "image"],
+    "evidenceTypes": [
+      "text",
+      "image"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "El centro de estudiantes sin voz",
+      "text": "El centro de estudiantes quiere cambiar el reglamento de convivencia, pero solo votan 8 de 40 personas. ¿Cómo lograr que más estudiantes participen sin obligarlas?",
+      "question": "¿Qué harías para que la participación sea real y no solo formal?"
+    }
   },
   {
     "id": "act-class-04-mapa-actores",
@@ -45,11 +93,23 @@
     "title": "Mapa de actores del territorio",
     "type": "map",
     "description": "Construye un mapa de actores de Ovalle indicando quiénes son y en qué escala actúan.",
-    "instructions": ["Identifica 4 actores del territorio", "Indica su escala (local, regional, nacional)", "Señala qué relación tienen con un problema de Ovalle"],
+    "instructions": [
+      "Identifica 4 actores del territorio",
+      "Indica su escala (local, regional, nacional)",
+      "Señala qué relación tienen con un problema de Ovalle"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text", "image"],
+    "evidenceTypes": [
+      "text",
+      "image"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "¿Cancha o parque en el cerro?",
+      "text": "Un cerro cerca del colegio está sin uso. Un grupo quiere una cancha; otro, un parque con árboles nativos. Ambos presentan argumentos válidos.",
+      "question": "¿Cómo decidirías entre las dos propuestas y qué actores deberían participar?"
+    }
   },
   {
     "id": "act-class-05-expediente",
@@ -58,11 +118,23 @@
     "title": "Expediente Ciudadano",
     "type": "investigation",
     "description": "Arma el expediente de un problema local con fuentes y evidencia.",
-    "instructions": ["Describe el problema local", "Registra al menos 2 fuentes de información", "Adjunta una foto, mapa o documento como evidencia"],
+    "instructions": [
+      "Describe el problema local",
+      "Registra al menos 2 fuentes de información",
+      "Adjunta una foto, mapa o documento como evidencia"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text", "image"],
+    "evidenceTypes": [
+      "text",
+      "image"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "El basural que nadie reconoce",
+      "text": "Circula en redes una foto de un basural ilegal, pero no tiene fecha ni autor. Alguien quiere usarla como prueba para denunciar.",
+      "question": "¿Es confiable esa fuente? ¿Qué harías para verificarla antes de usarla?"
+    }
   },
   {
     "id": "act-class-06-cabildo",
@@ -71,13 +143,24 @@
     "title": "Cabildo Providencia — «Nuestro territorio necesita…»",
     "type": "cabildo",
     "description": "Prepara tu argumentación para el cabildo y completa tu autoevaluación.",
-    "instructions": ["Completa la frase «Nuestro territorio necesita…»", "Aporta una razón y una evidencia", "Autoevalúa tu participación con la rúbrica"],
+    "instructions": [
+      "Completa la frase «Nuestro territorio necesita…»",
+      "Aporta una razón y una evidencia",
+      "Autoevalúa tu participación con la rúbrica"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "rubricId": "rubric-cabildo",
     "maxScore": 20,
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "Cabildo: el terreno municipal",
+      "text": "El municipio cede un terreno en el centro. En el cabildo, unas vecinas quieren una sede social y otras, un huerto comunitario. Hay que decidir en conjunto.",
+      "question": "¿Cómo llegarían a un acuerdo justo y qué dejarían por escrito?"
+    }
   },
   {
     "id": "act-class-07-actores",
@@ -86,11 +169,22 @@
     "title": "¿Quién resuelve? Debate de actores",
     "type": "debate",
     "description": "Analiza un problema y decide qué actor o colaboración debería resolverlo.",
-    "instructions": ["Elige un problema público", "Asigna responsabilidades a Estado, mercado y ciudadanía", "Justifica tu decisión con un criterio (igualdad, eficiencia, participación)"],
+    "instructions": [
+      "Elige un problema público",
+      "Asigna responsabilidades a Estado, mercado y ciudadanía",
+      "Justifica tu decisión con un criterio (igualdad, eficiencia, participación)"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "¿Quién resuelve la basura?",
+      "text": "La basura del centro es un problema. Unos dicen que debe encargarse el Estado; otros, las empresas; otros, las vecinas y vecinos.",
+      "question": "¿A quién le corresponde resolverlo: Estado, mercado, ciudadanía o una colaboración? Justifica."
+    }
   },
   {
     "id": "act-class-08-presupuesto",
@@ -99,11 +193,22 @@
     "title": "Mi presupuesto comunal",
     "type": "budgetSim",
     "description": "Decide cómo repartir un presupuesto comunal hipotético y explica tus prioridades.",
-    "instructions": ["Define un presupuesto total (por ejemplo, 100 puntos)", "Repártelo entre 4 partidas (educación, salud, espacios públicos, agua)", "Explica por qué priorizaste así y qué grupo se beneficia"],
+    "instructions": [
+      "Define un presupuesto total (por ejemplo, 100 puntos)",
+      "Repártelo entre 4 partidas (educación, salud, espacios públicos, agua)",
+      "Explica por qué priorizaste así y qué grupo se beneficia"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "Priorizar el presupuesto",
+      "text": "El municipio tiene recursos para una sola inversión: nuevas luminarias o una plaza con juegos. Cada opción beneficia a grupos distintos.",
+      "question": "¿Cómo decidirías la prioridad y con qué criterio (necesidad, igualdad, participación)?"
+    }
   },
   {
     "id": "act-class-09-datos",
@@ -112,11 +217,22 @@
     "title": "Observo–Interpreto–Cuestiono–Propongo",
     "type": "dataLab",
     "description": "Aplica el método del laboratorio de datos a un dato sobre pobreza o desigualdad.",
-    "instructions": ["Elige un dato (pobreza, ingresos, escolaridad)", "Obsérvalo e interprétalo", "Cuestiona y propone una acción para el territorio"],
+    "instructions": [
+      "Elige un dato (pobreza, ingresos, escolaridad)",
+      "Obsérvalo e interprétalo",
+      "Cuestiona y propone una acción para el territorio"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "Dos barrios, dos realidades",
+      "text": "En Ovalle, un barrio tiene áreas verdes y buen transporte; otro, calles sin pavimento y pocos servicios. Las oportunidades no son las mismas.",
+      "question": "¿Por qué existe esa desigualdad y qué medida ayudaría a reducirla?"
+    }
   },
   {
     "id": "act-class-09-ai-detective",
@@ -125,11 +241,22 @@
     "title": "Misión IA — Copilota de datos",
     "type": "aiLab",
     "description": "Usa una herramienta de IA para explorar una explicación sobre desigualdad, pero conserva tú el control: verifica, corrige y cita las fuentes.",
-    "instructions": ["Copia el prompt sugerido y agrega el dato o gráfico que estés estudiando; no compartas nombres, fotos ni datos personales.", "Compara la respuesta de la IA con una fuente confiable (INE, CASEN, BCN o MINEDUC).", "Escribe qué parte aceptas, qué parte corregirías y qué evidencia respalda tu decisión."],
+    "instructions": [
+      "Copia el prompt sugerido y agrega el dato o gráfico que estés estudiando; no compartas nombres, fotos ni datos personales.",
+      "Compara la respuesta de la IA con una fuente confiable (INE, CASEN, BCN o MINEDUC).",
+      "Escribe qué parte aceptas, qué parte corregirías y qué evidencia respalda tu decisión."
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "order": 2,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "¿Qué dicen realmente los datos?",
+      "text": "Un gráfico circula sin fuente clara y cada persona lo interpreta distinto. Antes de proponer una solución, hay que entender qué muestran los datos y qué falta.",
+      "question": "¿Qué dato falta para decidir con responsabilidad y cómo lo verificarías?"
+    }
   },
   {
     "id": "act-class-10-agua",
@@ -138,11 +265,22 @@
     "title": "Agenda del agua en mi territorio",
     "type": "investigation",
     "description": "Investiga el uso del agua en tu localidad y propone una acción sostenible.",
-    "instructions": ["Identifica cómo se usa el agua en tu sector", "Registra un dato o noticia sobre el agua en el Limarí", "Propón una acción para el uso sostenible del agua"],
+    "instructions": [
+      "Identifica cómo se usa el agua en tu sector",
+      "Registra un dato o noticia sobre el agua en el Limarí",
+      "Propón una acción para el uso sostenible del agua"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "El agua del Limarí",
+      "text": "El agua de la cuenca del Limarí debe repartirse entre consumo humano, agricultura y minería. Todos la necesitan, pero no alcanza para todos por igual.",
+      "question": "¿Cómo debería decidirse el reparto y quiénes deben participar?"
+    }
   },
   {
     "id": "act-class-11-propuesta",
@@ -151,11 +289,22 @@
     "title": "Mi propuesta Ovalle 2035",
     "type": "proposal",
     "description": "Redacta el resumen ejecutivo de la propuesta de tu equipo.",
-    "instructions": ["Escribe el problema y el territorio", "Explica la propuesta y sus impactos", "Indica quiénes participarían (municipio, vecinas, privados)"],
+    "instructions": [
+      "Escribe el problema y el territorio",
+      "Explica la propuesta y sus impactos",
+      "Indica quiénes participarían (municipio, vecinas, privados)"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "La mejor solución",
+      "text": "Tu equipo eligió un problema del expediente. Hay varias soluciones posibles, pero los recursos son limitados.",
+      "question": "¿Cómo elegirían la mejor solución y quiénes deberían participar para que funcione?"
+    }
   },
   {
     "id": "act-class-12-bitacora",
@@ -164,11 +313,22 @@
     "title": "Bitácora de la feria",
     "type": "fair",
     "description": "Registra tu participación en la feria y la de tu equipo.",
-    "instructions": ["Describe cómo presentaron la propuesta", "Evalúa la claridad y argumentación de tu equipo", "Escribe un aprendizaje para tu vida ciudadana"],
+    "instructions": [
+      "Describe cómo presentaron la propuesta",
+      "Evalúa la claridad y argumentación de tu equipo",
+      "Escribe un aprendizaje para tu vida ciudadana"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "Comunicar para movilizar",
+      "text": "En la Feria Ciudadana debes convencer a otros de tu propuesta. No todo el público conoce el tema ni le interesa igual.",
+      "question": "¿Qué mensaje y qué datos usarías para convencer sin exagerar ni inventar?"
+    }
   },
   {
     "id": "act-class-13-debate",
@@ -177,12 +337,23 @@
     "title": "Gran Debate: ¿Quién debe resolver los problemas?",
     "type": "debate",
     "description": "Delibera en mesa qué actor o colaboración debería resolver un problema de Ovalle, con argumento y evidencia.",
-    "instructions": ["Elige un problema público real de tu expediente o de los casos", "Defiende una postura (Estado, mercado, ciudadanía o colaboración) con un argumento en tres pasos", "Escucha, pregunta a otras posturas y registra el acuerdo de tu mesa"],
+    "instructions": [
+      "Elige un problema público real de tu expediente o de los casos",
+      "Defiende una postura (Estado, mercado, ciudadanía o colaboración) con un argumento en tres pasos",
+      "Escucha, pregunta a otras posturas y registra el acuerdo de tu mesa"
+    ],
     "evidenceRequired": true,
-    "evidenceTypes": ["text"],
+    "evidenceTypes": [
+      "text"
+    ],
     "rubricId": "rubric-debate",
     "maxScore": 16,
     "order": 1,
-    "active": true
+    "active": true,
+    "dilemma": {
+      "title": "Gran debate: ¿quién resuelve los problemas?",
+      "text": "Un problema real de Ovalle divide a la comunidad: unos creen que debe resolverlo el Estado, otros el mercado, otros la ciudadanía, y otros una colaboración.",
+      "question": "¿Qué actor debería resolverlo y por qué? Escucha las otras posturas y busca un acuerdo."
+    }
   }
 ]

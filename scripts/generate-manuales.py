@@ -370,6 +370,11 @@ story.extend([
         "Puedes <b>leerla en la app</b>, <b>escucharla</b> y <b>descargarla</b> en PDF o DOCX.",
         "La guía tiene lectura, preguntas de comprensión, tareas con fuentes y espacios para responder.",
     ]),
+    h2("Dilema de la clase"),
+    bullets([
+        "En algunas misiones verás el <b>«Dilema de la clase»</b>: el caso que debes analizar y responder.",
+        "Puede traer varias <b>perspectivas</b> para comparar (por ejemplo, la tradición republicana, liberal y comunitaria) y una pregunta para tu evidencia.",
+    ]),
     h2("Tu recorrido en cada misión"),
     cred_table([
         ["1 · Explorar", "Aula invertida y contenido de la misión"],
