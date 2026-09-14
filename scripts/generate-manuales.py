@@ -181,6 +181,12 @@ story.extend([
         ["Estudiante", "Misiones y aulas invertidas, guías en la app (leer/escuchar/descargar), evidencias, tickets, medallero y quiz en vivo"],
         ["Revisión", "Flujo de materiales entre docente, evaluador/a, PIE y UTP hasta «Listo para imprimir»"],
     ], header=["Zona", "Qué incluye"], widths=[4.4 * cm, 12.8 * cm]),
+    h2("Novedades (versión 0.20)"),
+    bullets([
+        "<b>Granja Ciudadana</b>: las estudiantes cultivan su parcela, la decoran con ayudantes, animalitos y accesorios, ganan XP y suben de nivel; incluye una casa con estilos y pisos.",
+        "<b>Otorgamientos del docente</b>: desde el perfil de cada estudiante se pueden otorgar <b>medallas manuales</b> (comportamiento, colaboración, mérito, esfuerzo…) y <b>regalar avatares y objetos</b> de la Granja.",
+        "<b>Notificaciones</b>: cada recompensa (XP, medallas, regalos, subida de nivel) genera un aviso dentro de la app.",
+    ]),
     h1("2. ¿Cómo ingreso?"),
     body("1) Abre el navegador y entra a la plataforma:"),
     Paragraph(URL, st_code),
@@ -265,7 +271,9 @@ story.extend([
     h1("1. Tu rol y el sitio actual"),
     body("Como integrante del <b>Programa de Integración Escolar (PIE)</b> revisas que los materiales sean accesibles. "
          "Hoy cada guía incluye lectura con comprensión, preguntas, tareas con fuentes externas y <b>espacios de respuesta</b>; "
-         "las misiones se pueden escuchar en la app y el tema claro/oscuro y el tamaño de letra son opciones accesibles para estudiantes."),
+         "las misiones se pueden escuchar en la app y el tema claro/oscuro y el tamaño de letra son opciones accesibles para estudiantes. "
+         "La <b>Granja Ciudadana</b> es una actividad visual con textos de apoyo y emojis, y respeta esas opciones de accesibilidad "
+         "(modo oscuro, tamaño de letra y contraste)."),
     h1("2. ¿Cómo ingreso?"),
     body("1) Abre el navegador y entra a la plataforma:"),
     Paragraph(URL, st_code),
@@ -330,7 +338,8 @@ story.extend([
     h1("1. ¿Qué es la plataforma?"),
     body("Es el espacio de tu curso de <b>Educación Ciudadana</b>. Tienes <b>12 misiones</b> (una por clase). "
          "Las misiones 7 a 12 son <b>desafíos de laboratorio</b> que se juegan en la sala de computación. "
-         "También hay guías de trabajo para la clase, entrenamiento para la prueba, medallas y quiz en vivo."),
+         "También hay guías de trabajo para la clase, entrenamiento para la prueba, medallas y quiz en vivo. "
+         "Y ahora tienes tu propia <b>Granja Ciudadana</b> 🌱 para cultivar, decorar y subir de nivel."),
     h1("2. Cómo entrar (paso a paso)"),
     bullets([
         "Abre tu navegador (Chrome, Edge, Firefox…) en tu computador, tablet o teléfono.",
@@ -370,20 +379,64 @@ story.extend([
     ], header=["Paso", "Qué haces"], widths=[4.6 * cm, 12.6 * cm]),
     h2("Otros lugares"),
     bullets([
+        "<b>Granja</b> 🌱: cultiva, decora y sube de nivel (ver la sección 4).",
         "<b>Entrenamiento</b>: resumen y preguntas para preparar la prueba.",
         "<b>Quiz en vivo</b>: escribe el código cuando tu profesora inicie un quiz.",
         "<b>Medallero</b>: tus medallas; toca una para ver qué significa.",
         "<b>Retroalimentación</b>: cuando tu profesora revise tu evidencia, te avisa en tu inicio.",
     ]),
-    h1("4. Consejos para ti"),
+    h1("4. La Granja Ciudadana 🌱"),
+    body("La Granja es tu espacio para cultivar tu bien común. Ganas semillas y monedas con tus misiones y, "
+         "además, decoras tu propia granja. La encuentras en el menú superior: <b>«Granja»</b>. "
+         "Dentro de la granja tienes un botón <b>«¿Cómo juego?»</b> con estos mismos pasos."),
+    h2("Plantar y cosechar"),
+    bullets([
+        "Toca una <b>casilla</b> y elige un <b>cultivo</b> (Trigo, Zanahoria, Tomate…).",
+        "Mientras crece verás el tiempo; cuando aparezca <b>«¡Cosechar!»</b>, tócala.",
+        "Cada cosecha te da <b>monedas 🪙, semillas 🌰 y XP ⭐</b>.",
+        "Usa <b>«Ocultar/Mostrar cultivos»</b> para colapsar la parcela cuando quieras dejar espacio al mapa.",
+    ]),
+    h2("Comprar en la Tienda"),
+    bullets([
+        "Toca <b>«Tienda»</b> (botón arriba y abajo): cultivos, animalitos, herramientas, vestimenta, accesorios y decoración.",
+        "Cada objeto te da una <b>mejora</b>: más semillas, monedas, XP o velocidad de crecimiento.",
+        "¿Sin espacio en la parcela? Compra <b>cercos 🚧 o estanques 🪷</b> con <b>«＋ Ampliar parcela»</b> para tener más casillas.",
+    ]),
+    h2("Decorar tu granja 🎨"),
+    bullets([
+        "En <b>«Decora tu granja»</b> (debajo del mapa) <b>arrastra</b> una ficha al mapa o <b>tócala</b> para colocarla.",
+        "Puedes colocar <b>animalitos, decoraciones, herramientas y talismanes</b>.",
+        "Toca un objeto colocado para <b>quitarlo</b>; arrástralo para moverlo.",
+        "Al empezar a colocar, <b>los cultivos se ocultan solos</b> para dejarte espacio.",
+        "<b>Cada objeto colocado te da mejora</b>: más monedas 🪙, XP ⭐ o crecimiento ⚡.",
+    ]),
+    h2("Mi casa 🏠"),
+    bullets([
+        "Toca tu casa (<b>«Mi casa · entrar»</b>) para entrar.",
+        "Elige entre <b>10 estilos</b> de casa (cabaña, castillo, palacete…); cada uno cambia los colores del interior.",
+        "Sube de nivel para desbloquear <b>pisos</b>: Living, Cocina, Dormitorio, Estudio, Taller y Terraza, cada uno con sus muebles.",
+    ]),
+    h2("Desafío de conceptos y nivel"),
+    bullets([
+        "En cada <b>nivel</b> hay un <b>«Desafío de conceptos»</b>: responde preguntas de lo que aprendiste y gana <b>XP</b>.",
+        "La barra de nivel llega hasta <b>100%</b>; al completarla <b>subes de nivel</b> y desbloqueas mejoras.",
+    ]),
+    h2("Avisos y regalos"),
+    bullets([
+        "Cada vez que ganas algo (cosecha, quiz, medalla o nivel) te aparece un <b>aviso</b> arriba de la pantalla.",
+        "Tu profesor/a puede <b>regalarte avatares y objetos</b>: te llega un aviso al instante.",
+        "En <b>«Mi personaje»</b> eliges tu avatar y los avatares especiales que te regalen.",
+    ]),
+    h1("5. Consejos para ti"),
     bullets([
         "Lee cada pregunta <b>dos veces</b> antes de responder.",
         "Si algo no entiendes, <b>pide ayuda</b>: no pasa nada.",
         "En la parte inferior puedes poner <b>modo oscuro</b>, aumentar la letra o activar el contraste.",
         "Usa <b>«¿Cómo usar?»</b> en la parte superior para ver esta guía dentro de la app.",
+        "En la granja, toca <b>«¿Cómo juego?»</b> si no recuerdas algún paso.",
         "En las evaluaciones tendrás <b>70 minutos</b> y las instrucciones están al comienzo.",
     ]),
-    h1("5. Si algo no funciona"),
+    h1("6. Si algo no funciona"),
     cred_table([
         ["No encuentro mi nombre", "Avisa a tu profesor/a para que revise tu cuenta"],
         ["Dice que la clave es incorrecta", "Escribe tu RUT sin puntos ni guiones; si termina en K, usa mayúscula"],
