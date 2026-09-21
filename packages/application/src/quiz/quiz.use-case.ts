@@ -1,4 +1,5 @@
 import {
+  ROLES,
   type QuizAnswerGiven,
   type QuizAttempt,
   type StudentQuestion,
@@ -11,6 +12,18 @@ import type {
   QuizAttemptRepository,
   QuizRepository,
 } from "../ports";
+
+/**
+ * Acceso a un quiz: los quizzes son contenido compartido entre cursos (mismo
+ * material para D y E), por lo que una estudiante los puede resolver aunque su
+ * curso no coincida con `quiz.courseId`. El equipo docente sí queda restringido
+ * a sus cursos. El aislamiento por estudiante se valida aparte (uid === studentId).
+ */
+function assertQuizAccess(actor: AuthContext | null, courseId: string): void {
+  if (!actor || actor.isServer) return;
+  if (actor.role === ROLES.ESTUDIANTE) return;
+  assertCourse(actor, courseId);
+}
 
 /** Sirve el quiz a la estudiante sin respuestas (corrección es server-side). */
 export class GetStudentQuizUseCase {
@@ -30,7 +43,7 @@ export class GetStudentQuizUseCase {
     const quiz = await this.deps.quizzes.getById(input.quizId);
     if (!quiz) throw new Error("Quiz no encontrado.");
     if (!quiz.active) throw new Error("Quiz no disponible.");
-    assertCourse(actor, quiz.courseId);
+    assertQuizAccess(actor, quiz.courseId);
 
     const questions = await this.deps.quizzes.getQuestions(input.quizId);
     const sanitized: StudentQuestion[] = questions.map((q) => ({
@@ -87,7 +100,7 @@ export class SubmitQuizAttemptUseCase {
     const quiz = await this.deps.quizzes.getById(input.quizId);
     if (!quiz) throw new Error("Quiz no encontrado.");
     if (!quiz.active) throw new Error("Quiz no disponible.");
-    assertCourse(actor, quiz.courseId);
+    assertQuizAccess(actor, quiz.courseId);
 
     const now = input.now ?? new Date().toISOString();
     const existing = await this.deps.attempts.get(input.quizId, input.studentId);

@@ -114,6 +114,30 @@ describe("SubmitQuizAttemptUseCase", () => {
   });
 });
 
+describe("acceso a quizzes entre cursos", () => {
+  const STUDENT_E = { uid: "studE", role: "ESTUDIANTE", courses: ["course-e"] };
+  const TEACHER_E = { uid: "teachE", role: "PROFESOR", courses: ["course-e"] };
+
+  it("una estudiante de otro curso puede resolver el quiz (contenido compartido)", async () => {
+    const attempts = new FakeAttempts();
+    const get = new GetStudentQuizUseCase({ quizzes: new FakeQuizzes(), attempts });
+    const quiz = await get.run({ quizId: "quiz-1", studentId: "studE" }, STUDENT_E);
+    expect(quiz.questions).toHaveLength(2);
+
+    const submit = new SubmitQuizAttemptUseCase({ quizzes: new FakeQuizzes(), attempts });
+    const attempt = await submit.run(
+      { quizId: "quiz-1", studentId: "studE", answers: [{ qid: "q1", given: 0 }, { qid: "q2", given: 1 }] },
+      STUDENT_E,
+    );
+    expect(attempt.status).toBe("SUBMITTED");
+  });
+
+  it("un docente de otro curso no puede acceder al quiz", async () => {
+    const get = new GetStudentQuizUseCase({ quizzes: new FakeQuizzes(), attempts: new FakeAttempts() });
+    await expect(get.run({ quizId: "quiz-1", studentId: "teachE" }, TEACHER_E)).rejects.toThrow();
+  });
+});
+
 describe("ListQuizResultsUseCase", () => {
   it("lista intentos para el profesor", async () => {
     const attempts = new FakeAttempts();
